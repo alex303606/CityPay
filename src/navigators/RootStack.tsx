@@ -1,9 +1,10 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import {EScreens} from './types';
 import {RootStackParamList} from './navigationTypes';
 import {AuthorizationStack} from './AuthorizationStack';
-const Stack = createStackNavigator<RootStackParamList>();
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootStack: React.FC = () => {
   return (

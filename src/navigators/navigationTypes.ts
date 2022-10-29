@@ -1,15 +1,16 @@
 import {EScreens} from './types';
-import {StackScreenProps} from '@react-navigation/stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export type AuthStackParamList = {
   [EScreens.LOGIN_SCREEN]: undefined;
+  [EScreens.SMS_CONFIRM_SCREEN]: undefined;
 };
 
 export type RootStackParamList = {
-  [EScreens.AUTHORIZATION_STACK]: {};
+  [EScreens.AUTHORIZATION_STACK]: undefined;
 };
 
-export type AuthorizationStackProps = StackScreenProps<
+export type AuthorizationStackProps = NativeStackScreenProps<
   RootStackParamList,
   EScreens.AUTHORIZATION_STACK
 >;
