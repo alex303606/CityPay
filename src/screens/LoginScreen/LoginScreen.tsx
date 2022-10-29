@@ -1,14 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React, {type PropsWithChildren} from 'react';
+import React, {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,7 +8,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
 import {
   Colors,
   DebugInstructions,
@@ -57,13 +46,12 @@ const Section: React.FC<
   );
 };
 
-const App = () => {
+export const LoginScreen = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -116,5 +104,3 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
-export default App;
