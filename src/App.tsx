@@ -21,15 +21,17 @@ enableScreens();
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <RootStack />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </PersistGate>
-    </Provider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <RootStack />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </PersistGate>
+      </Provider>
+    </React.StrictMode>
   );
 };
 
