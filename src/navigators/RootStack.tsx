@@ -3,6 +3,7 @@ import {EScreens} from './types';
 import {RootStackParamList} from './navigationTypes';
 import {AuthorizationStack} from './AuthorizationStack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {RootTabs} from './RootTabs';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

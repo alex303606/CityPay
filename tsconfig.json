@@ -69,9 +69,8 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "baseUrl": "./",
     "paths": {
-      "@screens": [
-        "src/screens/index.ts"
-      ]
+      "@screens": ["src/screens/index.ts"],
+      "@UIKit": ["src/UIKit/index.ts"]
     }
   },
   "exclude": [
