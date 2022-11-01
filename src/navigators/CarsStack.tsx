@@ -1,13 +1,12 @@
 import React from 'react';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CarsScreen} from '@screens';
 import {EScreens} from './types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {CarsStackParamList} from './navigationTypes';
+import {CarsStackParamList, CarsStackProps} from './navigationTypes';
 
 const Stack = createNativeStackNavigator<CarsStackParamList>();
 
-export const CarsStack: React.FC<BottomTabScreenProps<any>> = () => {
+export const CarsStack: React.FC<CarsStackProps> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen

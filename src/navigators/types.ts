@@ -8,4 +8,8 @@ export enum EScreens {
   SETTINGS_SCREEN = 'SettingsScreen',
   PROFILE_SCREEN = 'ProfileScreen',
   CARS_STACK = 'CarsStack',
+  PROFILE_STACK = 'ProfileStack',
+  FINES_STACK = 'FinesStack',
+  PAYMENTS_STACK = 'PaymentsStack',
+  SETTINGS_STACK = 'SettingsStack',
 }

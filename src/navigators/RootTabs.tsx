@@ -4,6 +4,7 @@ import {Colors, Icon, IconNames, TAB_BAR_HEIGHT, Typography} from '@UIKit';
 import {RootTabParamList} from './navigationTypes';
 import {EScreens} from './types';
 import {CarsStack} from './CarsStack';
+import {FinesStack} from './FinesStack';
 
 type LabelProps = {
   focused: boolean;
@@ -31,13 +32,6 @@ export const RootTabs: React.FC = () => {
           elevation: 8,
           backgroundColor: Colors.white,
         },
-        inactiveTintColor: Colors.grey,
-        activeTintColor: Colors.mainPrimary,
-        keyboardHidesTabBar: true,
-        tabStyle: {
-          paddingTop: 8,
-          paddingBottom: 8,
-        },
       }}>
       <Tab.Screen
         name={EScreens.CARS_STACK}
@@ -58,8 +52,8 @@ export const RootTabs: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name={EScreens.FINES_SCREEN}
-        component={CarsStack}
+        name={EScreens.FINES_STACK}
+        component={FinesStack}
         options={{
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={'fines'} />
@@ -73,56 +67,6 @@ export const RootTabs: React.FC = () => {
                   ? IconNames.favoritesActive
                   : IconNames.favoritesInactive
               }
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={EScreens.PAYMENTS_SCREEN}
-        component={CarsStack}
-        options={{
-          tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={'payment'} />
-          ),
-          tabBarIcon: ({color, focused}) => (
-            <Icon
-              size={24}
-              color={color}
-              name={
-                focused ? IconNames.profileActive : IconNames.profileInactive
-              }
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={EScreens.SETTINGS_SCREEN}
-        component={CarsStack}
-        options={{
-          tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={'settings'} />
-          ),
-          tabBarIcon: ({color, focused}) => (
-            <Icon
-              size={24}
-              color={color}
-              name={focused ? IconNames.basketActive : IconNames.basketInactive}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={EScreens.PROFILE_SCREEN}
-        component={CarsStack}
-        options={{
-          tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={'profile'} />
-          ),
-          tabBarIcon: ({color, focused}) => (
-            <Icon
-              size={24}
-              color={color}
-              name={focused ? IconNames.basketActive : IconNames.basketInactive}
             />
           ),
         }}
