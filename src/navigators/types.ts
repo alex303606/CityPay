@@ -1,4 +1,5 @@
 export enum EScreens {
+  ROOT_TABS = 'RootTabs',
   LOGIN_SCREEN = 'LoginScreen',
   SMS_CONFIRM_SCREEN = 'SMSConfirmScreen',
   AUTHORIZATION_STACK = 'AuthorizationStack',

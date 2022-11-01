@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button} from 'react-native';
 import {Block} from '@UIKit';
-import {EScreens} from '../../navigators';
+import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FinesStackParamList} from '../../navigators/navigationTypes';
+import {FinesStackParamList} from '@navigators';
 
 type Props = NativeStackScreenProps<FinesStackParamList, EScreens.FINES_SCREEN>;
 

@@ -8,6 +8,9 @@ module.exports = {
         alias: {
           '@screens': './src/screens/index.ts',
           '@UIKit': './src/UIKit/index.ts',
+          '@store': './src/store/index.ts',
+          '@hooks': './src/hooks/index.ts',
+          '@navigators': './src/navigators/index.ts',
         },
       },
     ],

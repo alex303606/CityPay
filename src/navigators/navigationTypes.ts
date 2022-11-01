@@ -8,6 +8,7 @@ export type AuthStackParamList = {
 
 export type RootStackParamList = {
   [EScreens.AUTHORIZATION_STACK]: undefined;
+  [EScreens.ROOT_TABS]: undefined;
 };
 
 export type AuthorizationStackProps = NativeStackScreenProps<
