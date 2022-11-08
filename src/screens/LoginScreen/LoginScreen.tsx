@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {Button} from 'react-native';
-import {Block} from '@UIKit';
+import {Block, Colors} from '@UIKit';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
@@ -14,7 +14,7 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <Block
-      backgroundColor={'red'}
+      backgroundColor={Colors.white}
       flex={1}
       justifyContent={'center'}
       padding={32}>

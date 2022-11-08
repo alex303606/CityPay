@@ -13,4 +13,5 @@ export enum EScreens {
   FINES_STACK = 'FinesStack',
   PAYMENTS_STACK = 'PaymentsStack',
   SETTINGS_STACK = 'SettingsStack',
+  INITIAL_SCREEN = 'InitialScreen',
 }

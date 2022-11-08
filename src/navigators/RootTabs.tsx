@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const Label: React.FC<LabelProps> = ({focused, title}) => {
   if (focused) {
-    return <B11 color={Colors.mainPrimary}>{title}</B11>;
+    return <B11 color={Colors.blue}>{title}</B11>;
   }
   return <R11 color={Colors.grey}>{title}</R11>;
 };

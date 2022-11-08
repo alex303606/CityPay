@@ -11,6 +11,7 @@ module.exports = {
           '@store': './src/store/index.ts',
           '@hooks': './src/hooks/index.ts',
           '@navigators': './src/navigators/index.ts',
+          '^@assets/(.+)': './assets/\\1',
         },
       },
     ],
