@@ -1,10 +1,13 @@
 import React, {useCallback} from 'react';
 import {Image} from 'react-native';
-import {Block, Button, Colors, Row} from '@UIKit';
+import {Block, Button, Colors, FocusAwareStatusBar, Row} from '@UIKit';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
 import styled from 'styled-components';
+import {useTranslation} from 'react-i18next';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {changeLanguage, selectedLanguage} from '@store';
 const logo = require('@assets/images/logo.webp');
 
 type Props = NativeStackScreenProps<
@@ -13,27 +16,49 @@ type Props = NativeStackScreenProps<
 >;
 
 export const InitialScreen: React.FC<Props> = ({navigation}) => {
-  const navToSMS = useCallback(() => {
-    navigation.navigate(EScreens.SMS_CONFIRM_SCREEN);
-  }, [navigation]);
+  const {t, i18n} = useTranslation();
+  const dispatch = useAppDispatch();
+  const changeLanguageHandler = useCallback(
+    async (lang: string) => {
+      dispatch(changeLanguage(lang));
+      await i18n.changeLanguage(lang);
+      navigation.navigate(EScreens.LOGIN_SCREEN);
+    },
+    [dispatch, i18n, navigation],
+  );
+
+  const language = useAppSelector(selectedLanguage);
+  const isRUSelected = language === 'ru';
 
   return (
     <Block
       backgroundColor={Colors.blue}
       flex={1}
       paddingVertical={32}
-      paddingHorizontal={32}>
+      paddingHorizontal={16}>
+      <FocusAwareStatusBar
+        animated={true}
+        backgroundColor={Colors.blue}
+        barStyle="light-content"
+      />
       <Row flex={1} justifyContent={'center'}>
         <StyledImage resizeMode="contain" source={logo} />
       </Row>
       <Block flex={1} justifyContent={'flex-end'}>
+        <Block marginBottom={16}>
+          <Button
+            textColor={isRUSelected ? Colors.black : Colors.white}
+            color={isRUSelected ? Colors.white : Colors.darkBlue}
+            title={t('languages.ru')}
+            onPress={() => changeLanguageHandler('ru')}
+          />
+        </Block>
         <Button
-          textColor={Colors.black}
-          color={Colors.white}
-          title={'Русский'}
-          onPress={navToSMS}
+          textColor={isRUSelected ? Colors.white : Colors.black}
+          color={isRUSelected ? Colors.darkBlue : Colors.white}
+          title={t('languages.kg')}
+          onPress={() => changeLanguageHandler('kg')}
         />
-        <Button title={'Кыргыз тили'} onPress={navToSMS} />
       </Block>
     </Block>
   );

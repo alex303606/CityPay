@@ -5,6 +5,7 @@ import {RootTabParamList} from './navigationTypes';
 import {EScreens} from './types';
 import {CarsStack} from './CarsStack';
 import {FinesStack} from './FinesStack';
+import {useTranslation} from 'react-i18next';
 
 type LabelProps = {
   focused: boolean;
@@ -22,6 +23,7 @@ const Label: React.FC<LabelProps> = ({focused, title}) => {
 };
 
 export const RootTabs: React.FC = () => {
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -38,7 +40,7 @@ export const RootTabs: React.FC = () => {
         component={CarsStack}
         options={{
           tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={'cars'} />
+            <Label focused={focused} title={t('tabs.cars')} />
           ),
           tabBarIcon: ({color, focused}) => (
             <Icon
@@ -56,7 +58,7 @@ export const RootTabs: React.FC = () => {
         component={FinesStack}
         options={{
           tabBarLabel: ({focused}) => (
-            <Label focused={focused} title={'fines'} />
+            <Label focused={focused} title={t('tabs.fines')} />
           ),
           tabBarIcon: ({color, focused}) => (
             <Icon

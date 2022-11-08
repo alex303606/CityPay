@@ -5,4 +5,5 @@ export const Colors = {
   grey: '#A0A3B1',
   transparent: 'transparent',
   ripple: '#696767',
+  darkBlue: 'rgba(18, 18, 29, 0.3)',
 };

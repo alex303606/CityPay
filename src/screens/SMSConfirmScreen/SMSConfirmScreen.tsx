@@ -5,7 +5,7 @@ import {AuthStackParamList} from '@navigators';
 import {EScreens} from '@navigators';
 import {Button} from 'react-native';
 import {useAppDispatch} from '@hooks';
-import {loginUserSuccess, sendPhone} from '@store';
+import {loginUserSuccess} from '@store';
 
 type Props = NativeStackScreenProps<
   AuthStackParamList,
@@ -16,7 +16,7 @@ export const SMSConfirmScreen: React.FC<Props> = () => {
   const dispatch = useAppDispatch();
 
   const logIn = useCallback(async () => {
-    await sendPhone();
+    // await sendPhone();
     dispatch(loginUserSuccess());
   }, [dispatch]);
 

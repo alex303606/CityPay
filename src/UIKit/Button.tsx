@@ -52,6 +52,5 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   alignItems: 'center',
   justifyContent: 'center',
   height: 56,
-  opacity: disabled ? 0.7 : 1,
-  backgroundColor: color,
+  backgroundColor: disabled ? Colors.grey : color,
 }));

@@ -1,16 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {EScreens} from './types';
 import {RootStackParamList} from './navigationTypes';
 import {AuthorizationStack} from './AuthorizationStack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootTabs} from './RootTabs';
 import {useAppSelector} from '@hooks';
-import {selectUserIsLoggedIn} from '@store';
+import {selectedLanguage, selectUserIsLoggedIn} from '@store';
+import {useTranslation} from 'react-i18next';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootStack: React.FC = () => {
+  const {i18n} = useTranslation();
   const userIsLoggedIn = useAppSelector(selectUserIsLoggedIn);
+  const language = useAppSelector(selectedLanguage);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [i18n, language]);
+
   return (
     <Stack.Navigator
       initialRouteName={
