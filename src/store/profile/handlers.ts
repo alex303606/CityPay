@@ -4,16 +4,12 @@ export const sendPhone = (phone: string) => {
   return axios
     .post('', {
       TYPE: 'generate_code',
-      PHONE: phone,
+      PHONE: `996${phone.replace(/([!?\ \-])/g, '')}`,
     })
     .then(response => {
       if (response && response.data) {
-        debugger;
         return response.data;
       }
     })
-    .catch(error => {
-      debugger;
-      console.log(error);
-    });
+    .catch(error => console.warn(error));
 };

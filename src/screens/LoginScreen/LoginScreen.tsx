@@ -24,7 +24,8 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
   const [phone, setPhone] = useState<string>('');
   const {t} = useTranslation();
   const sendPhoneHandler = useCallback(async () => {
-    await sendPhone(phone);
+    const response = await sendPhone(phone);
+    console.log(response);
     navigation.navigate(EScreens.SMS_CONFIRM_SCREEN);
   }, [navigation, phone]);
 

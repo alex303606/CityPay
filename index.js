@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-axios.defaults.baseURL = 'http://citysoft.kido.kg/api/';
+axios.defaults.baseURL = 'https://citysoft.kido.kg/api/';
 
 axios.interceptors.request.use(
   conf => {
