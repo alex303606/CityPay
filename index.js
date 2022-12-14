@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
   },
 });
 
-axios.defaults.baseURL = 'http://brandgallery.kido.kg/api/';
+axios.defaults.baseURL = 'http://citysoft.kido.kg/api/';
 
 axios.interceptors.request.use(
   conf => {
     // Do something before request is sent
     conf.data = {
       params: {
-        API_KEY: '3YFtpQzbfg3TAomaXRrawJviX',
+        API_KEY: 'tMN0qaol5ePptxEPJ4c1CK',
         ...conf.data,
       },
     };

@@ -1,16 +1,19 @@
 import axios from 'axios';
 
-export const sendPhone = () => {
+export const sendPhone = (phone: string) => {
   return axios
     .post('', {
-      TYPE: 'login',
-      PHONE: 'phone',
-      CODE: 'code',
+      TYPE: 'generate_code',
+      PHONE: phone,
     })
     .then(response => {
       if (response && response.data) {
+        debugger;
         return response.data;
       }
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      debugger;
+      console.log(error);
+    });
 };

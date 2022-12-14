@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import {TextInputMask} from 'react-native-masked-text';
 import {Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {sendPhone} from '@store';
 
 const MASK = '999 99-99-99';
 const PHONE_COUNT = 12;
@@ -22,9 +23,10 @@ type Props = NativeStackScreenProps<AuthStackParamList, EScreens.LOGIN_SCREEN>;
 export const LoginScreen: React.FC<Props> = ({navigation}) => {
   const [phone, setPhone] = useState<string>('');
   const {t} = useTranslation();
-  const navToSMS = useCallback(() => {
+  const sendPhoneHandler = useCallback(async () => {
+    await sendPhone(phone);
     navigation.navigate(EScreens.SMS_CONFIRM_SCREEN);
-  }, [navigation]);
+  }, [navigation, phone]);
 
   const changePhoneHandler = useCallback((value: string) => {
     return setPhone(value);
@@ -68,7 +70,7 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
       <Button
         disabled={phone.length !== PHONE_COUNT}
         title={t('auth.getCode')}
-        onPress={navToSMS}
+        onPress={sendPhoneHandler}
       />
       <Typography.R14 marginTop={32} color={Colors.grey} textAlign={'center'}>
         {t('auth.agree')}
