@@ -35,12 +35,14 @@
     "i18next": "^19.8.3",
     "react-i18next": "^11.7.3",
     "react-native-masked-text": "^1.13.0",
-    "react-native-confirmation-code-field": "^6.5.1"
+    "react-native-confirmation-code-field": "^6.5.1",
+    "lodash": "^4.17.20"
   },
   "resolutions": {
     "@types/styled-components-react-native/**/@types/react-native": "^0.64.10"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.161",
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",

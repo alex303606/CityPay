@@ -7,6 +7,7 @@ import {useAppDispatch} from '@hooks';
 import {loginUserSuccess} from '@store';
 import {useTranslation} from 'react-i18next';
 import {CodeFieldComponent} from './components/CodeFieldComponent';
+import {ResendCodeButton} from './components/ResendCodeButton';
 
 type Props = NativeStackScreenProps<
   AuthStackParamList,
@@ -18,12 +19,22 @@ export type ICodeFieldComponent = {
 };
 
 const CELL_COUNT = 4;
+const RESEND_TIMEOUT = 30;
 
-export const SMSConfirmScreen: React.FC<Props> = () => {
+export const SMSConfirmScreen: React.FC<Props> = ({navigation}) => {
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
   const [code, setCode] = useState('');
   const codeRef = useRef<ICodeFieldComponent>(null);
+  const [startTime, setStartTime] = useState(Date.now());
+  const resendCode = useCallback(() => {
+    setStartTime(Date.now());
+    codeRef.current?.clear();
+  }, []);
+
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   const sendCode = useCallback(() => {
     if (code.length === CELL_COUNT) {
@@ -39,7 +50,7 @@ export const SMSConfirmScreen: React.FC<Props> = () => {
       flex={1}
       paddingHorizontal={16}
       paddingVertical={32}>
-      <Typography.R12 marginBottom={5} marginLeft={5} color={Colors.grey}>
+      <Typography.R12 marginLeft={5} color={Colors.grey}>
         {t('auth.codeInputLabel')}
       </Typography.R12>
       <Block marginVertical={16}>
@@ -50,6 +61,21 @@ export const SMSConfirmScreen: React.FC<Props> = () => {
         title={t('auth.apply')}
         onPress={sendCode}
       />
+      <Block marginVertical={16}>
+        <ResendCodeButton
+          startTimeInMillis={startTime}
+          timeout={RESEND_TIMEOUT}
+          resendCode={resendCode}
+        />
+      </Block>
+      <Block marginVertical={16} alignItems={'center'}>
+        <Typography.R16
+          onPress={goBack}
+          color={Colors.blue}
+          paddingVertical={8}>
+          {t('auth.changePhone')}
+        </Typography.R16>
+      </Block>
     </Block>
   );
 };

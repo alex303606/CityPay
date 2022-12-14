@@ -20,6 +20,9 @@ export const kgTranslation = {
       codeInputLabel:
         'На указанный вами номер \nбыло отправлено сообщение с кодом. \nВведите его:',
       apply: 'Подтвердить',
+      changePhone: 'Изменить номер телефона',
+      waitingToSendSms: 'Можно повторить СМС через {{count}} сек',
+      resendSms: 'Отправить СМС ещё раз',
     },
   },
 };

@@ -16,7 +16,7 @@ import {Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 const MASK = '999 99-99-99';
-
+const PHONE_COUNT = 12;
 type Props = NativeStackScreenProps<AuthStackParamList, EScreens.LOGIN_SCREEN>;
 
 export const LoginScreen: React.FC<Props> = ({navigation}) => {
@@ -65,7 +65,11 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
           autoFocus
         />
       </StyledPhoneInput>
-      <Button title={t('auth.getCode')} onPress={navToSMS} />
+      <Button
+        disabled={phone.length !== PHONE_COUNT}
+        title={t('auth.getCode')}
+        onPress={navToSMS}
+      />
       <Typography.R14 marginTop={32} color={Colors.grey} textAlign={'center'}>
         {t('auth.agree')}
       </Typography.R14>
