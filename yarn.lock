@@ -6121,6 +6121,11 @@ react-native-codegen@^0.70.5:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-confirmation-code-field@^6.5.1:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-confirmation-code-field/-/react-native-confirmation-code-field-6.7.0.tgz#81f5e646898addb3243cf89d41d884b0762ae962"
+  integrity sha512-dzw1Wh0Lz4myVUSyj7E4u/s5y5Sz5jS4B5w+oRlaeDVnUHer+HQSIzr11ckNBGr+WVCdGIYwxrYcpZ+Dr8ELfA==
+
 react-native-flipper@^0.173.0:
   version "0.173.0"
   resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.173.0.tgz#48b365f5a180161fbf63d6e0650b59157a5ad973"

@@ -17,6 +17,9 @@ export const ruTranslation = {
       getCode: 'Получить код',
       loginRegistration: 'Вход / Регистрация',
       phoneInputLabel: 'Номер телефона',
+      codeInputLabel:
+        'На указанный вами номер \nбыло отправлено сообщение с кодом. \nВведите его:',
+      apply: 'Подтвердить',
     },
   },
 };

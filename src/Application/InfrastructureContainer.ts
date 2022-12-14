@@ -18,13 +18,14 @@ export const getInfrastructureContainer = async () => {
   //   localNotificationClient,
   // );
 
-  // const onDestroy = () => {
-  //   remoteNotificationClient.destroy();
-  //   localNotificationClient.destroy();
-  // };
+  const onDestroy = () => {
+    return null;
+    // remoteNotificationClient.destroy();
+    // localNotificationClient.destroy();
+  };
 
   return {
     infrastructureContainer: {},
-    //onDestroy,
+    onDestroy,
   };
 };

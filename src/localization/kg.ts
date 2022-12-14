@@ -17,6 +17,9 @@ export const kgTranslation = {
       getCode: 'Кодду алуу үчүн',
       loginRegistration: 'Вход / Регистрация',
       phoneInputLabel: 'Телефон номуру',
+      codeInputLabel:
+        'На указанный вами номер \nбыло отправлено сообщение с кодом. \nВведите его:',
+      apply: 'Подтвердить',
     },
   },
 };
