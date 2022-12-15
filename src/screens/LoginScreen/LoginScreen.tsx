@@ -15,12 +15,14 @@ import {TextInputMask} from 'react-native-masked-text';
 import {Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {sendPhone} from '@store';
+// import {useDependencies, useSnackbarNotification} from '@hooks';
 
 const MASK = '999 99-99-99';
 const PHONE_COUNT = 12;
 type Props = NativeStackScreenProps<AuthStackParamList, EScreens.LOGIN_SCREEN>;
 
 export const LoginScreen: React.FC<Props> = ({navigation}) => {
+  //const {showNotification} = useSnackbarNotification();
   const [phone, setPhone] = useState<string>('');
   const {t} = useTranslation();
   const sendPhoneHandler = useCallback(async () => {

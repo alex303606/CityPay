@@ -17,19 +17,37 @@ import {enableScreens} from 'react-native-screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {PersistGate} from 'redux-persist/integration/react';
 import {PresentationDependencies} from './Application/types';
-import {StatusBar} from 'react-native';
+import {Text, StatusBar} from 'react-native';
 import {Colors} from '@UIKit';
+import {DependenciesContext} from './Application/dependencies';
+import {UIDependenciesServiceLocator} from './Application/IUIDependenciesServiceLocator';
 
 enableScreens();
 
-const getMainComponent = (_deps: PresentationDependencies) => {
+// @ts-ignore
+if (Text && !Text.defaultProps) {
+  // @ts-ignore
+  Text.defaultProps = {};
+  // @ts-ignore
+  Text.defaultProps.allowFontScaling = false;
+}
+
+const getMainComponent = (deps: PresentationDependencies) => {
   const MainComponent: React.FC = () => {
+    const {navigationService} = deps;
+
     return (
-      <React.StrictMode>
+      <DependenciesContext.Provider
+        value={UIDependenciesServiceLocator.init(deps)}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <SafeAreaProvider>
-              <NavigationContainer>
+              <NavigationContainer
+                ref={navigationService.navigationRef}
+                onReady={() => {
+                  navigationService.isReadyRef.current = true;
+                }}
+                fallback={<Text>Loading...</Text>}>
                 <StatusBar
                   barStyle={'dark-content'}
                   backgroundColor={Colors.white}
@@ -39,7 +57,7 @@ const getMainComponent = (_deps: PresentationDependencies) => {
             </SafeAreaProvider>
           </PersistGate>
         </Provider>
-      </React.StrictMode>
+      </DependenciesContext.Provider>
     );
   };
 
