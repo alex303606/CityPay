@@ -4,7 +4,9 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
   [EScreens.LOGIN_SCREEN]: undefined;
-  [EScreens.SMS_CONFIRM_SCREEN]: undefined;
+  [EScreens.SMS_CONFIRM_SCREEN]: {
+    phone: string;
+  };
 };
 
 export type RootStackParamList = {

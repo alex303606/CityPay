@@ -4,19 +4,22 @@ import {RootState} from '../configureStore';
 export interface IProfileState {
   userIsLoggedIn: boolean;
   selectedLanguage: string;
+  userId: string | null;
 }
 
 const initialState: IProfileState = {
   userIsLoggedIn: false,
   selectedLanguage: 'ru',
+  userId: null,
 };
 
 const profileSlice = createSlice({
   name: 'profile',
   initialState: initialState,
   reducers: {
-    loginUserSuccess(state) {
+    loginUserSuccess(state, action: PayloadAction<string>) {
       state.userIsLoggedIn = true;
+      state.userId = action.payload;
     },
     signOut(state) {
       return {...initialState, selectedLanguage: state.selectedLanguage};

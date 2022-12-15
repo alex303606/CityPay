@@ -15,21 +15,35 @@ import {TextInputMask} from 'react-native-masked-text';
 import {Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {sendPhone} from '@store';
-// import {useDependencies, useSnackbarNotification} from '@hooks';
+import {useSnackbarNotification} from '@hooks';
 
 const MASK = '999 99-99-99';
 const PHONE_COUNT = 12;
 type Props = NativeStackScreenProps<AuthStackParamList, EScreens.LOGIN_SCREEN>;
 
 export const LoginScreen: React.FC<Props> = ({navigation}) => {
-  //const {showNotification} = useSnackbarNotification();
+  const {showNotification} = useSnackbarNotification();
   const [phone, setPhone] = useState<string>('');
   const {t} = useTranslation();
   const sendPhoneHandler = useCallback(async () => {
     const response = await sendPhone(phone);
-    console.log(response);
-    navigation.navigate(EScreens.SMS_CONFIRM_SCREEN);
-  }, [navigation, phone]);
+    if (!response?.data) {
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (response.data.black_list) {
+      return showNotification(t('errors.blackList'));
+    }
+    if (!response.result) {
+      if (response.message) {
+        showNotification(response.message);
+      }
+      return;
+    }
+
+    navigation.navigate(EScreens.SMS_CONFIRM_SCREEN, {
+      phone,
+    });
+  }, [navigation, phone, showNotification, t]);
 
   const changePhoneHandler = useCallback((value: string) => {
     return setPhone(value);

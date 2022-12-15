@@ -3,8 +3,8 @@ import {Block, Button, Colors, Typography} from '@UIKit';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
 import {EScreens} from '@navigators';
-import {useAppDispatch} from '@hooks';
-import {loginUserSuccess} from '@store';
+import {useAppDispatch, useSnackbarNotification} from '@hooks';
+import {loginUserSuccess, sendPhone, sendCode} from '@store';
 import {useTranslation} from 'react-i18next';
 import {CodeFieldComponent} from './components/CodeFieldComponent';
 import {ResendCodeButton} from './components/ResendCodeButton';
@@ -21,28 +21,60 @@ export type ICodeFieldComponent = {
 const CELL_COUNT = 4;
 const RESEND_TIMEOUT = 30;
 
-export const SMSConfirmScreen: React.FC<Props> = ({navigation}) => {
+export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
+  const {
+    params: {phone},
+  } = route;
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
   const [code, setCode] = useState('');
   const codeRef = useRef<ICodeFieldComponent>(null);
   const [startTime, setStartTime] = useState(Date.now());
-  const resendCode = useCallback(() => {
+  const {showNotification} = useSnackbarNotification();
+
+  const resendCode = useCallback(async () => {
+    const response = await sendPhone(phone);
+    if (!response?.data) {
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (response.data.black_list) {
+      return showNotification(t('errors.blackList'));
+    }
+    if (!response.result) {
+      if (response.message) {
+        showNotification(response.message);
+      }
+      return codeRef.current?.clear();
+    }
     setStartTime(Date.now());
     codeRef.current?.clear();
-  }, []);
+  }, [phone, showNotification, t]);
 
   const goBack = useCallback(() => {
-    navigation.goBack();
+    navigation.navigate(EScreens.LOGIN_SCREEN);
   }, [navigation]);
 
-  const sendCode = useCallback(() => {
+  const sendCodeHandler = useCallback(async () => {
     if (code.length === CELL_COUNT) {
-      dispatch(loginUserSuccess());
-    } else {
-      codeRef.current?.clear();
+      const response = await sendCode({
+        phone,
+        code,
+      });
+      if (!response?.data) {
+        return showNotification(t('errors.somethingWentWrong'));
+      }
+      if (response.data.black_list) {
+        return showNotification(t('errors.blackList'));
+      }
+      if (!response.result) {
+        if (response.message) {
+          showNotification(response.message);
+        }
+        return codeRef.current?.clear();
+      }
+      dispatch(loginUserSuccess(response.data.user_id));
     }
-  }, [code.length, dispatch]);
+  }, [code, dispatch, phone, showNotification, t]);
 
   return (
     <Block
@@ -59,7 +91,7 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation}) => {
       <Button
         disabled={code.length !== CELL_COUNT}
         title={t('auth.apply')}
-        onPress={sendCode}
+        onPress={sendCodeHandler}
       />
       <Block marginVertical={16}>
         <ResendCodeButton

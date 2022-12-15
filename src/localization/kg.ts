@@ -24,5 +24,9 @@ export const kgTranslation = {
       waitingToSendSms: 'Можно повторить СМС через {{count}} сек',
       resendSms: 'Отправить СМС ещё раз',
     },
+    errors: {
+      somethingWentWrong: 'Что-то пошло не так. Попробуйте ещё раз',
+      blackList: 'Ваш аккаунт заблокирован',
+    },
   },
 };

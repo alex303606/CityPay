@@ -13,3 +13,18 @@ export const sendPhone = (phone: string) => {
     })
     .catch(error => console.warn(error));
 };
+
+export const sendCode = ({phone, code}: {phone: string; code: string}) => {
+  return axios
+    .post('', {
+      TYPE: 'login',
+      PHONE: `996${phone.replace(/([!?\ \-])/g, '')}`,
+      CODE: code,
+    })
+    .then(response => {
+      if (response && response.data) {
+        return response.data;
+      }
+    })
+    .catch(error => console.warn(error));
+};
