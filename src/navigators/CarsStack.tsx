@@ -13,7 +13,7 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
         name={EScreens.CARS_SCREEN}
         component={CarsScreen}
         options={{
-          headerTransparent: true,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

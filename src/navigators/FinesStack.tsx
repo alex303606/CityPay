@@ -13,7 +13,7 @@ export const FinesStack: React.FC<FinesStackProps> = () => {
         name={EScreens.FINES_SCREEN}
         component={FinesScreen}
         options={{
-          headerTransparent: true,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

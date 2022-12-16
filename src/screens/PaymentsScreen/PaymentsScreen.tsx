@@ -1,19 +1,21 @@
 import React from 'react';
 import {Block, Button, Colors} from '@UIKit';
-import {EScreens} from '@navigators';
+import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FinesStackParamList} from '@navigators';
 
-type Props = NativeStackScreenProps<FinesStackParamList, EScreens.FINES_SCREEN>;
+type Props = NativeStackScreenProps<
+  PaymentsStackParamList,
+  EScreens.PAYMENTS_SCREEN
+>;
 
-export const FinesScreen: React.FC<Props> = () => {
+export const PaymentsScreen: React.FC<Props> = () => {
   return (
     <Block
       backgroundColor={Colors.white}
       flex={1}
       justifyContent={'center'}
       padding={32}>
-      <Button title={'NEXT'} onPress={() => null} />
+      <Button title={'PaymentsScreen'} onPress={() => null} />
     </Block>
   );
 };

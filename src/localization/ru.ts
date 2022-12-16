@@ -4,6 +4,7 @@ export const ruTranslation = {
       fines: 'Штрафы',
       cars: 'Мои авто',
       profile: 'Профиль',
+      payments: 'Платежи',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

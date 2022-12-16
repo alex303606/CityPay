@@ -32,9 +32,18 @@ export type FinesStackParamList = {
   [EScreens.FINES_SCREEN]: undefined;
 };
 
+export type PaymentsStackParamList = {
+  [EScreens.PAYMENTS_SCREEN]: undefined;
+};
+
 export type FinesStackProps = NativeStackScreenProps<
   RootTabParamList,
   EScreens.FINES_STACK
+>;
+
+export type PaymentsStackProps = NativeStackScreenProps<
+  RootTabParamList,
+  EScreens.PAYMENTS_STACK
 >;
 
 //TABS

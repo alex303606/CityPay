@@ -4,6 +4,7 @@ export const kgTranslation = {
       fines: 'Айыптар',
       cars: 'Менин машиналарым',
       profile: 'Профиль',
+      payments: 'Платежи',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

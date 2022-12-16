@@ -6,13 +6,14 @@ import {EScreens} from './types';
 import {CarsStack} from './CarsStack';
 import {FinesStack} from './FinesStack';
 import {useTranslation} from 'react-i18next';
+import {PaymentsStack} from './PaymentsStack';
 
 type LabelProps = {
   focused: boolean;
   title: string;
 };
 
-const {R11, B11} = Typography;
+const {R11, B11, B28} = Typography;
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const Label: React.FC<LabelProps> = ({focused, title}) => {
@@ -29,11 +30,12 @@ export const RootTabs: React.FC = () => {
       screenOptions={{
         tabBarStyle: {
           height: TAB_BAR_HEIGHT,
-          borderTopLeftRadius: 0,
-          borderTopRightRadius: 0,
+          paddingBottom: 7,
+          paddingTop: 7,
           elevation: 8,
-          backgroundColor: Colors.white,
         },
+        tabBarActiveTintColor: Colors.blue,
+        tabBarInactiveTintColor: Colors.grey,
       }}>
       <Tab.Screen
         name={EScreens.CARS_STACK}
@@ -42,15 +44,10 @@ export const RootTabs: React.FC = () => {
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.cars')} />
           ),
-          tabBarIcon: ({color, focused}) => (
-            <Icon
-              size={24}
-              color={color}
-              name={
-                focused ? IconNames.catalogActive : IconNames.catalogInactive
-              }
-            />
+          tabBarIcon: ({color}) => (
+            <Icon size={24} color={color} name={IconNames.myAuto} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -60,17 +57,22 @@ export const RootTabs: React.FC = () => {
           tabBarLabel: ({focused}) => (
             <Label focused={focused} title={t('tabs.fines')} />
           ),
-          tabBarIcon: ({color, focused}) => (
-            <Icon
-              size={24}
-              color={color}
-              name={
-                focused
-                  ? IconNames.favoritesActive
-                  : IconNames.favoritesInactive
-              }
-            />
+          tabBarIcon: ({color}) => (
+            <Icon size={24} color={color} name={IconNames.fines} />
           ),
+          tabBarBadge: 5,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name={EScreens.PAYMENTS_STACK}
+        component={PaymentsStack}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <Label focused={focused} title={t('tabs.payments')} />
+          ),
+          tabBarIcon: ({color}) => <B28 color={color}>⊆</B28>,
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

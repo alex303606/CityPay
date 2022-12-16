@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button} from 'react-native';
-import {Block} from '@UIKit';
+import {Block, Button, Colors} from '@UIKit';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList} from '@navigators';
@@ -14,7 +13,7 @@ export const CarsScreen: React.FC<Props> = () => {
 
   return (
     <Block
-      backgroundColor={'pink'}
+      backgroundColor={Colors.white}
       flex={1}
       justifyContent={'center'}
       padding={32}>
