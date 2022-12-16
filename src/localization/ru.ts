@@ -5,6 +5,7 @@ export const ruTranslation = {
       cars: 'Мои авто',
       profile: 'Профиль',
       payments: 'Платежи',
+      settings: 'Настройки',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

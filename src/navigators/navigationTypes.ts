@@ -46,6 +46,24 @@ export type PaymentsStackProps = NativeStackScreenProps<
   EScreens.PAYMENTS_STACK
 >;
 
+export type SettingsStackProps = NativeStackScreenProps<
+  RootTabParamList,
+  EScreens.SETTINGS_STACK
+>;
+
+export type SettingsStackParamList = {
+  [EScreens.SETTINGS_SCREEN]: undefined;
+};
+
+export type ProfileStackProps = NativeStackScreenProps<
+  RootTabParamList,
+  EScreens.PROFILE_STACK
+>;
+
+export type ProfileStackParamList = {
+  [EScreens.PROFILE_SCREEN]: undefined;
+};
+
 //TABS
 export type RootTabParamList = {
   [EScreens.CARS_STACK]: undefined;

@@ -7,6 +7,8 @@ import {CarsStack} from './CarsStack';
 import {FinesStack} from './FinesStack';
 import {useTranslation} from 'react-i18next';
 import {PaymentsStack} from './PaymentsStack';
+import {SettingsStack} from './SettingsStack';
+import {ProfileStack} from './ProfileStack';
 
 type LabelProps = {
   focused: boolean;
@@ -72,6 +74,32 @@ export const RootTabs: React.FC = () => {
             <Label focused={focused} title={t('tabs.payments')} />
           ),
           tabBarIcon: ({color}) => <B28 color={color}>⊆</B28>,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name={EScreens.SETTINGS_STACK}
+        component={SettingsStack}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <Label focused={focused} title={t('tabs.settings')} />
+          ),
+          tabBarIcon: ({color}) => (
+            <Icon size={24} color={color} name={IconNames.help} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name={EScreens.PROFILE_STACK}
+        component={ProfileStack}
+        options={{
+          tabBarLabel: ({focused}) => (
+            <Label focused={focused} title={t('tabs.profile')} />
+          ),
+          tabBarIcon: ({color}) => (
+            <Icon size={24} color={color} name={IconNames.profile} />
+          ),
           headerShown: false,
         }}
       />
