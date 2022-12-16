@@ -30,5 +30,20 @@ export const ruTranslation = {
       somethingWentWrong: 'Что-то пошло не так. Попробуйте ещё раз',
       blackList: 'Ваш аккаунт заблокирован',
     },
+    cars: {
+      title: 'Мой авто',
+    },
+    fines: {
+      title: 'Штрафы',
+    },
+    payments: {
+      title: 'Платежи',
+    },
+    settings: {
+      title: 'Настройки',
+    },
+    profile: {
+      title: 'Профиль',
+    },
   },
 };
