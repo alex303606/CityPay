@@ -41,6 +41,13 @@ export const kgTranslation = {
     },
     settings: {
       title: 'Настройки',
+      registration: 'Оформление',
+      pushLabel: 'PUSH уведомления',
+      info: 'Информация',
+      questions: 'Часто задаваемые вопросы',
+      userAgreement: 'Пользовательсое соглашение',
+      privacyPolicy: 'Политика конденфициальности§',
+      eula: 'EULA',
     },
     profile: {
       title: 'Профиль',
