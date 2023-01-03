@@ -5,6 +5,6 @@ export const Colors = {
   red: '#ff2343',
   grey: '#A0A3B1',
   transparent: 'transparent',
-  ripple: '#696767',
+  ripple: '#C0C1C6',
   darkBlue: 'rgba(18, 18, 29, 0.3)',
 };

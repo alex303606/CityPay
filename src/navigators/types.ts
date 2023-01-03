@@ -14,4 +14,5 @@ export enum EScreens {
   PAYMENTS_STACK = 'PaymentsStack',
   SETTINGS_STACK = 'SettingsStack',
   INITIAL_SCREEN = 'InitialScreen',
+  WEBVIEW_SCREEN = 'WebViewScreen',
 }

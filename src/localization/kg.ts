@@ -46,7 +46,7 @@ export const kgTranslation = {
       info: 'Информация',
       questions: 'Часто задаваемые вопросы',
       userAgreement: 'Пользовательсое соглашение',
-      privacyPolicy: 'Политика конденфициальности§',
+      privacyPolicy: 'Политика конденфициальности',
       eula: 'EULA',
     },
     profile: {

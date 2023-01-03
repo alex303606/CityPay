@@ -1,12 +1,15 @@
 import React from 'react';
 import {EScreens} from './types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SettingsStackParamList, SettingsStackProps} from './navigationTypes';
-import {SettingsScreen} from '@screens';
+import {SettingsScreen, WebViewScreen} from '@screens';
+import {createStackNavigator} from '@react-navigation/stack';
+import {useModalScreenOptions} from './screenOptions';
 
-const Stack = createNativeStackNavigator<SettingsStackParamList>();
+const Stack = createStackNavigator<SettingsStackParamList>();
 
 export const SettingsStack: React.FC<SettingsStackProps> = () => {
+  const modalStackScreenOptions = useModalScreenOptions();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -16,6 +19,12 @@ export const SettingsStack: React.FC<SettingsStackProps> = () => {
           headerShown: false,
         }}
       />
+      <Stack.Group screenOptions={modalStackScreenOptions}>
+        <Stack.Screen
+          name={EScreens.WEBVIEW_SCREEN}
+          component={WebViewScreen}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
