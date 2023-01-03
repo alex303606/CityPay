@@ -1,8 +1,9 @@
 import React from 'react';
-import {Block, Button, Colors, Typography} from '@UIKit';
+import {Block, Button, ScreenContainer} from '@UIKit';
 import {EScreens, ProfileStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '@hooks';
 
 type Props = NativeStackScreenProps<
   ProfileStackParamList,
@@ -11,17 +12,17 @@ type Props = NativeStackScreenProps<
 
 export const ProfileScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
+  const {theme} = useTheme();
 
   return (
-    <Block
-      backgroundColor={Colors.white}
-      flex={1}
-      paddingHorizontal={16}
-      paddingVertical={32}>
-      <Typography.B28 marginBottom={32} numberOfLines={1} color={Colors.black}>
-        {t('profile.title')}
-      </Typography.B28>
-      <Button title={'ProfileScreen'} onPress={() => null} />
-    </Block>
+    <ScreenContainer title={t('profile.title')}>
+      <Block justifyContent={'center'} flex={1}>
+        <Button
+          color={theme.buttonColor}
+          title={'ProfileScreen'}
+          onPress={() => null}
+        />
+      </Block>
+    </ScreenContainer>
   );
 };

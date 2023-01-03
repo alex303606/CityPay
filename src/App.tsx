@@ -17,8 +17,7 @@ import {enableScreens} from 'react-native-screens';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {PersistGate} from 'redux-persist/integration/react';
 import {PresentationDependencies} from './Application/types';
-import {Text, StatusBar} from 'react-native';
-import {Colors} from '@UIKit';
+import {Text} from 'react-native';
 import {DependenciesContext} from './Application/dependencies';
 import {UIDependenciesServiceLocator} from './Application/IUIDependenciesServiceLocator';
 
@@ -48,10 +47,6 @@ const getMainComponent = (deps: PresentationDependencies) => {
                   navigationService.isReadyRef.current = true;
                 }}
                 fallback={<Text>Loading...</Text>}>
-                <StatusBar
-                  barStyle={'dark-content'}
-                  backgroundColor={Colors.white}
-                />
                 <RootStack />
               </NavigationContainer>
             </SafeAreaProvider>

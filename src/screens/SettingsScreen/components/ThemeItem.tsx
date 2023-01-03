@@ -1,21 +1,27 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Block, Colors, EShadow, ShadowsSizes, WINDOW_WIDTH} from '@UIKit';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
+import {Themes} from '../../../themes';
 
 const THEME_ITEM_HEIGHT = 180;
 
 type Props = {
   color: string;
-  onPress: () => void;
+  onPress: (theme: Themes) => void;
+  theme: Themes;
 };
 
-export const ThemeItem: React.FC<Props> = ({onPress, color}) => {
+export const ThemeItem: React.FC<Props> = ({onPress, color, theme}) => {
   const width = (WINDOW_WIDTH - 64) / 3;
+
+  const onPressHandler = useCallback(() => {
+    onPress(theme);
+  }, [onPress, theme]);
 
   return (
     <Wrapper>
-      <StyledPressable onPress={onPress} width={width} color={color} />
+      <StyledPressable onPress={onPressHandler} width={width} color={color} />
     </Wrapper>
   );
 };

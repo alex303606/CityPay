@@ -6,3 +6,4 @@ export {FocusAwareStatusBar} from './FocusAwareStatusBar';
 export {SwitchComponent} from './SwitchComponent';
 export {ScrollContainer} from './ScrollContainer';
 export {ModalContainer} from './Modal';
+export {ScreenContainer} from './ScreenContainer';

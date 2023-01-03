@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Colors, Icon, IconNames, Typography} from '@UIKit';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
@@ -6,12 +6,17 @@ import {Pressable} from 'react-native';
 type Props = {
   iconName: IconNames;
   text: string;
-  onPress: () => void;
+  onPress: (params: {uri: string; title: string}) => void;
+  uri: string;
 };
 
-export const InfoItem: React.FC<Props> = ({text, iconName, onPress}) => {
+export const InfoItem: React.FC<Props> = ({text, iconName, onPress, uri}) => {
+  const onPressHandler = useCallback(() => {
+    onPress({uri, title: text});
+  }, [onPress, text, uri]);
+
   return (
-    <StyledPressable onPress={onPress}>
+    <StyledPressable onPress={onPressHandler}>
       <Typography.R16 numberOfLines={1} color={Colors.black}>
         {text}
       </Typography.R16>

@@ -3,6 +3,7 @@ export const Colors = {
   black: '#000000',
   blue: '#274D89',
   red: '#ff2343',
+  darkRed: '#CD121F',
   grey: '#A0A3B1',
   transparent: 'transparent',
   ripple: '#C0C1C6',
