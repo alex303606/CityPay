@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {Colors, Icon, IconNames, Typography} from '@UIKit';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
+import {useTheme} from '@hooks';
 
 type Props = {
   iconName: IconNames;
@@ -15,12 +16,14 @@ export const InfoItem: React.FC<Props> = ({text, iconName, onPress, uri}) => {
     onPress({uri, title: text});
   }, [onPress, text, uri]);
 
+  const {theme} = useTheme();
+
   return (
     <StyledPressable onPress={onPressHandler}>
-      <Typography.R16 numberOfLines={1} color={Colors.black}>
+      <Typography.R16 numberOfLines={1} color={theme.textColor}>
         {text}
       </Typography.R16>
-      <Icon color={Colors.black} name={iconName} size={24} />
+      <Icon color={theme.textColor} name={iconName} size={24} />
     </StyledPressable>
   );
 };
