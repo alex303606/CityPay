@@ -64,6 +64,8 @@ export type ProfileStackProps = NativeStackScreenProps<
 
 export type ProfileStackParamList = {
   [EScreens.PROFILE_SCREEN]: undefined;
+  [EScreens.MODAL_LANGUAGE_SCREEN]: undefined;
+  [EScreens.MODAL_EXIT_SCREEN]: undefined;
 };
 
 //TABS

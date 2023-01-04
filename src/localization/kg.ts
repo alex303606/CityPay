@@ -14,6 +14,7 @@ export const kgTranslation = {
       ru: 'Орус тили',
       kg: 'Кыргыз тили',
     },
+    cancel: 'Отмена',
     auth: {
       agree: 'Нажимая на кнопку, я соглашаюсь с условиями \nПубличной оферты',
       getCode: 'Кодду алуу үчүн',
@@ -51,6 +52,13 @@ export const kgTranslation = {
     },
     profile: {
       title: 'Профиль',
+      finesPaid: 'Оплачено штрафов',
+      accumulatedPoints: 'Накопленных балов',
+      support: 'Тех. поддержка',
+      selectLanguage: 'Выбрать язык',
+      exit: 'Выход',
+      ru: 'Орусча',
+      kg: 'Кыргызча',
     },
   },
 };

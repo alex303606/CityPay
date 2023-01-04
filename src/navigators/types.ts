@@ -15,4 +15,6 @@ export enum EScreens {
   SETTINGS_STACK = 'SettingsStack',
   INITIAL_SCREEN = 'InitialScreen',
   WEBVIEW_SCREEN = 'WebViewScreen',
+  MODAL_LANGUAGE_SCREEN = 'ModalLanguageScreen',
+  MODAL_EXIT_SCREEN = 'ModalExitScreen',
 }
