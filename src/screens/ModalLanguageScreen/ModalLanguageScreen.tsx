@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<
   EScreens.MODAL_LANGUAGE_SCREEN
 >;
 
-export const ModalLanguageScreen: React.FC<Props> = () => {
+export const ModalLanguageScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -19,8 +19,9 @@ export const ModalLanguageScreen: React.FC<Props> = () => {
     async (lang: string) => {
       dispatch(changeLanguage(lang));
       await i18n.changeLanguage(lang);
+      navigation.goBack();
     },
-    [dispatch, i18n],
+    [dispatch, i18n, navigation],
   );
 
   return (

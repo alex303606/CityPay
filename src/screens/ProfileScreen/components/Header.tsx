@@ -2,9 +2,17 @@ import React from 'react';
 import {Block, Icon, IconNames, Row, Typography} from '@UIKit';
 import styled from 'styled-components';
 import {useTheme} from '@hooks';
+import {useTranslation} from 'react-i18next';
 
-export const Header: React.FC = () => {
+type Props = {
+  name: string;
+  lastName: string;
+  phone: string;
+};
+
+export const Header: React.FC<Props> = ({name, lastName, phone}) => {
   const {theme} = useTheme();
+  const {t} = useTranslation();
 
   return (
     <Row
@@ -17,10 +25,10 @@ export const Header: React.FC = () => {
       </Wrapper>
       <Block paddingLeft={16} flex={1}>
         <Typography.B20 color={theme.textColor}>
-          Алексей Остриков
+          {name || t('profile.name')} {lastName || t('profile.lastName')}
         </Typography.B20>
         <Typography.B16 color={theme.textColor} numberOfLines={1}>
-          +996554303606
+          {phone}
         </Typography.B16>
       </Block>
     </Row>

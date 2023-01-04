@@ -21,10 +21,49 @@ export const sendCode = ({phone, code}: {phone: string; code: string}) => {
       PHONE: `996${phone.replace(/([!?\ \-])/g, '')}`,
       CODE: code,
     })
-    .then(response => {
-      if (response && response.data) {
-        return response.data;
-      }
+    .then(
+      (response: {
+        data: {
+          data: {black_list: boolean; user_id: string};
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
+
+export const getUser = (phone: string) => {
+  return axios
+    .post('', {
+      TYPE: 'get_user',
+      PHONE: phone,
     })
+    .then(
+      (response: {
+        data: {
+          data: {
+            balls: number;
+            black_list: boolean;
+            carsLimit: number;
+            isPremiumAccess: boolean;
+            last_name: string;
+            name: string;
+            rating: number;
+            user_id: string;
+          };
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
     .catch(error => console.warn(error));
 };

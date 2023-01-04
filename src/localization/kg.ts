@@ -59,6 +59,8 @@ export const kgTranslation = {
       exit: 'Выход',
       ru: 'Орусча',
       kg: 'Кыргызча',
+      name: 'Имя',
+      lastName: 'Фамилия',
     },
   },
 };

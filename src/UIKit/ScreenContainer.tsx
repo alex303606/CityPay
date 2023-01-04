@@ -12,6 +12,7 @@ type Props = {
   title: string;
   showButton?: boolean;
   onPressButton?: () => void;
+  reload?: () => Promise<void>;
 };
 
 export const ScreenContainer: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const ScreenContainer: React.FC<Props> = ({
   title,
   showButton = false,
   onPressButton,
+  reload,
 }) => {
   const {theme} = useTheme();
 
@@ -42,7 +44,7 @@ export const ScreenContainer: React.FC<Props> = ({
           </Wrapper>
         )}
       </Row>
-      <ScrollContainer>
+      <ScrollContainer reload={reload}>
         <Block flex={1} paddingBottom={32} paddingHorizontal={16}>
           {children}
         </Block>

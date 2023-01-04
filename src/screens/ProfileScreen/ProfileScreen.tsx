@@ -5,9 +5,17 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {Header} from './components/Header';
 import {Item} from './components/Item';
-import {useAppSelector, useSnackbarNotification} from '@hooks';
-import {selectedLanguage} from '@store';
+import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
+import {
+  getUser,
+  getUserPhone,
+  getUserState,
+  getUserSuccess,
+  selectedLanguage,
+  signOut,
+} from '@store';
 import {Linking} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 
 const SUPPORT_NUMBER = +996706110024;
 
@@ -19,8 +27,37 @@ type Props = NativeStackScreenProps<
 export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
+  const dispatch = useAppDispatch();
+  const phone = useAppSelector(getUserPhone);
+  const {balls, rating, name, last_name} = useAppSelector(getUserState);
+
+  useFocusEffect(() => {
+    reload();
+  });
 
   //const {theme} = useTheme();
+
+  const reload = useCallback(async () => {
+    const response = await getUser(phone);
+    if (!response?.data) {
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (!response.result) {
+      if (response.message) {
+        showNotification(response.message);
+      }
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (response.data.black_list) {
+      dispatch(signOut());
+      return showNotification(t('errors.blackList'));
+    }
+    dispatch(
+      getUserSuccess({
+        ...response.data,
+      }),
+    );
+  }, [dispatch, phone, showNotification, t]);
 
   const handlePressHeaderButton = useCallback(() => {
     return null;
@@ -47,13 +84,17 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer
+      reload={reload}
       showButton
       onPressButton={handlePressHeaderButton}
       title={t('profile.title')}>
       <Block flex={1}>
-        <Header />
-        <Item text={t('profile.finesPaid')} secondText={'10'} />
-        <Item text={t('profile.accumulatedPoints')} secondText={'10'} />
+        <Header phone={phone} name={name} lastName={last_name} />
+        <Item text={t('profile.finesPaid')} secondText={String(rating)} />
+        <Item
+          text={t('profile.accumulatedPoints')}
+          secondText={String(balls)}
+        />
         <Item text={t('profile.support')} onPress={handlePressSupport} />
         <Item
           text={t('profile.selectLanguage')}

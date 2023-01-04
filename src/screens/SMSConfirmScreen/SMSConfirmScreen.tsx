@@ -72,7 +72,12 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
         }
         return codeRef.current?.clear();
       }
-      dispatch(loginUserSuccess(response.data.user_id));
+      dispatch(
+        loginUserSuccess({
+          user_id: response.data.user_id,
+          phone: `996${phone.replace(/([!?\ \-])/g, '')}`,
+        }),
+      );
     }
   }, [code, dispatch, phone, showNotification, t]);
 

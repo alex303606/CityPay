@@ -59,6 +59,8 @@ export const ruTranslation = {
       exit: 'Выход',
       ru: 'Русский',
       kg: 'Киргизский',
+      name: 'Имя',
+      lastName: 'Фамилия',
     },
   },
 };
