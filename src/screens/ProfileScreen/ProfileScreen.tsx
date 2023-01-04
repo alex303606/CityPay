@@ -5,8 +5,11 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {Header} from './components/Header';
 import {Item} from './components/Item';
-import {useAppSelector} from '@hooks';
+import {useAppSelector, useSnackbarNotification} from '@hooks';
 import {selectedLanguage} from '@store';
+import {Linking} from 'react-native';
+
+const SUPPORT_NUMBER = +996706110024;
 
 type Props = NativeStackScreenProps<
   ProfileStackParamList,
@@ -15,6 +18,8 @@ type Props = NativeStackScreenProps<
 
 export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
+  const {showNotification} = useSnackbarNotification();
+
   //const {theme} = useTheme();
 
   const handlePressHeaderButton = useCallback(() => {
@@ -29,9 +34,14 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     navigation.navigate(EScreens.MODAL_LANGUAGE_SCREEN);
   }, [navigation]);
 
-  const handlePressSupport = useCallback(() => {
-    return null;
-  }, []);
+  const handlePressSupport = useCallback(async () => {
+    const url = `whatsapp://send?phone=${SUPPORT_NUMBER}`;
+    try {
+      await Linking.openURL(url);
+    } catch (e) {
+      showNotification(t('errors.somethingWentWrong'));
+    }
+  }, [showNotification, t]);
 
   const language = useAppSelector(selectedLanguage);
 
