@@ -2,7 +2,7 @@ export const kgTranslation = {
   translation: {
     tabs: {
       fines: 'Айыптар',
-      cars: 'Менин машиналарым',
+      cars: 'Машиналар',
       profile: 'Профиль',
       payments: 'Платежи',
       settings: 'Настройки',
