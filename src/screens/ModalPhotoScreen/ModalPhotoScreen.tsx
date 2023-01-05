@@ -24,7 +24,6 @@ export const ModalPhotoScreen: React.FC<Props> = ({navigation}) => {
       },
       () => null,
     );
-    console.log(result);
     if (result?.assets && result.assets.length && result.assets[0].base64) {
       dispatch(saveAvatar(result.assets[0].base64));
     }
