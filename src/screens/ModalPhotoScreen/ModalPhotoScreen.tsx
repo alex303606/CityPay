@@ -20,12 +20,11 @@ export const ModalPhotoScreen: React.FC<Props> = ({navigation}) => {
     const result = await launchImageLibrary(
       {
         mediaType: 'photo',
-        includeBase64: true,
       },
       () => null,
     );
-    if (result?.assets && result.assets.length && result.assets[0].base64) {
-      dispatch(saveAvatar(result.assets[0].base64));
+    if (result?.assets && result.assets.length && result.assets[0].uri) {
+      dispatch(saveAvatar(result.assets[0].uri));
     }
     if (!result.didCancel) {
       navigation.goBack();
@@ -37,12 +36,11 @@ export const ModalPhotoScreen: React.FC<Props> = ({navigation}) => {
       {
         saveToPhotos: false,
         mediaType: 'photo',
-        includeBase64: true,
       },
       () => null,
     );
-    if (result?.assets && result.assets.length && result.assets[0].base64) {
-      dispatch(saveAvatar(result.assets[0].base64));
+    if (result?.assets && result.assets.length && result.assets[0].uri) {
+      dispatch(saveAvatar(result.assets[0].uri));
     }
     if (!result.didCancel) {
       navigation.goBack();
