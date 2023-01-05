@@ -33,7 +33,7 @@ export const ScreenContainer: React.FC<Props> = ({
         backgroundColor={theme.backgroundColor}
         justifyContent={'space-between'}
         alignItems={'center'}>
-        <Typography.B28 numberOfLines={1} color={theme.textColor}>
+        <Typography.B28 numberOfLines={2} color={theme.textColor}>
           {title}
         </Typography.B28>
         {showButton && (

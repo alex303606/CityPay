@@ -17,4 +17,5 @@ export enum EScreens {
   WEBVIEW_SCREEN = 'WebViewScreen',
   MODAL_LANGUAGE_SCREEN = 'ModalLanguageScreen',
   MODAL_EXIT_SCREEN = 'ModalExitScreen',
+  PROFILE_SETTINGS_SCREEN = 'ProfileSettingsScreen',
 }

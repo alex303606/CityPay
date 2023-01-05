@@ -1,7 +1,11 @@
 import React from 'react';
 import {EScreens} from './types';
 import {ProfileStackParamList, ProfileStackProps} from './navigationTypes';
-import {ModalLanguageScreen, ProfileScreen} from '@screens';
+import {
+  ModalLanguageScreen,
+  ProfileScreen,
+  ProfileSettingsScreen,
+} from '@screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useModalScreenOptions} from './screenOptions';
 import {ModalExitScreen} from '../screens/ModalExitScreen/ModalExitScreen';
@@ -17,6 +21,13 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         <Stack.Screen
           name={EScreens.PROFILE_SCREEN}
           component={ProfileScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.PROFILE_SETTINGS_SCREEN}
+          component={ProfileSettingsScreen}
           options={{
             headerShown: false,
           }}

@@ -34,6 +34,7 @@ export const RootTabs: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           height: TAB_BAR_HEIGHT,
           paddingBottom: 7,

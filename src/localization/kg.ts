@@ -61,6 +61,8 @@ export const kgTranslation = {
       kg: 'Кыргызча',
       name: 'Имя',
       lastName: 'Фамилия',
+      editProfile: 'Редактировать профиль',
+      save: 'Сохранить',
     },
   },
 };

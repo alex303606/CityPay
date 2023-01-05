@@ -67,3 +67,47 @@ export const getUser = (phone: string) => {
     )
     .catch(error => console.warn(error));
 };
+
+export const editUserData = ({
+  phone,
+  name,
+  lastName,
+  newPhone,
+  active,
+  pushToken,
+  pushActive,
+}: {
+  phone: string;
+  name?: string;
+  lastName?: string;
+  newPhone?: string;
+  active?: boolean;
+  pushToken?: string;
+  pushActive?: string;
+}) => {
+  return axios
+    .post('', {
+      TYPE: 'edit_user',
+      PHONE: phone,
+      NAME: name,
+      LAST_NAME: lastName,
+      NEW_PHONE: newPhone,
+      ACTIVE: active,
+      PUSH_TOKEN: pushToken,
+      PUSH_ACTIVE: pushActive,
+    })
+    .then(
+      (response: {
+        data: {
+          data: null;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};

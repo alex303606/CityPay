@@ -35,8 +35,6 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     reload();
   });
 
-  //const {theme} = useTheme();
-
   const reload = useCallback(async () => {
     const response = await getUser(phone);
     if (!response?.data) {
@@ -44,7 +42,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     }
     if (!response.result) {
       if (response.message) {
-        showNotification(response.message);
+        return showNotification(response.message);
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
@@ -60,8 +58,8 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   }, [dispatch, phone, showNotification, t]);
 
   const handlePressHeaderButton = useCallback(() => {
-    return null;
-  }, []);
+    navigation.navigate(EScreens.PROFILE_SETTINGS_SCREEN);
+  }, [navigation]);
 
   const handlePressExit = useCallback(() => {
     navigation.navigate(EScreens.MODAL_EXIT_SCREEN);

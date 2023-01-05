@@ -8,3 +8,4 @@ export {ProfileScreen} from './ProfileScreen';
 export {InitialScreen} from './InitialScreen';
 export {WebViewScreen} from './WebViewScreen/WebViewScreen';
 export {ModalLanguageScreen} from './ModalLanguageScreen/ModalLanguageScreen';
+export {ProfileSettingsScreen} from './ProfileSettingsScreen/ProfileSettingsScreen';
