@@ -3,6 +3,7 @@ import {EScreens} from './types';
 import {ProfileStackParamList, ProfileStackProps} from './navigationTypes';
 import {
   ModalLanguageScreen,
+  ModalPhotoScreen,
   ProfileScreen,
   ProfileSettingsScreen,
 } from '@screens';
@@ -41,6 +42,10 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         <Stack.Screen
           name={EScreens.MODAL_EXIT_SCREEN}
           component={ModalExitScreen}
+        />
+        <Stack.Screen
+          name={EScreens.MODAL_PHOTO_SCREEN}
+          component={ModalPhotoScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

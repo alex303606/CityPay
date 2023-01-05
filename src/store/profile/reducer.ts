@@ -15,6 +15,7 @@ export interface IProfileState {
   last_name: string;
   name: string;
   rating: number;
+  avatar: string;
 }
 
 const initialState: IProfileState = {
@@ -30,6 +31,7 @@ const initialState: IProfileState = {
   black_list: false,
   carsLimit: 0,
   isPremiumAccess: false,
+  avatar: '',
 };
 
 const profileSlice = createSlice({
@@ -52,6 +54,9 @@ const profileSlice = createSlice({
     },
     changeTheme(state, action: PayloadAction<Themes>) {
       state.theme = action.payload;
+    },
+    saveAvatar(state, action: PayloadAction<string>) {
+      state.avatar = action.payload;
     },
     getUserSuccess(
       state,
@@ -95,11 +100,11 @@ export const {
   changeLanguage,
   changeTheme,
   getUserSuccess,
+  saveAvatar,
 } = profileSlice.actions;
 export const profileReducer = profileSlice.reducer;
 export const selectUserIsLoggedIn = (state: RootState) =>
   state.profile.userIsLoggedIn;
-export const getUserPhone = (state: RootState) => state.profile.phone;
 export const getUserState = (state: RootState) => state.profile;
 export const selectedLanguage = (state: RootState) =>
   state.profile.selectedLanguage;

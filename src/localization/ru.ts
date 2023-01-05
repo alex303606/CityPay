@@ -63,6 +63,9 @@ export const ruTranslation = {
       lastName: 'Фамилия',
       editProfile: 'Редактировать профиль',
       save: 'Сохранить',
+      selectAvatar: 'Выбрать фото',
+      fromGallery: 'Галлерея',
+      fromCamera: 'Камера',
     },
   },
 };

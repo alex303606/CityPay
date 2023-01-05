@@ -18,4 +18,5 @@ export enum EScreens {
   MODAL_LANGUAGE_SCREEN = 'ModalLanguageScreen',
   MODAL_EXIT_SCREEN = 'ModalExitScreen',
   PROFILE_SETTINGS_SCREEN = 'ProfileSettingsScreen',
+  MODAL_PHOTO_SCREEN = 'ModalPhotoScreen',
 }

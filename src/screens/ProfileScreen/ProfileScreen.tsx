@@ -8,7 +8,6 @@ import {Item} from './components/Item';
 import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
 import {
   getUser,
-  getUserPhone,
   getUserState,
   getUserSuccess,
   selectedLanguage,
@@ -28,8 +27,8 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const dispatch = useAppDispatch();
-  const phone = useAppSelector(getUserPhone);
-  const {balls, rating, name, last_name} = useAppSelector(getUserState);
+  const {balls, rating, name, last_name, phone, avatar} =
+    useAppSelector(getUserState);
 
   useFocusEffect(() => {
     reload();
@@ -80,6 +79,10 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
 
   const language = useAppSelector(selectedLanguage);
 
+  const handleChangeAvatar = useCallback(async () => {
+    return navigation.navigate(EScreens.MODAL_PHOTO_SCREEN);
+  }, [navigation]);
+
   return (
     <ScreenContainer
       reload={reload}
@@ -87,7 +90,13 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
       onPressButton={handlePressHeaderButton}
       title={t('profile.title')}>
       <Block flex={1}>
-        <Header phone={phone} name={name} lastName={last_name} />
+        <Header
+          handleChangeAvatar={handleChangeAvatar}
+          phone={phone}
+          name={name}
+          lastName={last_name}
+          avatar={avatar}
+        />
         <Item text={t('profile.finesPaid')} secondText={String(rating)} />
         <Item
           text={t('profile.accumulatedPoints')}

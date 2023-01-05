@@ -9,3 +9,4 @@ export {InitialScreen} from './InitialScreen';
 export {WebViewScreen} from './WebViewScreen/WebViewScreen';
 export {ModalLanguageScreen} from './ModalLanguageScreen/ModalLanguageScreen';
 export {ProfileSettingsScreen} from './ProfileSettingsScreen/ProfileSettingsScreen';
+export {ModalPhotoScreen} from './ModalPhotoScreen/ModalPhotoScreen';
