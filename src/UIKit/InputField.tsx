@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import {TextInput} from 'react-native';
-import {Row} from './helpers';
+import {Block, Row} from './helpers';
 import {useTheme} from '@hooks';
+import {Colors, Typography} from './constants';
 
 type Props = {
   marginBottom?: number;
   value: string;
+  label?: string;
   onChangeValue: (value: string) => void;
 };
 
@@ -14,16 +16,24 @@ export const InputField: React.FC<Props> = ({
   marginBottom,
   value,
   onChangeValue,
+  label,
 }) => {
   const {theme} = useTheme();
   return (
-    <StyledRow borderColor={theme.textColor} marginBottom={marginBottom}>
-      <StyledInput
-        color={theme.textColor}
-        onChangeText={onChangeValue}
-        value={value}
-      />
-    </StyledRow>
+    <Block>
+      {!!label && (
+        <Typography.R14 marginBottom={4} numberOfLines={1} color={Colors.grey}>
+          {label}
+        </Typography.R14>
+      )}
+      <StyledRow borderColor={theme.textColor} marginBottom={marginBottom}>
+        <StyledInput
+          color={theme.textColor}
+          onChangeText={onChangeValue}
+          value={value}
+        />
+      </StyledRow>
+    </Block>
   );
 };
 

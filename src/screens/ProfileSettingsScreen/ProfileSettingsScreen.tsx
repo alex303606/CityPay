@@ -51,11 +51,13 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
     <ScreenContainer title={t('profile.editProfile')}>
       <Block flex={1}>
         <InputField
+          label={t('profile.name')}
           onChangeValue={onChangeNameHandler}
           marginBottom={16}
           value={userName}
         />
         <InputField
+          label={t('profile.lastName')}
           onChangeValue={onChangeLastNameHandler}
           marginBottom={16}
           value={userLastName}
