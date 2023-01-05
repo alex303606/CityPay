@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import {
-  Block,
   Button,
   Colors,
   FocusAwareStatusBar,
   Row,
+  ScreenContainer,
   Typography,
 } from '@UIKit';
 import {EScreens} from '@navigators';
@@ -36,6 +36,8 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
     if (!response.result) {
       if (response.message) {
         showNotification(response.message);
+      } else {
+        showNotification(t('errors.somethingWentWrong'));
       }
       return;
     }
@@ -50,19 +52,12 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
   }, []);
 
   return (
-    <Block
-      backgroundColor={Colors.white}
-      flex={1}
-      paddingHorizontal={16}
-      paddingVertical={32}>
+    <ScreenContainer title={t('auth.loginRegistration')}>
       <FocusAwareStatusBar
         animated={true}
         backgroundColor={Colors.white}
         barStyle="dark-content"
       />
-      <Typography.B28 marginBottom={32} numberOfLines={1} color={Colors.black}>
-        {t('auth.loginRegistration')}
-      </Typography.B28>
       <Typography.R12
         marginBottom={5}
         marginLeft={5}
@@ -92,7 +87,7 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
       <Typography.R14 marginTop={32} color={Colors.grey} textAlign={'center'}>
         {t('auth.agree')}
       </Typography.R14>
-    </Block>
+    </ScreenContainer>
   );
 };
 

@@ -9,7 +9,7 @@ import {Pressable} from 'react-native';
 
 type Props = {
   children: ReactNode;
-  title: string;
+  title?: string;
   showButton?: boolean;
   onPressButton?: () => void;
   reload?: () => Promise<void>;

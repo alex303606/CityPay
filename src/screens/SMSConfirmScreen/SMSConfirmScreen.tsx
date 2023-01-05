@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {Block, Button, Colors, Typography} from '@UIKit';
+import {Block, Button, Colors, ScreenContainer, Typography} from '@UIKit';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
 import {EScreens} from '@navigators';
@@ -69,6 +69,8 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
       if (!response.result) {
         if (response.message) {
           showNotification(response.message);
+        } else {
+          showNotification(t('errors.somethingWentWrong'));
         }
         return codeRef.current?.clear();
       }
@@ -82,11 +84,7 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
   }, [code, dispatch, phone, showNotification, t]);
 
   return (
-    <Block
-      backgroundColor={Colors.white}
-      flex={1}
-      paddingHorizontal={16}
-      paddingVertical={32}>
+    <ScreenContainer title={t('auth.loginRegistration')}>
       <Typography.R12 marginLeft={5} color={Colors.grey}>
         {t('auth.codeInputLabel')}
       </Typography.R12>
@@ -113,6 +111,6 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
           {t('auth.changePhone')}
         </Typography.R16>
       </Block>
-    </Block>
+    </ScreenContainer>
   );
 };

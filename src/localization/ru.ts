@@ -22,7 +22,7 @@ export const ruTranslation = {
       phoneInputLabel: 'Номер телефона',
       codeInputLabel:
         'На указанный вами номер \nбыло отправлено сообщение с кодом. \nВведите его:',
-      apply: 'ПодтвердSить',
+      apply: 'Подтвердить',
       changePhone: 'Изменить номер телефона',
       waitingToSendSms: 'Можно повторить СМС через {{count}} сек',
       resendSms: 'Отправить СМС ещё раз',
