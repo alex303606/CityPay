@@ -14,20 +14,18 @@ import {
 } from '@UIKit';
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
-import {
-  FlatList,
-  FlatListProps,
-  ListRenderItem,
-  RefreshControl,
-} from 'react-native';
+import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
 import {useLoading} from '@hooks';
+import {FlatListType} from '../types';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
-const keyExtractor = (item: any) => item;
 type ICar = {
   number: string;
 };
+
+const keyExtractor = (item: ICar) => item.number;
+
 const cars: ICar[] = [
   // {number: '1'},
   // {number: '2'},
@@ -93,10 +91,6 @@ const FloatingButton = styled(Block)({
   bottom: 16,
   right: 16,
 });
-
-type FlatListType = <T>(
-  props: FlatListProps<T>,
-) => ReturnType<FC<FlatListProps<T>>>;
 
 const List: FlatListType = styled(FlatList).attrs(() => ({
   contentContainerStyle: {
