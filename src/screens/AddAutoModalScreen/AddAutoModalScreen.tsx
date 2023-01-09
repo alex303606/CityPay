@@ -1,9 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import {Button, InputField, ScreenContainer, SwitchComponent} from '@UIKit';
 import {useTranslation} from 'react-i18next';
+import {useTheme} from '@hooks';
 
 export const AddAutoModalScreen = () => {
   const {t} = useTranslation();
+  const {theme} = useTheme();
+
   const [pushValue, changePushValue] = useState<boolean>(false);
 
   const handleChangePush = useCallback((value: boolean) => {
@@ -38,6 +41,8 @@ export const AddAutoModalScreen = () => {
         onChangeValue={onChangePin}
         marginBottom={16}
         value={pin}
+        maxLength={14}
+        keyboardType={'numeric'}
       />
       <InputField
         label={t('cars.number.label')}
@@ -46,7 +51,11 @@ export const AddAutoModalScreen = () => {
         marginBottom={16}
         value={number}
       />
-      <Button title={t('cars.addAuto')} onPress={addAutoHandler} />
+      <Button
+        color={theme.buttonColor}
+        title={t('cars.addAuto')}
+        onPress={addAutoHandler}
+      />
     </ScreenContainer>
   );
 };

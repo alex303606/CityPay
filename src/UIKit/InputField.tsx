@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {TextInput} from 'react-native';
+import {KeyboardType, TextInput} from 'react-native';
 import {Block, Row} from './helpers';
 import {useTheme} from '@hooks';
 import {Colors, Typography} from './constants';
@@ -11,6 +11,8 @@ type Props = {
   label?: string;
   onChangeValue: (value: string) => void;
   placeholder?: string;
+  maxLength?: number;
+  keyboardType?: KeyboardType;
 };
 
 export const InputField: React.FC<Props> = ({
@@ -19,6 +21,8 @@ export const InputField: React.FC<Props> = ({
   onChangeValue,
   label,
   placeholder,
+  maxLength,
+  keyboardType = 'default',
 }) => {
   const {theme} = useTheme();
   return (
@@ -35,6 +39,9 @@ export const InputField: React.FC<Props> = ({
           color={theme.textColor}
           onChangeText={onChangeValue}
           value={value}
+          numberOfLines={1}
+          maxLength={maxLength}
+          keyboardType={keyboardType}
         />
       </StyledRow>
     </Block>
