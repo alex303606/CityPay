@@ -6,6 +6,7 @@ import {useTheme} from '@hooks';
 export const EmptyList = () => {
   const {t} = useTranslation();
   const {theme} = useTheme();
+
   return (
     <Block justifyContent={'center'} flex={1} alignItems={'center'}>
       <Icon size={128} color={Colors.grey} name={IconNames.myAuto} />

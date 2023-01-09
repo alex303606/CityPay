@@ -8,3 +8,4 @@ export {ScrollContainer} from './ScrollContainer';
 export {ModalContainer} from './Modal';
 export {ScreenContainer} from './ScreenContainer';
 export {InputField} from './InputField';
+export {RoundButton} from './RoundButton';

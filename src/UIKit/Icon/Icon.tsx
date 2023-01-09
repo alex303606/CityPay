@@ -14,6 +14,11 @@ export enum IconNames {
   tablet = 'tablet',
   shield = 'shield',
   close = 'close',
+  qr = 'qr',
+  back = 'back',
+  plus = 'plus',
+  share = 'share',
+  delete = 'delete',
 }
 
 export const IconSet = createIconSetFromIcoMoon(config);

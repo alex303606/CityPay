@@ -32,7 +32,7 @@ export const kgTranslation = {
       blackList: 'Ваш аккаунт заблокирован',
     },
     cars: {
-      title: 'Мой авто',
+      title: 'Мои авто',
       empty: 'Добавьте авто\nдля получения уведомлений',
     },
     fines: {

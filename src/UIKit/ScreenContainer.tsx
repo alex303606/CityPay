@@ -13,6 +13,7 @@ type Props = {
   showButton?: boolean;
   onPressButton?: () => void;
   reload?: () => Promise<void>;
+  scroll?: boolean;
 };
 
 export const ScreenContainer: React.FC<Props> = ({
@@ -21,8 +22,10 @@ export const ScreenContainer: React.FC<Props> = ({
   showButton = false,
   onPressButton,
   reload,
+  scroll = true,
 }) => {
   const {theme} = useTheme();
+  const ScrollComponent = scroll ? ScrollContainer : Block;
 
   return (
     <Block flex={1}>
@@ -44,11 +47,14 @@ export const ScreenContainer: React.FC<Props> = ({
           </Wrapper>
         )}
       </Row>
-      <ScrollContainer reload={reload}>
+      <ScrollComponent
+        flex={1}
+        reload={reload}
+        backgroundColor={theme.backgroundColor}>
         <Block flex={1} paddingBottom={32} paddingHorizontal={16}>
           {children}
         </Block>
-      </ScrollContainer>
+      </ScrollComponent>
     </Block>
   );
 };

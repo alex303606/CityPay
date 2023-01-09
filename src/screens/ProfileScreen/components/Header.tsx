@@ -31,7 +31,7 @@ export const Header: React.FC<Props> = ({
       <Wrapper borderColor={theme.textColor}>
         <StyledPressable onPress={handleChangeAvatar}>
           {avatar ? (
-            <StyledImage resizeMode="contain" source={{uri: avatar}} />
+            <StyledImage resizeMode="cover" source={{uri: avatar}} />
           ) : (
             <Icon color={theme.textColor} name={IconNames.profile} size={48} />
           )}
