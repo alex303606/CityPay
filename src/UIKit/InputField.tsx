@@ -30,6 +30,7 @@ export const InputField: React.FC<Props> = ({
       )}
       <StyledRow borderColor={theme.textColor} marginBottom={marginBottom}>
         <StyledInput
+          placeholderTextColor={theme.textColor}
           placeholder={placeholder}
           color={theme.textColor}
           onChangeText={onChangeValue}
