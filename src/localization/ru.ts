@@ -34,6 +34,15 @@ export const ruTranslation = {
     cars: {
       title: 'Мои авто',
       empty: 'Добавьте авто\nдля получения уведомлений',
+      addAuto: 'Добавить авто',
+      pin: {
+        label: 'ПИН (14-значный)',
+        placeholder: 'ПИН ИНН',
+      },
+      number: {
+        label: 'Номер автомобиля',
+        placeholder: 'X0000XX, 00KG000XXX ',
+      },
     },
     fines: {
       title: 'Штрафы',

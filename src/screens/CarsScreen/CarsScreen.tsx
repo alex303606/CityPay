@@ -41,13 +41,13 @@ const cars: ICar[] = [
   // {number: '10'},
 ];
 
-export const CarsScreen: FC<Props> = () => {
+export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {loading, hideLoader, showLoader} = useLoading();
 
   const addCarHandler = useCallback(() => {
-    return;
-  }, []);
+    navigation.navigate(EScreens.MODAL_ADD_CAR);
+  }, [navigation]);
 
   const renderItem: ListRenderItem<ICar> = useCallback(
     ({item}) => (

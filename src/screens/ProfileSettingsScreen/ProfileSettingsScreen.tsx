@@ -16,10 +16,8 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const {name, last_name, phone} = useAppSelector(getUserState);
-  const [userName, setUserName] = useState<string>(name || t('profile.name'));
-  const [userLastName, setUserLastName] = useState<string>(
-    last_name || t('profile.lastName'),
-  );
+  const [userName, setUserName] = useState<string>(name);
+  const [userLastName, setUserLastName] = useState<string>(last_name);
 
   const onChangeNameHandler = useCallback((value: string) => {
     setUserName(value);
@@ -51,13 +49,15 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
     <ScreenContainer title={t('profile.editProfile')}>
       <Block flex={1}>
         <InputField
-          label={t('profile.name')}
+          label={t('profile.title')}
+          placeholder={t('profile.name')}
           onChangeValue={onChangeNameHandler}
           marginBottom={16}
           value={userName}
         />
         <InputField
           label={t('profile.lastName')}
+          placeholder={t('profile.lastName')}
           onChangeValue={onChangeLastNameHandler}
           marginBottom={16}
           value={userLastName}

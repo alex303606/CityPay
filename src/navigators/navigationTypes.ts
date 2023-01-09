@@ -22,6 +22,7 @@ export type AuthorizationStackProps = NativeStackScreenProps<
 
 export type CarsStackParamList = {
   [EScreens.CARS_SCREEN]: undefined;
+  [EScreens.MODAL_ADD_CAR]: undefined;
 };
 
 export type CarsStackProps = NativeStackScreenProps<

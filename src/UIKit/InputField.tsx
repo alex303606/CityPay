@@ -10,6 +10,7 @@ type Props = {
   value: string;
   label?: string;
   onChangeValue: (value: string) => void;
+  placeholder?: string;
 };
 
 export const InputField: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const InputField: React.FC<Props> = ({
   value,
   onChangeValue,
   label,
+  placeholder,
 }) => {
   const {theme} = useTheme();
   return (
@@ -28,6 +30,7 @@ export const InputField: React.FC<Props> = ({
       )}
       <StyledRow borderColor={theme.textColor} marginBottom={marginBottom}>
         <StyledInput
+          placeholder={placeholder}
           color={theme.textColor}
           onChangeText={onChangeValue}
           value={value}

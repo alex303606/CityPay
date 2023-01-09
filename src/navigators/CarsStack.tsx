@@ -1,12 +1,15 @@
 import React from 'react';
-import {CarsScreen} from '@screens';
+import {AddAutoModalScreen, CarsScreen} from '@screens';
 import {EScreens} from './types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {CarsStackParamList, CarsStackProps} from './navigationTypes';
+import {createStackNavigator} from '@react-navigation/stack';
+import {useModalScreenOptions} from './screenOptions';
 
-const Stack = createNativeStackNavigator<CarsStackParamList>();
+const Stack = createStackNavigator<CarsStackParamList>();
 
 export const CarsStack: React.FC<CarsStackProps> = () => {
+  const modalStackScreenOptions = useModalScreenOptions();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -16,6 +19,15 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
           headerShown: false,
         }}
       />
+      <Stack.Group screenOptions={modalStackScreenOptions}>
+        <Stack.Screen
+          name={EScreens.MODAL_ADD_CAR}
+          component={AddAutoModalScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
