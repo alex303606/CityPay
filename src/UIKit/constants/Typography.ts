@@ -91,7 +91,7 @@ const B16 = styled(bold)`
 
 const B18 = styled(bold)`
   font-size: 18px;
-  line-height: 21px;
+  line-height: 26px;
 `;
 
 const R20 = styled(regular)`

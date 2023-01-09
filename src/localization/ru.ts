@@ -33,12 +33,15 @@ export const ruTranslation = {
     },
     cars: {
       title: 'Мой авто',
+      empty: 'Добавьте авто\nдля получения уведомлений',
     },
     fines: {
       title: 'Штрафы',
+      empty: 'Поздравляем! \nМы не нашли штрафов',
     },
     payments: {
       title: 'Платежи',
+      empty: 'Не найдено ни одной квитанции',
     },
     settings: {
       title: 'Настройки',
