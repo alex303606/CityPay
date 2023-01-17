@@ -19,8 +19,8 @@ type Props = {
 export const RoundButton: React.FC<Props> = ({
   onPress,
   iconName = IconNames.plus,
-  diameter = 48,
-  iconSize = 32,
+  diameter = 64,
+  iconSize = 48,
   backgroundColor = Colors.transparent,
   elevation,
 }) => {

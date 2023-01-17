@@ -4,6 +4,7 @@ export enum EScreens {
   SMS_CONFIRM_SCREEN = 'SMSConfirmScreen',
   AUTHORIZATION_STACK = 'AuthorizationStack',
   CARS_SCREEN = 'CarsScreen',
+  SINGLE_CAR_SCREEN = 'SingleCarScreen',
   FINES_SCREEN = 'FinesScreen',
   PAYMENTS_SCREEN = 'PaymentsScreen',
   SETTINGS_SCREEN = 'SettingsScreen',

@@ -14,9 +14,10 @@ import {
 } from '@UIKit';
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
-import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
+import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {useLoading} from '@hooks';
 import {FlatListType} from '../types';
+import {CarComponent} from './components/CarComponent';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
@@ -27,16 +28,16 @@ type ICar = {
 const keyExtractor = (item: ICar) => item.number;
 
 const cars: ICar[] = [
-  // {number: '1'},
-  // {number: '2'},
-  // {number: '3'},
-  // {number: '4'},
-  // {number: '5'},
-  // {number: '6'},
-  // {number: '7'},
-  // {number: '8'},
-  // {number: '9'},
-  // {number: '10'},
+  {number: 'E 0209 E'},
+  {number: 'E 9209 E'},
+  {number: 'E 8209 E'},
+  {number: 'E 7209 E'},
+  {number: 'E 6209 E'},
+  {number: 'E 5209 E'},
+  {number: 'E 4209 E'},
+  {number: 'E 3209 E'},
+  {number: 'E 2209 E'},
+  {number: 'E 1209 E'},
 ];
 
 export const CarsScreen: FC<Props> = ({navigation}) => {
@@ -47,13 +48,18 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
     navigation.navigate(EScreens.MODAL_ADD_CAR);
   }, [navigation]);
 
+  const handlePressNumber = useCallback(
+    (number: string) => {
+      navigation.navigate(EScreens.SINGLE_CAR_SCREEN, {number});
+    },
+    [navigation],
+  );
+
   const renderItem: ListRenderItem<ICar> = useCallback(
-    ({item}) => (
-      <Typography.R20 marginVertical={32} color={Colors.black}>
-        {item.number}
-      </Typography.R20>
-    ),
-    [],
+    ({item}) => {
+      return <CarComponent onPress={handlePressNumber} number={item.number} />;
+    },
+    [handlePressNumber],
   );
 
   const reload = useCallback(() => {
@@ -72,6 +78,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
         data={cars}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
+        ItemSeparatorComponent={Separator}
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={reload} />
         }
@@ -92,8 +99,12 @@ const FloatingButton = styled(Block)({
   right: 16,
 });
 
+const Separator = styled(View)({height: 16});
+
 const List: FlatListType = styled(FlatList).attrs(() => ({
   contentContainerStyle: {
     flexGrow: 1,
   },
-}))({});
+}))({
+  marginTop: 16,
+});

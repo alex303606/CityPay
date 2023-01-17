@@ -1,5 +1,5 @@
 import React from 'react';
-import {AddAutoModalScreen, CarsScreen} from '@screens';
+import {AddAutoModalScreen, CarsScreen, SingleCarScreen} from '@screens';
 import {EScreens} from './types';
 import {CarsStackParamList, CarsStackProps} from './navigationTypes';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -15,6 +15,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
       <Stack.Screen
         name={EScreens.CARS_SCREEN}
         component={CarsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.SINGLE_CAR_SCREEN}
+        component={SingleCarScreen}
         options={{
           headerShown: false,
         }}

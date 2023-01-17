@@ -51,7 +51,7 @@ export const ScreenContainer: React.FC<Props> = ({
         flex={1}
         reload={reload}
         backgroundColor={theme.backgroundColor}>
-        <Block flex={1} paddingBottom={32} paddingHorizontal={16}>
+        <Block flex={1} paddingBottom={16} paddingHorizontal={16}>
           {children}
         </Block>
       </ScrollComponent>
