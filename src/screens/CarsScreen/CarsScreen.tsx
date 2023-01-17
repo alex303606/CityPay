@@ -23,21 +23,22 @@ type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
 type ICar = {
   number: string;
+  isNewNumber: boolean;
 };
 
 const keyExtractor = (item: ICar) => item.number;
 
 const cars: ICar[] = [
-  {number: 'E 0209 E'},
-  {number: 'E 9209 E'},
-  {number: 'E 8209 E'},
-  {number: 'E 7209 E'},
-  {number: 'E 6209 E'},
-  {number: 'E 5209 E'},
-  {number: 'E 4209 E'},
-  {number: 'E 3209 E'},
-  {number: 'E 2209 E'},
-  {number: 'E 1209 E'},
+  {number: 'E 0209 E', isNewNumber: true},
+  {number: 'E 9209 E', isNewNumber: false},
+  {number: 'E 8209 E', isNewNumber: false},
+  {number: 'E 7209 E', isNewNumber: false},
+  {number: 'E 6209 E', isNewNumber: false},
+  {number: 'E 5209 E', isNewNumber: false},
+  {number: 'E 4209 E', isNewNumber: false},
+  {number: 'E 3209 E', isNewNumber: false},
+  {number: 'E 2209 E', isNewNumber: false},
+  {number: 'E 1209 E', isNewNumber: false},
 ];
 
 export const CarsScreen: FC<Props> = ({navigation}) => {
@@ -49,15 +50,21 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
   }, [navigation]);
 
   const handlePressNumber = useCallback(
-    (number: string) => {
-      navigation.navigate(EScreens.SINGLE_CAR_SCREEN, {number});
+    ({number, isNewNumber}: {number: string; isNewNumber: boolean}) => {
+      navigation.navigate(EScreens.SINGLE_CAR_SCREEN, {number, isNewNumber});
     },
     [navigation],
   );
 
   const renderItem: ListRenderItem<ICar> = useCallback(
     ({item}) => {
-      return <CarComponent onPress={handlePressNumber} number={item.number} />;
+      return (
+        <CarComponent
+          onPress={handlePressNumber}
+          isNewNumber={item.isNewNumber}
+          number={item.number}
+        />
+      );
     },
     [handlePressNumber],
   );

@@ -125,8 +125,8 @@ const B34 = styled(bold)`
 `;
 
 const B56 = styled(bold)`
-  font-size: 56px;
-  line-height: 70px;
+  font-size: 48px;
+  line-height: 68px;
 `;
 
 export const Typography = {

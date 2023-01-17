@@ -19,7 +19,7 @@ type Props = NativeStackScreenProps<
 
 export const SingleCarScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
-  const {number} = route.params;
+  const {number, isNewNumber} = route.params;
   const {theme} = useTheme();
 
   const handlePressHeaderButton = useCallback(() => {
@@ -33,7 +33,7 @@ export const SingleCarScreen: React.FC<Props> = ({route, navigation}) => {
       iconName={IconNames.delete}
       onPressButton={handlePressHeaderButton}>
       <Block flex={1}>
-        <CarComponent number={number} />
+        <CarComponent isNewNumber={isNewNumber} number={number} />
         <Row justifyContent={'flex-end'} marginTop={8}>
           <Typography.B16 textAlign={'center'} color={theme.textColor}>
             Пин владельца: 1234567890
