@@ -31,13 +31,13 @@ const keyExtractor = (item: ICar) => item.number;
 const cars: ICar[] = [
   {number: 'E 0209 E', isNewNumber: true},
   {number: 'E 9209 E', isNewNumber: false},
-  {number: 'E 8209 E', isNewNumber: false},
+  {number: 'E 8209 E', isNewNumber: true},
   {number: 'E 7209 E', isNewNumber: false},
-  {number: 'E 6209 E', isNewNumber: false},
+  {number: 'E 6209 E', isNewNumber: true},
   {number: 'E 5209 E', isNewNumber: false},
-  {number: 'E 4209 E', isNewNumber: false},
+  {number: 'E 4209 E', isNewNumber: true},
   {number: 'E 3209 E', isNewNumber: false},
-  {number: 'E 2209 E', isNewNumber: false},
+  {number: 'E 2209 E', isNewNumber: true},
   {number: 'E 1209 E', isNewNumber: false},
 ];
 
