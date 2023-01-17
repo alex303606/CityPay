@@ -14,6 +14,7 @@ type Props = {
   onPressButton?: () => void;
   reload?: () => Promise<void>;
   scroll?: boolean;
+  iconName?: IconNames;
 };
 
 export const ScreenContainer: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const ScreenContainer: React.FC<Props> = ({
   onPressButton,
   reload,
   scroll = true,
+  iconName = IconNames.help,
 }) => {
   const {theme} = useTheme();
   const ScrollComponent = scroll ? ScrollContainer : Block;
@@ -42,7 +44,7 @@ export const ScreenContainer: React.FC<Props> = ({
         {showButton && (
           <Wrapper>
             <StyledPressable onPress={onPressButton}>
-              <Icon color={theme.textColor} name={IconNames.help} size={24} />
+              <Icon color={theme.textColor} name={iconName} size={24} />
             </StyledPressable>
           </Wrapper>
         )}

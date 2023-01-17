@@ -43,7 +43,9 @@ export const kgTranslation = {
         label: 'Номер автомобиля',
         placeholder: 'X0000XX, 00KG000XXX ',
       },
-      car: 'Авто {{number}}',
+      car: 'Мое авто',
+      deleteCar: 'Удалить авто {{number}}',
+      delete: 'Удалить',
     },
     fines: {
       title: 'Штрафы',

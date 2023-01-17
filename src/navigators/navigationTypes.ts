@@ -24,6 +24,7 @@ export type CarsStackParamList = {
   [EScreens.CARS_SCREEN]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
   [EScreens.SINGLE_CAR_SCREEN]: {number: string};
+  [EScreens.MODAL_DELETE_CAR]: {number: string};
 };
 
 export type CarsStackProps = NativeStackScreenProps<

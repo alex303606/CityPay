@@ -9,3 +9,4 @@ export {ModalContainer} from './Modal';
 export {ScreenContainer} from './ScreenContainer';
 export {InputField} from './InputField';
 export {RoundButton} from './RoundButton';
+export {CarComponent} from './CarComponent';

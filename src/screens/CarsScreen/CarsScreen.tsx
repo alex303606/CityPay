@@ -5,6 +5,7 @@ import {CarsStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {
   Block,
+  CarComponent,
   Colors,
   EShadow,
   RoundButton,
@@ -17,7 +18,6 @@ import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {useLoading} from '@hooks';
 import {FlatListType} from '../types';
-import {CarComponent} from './components/CarComponent';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 

@@ -5,6 +5,7 @@ export enum EScreens {
   AUTHORIZATION_STACK = 'AuthorizationStack',
   CARS_SCREEN = 'CarsScreen',
   SINGLE_CAR_SCREEN = 'SingleCarScreen',
+  MODAL_DELETE_CAR = 'ModalDeleteCar',
   FINES_SCREEN = 'FinesScreen',
   PAYMENTS_SCREEN = 'PaymentsScreen',
   SETTINGS_SCREEN = 'SettingsScreen',

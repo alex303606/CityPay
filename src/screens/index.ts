@@ -12,3 +12,4 @@ export {ProfileSettingsScreen} from './ProfileSettingsScreen/ProfileSettingsScre
 export {ModalPhotoScreen} from './ModalPhotoScreen/ModalPhotoScreen';
 export {AddAutoModalScreen} from './AddAutoModalScreen';
 export {SingleCarScreen} from './SingleCarScreen/SingleCarScreen';
+export {ModalDeleteCar} from './ModalDeleteCar/ModalDeleteCar';

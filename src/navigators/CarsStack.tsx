@@ -1,5 +1,10 @@
 import React from 'react';
-import {AddAutoModalScreen, CarsScreen, SingleCarScreen} from '@screens';
+import {
+  AddAutoModalScreen,
+  CarsScreen,
+  ModalDeleteCar,
+  SingleCarScreen,
+} from '@screens';
 import {EScreens} from './types';
 import {CarsStackParamList, CarsStackProps} from './navigationTypes';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -30,6 +35,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
         <Stack.Screen
           name={EScreens.MODAL_ADD_CAR}
           component={AddAutoModalScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.MODAL_DELETE_CAR}
+          component={ModalDeleteCar}
           options={{
             headerShown: false,
           }}
