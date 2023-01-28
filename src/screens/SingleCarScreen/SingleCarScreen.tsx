@@ -19,24 +19,24 @@ type Props = NativeStackScreenProps<
 
 export const SingleCarScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
-  const {number, isNewNumber} = route.params;
+  const {car, isNewNumber} = route.params;
   const {theme} = useTheme();
 
   const handlePressHeaderButton = useCallback(() => {
-    navigation.navigate(EScreens.MODAL_DELETE_CAR, {number});
-  }, [navigation, number]);
+    navigation.navigate(EScreens.MODAL_DELETE_CAR, {number: car.number});
+  }, [navigation, car]);
 
   return (
     <ScreenContainer
-      title={t('cars.car', {number})}
+      title={t('cars.car', {number: car.number})}
       showButton
       iconName={IconNames.delete}
       onPressButton={handlePressHeaderButton}>
       <Block flex={1}>
-        <CarComponent isNewNumber={isNewNumber} number={number} />
+        <CarComponent isNewNumber={isNewNumber} car={car} />
         <Row justifyContent={'flex-end'} marginTop={8}>
           <Typography.B16 textAlign={'center'} color={theme.textColor}>
-            Пин владельца: 1234567890
+            {t('cars.inn', {inn: car.inn})}
           </Typography.B16>
         </Row>
       </Block>

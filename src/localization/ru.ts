@@ -46,6 +46,7 @@ export const ruTranslation = {
       car: 'Мое авто',
       deleteCar: 'Удалить авто {{number}}',
       delete: 'Удалить',
+      inn: 'Пин владельца: {{inn}}',
     },
     fines: {
       title: 'Штрафы',

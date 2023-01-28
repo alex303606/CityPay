@@ -7,6 +7,7 @@ import {
 import {persistReducer, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
 import {profileReducer} from './profile';
+import {carsReducer} from './cars';
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ if (__DEV__) {
 
 const rootReducer = combineReducers({
   profile: profileReducer,
+  cars: carsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

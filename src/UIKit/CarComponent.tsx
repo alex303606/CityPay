@@ -2,30 +2,21 @@ import {Block, Colors, Row, Typography} from '@UIKit';
 import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {Image, Pressable} from 'react-native';
+import {ICar} from '@store';
 
 const flag = require('@assets/images/kg.webp');
 const smallFlag = require('@assets/images/kg_small.webp');
 
 type Props = {
-  number: string;
-  onPress?: ({
-    number,
-    isNewNumber,
-  }: {
-    number: string;
-    isNewNumber: boolean;
-  }) => void;
+  car: ICar;
+  onPress?: ({car, isNewNumber}: {car: ICar; isNewNumber: boolean}) => void;
   isNewNumber: boolean;
 };
 
-export const CarComponent: React.FC<Props> = ({
-  number,
-  onPress,
-  isNewNumber,
-}) => {
+export const CarComponent: React.FC<Props> = ({car, onPress, isNewNumber}) => {
   const onPressHandler = useCallback(() => {
-    onPress && onPress({number, isNewNumber});
-  }, [isNewNumber, number, onPress]);
+    onPress && onPress({car, isNewNumber});
+  }, [isNewNumber, car, onPress]);
 
   const Button = onPress ? StyledPressable : Row;
 
@@ -49,7 +40,7 @@ export const CarComponent: React.FC<Props> = ({
         )}
         <Row justifyContent={'center'} flex={1} alignItems={'center'}>
           <Typography.B56 textAlign={'center'} color={Colors.black}>
-            {number}
+            {car.number}
           </Typography.B56>
         </Row>
       </Button>

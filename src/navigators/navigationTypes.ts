@@ -1,6 +1,7 @@
 import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
+import {ICar} from '@store';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -23,7 +24,10 @@ export type AuthorizationStackProps = NativeStackScreenProps<
 export type CarsStackParamList = {
   [EScreens.CARS_SCREEN]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
-  [EScreens.SINGLE_CAR_SCREEN]: {number: string; isNewNumber: boolean};
+  [EScreens.SINGLE_CAR_SCREEN]: {
+    car: ICar;
+    isNewNumber: boolean;
+  };
   [EScreens.MODAL_DELETE_CAR]: {number: string};
 };
 

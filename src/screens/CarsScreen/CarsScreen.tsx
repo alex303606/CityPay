@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList} from '@navigators';
@@ -16,63 +16,87 @@ import {
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {useLoading} from '@hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLoading,
+  useSnackbarNotification,
+} from '@hooks';
 import {FlatListType} from '../types';
+import {getCarList, getCarsSuccess, getUserState, ICar} from '@store';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
-
-type ICar = {
-  number: string;
-  isNewNumber: boolean;
-};
 
 const keyExtractor = (item: ICar) => item.number;
 
 const cars: ICar[] = [
-  {number: 'E 0209 E', isNewNumber: true},
-  {number: 'E 9209 E', isNewNumber: false},
-  {number: 'E 8209 E', isNewNumber: true},
-  {number: 'E 7209 E', isNewNumber: false},
-  {number: 'E 6209 E', isNewNumber: true},
-  {number: 'E 5209 E', isNewNumber: false},
-  {number: 'E 4209 E', isNewNumber: true},
-  {number: 'E 3209 E', isNewNumber: false},
-  {number: 'E 2209 E', isNewNumber: true},
-  {number: 'E 1209 E', isNewNumber: false},
+  {number: 'E 0209 E', inn: '64762378y0§640728'},
+  {number: 'E 9209 E', inn: '64762378y0§640728'},
+  {number: 'E 8209 E', inn: '64762378y0§640728'},
+  {number: 'E 7209 E', inn: '64762378y0§640728'},
+  {number: 'E 6209 E', inn: '64762378y0§640728'},
+  {number: 'E 5209 E', inn: '64762378y0§640728'},
+  {number: 'E 4209 E', inn: '64762378y0§640728'},
+  {number: 'E 3209 E', inn: '64762378y0§640728'},
+  {number: 'E 2209 E', inn: '64762378y0§640728'},
+  {number: 'E 1209 E', inn: '64762378y0§640728'},
 ];
 
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {loading, hideLoader, showLoader} = useLoading();
+  const {showNotification} = useSnackbarNotification();
+  const {phone} = useAppSelector(getUserState);
+  const dispatch = useAppDispatch();
+
+  const reloadCarList = useCallback(async () => {
+    showLoader();
+    const response = await getCarList(phone);
+    hideLoader();
+    if (!response?.data) {
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (!response.result) {
+      if (response.message) {
+        return showNotification(response.message);
+      }
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    dispatch(
+      getCarsSuccess({
+        ...response.data,
+      }),
+    );
+  }, [dispatch, hideLoader, phone, showLoader, showNotification, t]);
+
+  useEffect(() => {
+    reloadCarList();
+  }, [reloadCarList]);
 
   const addCarHandler = useCallback(() => {
     navigation.navigate(EScreens.MODAL_ADD_CAR);
   }, [navigation]);
 
   const handlePressNumber = useCallback(
-    ({number, isNewNumber}: {number: string; isNewNumber: boolean}) => {
-      navigation.navigate(EScreens.SINGLE_CAR_SCREEN, {number, isNewNumber});
+    ({car, isNewNumber}: {car: ICar; isNewNumber: boolean}) => {
+      navigation.navigate(EScreens.SINGLE_CAR_SCREEN, {car, isNewNumber});
     },
     [navigation],
   );
 
   const renderItem: ListRenderItem<ICar> = useCallback(
     ({item}) => {
+      const isNewNumber = false;
       return (
         <CarComponent
           onPress={handlePressNumber}
-          isNewNumber={item.isNewNumber}
-          number={item.number}
+          isNewNumber={isNewNumber}
+          car={item}
         />
       );
     },
     [handlePressNumber],
   );
-
-  const reload = useCallback(() => {
-    showLoader();
-    hideLoader();
-  }, [hideLoader, showLoader]);
 
   return (
     <ScreenContainer scroll={false} title={t('cars.title')}>
@@ -87,7 +111,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
         ListEmptyComponent={EmptyList}
         ItemSeparatorComponent={Separator}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={reload} />
+          <RefreshControl refreshing={loading} onRefresh={reloadCarList} />
         }
       />
       <FloatingButton>
