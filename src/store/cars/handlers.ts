@@ -1,5 +1,9 @@
 import axios from 'axios';
-import {ICar} from './reducer';
+
+type ICarResponse = {
+  INN: string;
+  NUMBER: string;
+};
 
 export const getCarList = (phone: string) => {
   return axios
@@ -10,7 +14,48 @@ export const getCarList = (phone: string) => {
     .then(
       (response: {
         data: {
-          data: ICar[];
+          data: ICarResponse[];
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          const cars = response.data.data.map((car: ICarResponse) => {
+            return {
+              number: car.NUMBER,
+              inn: car.INN,
+            };
+          });
+          return {
+            cars,
+            ...response.data,
+          };
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
+
+export const editCar = ({
+  phone,
+  inn,
+  number,
+}: {
+  phone: string;
+  inn: string;
+  number: string;
+}) => {
+  return axios
+    .post('', {
+      TYPE: 'edit_car',
+      PHONE: phone,
+      INN: inn,
+      NUMBER: number,
+    })
+    .then(
+      (response: {
+        data: {
+          data: null;
           result: boolean;
           message: string;
         };

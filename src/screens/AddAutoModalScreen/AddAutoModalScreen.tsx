@@ -1,11 +1,18 @@
 import React, {useCallback, useState} from 'react';
 import {Button, InputField, ScreenContainer, SwitchComponent} from '@UIKit';
 import {useTranslation} from 'react-i18next';
-import {useTheme} from '@hooks';
+import {useAppSelector, useSnackbarNotification, useTheme} from '@hooks';
+import {editCar, getUserState} from '@store';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {CarsStackParamList, EScreens} from '@navigators';
 
-export const AddAutoModalScreen = () => {
+type Props = NativeStackScreenProps<CarsStackParamList, EScreens.MODAL_ADD_CAR>;
+
+export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
+  const {showNotification} = useSnackbarNotification();
+  const {phone} = useAppSelector(getUserState);
 
   const [pushValue, changePushValue] = useState<boolean>(false);
 
@@ -24,9 +31,20 @@ export const AddAutoModalScreen = () => {
     setNumber(value);
   }, []);
 
-  const addAutoHandler = useCallback(() => {
-    return;
-  }, []);
+  const addAutoHandler = useCallback(async () => {
+    const response = await editCar({
+      phone,
+      number,
+      inn: pin,
+    });
+    if (!response?.result) {
+      if (response?.message) {
+        return showNotification(response.message);
+      }
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    navigation.goBack();
+  }, [navigation, number, phone, pin, showNotification, t]);
 
   return (
     <ScreenContainer title={t('cars.addAuto')}>

@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect} from 'react';
+import React, {FC, useCallback} from 'react';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList} from '@navigators';
@@ -16,43 +16,24 @@ import {
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useLoading,
-  useSnackbarNotification,
-} from '@hooks';
+import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
 import {FlatListType} from '../types';
-import {getCarList, getCarsSuccess, getUserState, ICar} from '@store';
+import {getCarList, getCars, getCarsSuccess, getUserState, ICar} from '@store';
+import {useFocusEffect} from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
 const keyExtractor = (item: ICar) => item.number;
 
-const cars: ICar[] = [
-  {number: 'E 0209 E', inn: '64762378y0§640728'},
-  {number: 'E 9209 E', inn: '64762378y0§640728'},
-  {number: 'E 8209 E', inn: '64762378y0§640728'},
-  {number: 'E 7209 E', inn: '64762378y0§640728'},
-  {number: 'E 6209 E', inn: '64762378y0§640728'},
-  {number: 'E 5209 E', inn: '64762378y0§640728'},
-  {number: 'E 4209 E', inn: '64762378y0§640728'},
-  {number: 'E 3209 E', inn: '64762378y0§640728'},
-  {number: 'E 2209 E', inn: '64762378y0§640728'},
-  {number: 'E 1209 E', inn: '64762378y0§640728'},
-];
-
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const {loading, hideLoader, showLoader} = useLoading();
   const {showNotification} = useSnackbarNotification();
   const {phone} = useAppSelector(getUserState);
+  const cars = useAppSelector(getCars);
   const dispatch = useAppDispatch();
 
   const reloadCarList = useCallback(async () => {
-    showLoader();
     const response = await getCarList(phone);
-    hideLoader();
     if (!response?.data) {
       return showNotification(t('errors.somethingWentWrong'));
     }
@@ -64,14 +45,14 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
     }
     dispatch(
       getCarsSuccess({
-        ...response.data,
+        cars: response.cars,
       }),
     );
-  }, [dispatch, hideLoader, phone, showLoader, showNotification, t]);
+  }, [dispatch, phone, showNotification, t]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     reloadCarList();
-  }, [reloadCarList]);
+  });
 
   const addCarHandler = useCallback(() => {
     navigation.navigate(EScreens.MODAL_ADD_CAR);
@@ -111,7 +92,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
         ListEmptyComponent={EmptyList}
         ItemSeparatorComponent={Separator}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={reloadCarList} />
+          <RefreshControl refreshing={false} onRefresh={reloadCarList} />
         }
       />
       <FloatingButton>
