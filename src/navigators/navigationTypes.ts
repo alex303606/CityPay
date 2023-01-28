@@ -28,7 +28,7 @@ export type CarsStackParamList = {
     car: ICar;
     isNewNumber: boolean;
   };
-  [EScreens.MODAL_DELETE_CAR]: {number: string};
+  [EScreens.MODAL_DELETE_CAR]: {car: ICar};
 };
 
 export type CarsStackProps = NativeStackScreenProps<

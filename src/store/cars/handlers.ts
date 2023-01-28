@@ -40,10 +40,12 @@ export const editCar = ({
   phone,
   inn,
   number,
+  active,
 }: {
   phone: string;
   inn: string;
   number: string;
+  active: boolean;
 }) => {
   return axios
     .post('', {
@@ -51,6 +53,7 @@ export const editCar = ({
       PHONE: phone,
       INN: inn,
       NUMBER: number,
+      ACTIVE: active,
     })
     .then(
       (response: {

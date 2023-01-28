@@ -1,4 +1,4 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList} from '@navigators';
@@ -16,10 +16,9 @@ import {
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
+import {useAppSelector, useReloadCarList} from '@hooks';
 import {FlatListType} from '../types';
-import {getCarList, getCars, getCarsSuccess, getUserState, ICar} from '@store';
-import {useFocusEffect} from '@react-navigation/native';
+import {getCars, ICar} from '@store';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
@@ -27,32 +26,13 @@ const keyExtractor = (item: ICar) => item.number;
 
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const {showNotification} = useSnackbarNotification();
-  const {phone} = useAppSelector(getUserState);
   const cars = useAppSelector(getCars);
-  const dispatch = useAppDispatch();
 
-  const reloadCarList = useCallback(async () => {
-    const response = await getCarList(phone);
-    if (!response?.data) {
-      return showNotification(t('errors.somethingWentWrong'));
-    }
-    if (!response.result) {
-      if (response.message) {
-        return showNotification(response.message);
-      }
-      return showNotification(t('errors.somethingWentWrong'));
-    }
-    dispatch(
-      getCarsSuccess({
-        cars: response.cars,
-      }),
-    );
-  }, [dispatch, phone, showNotification, t]);
+  const {reloadCarList} = useReloadCarList();
 
-  useFocusEffect(() => {
+  useEffect(() => {
     reloadCarList();
-  });
+  }, [reloadCarList]);
 
   const addCarHandler = useCallback(() => {
     navigation.navigate(EScreens.MODAL_ADD_CAR);

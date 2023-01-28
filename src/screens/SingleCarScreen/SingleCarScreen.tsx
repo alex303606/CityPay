@@ -23,7 +23,7 @@ export const SingleCarScreen: React.FC<Props> = ({route, navigation}) => {
   const {theme} = useTheme();
 
   const handlePressHeaderButton = useCallback(() => {
-    navigation.navigate(EScreens.MODAL_DELETE_CAR, {number: car.number});
+    navigation.navigate(EScreens.MODAL_DELETE_CAR, {car});
   }, [navigation, car]);
 
   return (

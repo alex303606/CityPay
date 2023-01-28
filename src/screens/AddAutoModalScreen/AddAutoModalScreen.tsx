@@ -1,7 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import {Button, InputField, ScreenContainer, SwitchComponent} from '@UIKit';
 import {useTranslation} from 'react-i18next';
-import {useAppSelector, useSnackbarNotification, useTheme} from '@hooks';
+import {
+  useAppSelector,
+  useReloadCarList,
+  useSnackbarNotification,
+  useTheme,
+} from '@hooks';
 import {editCar, getUserState} from '@store';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
@@ -13,6 +18,7 @@ export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
   const {theme} = useTheme();
   const {showNotification} = useSnackbarNotification();
   const {phone} = useAppSelector(getUserState);
+  const {reloadCarList} = useReloadCarList();
 
   const [pushValue, changePushValue] = useState<boolean>(false);
 
@@ -36,6 +42,7 @@ export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
       phone,
       number,
       inn: pin,
+      active: true,
     });
     if (!response?.result) {
       if (response?.message) {
@@ -43,8 +50,9 @@ export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
+    await reloadCarList();
     navigation.goBack();
-  }, [navigation, number, phone, pin, showNotification, t]);
+  }, [navigation, number, phone, pin, reloadCarList, showNotification, t]);
 
   return (
     <ScreenContainer title={t('cars.addAuto')}>
