@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
 import {Colors, Row, Typography} from '@UIKit';
@@ -7,7 +7,7 @@ import {useTheme} from '@hooks';
 
 type Props = {
   fine: IFine;
-  onPress: () => void;
+  onPress: (fine: IFine) => void;
 };
 
 export const FineComponent: React.FC<Props> = ({fine, onPress}) => {
@@ -20,18 +20,28 @@ export const FineComponent: React.FC<Props> = ({fine, onPress}) => {
     year: 'numeric',
   });
 
+  const handlePress = useCallback(() => {
+    onPress(fine);
+  }, [fine, onPress]);
+
   return (
     <StyledRow backgroundColor={theme.fineBackgroundColor}>
-      <StyledPressable onPress={onPress}>
+      <StyledPressable onPress={handlePress}>
         <Row justifyContent={'space-between'}>
-          <Typography.B18>{fine.plateNumber}</Typography.B18>
+          <Typography.B18 color={theme.textColor}>
+            {fine.plateNumber}
+          </Typography.B18>
           <Row alignItems={'center'}>
-            <Typography.B18>{fine.violationAmmount}</Typography.B18>
-            <Typography.R14>⊆</Typography.R14>
+            <Typography.B18 color={theme.textColor}>
+              {fine.violationAmmount}
+            </Typography.B18>
+            <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
           </Row>
         </Row>
-        <Typography.R14>{date}</Typography.R14>
-        <Typography.R14 numberOfLines={2}>{fine.violationType}</Typography.R14>
+        <Typography.R14 color={theme.textColor}>{date}</Typography.R14>
+        <Typography.R14 color={theme.textColor} numberOfLines={2}>
+          {fine.violationType}
+        </Typography.R14>
       </StyledPressable>
     </StyledRow>
   );

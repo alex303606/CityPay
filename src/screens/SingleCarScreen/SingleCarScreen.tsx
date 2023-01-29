@@ -48,9 +48,12 @@ export const SingleCarScreen: React.FC<Props> = ({route, navigation}) => {
     navigation.navigate(EScreens.MODAL_DELETE_CAR, {car});
   }, [navigation, car]);
 
-  const handlePressFine = useCallback(() => {
-    navigation.navigate(EScreens.SINGLE_FINE_SCREEN);
-  }, [navigation]);
+  const handlePressFine = useCallback(
+    (fine: IFine) => {
+      navigation.navigate(EScreens.SINGLE_FINE_SCREEN, {fine});
+    },
+    [navigation],
+  );
 
   const renderItem: ListRenderItem<IFine> = useCallback(
     ({item}) => {

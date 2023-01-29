@@ -1,12 +1,17 @@
 import React from 'react';
 import {EScreens} from './types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {FinesStackParamList, FinesStackProps} from './navigationTypes';
-import {FinesScreen, SingleFineScreen} from '@screens';
+import {FinesScreen, ModalImageViewer, SingleFineScreen} from '@screens';
+import {useModalScreenOptions} from './screenOptions';
+import {createStackNavigator} from '@react-navigation/stack';
+import {useTheme} from '@hooks';
 
-const Stack = createNativeStackNavigator<FinesStackParamList>();
+const Stack = createStackNavigator<FinesStackParamList>();
 
 export const FinesStack: React.FC<FinesStackProps> = () => {
+  const modalStackScreenOptions = useModalScreenOptions();
+  const {theme} = useTheme();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -23,6 +28,19 @@ export const FinesStack: React.FC<FinesStackProps> = () => {
           headerShown: false,
         }}
       />
+      <Stack.Group screenOptions={modalStackScreenOptions}>
+        <Stack.Screen
+          name={EScreens.MODAL_IMAGE_VIEWER}
+          component={ModalImageViewer}
+          options={{
+            headerShown: true,
+            title: '',
+            headerStyle: {
+              backgroundColor: theme.backgroundColor,
+            },
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

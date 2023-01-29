@@ -24,9 +24,12 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
 
   const fines = useAppSelector(getFines);
 
-  const handlePressFine = useCallback(() => {
-    navigation.navigate(EScreens.SINGLE_FINE_SCREEN);
-  }, [navigation]);
+  const handlePressFine = useCallback(
+    (fine: IFine) => {
+      navigation.navigate(EScreens.SINGLE_FINE_SCREEN, {fine});
+    },
+    [navigation],
+  );
 
   const renderItem: ListRenderItem<IFine> = useCallback(
     ({item}) => <FineComponent fine={item} onPress={handlePressFine} />,

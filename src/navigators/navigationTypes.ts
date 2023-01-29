@@ -1,7 +1,7 @@
 import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ICar} from '@store';
+import {ICar, IFine} from '@store';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -25,12 +25,13 @@ export type CarsStackParamList = {
   [EScreens.CARS_SCREEN]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
-  [EScreens.SINGLE_FINE_SCREEN]: undefined;
+  [EScreens.SINGLE_FINE_SCREEN]: {fine: IFine};
   [EScreens.SINGLE_CAR_SCREEN]: {
     car: ICar;
     isNewNumber: boolean;
   };
   [EScreens.MODAL_DELETE_CAR]: {car: ICar};
+  [EScreens.MODAL_IMAGE_VIEWER]: {url: string};
 };
 
 export type CarsStackProps = NativeStackScreenProps<
@@ -40,7 +41,8 @@ export type CarsStackProps = NativeStackScreenProps<
 
 export type FinesStackParamList = {
   [EScreens.FINES_SCREEN]: undefined;
-  [EScreens.SINGLE_FINE_SCREEN]: undefined;
+  [EScreens.MODAL_IMAGE_VIEWER]: {url: string};
+  [EScreens.SINGLE_FINE_SCREEN]: {fine: IFine};
 };
 
 export type PaymentsStackParamList = {

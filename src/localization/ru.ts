@@ -54,6 +54,11 @@ export const ruTranslation = {
       title: 'Штрафы',
       empty: 'Поздравляем! \nМы не нашли штрафов',
       singleFineTitle: 'Штраф',
+      violationAmmount: 'Сумма штрафа',
+      violationPlace: 'Место нарушения',
+      paymentStatusName: 'Погашение штрафа',
+      paymentNumber: 'Код оплаты',
+      pay: 'Оплатить',
     },
     payments: {
       title: 'Платежи',

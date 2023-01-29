@@ -3,6 +3,7 @@ import {
   AddAutoModalScreen,
   CarsScreen,
   ModalDeleteCar,
+  ModalImageViewer,
   SingleCarScreen,
   SingleFineScreen,
 } from '@screens';
@@ -10,11 +11,13 @@ import {EScreens} from './types';
 import {CarsStackParamList, CarsStackProps} from './navigationTypes';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useModalScreenOptions} from './screenOptions';
+import {useTheme} from '@hooks';
 
 const Stack = createStackNavigator<CarsStackParamList>();
 
 export const CarsStack: React.FC<CarsStackProps> = () => {
   const modalStackScreenOptions = useModalScreenOptions();
+  const {theme} = useTheme();
 
   return (
     <Stack.Navigator>
@@ -52,6 +55,17 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
           component={SingleFineScreen}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.MODAL_IMAGE_VIEWER}
+          component={ModalImageViewer}
+          options={{
+            headerShown: true,
+            title: '',
+            headerStyle: {
+              backgroundColor: theme.backgroundColor,
+            },
           }}
         />
       </Stack.Group>
