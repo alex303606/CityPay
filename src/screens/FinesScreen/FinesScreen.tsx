@@ -64,8 +64,6 @@ const List: FlatListType = styled(FlatList).attrs(() => ({
   contentContainerStyle: {
     flexGrow: 1,
   },
-}))({
-  marginTop: 16,
-});
+}))({});
 
 const Separator = styled(View)({height: 16});
