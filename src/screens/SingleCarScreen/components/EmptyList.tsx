@@ -14,6 +14,9 @@ export const EmptyList = () => {
     <Block justifyContent={'center'} flex={1} alignItems={'center'}>
       <StyledImage resizeMode={'contain'} source={emptyPayments} />
       <Typography.B18 textAlign={'center'} color={theme.textColor}>
+        {t('fines.happy')}
+      </Typography.B18>
+      <Typography.B18 textAlign={'center'} color={theme.textColor}>
         {t('fines.empty')}
       </Typography.B18>
     </Block>
