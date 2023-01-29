@@ -53,6 +53,7 @@ export const kgTranslation = {
     fines: {
       title: 'Штрафы',
       empty: 'Поздравляем! \nМы не нашли штрафов',
+      singleFineTitle: 'Штраф',
     },
     payments: {
       title: 'Платежи',

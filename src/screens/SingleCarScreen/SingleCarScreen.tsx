@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {
   Block,
   CarComponent,
+  FineComponent,
   IconNames,
   Row,
   ScreenContainer,
@@ -16,7 +17,6 @@ import {IFine} from '@store';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {FineComponent} from '../FinesScreen/components/FineComponent';
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,

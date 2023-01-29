@@ -5,3 +5,4 @@ export {useTheme} from './useTheme';
 export {useLoading} from './useLoading';
 export {useReloadCarList} from './useReloadCarList';
 export {useGetFinesByCarNumber} from './useGetFinesByCarNumber';
+export {useGetFinesByAllCarsNumberAndPin} from './useGetFinesByAllCarsNumberAndPin';

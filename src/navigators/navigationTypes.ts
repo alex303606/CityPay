@@ -40,6 +40,7 @@ export type CarsStackProps = NativeStackScreenProps<
 
 export type FinesStackParamList = {
   [EScreens.FINES_SCREEN]: undefined;
+  [EScreens.SINGLE_FINE_SCREEN]: undefined;
 };
 
 export type PaymentsStackParamList = {

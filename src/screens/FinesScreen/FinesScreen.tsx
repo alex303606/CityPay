@@ -1,53 +1,41 @@
-import React, {useCallback} from 'react';
-import {Colors, ScreenContainer, Typography} from '@UIKit';
+import React, {useCallback, useEffect} from 'react';
+import {FineComponent, ScreenContainer} from '@UIKit';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {EmptyList} from './components/EmptyList';
-import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
+import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
-import {useLoading} from '@hooks';
+import {useAppSelector, useGetFinesByAllCarsNumberAndPin} from '@hooks';
+import {getCars, getFines, IFine} from '@store';
 
 type Props = NativeStackScreenProps<FinesStackParamList, EScreens.FINES_SCREEN>;
 
-type IFine = {
-  number: string;
-};
+const keyExtractor = (item: IFine) => item.protocolNumber;
 
-const keyExtractor = (item: IFine) => item.number;
-
-const fines: IFine[] = [
-  // {number: '1'},
-  // {number: '2'},
-  // {number: '3'},
-  // {number: '4'},
-  // {number: '5'},
-  // {number: '6'},
-  // {number: '7'},
-  // {number: '8'},
-  // {number: '9'},
-  // {number: '10'},
-];
-
-export const FinesScreen: React.FC<Props> = () => {
+export const FinesScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const {loading, hideLoader, showLoader} = useLoading();
+  const cars = useAppSelector(getCars);
+
+  const {getFinesByAllCarsNumberAndPin, loading} =
+    useGetFinesByAllCarsNumberAndPin(cars);
+
+  const fines = useAppSelector(getFines);
+
+  const handlePressFine = useCallback(() => {
+    navigation.navigate(EScreens.SINGLE_FINE_SCREEN);
+  }, [navigation]);
 
   const renderItem: ListRenderItem<IFine> = useCallback(
-    ({item}) => (
-      <Typography.R20 marginVertical={32} color={Colors.black}>
-        {item.number}
-      </Typography.R20>
-    ),
-    [],
+    ({item}) => <FineComponent fine={item} onPress={handlePressFine} />,
+    [handlePressFine],
   );
 
-  const reload = useCallback(() => {
-    showLoader();
-    hideLoader();
-  }, [hideLoader, showLoader]);
+  useEffect(() => {
+    getFinesByAllCarsNumberAndPin();
+  }, [getFinesByAllCarsNumberAndPin]);
 
   return (
     <ScreenContainer scroll={false} title={t('fines.title')}>
@@ -57,8 +45,12 @@ export const FinesScreen: React.FC<Props> = () => {
         data={fines}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
+        ItemSeparatorComponent={Separator}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={reload} />
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={getFinesByAllCarsNumberAndPin}
+          />
         }
       />
     </ScreenContainer>
@@ -69,4 +61,8 @@ const List: FlatListType = styled(FlatList).attrs(() => ({
   contentContainerStyle: {
     flexGrow: 1,
   },
-}))({});
+}))({
+  marginTop: 16,
+});
+
+const Separator = styled(View)({height: 16});

@@ -15,7 +15,7 @@ const initialState: ICarsState = {
 };
 
 const carsSlice = createSlice({
-  name: 'profile',
+  name: 'cars',
   initialState: initialState,
   reducers: {
     getCarsSuccess(state, action: PayloadAction<{cars: ICar[]}>) {

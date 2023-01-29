@@ -2,7 +2,7 @@ import React from 'react';
 import {EScreens} from './types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {FinesStackParamList, FinesStackProps} from './navigationTypes';
-import {FinesScreen} from '@screens';
+import {FinesScreen, SingleFineScreen} from '@screens';
 
 const Stack = createNativeStackNavigator<FinesStackParamList>();
 
@@ -12,6 +12,13 @@ export const FinesStack: React.FC<FinesStackProps> = () => {
       <Stack.Screen
         name={EScreens.FINES_SCREEN}
         component={FinesScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.SINGLE_FINE_SCREEN}
+        component={SingleFineScreen}
         options={{
           headerShown: false,
         }}

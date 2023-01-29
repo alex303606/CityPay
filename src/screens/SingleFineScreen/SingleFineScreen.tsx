@@ -13,10 +13,8 @@ export const SingleFineScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
 
   return (
-    <ScreenContainer title={t('payments.title')}>
-      <Typography.R20 marginVertical={32} color={Colors.black}>
-        hello
-      </Typography.R20>
+    <ScreenContainer title={t('fines.singleFineTitle')}>
+      <Typography.R20 color={Colors.black}>hello fine</Typography.R20>
     </ScreenContainer>
   );
 };
