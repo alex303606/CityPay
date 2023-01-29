@@ -2,11 +2,11 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../configureStore';
 import {IFine} from '@store';
 
-export interface ICarsState {
+export interface IFinesState {
   fines: IFine[];
 }
 
-const initialState: ICarsState = {
+const initialState: IFinesState = {
   fines: [],
 };
 
