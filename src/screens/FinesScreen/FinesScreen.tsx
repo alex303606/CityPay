@@ -1,15 +1,35 @@
-import React, {useCallback, useEffect} from 'react';
-import {FineComponent, ScreenContainer} from '@UIKit';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  Colors,
+  FineComponent,
+  IconNames,
+  Row,
+  ScreenContainer,
+  Typography,
+} from '@UIKit';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {EmptyList} from './components/EmptyList';
-import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
+import {
+  FlatList,
+  ListRenderItem,
+  Pressable,
+  RefreshControl,
+  View,
+} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
-import {useAppSelector, useGetFinesByAllCarsNumberAndPin} from '@hooks';
+import {
+  useAppSelector,
+  useGetFinesByAllCarsNumberAndPin,
+  useTheme,
+} from '@hooks';
 import {getCars, getFines, IFine} from '@store';
+
+const UNPAID_STATUS = '0';
+const PAID_STATUS = '1';
 
 type Props = NativeStackScreenProps<FinesStackParamList, EScreens.FINES_SCREEN>;
 
@@ -18,11 +38,17 @@ const keyExtractor = (item: IFine) => item.protocolNumber;
 export const FinesScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const cars = useAppSelector(getCars);
+  const {theme} = useTheme();
 
   const {getFinesByAllCarsNumberAndPin, loading} =
     useGetFinesByAllCarsNumberAndPin(cars);
 
   const fines = useAppSelector(getFines);
+  const [paymentStatus, setPaymentStatus] = useState<string>(UNPAID_STATUS);
+
+  const handleChangePaymentStatus = useCallback((status: string) => {
+    setPaymentStatus(status);
+  }, []);
 
   const handlePressFine = useCallback(
     (fine: IFine) => {
@@ -36,18 +62,63 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
     [handlePressFine],
   );
 
+  const handlePressQR = useCallback(() => {
+    return;
+  }, []);
+
   useEffect(() => {
     getFinesByAllCarsNumberAndPin();
   }, [getFinesByAllCarsNumberAndPin]);
 
   return (
-    <ScreenContainer scroll={false} title={t('fines.title')}>
+    <ScreenContainer
+      onPressButton={handlePressQR}
+      showButton
+      iconName={IconNames.qr}
+      scroll={false}
+      title={t('fines.title')}>
+      {!!fines.length && (
+        <Row marginBottom={16}>
+          <StyledRow marginRight={8}>
+            <StyledPressable
+              onPress={() => handleChangePaymentStatus(PAID_STATUS)}
+              color={
+                paymentStatus === PAID_STATUS
+                  ? theme.buttonColor
+                  : theme.filterColor
+              }>
+              <Typography.S16
+                color={
+                  paymentStatus === PAID_STATUS ? Colors.white : Colors.black
+                }>
+                {t('fines.paid')}
+              </Typography.S16>
+            </StyledPressable>
+          </StyledRow>
+          <StyledRow marginLeft={8}>
+            <StyledPressable
+              onPress={() => handleChangePaymentStatus(UNPAID_STATUS)}
+              color={
+                paymentStatus === UNPAID_STATUS
+                  ? theme.buttonColor
+                  : theme.filterColor
+              }>
+              <Typography.S16
+                color={
+                  paymentStatus === PAID_STATUS ? Colors.black : Colors.white
+                }>
+                {t('fines.unpaid')}
+              </Typography.S16>
+            </StyledPressable>
+          </StyledRow>
+        </Row>
+      )}
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        data={fines}
+        data={fines.filter(fine => fine.paymentStatus === paymentStatus)}
         renderItem={renderItem}
-        ListEmptyComponent={EmptyList}
+        ListEmptyComponent={<EmptyList showHappy={!fines.length} />}
         ItemSeparatorComponent={Separator}
         refreshControl={
           <RefreshControl
@@ -67,3 +138,24 @@ const List: FlatListType = styled(FlatList).attrs(() => ({
 }))({});
 
 const Separator = styled(View)({height: 16});
+
+const StyledRow = styled(Row)({
+  height: 56,
+  flex: 1,
+  borderRadius: 10,
+  overflow: 'hidden',
+});
+
+const StyledPressable = styled(Pressable).attrs(() => ({
+  android_ripple: {
+    borderless: false,
+    color: Colors.ripple,
+  },
+}))<{color: string}>(({color}) => ({
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flex: 1,
+  height: 56,
+  backgroundColor: color,
+}));

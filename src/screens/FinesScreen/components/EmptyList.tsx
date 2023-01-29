@@ -7,12 +7,21 @@ import {Image} from 'react-native';
 
 const emptyPayments = require('@assets/images/empty_payments.webp');
 
-export const EmptyList = () => {
+type Props = {
+  showHappy: boolean;
+};
+
+export const EmptyList: React.FC<Props> = ({showHappy}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
   return (
     <Block justifyContent={'center'} flex={1} alignItems={'center'}>
       <StyledImage resizeMode={'contain'} source={emptyPayments} />
+      {showHappy && (
+        <Typography.B18 textAlign={'center'} color={theme.textColor}>
+          {t('fines.happy')}
+        </Typography.B18>
+      )}
       <Typography.B18 textAlign={'center'} color={theme.textColor}>
         {t('fines.empty')}
       </Typography.B18>

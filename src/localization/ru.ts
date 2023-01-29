@@ -52,13 +52,16 @@ export const ruTranslation = {
     },
     fines: {
       title: 'Штрафы',
-      empty: 'Поздравляем! \nМы не нашли штрафов',
+      happy: 'Поздравляем!',
+      empty: 'Мы не нашли штрафов',
       singleFineTitle: 'Штраф',
       violationAmmount: 'Сумма штрафа',
       violationPlace: 'Место нарушения',
       paymentStatusName: 'Погашение штрафа',
       paymentNumber: 'Код оплаты',
       pay: 'Оплатить',
+      unpaid: 'Неоплаченые',
+      paid: 'Оплаченые',
     },
     payments: {
       title: 'Платежи',

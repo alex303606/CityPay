@@ -6,6 +6,7 @@ export type ITheme = {
   buttonColor: string;
   textColor: string;
   fineBackgroundColor: string;
+  filterColor: string;
 };
 
 export enum Themes {

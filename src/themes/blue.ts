@@ -9,4 +9,5 @@ export const blueTheme: ITheme = {
   buttonColor: Colors.red,
   textColor: Colors.white,
   fineBackgroundColor: 'rgba(255, 255, 255, 0.3)',
+  filterColor: 'rgba(255, 255, 255, 0.3)',
 };
