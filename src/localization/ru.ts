@@ -38,10 +38,12 @@ export const ruTranslation = {
       pin: {
         label: 'ПИН (14-значный)',
         placeholder: 'ПИН ИНН',
+        error: 'ПИН должен быть 14-значный',
       },
       number: {
         label: 'Номер автомобиля',
         placeholder: 'X0000XX, 00KG000XXX ',
+        error: 'Номер не корректный',
       },
       car: 'Мое авто',
       deleteCar: 'Удалить авто {{number}}',

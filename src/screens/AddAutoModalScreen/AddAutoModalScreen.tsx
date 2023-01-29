@@ -38,6 +38,12 @@ export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
   }, []);
 
   const addAutoHandler = useCallback(async () => {
+    if (pin.length !== 14) {
+      return showNotification(t('cars.pin.error'));
+    }
+    if (number.length < 6) {
+      return showNotification(t('cars.number.error'));
+    }
     const response = await editCar({
       phone,
       number,

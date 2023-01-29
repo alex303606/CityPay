@@ -20,18 +20,22 @@ export const CarComponent: React.FC<Props> = ({car, onPress, isNewNumber}) => {
 
   const Button = onPress ? StyledPressable : Row;
 
+  const series = car.number.substring(0, 2);
+  const kg = car.number.substring(2, 4);
+  const number = car.number.substring(4, car.number.length);
+
   return (
     <StyledRow backgroundColor={Colors.white}>
       <Button flex={1} onPress={onPressHandler}>
         {isNewNumber ? (
           <StyledBlock padding={8} justifyContent={'space-between'}>
             <StyledKg34 textAlign={'center'} color={Colors.black}>
-              07
+              {series}
             </StyledKg34>
             <BottomRow justifyContent={'space-between'} alignItems={'center'}>
               <StyledSmallImage source={smallFlag} resizeMode={'cover'} />
               <StyledKg20 textAlign={'center'} color={Colors.black}>
-                KG
+                {kg}
               </StyledKg20>
             </BottomRow>
           </StyledBlock>
@@ -39,9 +43,9 @@ export const CarComponent: React.FC<Props> = ({car, onPress, isNewNumber}) => {
           <StyledImage source={flag} resizeMode={'cover'} />
         )}
         <Row justifyContent={'center'} flex={1} alignItems={'center'}>
-          <Typography.B56 textAlign={'center'} color={Colors.black}>
-            {car.number}
-          </Typography.B56>
+          <StyledNumber textAlign={'center'} color={Colors.black}>
+            {isNewNumber ? number : car.number}
+          </StyledNumber>
         </Row>
       </Button>
     </StyledRow>
@@ -92,8 +96,13 @@ const StyledSmallImage = styled(Image)({
 
 const StyledKg20 = styled(Typography.B18)({
   lineHeight: 21,
+  textTransform: 'uppercase',
 });
 
 const StyledKg34 = styled(Typography.B28)({
   lineHeight: 30,
+});
+
+const StyledNumber = styled(Typography.B56)({
+  textTransform: 'uppercase',
 });

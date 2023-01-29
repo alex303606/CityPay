@@ -47,7 +47,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
 
   const renderItem: ListRenderItem<ICar> = useCallback(
     ({item}) => {
-      const isNewNumber = false;
+      const isNewNumber = !!parseInt(item.number.substring(0, 2), 10);
       return (
         <CarComponent
           onPress={handlePressNumber}
