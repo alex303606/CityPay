@@ -36,13 +36,13 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
 
   const reload = useCallback(async () => {
     const response = await getUser(phone);
-    if (!response?.data) {
-      return showNotification(t('errors.somethingWentWrong'));
-    }
-    if (!response.result) {
-      if (response.message) {
+    if (!response?.result) {
+      if (response?.message) {
         return showNotification(response.message);
       }
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (!response?.data) {
       return showNotification(t('errors.somethingWentWrong'));
     }
     if (response.data.black_list) {

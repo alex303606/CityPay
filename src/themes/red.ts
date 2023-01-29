@@ -8,4 +8,5 @@ export const redTheme: ITheme = {
   tabInactiveColor: Colors.white,
   buttonColor: Colors.blue,
   textColor: Colors.white,
+  fineBackgroundColor: 'rgba(255, 255, 255, 0.3)',
 };

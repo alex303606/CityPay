@@ -24,6 +24,8 @@ export type AuthorizationStackProps = NativeStackScreenProps<
 export type CarsStackParamList = {
   [EScreens.CARS_SCREEN]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
+  [EScreens.MODAL_ADD_CAR]: undefined;
+  [EScreens.SINGLE_FINE_SCREEN]: undefined;
   [EScreens.SINGLE_CAR_SCREEN]: {
     car: ICar;
     isNewNumber: boolean;

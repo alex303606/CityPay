@@ -8,4 +8,5 @@ export const defaultTheme: ITheme = {
   tabInactiveColor: Colors.grey,
   buttonColor: Colors.blue,
   textColor: Colors.black,
+  fineBackgroundColor: 'rgba(18, 18, 29, 0.1)',
 };

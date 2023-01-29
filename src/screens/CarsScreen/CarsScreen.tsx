@@ -28,7 +28,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const cars = useAppSelector(getCars);
 
-  const {reloadCarList} = useReloadCarList();
+  const {reloadCarList, loading} = useReloadCarList();
 
   useEffect(() => {
     reloadCarList();
@@ -72,7 +72,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
         ListEmptyComponent={EmptyList}
         ItemSeparatorComponent={Separator}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={reloadCarList} />
+          <RefreshControl refreshing={loading} onRefresh={reloadCarList} />
         }
       />
       <FloatingButton>

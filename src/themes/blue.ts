@@ -8,4 +8,5 @@ export const blueTheme: ITheme = {
   tabInactiveColor: Colors.white,
   buttonColor: Colors.red,
   textColor: Colors.white,
+  fineBackgroundColor: 'rgba(255, 255, 255, 0.3)',
 };

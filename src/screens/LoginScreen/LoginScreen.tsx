@@ -27,12 +27,6 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const sendPhoneHandler = useCallback(async () => {
     const response = await sendPhone(phone);
-    if (!response?.data) {
-      return showNotification(t('errors.somethingWentWrong'));
-    }
-    if (response.data.black_list) {
-      return showNotification(t('errors.blackList'));
-    }
     if (!response.result) {
       if (response.message) {
         showNotification(response.message);
@@ -40,6 +34,12 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
         showNotification(t('errors.somethingWentWrong'));
       }
       return;
+    }
+    if (!response?.data) {
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (response.data.black_list) {
+      return showNotification(t('errors.blackList'));
     }
 
     navigation.navigate(EScreens.SMS_CONFIRM_SCREEN, {

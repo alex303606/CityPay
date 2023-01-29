@@ -22,4 +22,5 @@ export enum EScreens {
   PROFILE_SETTINGS_SCREEN = 'ProfileSettingsScreen',
   MODAL_PHOTO_SCREEN = 'ModalPhotoScreen',
   MODAL_ADD_CAR = 'AddAutoModalScreen',
+  SINGLE_FINE_SCREEN = 'SingleFineScreen',
 }

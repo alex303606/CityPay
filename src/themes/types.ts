@@ -5,6 +5,7 @@ export type ITheme = {
   tabInactiveColor: string;
   buttonColor: string;
   textColor: string;
+  fineBackgroundColor: string;
 };
 
 export enum Themes {

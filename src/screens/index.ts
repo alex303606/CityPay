@@ -13,3 +13,4 @@ export {ModalPhotoScreen} from './ModalPhotoScreen/ModalPhotoScreen';
 export {AddAutoModalScreen} from './AddAutoModalScreen';
 export {SingleCarScreen} from './SingleCarScreen/SingleCarScreen';
 export {ModalDeleteCar} from './ModalDeleteCar/ModalDeleteCar';
+export {SingleFineScreen} from './SingleFineScreen/SingleFineScreen';

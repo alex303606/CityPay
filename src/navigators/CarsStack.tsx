@@ -4,6 +4,7 @@ import {
   CarsScreen,
   ModalDeleteCar,
   SingleCarScreen,
+  SingleFineScreen,
 } from '@screens';
 import {EScreens} from './types';
 import {CarsStackParamList, CarsStackProps} from './navigationTypes';
@@ -42,6 +43,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
         <Stack.Screen
           name={EScreens.MODAL_DELETE_CAR}
           component={ModalDeleteCar}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.SINGLE_FINE_SCREEN}
+          component={SingleFineScreen}
           options={{
             headerShown: false,
           }}

@@ -34,17 +34,17 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
 
   const resendCode = useCallback(async () => {
     const response = await sendPhone(phone);
+    if (!response?.result) {
+      if (response?.message) {
+        showNotification(response.message);
+      }
+      return codeRef.current?.clear();
+    }
     if (!response?.data) {
       return showNotification(t('errors.somethingWentWrong'));
     }
     if (response.data.black_list) {
       return showNotification(t('errors.blackList'));
-    }
-    if (!response.result) {
-      if (response.message) {
-        showNotification(response.message);
-      }
-      return codeRef.current?.clear();
     }
     setStartTime(Date.now());
     codeRef.current?.clear();
