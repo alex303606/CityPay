@@ -6,3 +6,4 @@ export {useLoading} from './useLoading';
 export {useReloadCarList} from './useReloadCarList';
 export {useGetFinesByCarNumber} from './useGetFinesByCarNumber';
 export {useGetFinesByAllCarsNumberAndPin} from './useGetFinesByAllCarsNumberAndPin';
+export {useGetPaymentsList} from './useGetPaymentsList';

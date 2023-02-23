@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import {profileReducer} from './profile';
 import {carsReducer} from './cars';
 import {finesReducer} from './fines';
+import {paymentsReducer} from './payments';
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   cars: carsReducer,
   fines: finesReducer,
+  payments: paymentsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

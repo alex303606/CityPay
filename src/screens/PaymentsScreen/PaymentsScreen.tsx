@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Colors, ScreenContainer, Typography} from '@UIKit';
 import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -7,7 +7,7 @@ import {EmptyList} from './components/EmptyList';
 import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
-import {useLoading} from '@hooks';
+import {useGetPaymentsList, useLoading} from '@hooks';
 
 type Props = NativeStackScreenProps<
   PaymentsStackParamList,
@@ -20,16 +20,16 @@ type IPayment = {
 };
 
 const payments: IPayment[] = [
-  // {number: '1'},
-  // {number: '2'},
-  // {number: '3'},
-  // {number: '4'},
-  // {number: '5'},
-  // {number: '6'},
-  // {number: '7'},
-  // {number: '8'},
-  // {number: '9'},
-  // {number: '10'},
+  {number: '1'},
+  {number: '2'},
+  {number: '3'},
+  {number: '4'},
+  {number: '5'},
+  {number: '6'},
+  {number: '7'},
+  {number: '8'},
+  {number: '9'},
+  {number: '10'},
 ];
 
 export const PaymentsScreen: React.FC<Props> = () => {
@@ -49,6 +49,12 @@ export const PaymentsScreen: React.FC<Props> = () => {
     ),
     [],
   );
+
+  const {getPaymentsListHandler} = useGetPaymentsList();
+
+  useEffect(() => {
+    getPaymentsListHandler();
+  }, [getPaymentsListHandler]);
 
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>
