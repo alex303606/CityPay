@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {Colors, ScreenContainer, Typography} from '@UIKit';
+import {ScreenContainer} from '@UIKit';
 import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -9,6 +9,7 @@ import {FlatListType} from '../types';
 import styled from 'styled-components';
 import {useAppSelector, useGetPaymentsList} from '@hooks';
 import {getPayments, IPayment} from '@store';
+import {PaymentCard} from './components/PaymentCard';
 
 type Props = NativeStackScreenProps<
   PaymentsStackParamList,
@@ -21,14 +22,9 @@ export const PaymentsScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
   const payments = useAppSelector(getPayments);
 
-  const renderItem: ListRenderItem<IPayment> = useCallback(
-    ({item}) => (
-      <Typography.R20 marginVertical={32} color={Colors.black}>
-        {item.paymentNumber}
-      </Typography.R20>
-    ),
-    [],
-  );
+  const renderItem: ListRenderItem<IPayment> = useCallback(({item}) => {
+    return <PaymentCard item={item} />;
+  }, []);
 
   const {getPaymentsListHandler, loading} = useGetPaymentsList();
 
