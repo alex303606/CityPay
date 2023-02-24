@@ -7,50 +7,30 @@ import {EmptyList} from './components/EmptyList';
 import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
-import {useGetPaymentsList, useLoading} from '@hooks';
+import {useAppSelector, useGetPaymentsList} from '@hooks';
+import {getPayments, IPayment} from '@store';
 
 type Props = NativeStackScreenProps<
   PaymentsStackParamList,
   EScreens.PAYMENTS_SCREEN
 >;
-const keyExtractor = (item: IPayment) => item.number;
-
-type IPayment = {
-  number: string;
-};
-
-const payments: IPayment[] = [
-  {number: '1'},
-  {number: '2'},
-  {number: '3'},
-  {number: '4'},
-  {number: '5'},
-  {number: '6'},
-  {number: '7'},
-  {number: '8'},
-  {number: '9'},
-  {number: '10'},
-];
+const keyExtractor = (item: IPayment) =>
+  `${item.paymentNumber}-${item.protocolNumber}-${Math.random()}`;
 
 export const PaymentsScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
-  const {loading, hideLoader, showLoader} = useLoading();
-
-  const reload = useCallback(() => {
-    showLoader();
-    hideLoader();
-  }, [hideLoader, showLoader]);
+  const payments = useAppSelector(getPayments);
 
   const renderItem: ListRenderItem<IPayment> = useCallback(
     ({item}) => (
       <Typography.R20 marginVertical={32} color={Colors.black}>
-        {item.number}
+        {item.paymentNumber}
       </Typography.R20>
     ),
     [],
   );
 
-  const {getPaymentsListHandler} = useGetPaymentsList();
+  const {getPaymentsListHandler, loading} = useGetPaymentsList();
 
   useEffect(() => {
     getPaymentsListHandler();
@@ -65,7 +45,10 @@ export const PaymentsScreen: React.FC<Props> = () => {
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={reload} />
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={getPaymentsListHandler}
+          />
         }
       />
     </ScreenContainer>
