@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
-import {ScreenContainer} from '@UIKit';
+import {Colors, ScreenContainer, Typography} from '@UIKit';
 import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -44,6 +44,9 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>
+      <Typography.R14 marginBottom={16} color={Colors.grey}>
+        {t('payments.subTitle', {number: payments.length})}
+      </Typography.R14>
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
