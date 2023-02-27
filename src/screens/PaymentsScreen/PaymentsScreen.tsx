@@ -20,7 +20,7 @@ const keyExtractor = (item: IPayment) =>
 
 export const PaymentsScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
-  const payments = useAppSelector(getPayments);
+  const payments = useAppSelector(getPayments); //.filter(p => p.status === '1');
 
   const handlePressPayment = useCallback(() => {
     return;

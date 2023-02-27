@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon, IconNames, TAB_BAR_HEIGHT, Typography} from '@UIKit';
 import {RootTabParamList} from './navigationTypes';
@@ -9,7 +9,8 @@ import {useTranslation} from 'react-i18next';
 import {PaymentsStack} from './PaymentsStack';
 import {SettingsStack} from './SettingsStack';
 import {ProfileStack} from './ProfileStack';
-import {useTheme} from '@hooks';
+import {useAppSelector, useTheme} from '@hooks';
+import {getFines} from '@store';
 
 type LabelProps = {
   focused: boolean;
@@ -30,6 +31,12 @@ const Label: React.FC<LabelProps> = ({focused, title, color}) => {
 export const RootTabs: React.FC = () => {
   const {t} = useTranslation();
   const {theme} = useTheme();
+
+  const fines = useAppSelector(getFines);
+  const unPaidFines = useMemo(
+    () => fines.filter(fine => fine.paymentStatus === '0'),
+    [fines],
+  );
 
   return (
     <Tab.Navigator
@@ -68,7 +75,7 @@ export const RootTabs: React.FC = () => {
           tabBarIcon: ({color}) => (
             <Icon size={24} color={color} name={IconNames.fines} />
           ),
-          tabBarBadge: 5,
+          tabBarBadge: unPaidFines.length,
           headerShown: false,
         }}
       />

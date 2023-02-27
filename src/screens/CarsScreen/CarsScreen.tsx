@@ -32,7 +32,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
 
   useEffect(() => {
     reloadCarList();
-  }, [reloadCarList]);
+  }, []);
 
   const addCarHandler = useCallback(() => {
     navigation.navigate(EScreens.MODAL_ADD_CAR);

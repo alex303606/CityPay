@@ -1,26 +1,26 @@
-export const kgTranslation = {
+export const enTranslation = {
   translation: {
     tabs: {
-      fines: 'Айыптар',
-      cars: 'Машиналар',
-      profile: 'Профиль',
-      payments: 'Платежи',
-      settings: 'Настройки',
+      fines: 'Fines',
+      cars: 'My cars',
+      profile: 'Profile',
+      payments: 'Payments',
+      settings: 'Settings',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',
     },
     languages: {
-      ru: 'Орус тили',
+      ru: 'Русский',
       kg: 'Кыргыз тили',
       en: 'English',
     },
     cancel: 'Отмена',
     auth: {
       agree: 'Нажимая на кнопку, я соглашаюсь с условиями \nПубличной оферты',
-      getCode: 'Кодду алуу үчүн',
+      getCode: 'Get the code',
       loginRegistration: 'Вход / Регистрация',
-      phoneInputLabel: 'Телефон номуру',
+      phoneInputLabel: 'Номер телефона',
       codeInputLabel:
         'На указанный вами номер \nбыло отправлено сообщение с кодом. \nВведите его:',
       apply: 'Подтвердить',
@@ -85,8 +85,8 @@ export const kgTranslation = {
       support: 'Тех. поддержка',
       selectLanguage: 'Выбрать язык',
       exit: 'Выход',
-      ru: 'Орусча',
-      kg: 'Кыргызча',
+      ru: 'Русский',
+      kg: 'Киргизский',
       name: 'Имя',
       lastName: 'Фамилия',
       editProfile: 'Редактировать профиль',

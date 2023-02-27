@@ -1,16 +1,18 @@
 import React, {useCallback} from 'react';
-import {Block, Colors, Row, Typography} from '@UIKit';
+import {Block, Colors, Icon, IconNames, Row, Typography} from '@UIKit';
 import {IPayment} from '@store';
 import styled from 'styled-components';
-import {Image, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import {useTheme} from '@hooks';
 
-const paidImg = require('@assets/images/paid.webp');
+// const paidImg = require('@assets/images/paid.webp');
 
 type Props = {
   payment: IPayment;
   onPress: () => void;
 };
+
+const DPS = '8';
 
 export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
   const {theme} = useTheme();
@@ -29,18 +31,36 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
   return (
     <StyledRow backgroundColor={theme.fineBackgroundColor}>
       <StyledPressable onPress={handlePress}>
+        <StyledIcon
+          backgroundColor={
+            !!payment.finesType ? theme.buttonColor : Colors.transparent
+          }>
+          {!!payment.finesType && (
+            <Icon
+              size={30}
+              color={Colors.white}
+              name={
+                payment.finesType === DPS ? IconNames.police : IconNames.camera
+              }
+            />
+          )}
+        </StyledIcon>
+
         <Block flex={1} justifyContent={'space-between'}>
           <Typography.B18 color={theme.textColor}>
             {payment.number}
           </Typography.B18>
           <Typography.B16 numberOfLines={1} color={theme.textColor}>
-            {payment.paymentNumber}
+            {payment.paymentNumber.substring(
+              0,
+              payment.paymentNumber.length - 5,
+            )}
           </Typography.B16>
           <Typography.R14 color={theme.textColor}>{date}</Typography.R14>
         </Block>
         <Block>
           <Row
-            marginBottom={8}
+            marginBottom={16}
             alignItems={'center'}
             justifyContent={'flex-end'}>
             <Typography.B18 color={theme.textColor}>
@@ -48,12 +68,20 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
             </Typography.B18>
             <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
           </Row>
-          {payment.status === '1' && <StyledImage source={paidImg} />}
+          <StyledStatus color={theme.buttonColor}>
+            {payment.status_payment}
+          </StyledStatus>
+          {/*{payment.status === '1' && <StyledImage source={paidImg} />}*/}
         </Block>
       </StyledPressable>
     </StyledRow>
   );
 };
+
+const StyledStatus = styled(Typography.B12)({
+  textTransform: 'uppercase',
+  transform: 'rotate(20deg)',
+});
 
 const StyledPressable = styled(Pressable).attrs(() => ({
   android_ripple: {
@@ -62,7 +90,7 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   },
 }))({
   flex: 1,
-  paddingHorizontal: 16,
+  paddingHorizontal: 8,
   paddingVertical: 8,
   flexDirection: 'row',
   alignItems: 'flex-start',
@@ -73,7 +101,16 @@ const StyledRow = styled(Row)({
   overflow: 'hidden',
 });
 
-const StyledImage = styled(Image)({
-  width: 70,
-  height: 16,
+const StyledIcon = styled(Block)({
+  width: 40,
+  height: 40,
+  borderRadius: 10,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginRight: 8,
 });
+
+// const StyledImage = styled(Image)({
+//   width: 70,
+//   height: 16,
+// });

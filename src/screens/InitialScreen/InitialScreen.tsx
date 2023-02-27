@@ -45,19 +45,26 @@ export const InitialScreen: React.FC<Props> = ({navigation}) => {
         <StyledImage resizeMode="contain" source={logo} />
       </Row>
       <Block flex={1} justifyContent={'flex-end'}>
-        <Block marginBottom={16}>
-          <Button
-            textColor={isRUSelected ? Colors.black : Colors.white}
-            color={isRUSelected ? Colors.white : Colors.darkBlue}
-            title={t('languages.ru')}
-            onPress={() => changeLanguageHandler('ru')}
-          />
-        </Block>
         <Button
+          marginVertical={8}
+          textColor={isRUSelected ? Colors.black : Colors.white}
+          color={isRUSelected ? Colors.white : Colors.darkBlue}
+          title={t('languages.ru')}
+          onPress={() => changeLanguageHandler('ru')}
+        />
+        <Button
+          marginVertical={8}
           textColor={isRUSelected ? Colors.white : Colors.black}
           color={isRUSelected ? Colors.darkBlue : Colors.white}
           title={t('languages.kg')}
           onPress={() => changeLanguageHandler('kg')}
+        />
+        <Button
+          marginVertical={8}
+          textColor={isRUSelected ? Colors.white : Colors.black}
+          color={isRUSelected ? Colors.darkBlue : Colors.white}
+          title={t('languages.en')}
+          onPress={() => changeLanguageHandler('en')}
         />
       </Block>
     </Block>

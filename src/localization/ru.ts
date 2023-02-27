@@ -13,6 +13,7 @@ export const ruTranslation = {
     languages: {
       ru: 'Русский',
       kg: 'Кыргыз тили',
+      en: 'English',
     },
     cancel: 'Отмена',
     auth: {
@@ -85,7 +86,8 @@ export const ruTranslation = {
       selectLanguage: 'Выбрать язык',
       exit: 'Выход',
       ru: 'Русский',
-      kg: 'Киргизский',
+      kg: 'Кыргыз тили',
+      en: 'English',
       name: 'Имя',
       lastName: 'Фамилия',
       editProfile: 'Редактировать профиль',

@@ -37,6 +37,11 @@ export const ModalLanguageScreen: React.FC<Props> = ({navigation}) => {
           title={t('languages.kg')}
           onPress={() => changeLanguageHandler('kg')}
         />
+        <Button
+          marginVertical={8}
+          title={t('languages.en')}
+          onPress={() => changeLanguageHandler('en')}
+        />
       </Block>
     </ModalContainer>
   );
