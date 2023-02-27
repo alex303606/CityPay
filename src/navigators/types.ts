@@ -8,6 +8,7 @@ export enum EScreens {
   MODAL_DELETE_CAR = 'ModalDeleteCar',
   FINES_SCREEN = 'FinesScreen',
   PAYMENTS_SCREEN = 'PaymentsScreen',
+  PAYMENT_SCREEN = 'PaymentScreen',
   SETTINGS_SCREEN = 'SettingsScreen',
   PROFILE_SCREEN = 'ProfileScreen',
   CARS_STACK = 'CarsStack',

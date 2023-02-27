@@ -9,7 +9,7 @@ import {useTheme} from '@hooks';
 
 type Props = {
   payment: IPayment;
-  onPress: () => void;
+  onPress: (paymentNumber: string) => void;
 };
 
 const DPS = '8';
@@ -17,8 +17,8 @@ const DPS = '8';
 export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
   const {theme} = useTheme();
   const handlePress = useCallback(() => {
-    onPress();
-  }, [onPress]);
+    onPress(payment.paymentNumber);
+  }, [onPress, payment.paymentNumber]);
 
   const date = new Date(payment.dateCreate).toLocaleString('ru', {
     minute: 'numeric',

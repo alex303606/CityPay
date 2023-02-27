@@ -47,6 +47,7 @@ export type FinesStackParamList = {
 
 export type PaymentsStackParamList = {
   [EScreens.PAYMENTS_SCREEN]: undefined;
+  [EScreens.PAYMENT_SCREEN]: {paymentNumber: string};
 };
 
 export type FinesStackProps = NativeStackScreenProps<

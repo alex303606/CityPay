@@ -67,6 +67,7 @@ export const enTranslation = {
     payments: {
       title: 'Платежи',
       empty: 'Не найдено ни одной квитанции',
+      receipt: 'Квитанция',
     },
     settings: {
       title: 'Настройки',

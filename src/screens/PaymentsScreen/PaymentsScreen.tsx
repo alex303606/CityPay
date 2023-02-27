@@ -18,13 +18,16 @@ type Props = NativeStackScreenProps<
 const keyExtractor = (item: IPayment) =>
   `${item.paymentNumber}-${item.protocolNumber}-${Math.random()}`;
 
-export const PaymentsScreen: React.FC<Props> = () => {
+export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const payments = useAppSelector(getPayments); //.filter(p => p.status === '1');
 
-  const handlePressPayment = useCallback(() => {
-    return;
-  }, []);
+  const handlePressPayment = useCallback(
+    (paymentNumber: string) => {
+      navigation.navigate(EScreens.PAYMENT_SCREEN, {paymentNumber});
+    },
+    [navigation],
+  );
 
   const renderItem: ListRenderItem<IPayment> = useCallback(
     ({item}) => {

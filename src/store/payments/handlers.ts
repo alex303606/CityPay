@@ -47,3 +47,25 @@ export const getPaymentsList = ({phone}: {phone: string}) => {
     )
     .catch(error => console.warn(error));
 };
+
+export const getPaymentDetails = (paymentNumber: string) => {
+  return axios
+    .post('', {
+      TYPE: 'get_payment_details',
+      PAYMENT_NUMBER: paymentNumber,
+    })
+    .then(
+      (response: {
+        data: {
+          data: IPayment;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};

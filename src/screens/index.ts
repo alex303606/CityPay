@@ -15,3 +15,4 @@ export {SingleCarScreen} from './SingleCarScreen/SingleCarScreen';
 export {ModalDeleteCar} from './ModalDeleteCar/ModalDeleteCar';
 export {SingleFineScreen} from './SingleFineScreen/SingleFineScreen';
 export {ModalImageViewer} from './ModalImageViewer/ModalImageViewer';
+export {PaymentScreen} from './PaymentScreen/PaymentScreen';
