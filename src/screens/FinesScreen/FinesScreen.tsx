@@ -68,7 +68,7 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
 
   useEffect(() => {
     getFinesByAllCarsNumberAndPin();
-  }, [getFinesByAllCarsNumberAndPin]);
+  }, []);
 
   return (
     <ScreenContainer

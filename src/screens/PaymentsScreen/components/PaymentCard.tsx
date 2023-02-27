@@ -60,7 +60,7 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
         </Block>
         <Block>
           <Row
-            marginBottom={16}
+            marginBottom={8}
             alignItems={'center'}
             justifyContent={'flex-end'}>
             <Typography.B18 color={theme.textColor}>

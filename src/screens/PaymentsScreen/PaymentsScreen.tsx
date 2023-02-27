@@ -37,7 +37,7 @@ export const PaymentsScreen: React.FC<Props> = () => {
 
   useEffect(() => {
     getPaymentsListHandler();
-  }, [getPaymentsListHandler]);
+  }, []);
 
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>
