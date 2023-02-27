@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Block,
   Colors,
@@ -14,6 +14,9 @@ import {ActivityIndicator} from 'react-native';
 import {useGetPaymentByPaymentNumber, useTheme} from '@hooks';
 import {IPayment} from '@store';
 import styled from 'styled-components';
+import Share from 'react-native-share';
+import ViewShot from 'react-native-view-shot';
+import RNFS from 'react-native-fs';
 
 type Props = NativeStackScreenProps<
   PaymentsStackParamList,
@@ -46,6 +49,7 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
   const {
     params: {paymentNumber},
   } = route;
+  const viewShotRef = useRef<any>(null);
 
   const [payment, setPayment] = useState<IPayment | null>(null);
 
@@ -64,7 +68,24 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
   }, [getPayment]);
 
   const onPressShare = useCallback(() => {
-    return;
+    viewShotRef.current?.capture().then((uri: string) => {
+      RNFS.readFile(uri, 'base64').then(res => {
+        let urlString = 'data:image/jpeg;base64,' + res;
+        let options = {
+          title: '',
+          message: '',
+          url: urlString,
+          type: 'image/jpeg',
+        };
+        Share.open(options)
+          .then(resp => {
+            console.log(resp);
+          })
+          .catch(err => {
+            err && console.log(err);
+          });
+      });
+    });
   }, []);
 
   if (loading) {
@@ -103,27 +124,37 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
       })
     : null;
 
+  const style = {
+    flex: 1,
+    backgroundColor: theme.backgroundColor,
+  };
+
   return (
-    <ScreenContainer
-      onPressButton={onPressShare}
-      showButton
-      iconName={IconNames.share}
-      title={t('payments.receipt')}>
-      <PaymentRow label={'Тип операции'} value={payment.protocolNumber} />
-      <PaymentRow label={'Статья'} value={payment.article} />
-      <PaymentRow label={'Номер квитанции'} value={paymentNumber} />
-      <PaymentRow label={'Поставщик услуг'} value={paymentNumber} />
-      <PaymentRow label={'Дата создания'} value={dateCreate} />
-      <PaymentRow label={'Дата оплаты'} value={datePayment} />
-      <PaymentRow label={'ФИО/Наименование'} value={payment.username} />
-      <PaymentRow label={'Номер протокола'} value={payment.protocolNumber} />
-      <PaymentRow label={'Номер авто'} value={payment.number} />
-      <PaymentRow label={'Сумма'} value={payment.amount} />
-      <PaymentRow label={'Коммисия'} value={payment.paymentService} />
-      <Row alignItems={'center'} justifyContent={'center'}>
-        <StatusText color={Colors.red}>{payment.status_payment}</StatusText>
-      </Row>
-    </ScreenContainer>
+    <ViewShot
+      style={style}
+      ref={viewShotRef}
+      options={{format: 'jpg', quality: 0.9}}>
+      <ScreenContainer
+        onPressButton={onPressShare}
+        showButton
+        iconName={IconNames.share}
+        title={t('payments.receipt')}>
+        <PaymentRow label={'Тип операции'} value={payment.protocolNumber} />
+        <PaymentRow label={'Статья'} value={payment.article} />
+        <PaymentRow label={'Номер квитанции'} value={paymentNumber} />
+        <PaymentRow label={'Поставщик услуг'} value={paymentNumber} />
+        <PaymentRow label={'Дата создания'} value={dateCreate} />
+        <PaymentRow label={'Дата оплаты'} value={datePayment} />
+        <PaymentRow label={'ФИО/Наименование'} value={payment.username} />
+        <PaymentRow label={'Номер протокола'} value={payment.protocolNumber} />
+        <PaymentRow label={'Номер авто'} value={payment.number} />
+        <PaymentRow label={'Сумма'} value={payment.amount} />
+        <PaymentRow label={'Коммисия'} value={payment.paymentService} />
+        <Row alignItems={'center'} justifyContent={'center'}>
+          <StatusText color={Colors.red}>{payment.status_payment}</StatusText>
+        </Row>
+      </ScreenContainer>
+    </ViewShot>
   );
 };
 
