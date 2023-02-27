@@ -44,7 +44,7 @@ export const ScreenContainer: React.FC<Props> = ({
         {showButton && (
           <Wrapper>
             <StyledPressable onPress={onPressButton}>
-              <Icon color={theme.textColor} name={iconName} size={24} />
+              <Icon color={theme.textColor} name={iconName} size={30} />
             </StyledPressable>
           </Wrapper>
         )}
@@ -62,11 +62,11 @@ export const ScreenContainer: React.FC<Props> = ({
 };
 
 const Wrapper = styled(Block)({
-  borderRadius: 20,
+  borderRadius: 23,
   overflow: 'hidden',
-  width: 40,
-  height: 40,
-  backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  width: 46,
+  height: 46,
+  backgroundColor: 'rgba(18, 18, 29, 0.2)',
   alignItems: 'center',
   justifyContent: 'center',
 });

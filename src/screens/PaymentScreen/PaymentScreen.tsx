@@ -22,11 +22,15 @@ type Props = NativeStackScreenProps<
 
 type RowProps = {
   label: string;
-  value: string | number;
+  value: string | number | null | undefined;
 };
 
 const PaymentRow: React.FC<RowProps> = ({label, value}) => {
   const {theme} = useTheme();
+
+  if (!value) {
+    return null;
+  }
 
   return (
     <Block marginBottom={16}>
@@ -78,22 +82,26 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
   if (!payment) {
     return null;
   }
-  console.log(payment);
-  const dateCreate = new Date(payment.dateCreate).toLocaleString('ru', {
-    minute: 'numeric',
-    hour: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
 
-  const datePayment = new Date(payment.datePayment).toLocaleString('ru', {
-    minute: 'numeric',
-    hour: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const dateCreate = payment.dateCreate
+    ? new Date(payment.dateCreate).toLocaleString('ru', {
+        minute: 'numeric',
+        hour: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : null;
+
+  const datePayment = payment.datePayment
+    ? new Date(payment.datePayment).toLocaleString('ru', {
+        minute: 'numeric',
+        hour: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : null;
 
   return (
     <ScreenContainer
