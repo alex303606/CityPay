@@ -4,7 +4,7 @@ import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {EmptyList} from './components/EmptyList';
-import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
+import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
 import {useAppSelector, useGetPaymentsList} from '@hooks';
@@ -22,9 +22,16 @@ export const PaymentsScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
   const payments = useAppSelector(getPayments);
 
-  const renderItem: ListRenderItem<IPayment> = useCallback(({item}) => {
-    return <PaymentCard item={item} />;
+  const handlePressPayment = useCallback(() => {
+    return;
   }, []);
+
+  const renderItem: ListRenderItem<IPayment> = useCallback(
+    ({item}) => {
+      return <PaymentCard payment={item} onPress={handlePressPayment} />;
+    },
+    [handlePressPayment],
+  );
 
   const {getPaymentsListHandler, loading} = useGetPaymentsList();
 
@@ -40,6 +47,7 @@ export const PaymentsScreen: React.FC<Props> = () => {
         data={payments}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
+        ItemSeparatorComponent={Separator}
         refreshControl={
           <RefreshControl
             refreshing={loading}
@@ -56,3 +64,5 @@ const List: FlatListType = styled(FlatList).attrs(() => ({
     flexGrow: 1,
   },
 }))({});
+
+const Separator = styled(View)({height: 16});

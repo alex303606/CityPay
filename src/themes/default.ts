@@ -8,6 +8,6 @@ export const defaultTheme: ITheme = {
   tabInactiveColor: Colors.grey,
   buttonColor: Colors.blue,
   textColor: Colors.black,
-  fineBackgroundColor: 'rgba(18, 18, 29, 0.1)',
+  fineBackgroundColor: 'rgba(137,146,210,0.3)',
   filterColor: 'rgba(18, 18, 29, 0.1)',
 };
