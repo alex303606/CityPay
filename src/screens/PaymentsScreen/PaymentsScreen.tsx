@@ -8,7 +8,7 @@ import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
 import {useAppSelector, useGetPaymentsList} from '@hooks';
-import {getPayments, IPayment} from '@store';
+import {getPayments, getUserState, IPayment} from '@store';
 import {PaymentCard} from './components/PaymentCard';
 
 type Props = NativeStackScreenProps<
@@ -21,7 +21,7 @@ const keyExtractor = (item: IPayment) =>
 export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const payments = useAppSelector(getPayments); //.filter(p => p.status === '1');
-
+  const {isPremiumAccess} = useAppSelector(getUserState);
   const handlePressPayment = useCallback(
     (paymentNumber: string) => {
       navigation.navigate(EScreens.PAYMENT_SCREEN, {paymentNumber});
@@ -44,9 +44,11 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>
-      <Typography.R14 marginBottom={16} color={Colors.grey}>
-        {t('payments.subTitle', {number: payments.length})}
-      </Typography.R14>
+      {!isPremiumAccess && (
+        <Typography.R14 marginBottom={16} color={Colors.grey}>
+          {t('payments.subTitle', {number: payments.length})}
+        </Typography.R14>
+      )}
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
