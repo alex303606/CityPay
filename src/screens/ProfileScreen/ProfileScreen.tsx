@@ -97,7 +97,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           lastName={last_name}
           avatar={avatar}
         />
-        <Item text={t('profile.finesPaid')} secondText={String(rating)} />
+        <Item text={t('profile.finesPaid')} secondText={String(balls)} />
         <Item
           text={t('profile.accumulatedPoints')}
           secondText={String(balls)}

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styled from 'styled-components';
-import {KeyboardType, TextInput} from 'react-native';
+import {Alert, KeyboardType, Pressable, TextInput} from 'react-native';
 import {Block, Row} from './helpers';
 import {useTheme} from '@hooks';
 import {Colors, Typography} from './constants';
+import {Icon, IconNames} from './Icon';
 
 type Props = {
   marginBottom?: number;
@@ -13,6 +14,8 @@ type Props = {
   placeholder?: string;
   maxLength?: number;
   keyboardType?: KeyboardType;
+  disabled?: boolean;
+  showAdditionalButton?: boolean;
 };
 
 export const InputField: React.FC<Props> = ({
@@ -23,17 +26,25 @@ export const InputField: React.FC<Props> = ({
   placeholder,
   maxLength,
   keyboardType = 'default',
+  disabled,
+  showAdditionalButton = false,
 }) => {
   const {theme} = useTheme();
+
+  const onPressHandler = useCallback(() => {
+    Alert.alert('HELLO');
+  }, []);
+
   return (
-    <Block>
+    <StyledBlock>
       {!!label && (
-        <Typography.R16 marginBottom={4} numberOfLines={1} color={Colors.grey}>
+        <Typography.R16 marginBottom={4} numberOfLines={2} color={Colors.grey}>
           {label}
         </Typography.R16>
       )}
-      <StyledRow borderColor={theme.textColor} marginBottom={marginBottom}>
+      <StyledRow marginBottom={marginBottom}>
         <StyledInput
+          editable={disabled}
           placeholderTextColor={theme.textColor}
           placeholder={placeholder}
           color={theme.textColor}
@@ -43,8 +54,18 @@ export const InputField: React.FC<Props> = ({
           maxLength={maxLength}
           keyboardType={keyboardType}
         />
+        {showAdditionalButton && (
+          <StyledIconBlock
+            paddingHorizontal={8}
+            alignItems={'center'}
+            justifyContent={'center'}>
+            <StyledPressable onPress={onPressHandler}>
+              <Icon name={IconNames.qr} size={32} color={Colors.blue} />
+            </StyledPressable>
+          </StyledIconBlock>
+        )}
       </StyledRow>
-    </Block>
+    </StyledBlock>
   );
 };
 
@@ -57,10 +78,28 @@ const StyledInput = styled(TextInput)<{color: string}>(({color}) => ({
   color,
 }));
 
-const StyledRow = styled(Row)<{borderColor: string}>(({borderColor}) => ({
+const StyledIconBlock = styled(Block)({
+  backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  height: '100%',
+  overflow: 'hidden',
+});
+
+const StyledRow = styled(Row)({
   width: '100%',
   height: 48,
   borderWidth: 1,
   borderRadius: 8,
-  borderColor,
-}));
+  backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  alignItems: 'center',
+});
+
+const StyledBlock = styled(Block)({
+  width: '100%',
+});
+
+const StyledPressable = styled(Pressable).attrs(() => ({
+  android_ripple: {
+    borderless: false,
+    color: Colors.ripple,
+  },
+}))({});

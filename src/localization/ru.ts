@@ -69,6 +69,9 @@ export const ruTranslation = {
       cameraFine: 'ШТРАФЫ \nБезопасного города',
       policeFine: 'ШТРАФЫ \nДПС',
       paymentByCode: 'Оплатить\nпо коду оплаты',
+      paymentCode: 'Код оплаты',
+      paymentAmmount: 'Сумма к оплате \nЗаполняется автоматически',
+      goToPay: 'Перейти к оплате',
     },
     payments: {
       title: 'Платежи',
