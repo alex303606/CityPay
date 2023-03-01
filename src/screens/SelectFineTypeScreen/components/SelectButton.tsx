@@ -38,6 +38,8 @@ const StyledRow = styled(Row)({
   borderRadius: 20,
   overflow: 'hidden',
   height: 100,
+  borderWidth: 2,
+  borderColor: Colors.white,
 });
 
 const StyledBlock = styled(Block)({

@@ -68,6 +68,7 @@ export const enTranslation = {
       selectType: 'Выберите тип штрафа',
       cameraFine: 'ШТРАФЫ \nБезопасного города',
       policeFine: 'ШТРАФЫ \nДПС',
+      paymentByCode: 'Оплатить\nпо коду оплаты',
     },
     payments: {
       title: 'Платежи',
