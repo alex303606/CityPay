@@ -25,4 +25,5 @@ export enum EScreens {
   MODAL_ADD_CAR = 'AddAutoModalScreen',
   SINGLE_FINE_SCREEN = 'SingleFineScreen',
   MODAL_IMAGE_VIEWER = 'ModalImageViewer',
+  SELECT_FINE_TYPE_SCREEN = 'SelectFineTypeScreen',
 }

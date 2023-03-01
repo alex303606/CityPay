@@ -63,8 +63,8 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
   );
 
   const handlePressQR = useCallback(() => {
-    return;
-  }, []);
+    navigation.navigate(EScreens.SELECT_FINE_TYPE_SCREEN);
+  }, [navigation]);
 
   useEffect(() => {
     getFinesByAllCarsNumberAndPin();

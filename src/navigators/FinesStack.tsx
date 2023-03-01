@@ -1,7 +1,12 @@
 import React from 'react';
 import {EScreens} from './types';
 import {FinesStackParamList, FinesStackProps} from './navigationTypes';
-import {FinesScreen, ModalImageViewer, SingleFineScreen} from '@screens';
+import {
+  FinesScreen,
+  ModalImageViewer,
+  SelectFineTypeScreen,
+  SingleFineScreen,
+} from '@screens';
 import {useModalScreenOptions} from './screenOptions';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useTheme} from '@hooks';
@@ -24,6 +29,13 @@ export const FinesStack: React.FC<FinesStackProps> = () => {
       <Stack.Screen
         name={EScreens.SINGLE_FINE_SCREEN}
         component={SingleFineScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.SELECT_FINE_TYPE_SCREEN}
+        component={SelectFineTypeScreen}
         options={{
           headerShown: false,
         }}

@@ -41,6 +41,7 @@ export type CarsStackProps = NativeStackScreenProps<
 
 export type FinesStackParamList = {
   [EScreens.FINES_SCREEN]: undefined;
+  [EScreens.SELECT_FINE_TYPE_SCREEN]: undefined;
   [EScreens.MODAL_IMAGE_VIEWER]: {url: string};
   [EScreens.SINGLE_FINE_SCREEN]: {fine: IFine};
 };

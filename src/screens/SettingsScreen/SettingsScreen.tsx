@@ -43,9 +43,9 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer title={t('settings.title')}>
-      <Typography.R14 marginBottom={16} numberOfLines={1} color={Colors.grey}>
+      <Typography.R16 marginBottom={16} numberOfLines={1} color={Colors.grey}>
         {t('settings.registration')}
-      </Typography.R14>
+      </Typography.R16>
       <Row justifyContent={'space-between'} marginBottom={32}>
         <ThemeItem
           theme={Themes.DEFAULT}
@@ -68,9 +68,9 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
         text={t('settings.pushLabel')}
         value={pushValue}
       />
-      <Typography.R14 marginBottom={8} numberOfLines={1} color={Colors.grey}>
+      <Typography.R16 marginBottom={8} numberOfLines={1} color={Colors.grey}>
         {t('settings.info')}
-      </Typography.R14>
+      </Typography.R16>
       <InfoItem
         onPress={onPressInfoItem}
         text={t('settings.questions')}

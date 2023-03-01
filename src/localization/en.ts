@@ -65,6 +65,7 @@ export const enTranslation = {
       pay: 'Оплатить',
       unpaid: 'Неоплаченые',
       paid: 'Оплаченые',
+      selectType: 'Выберите тип штрафа',
     },
     payments: {
       title: 'Платежи',

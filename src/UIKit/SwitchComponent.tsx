@@ -23,9 +23,9 @@ export const SwitchComponent: React.FC<Props> = ({
   return (
     <Row alignItems="center" marginVertical={10}>
       <TextContainer>
-        <Typography.R14 color={Colors.grey} numberOfLines={1}>
+        <Typography.R16 color={Colors.grey} numberOfLines={1}>
           {text}
-        </Typography.R14>
+        </Typography.R16>
       </TextContainer>
       <Switch
         trackColor={trackColor}

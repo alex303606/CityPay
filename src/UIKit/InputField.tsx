@@ -28,9 +28,9 @@ export const InputField: React.FC<Props> = ({
   return (
     <Block>
       {!!label && (
-        <Typography.R14 marginBottom={4} numberOfLines={1} color={Colors.grey}>
+        <Typography.R16 marginBottom={4} numberOfLines={1} color={Colors.grey}>
           {label}
-        </Typography.R14>
+        </Typography.R16>
       )}
       <StyledRow borderColor={theme.textColor} marginBottom={marginBottom}>
         <StyledInput

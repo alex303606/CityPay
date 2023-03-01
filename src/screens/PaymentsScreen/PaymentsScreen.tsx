@@ -45,9 +45,9 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>
       {!isPremiumAccess && (
-        <Typography.R14 marginBottom={16} color={Colors.grey}>
+        <Typography.R16 marginBottom={16} color={Colors.grey}>
           {t('payments.subTitle', {number: payments.length})}
-        </Typography.R14>
+        </Typography.R16>
       )}
       <List
         showsVerticalScrollIndicator={false}

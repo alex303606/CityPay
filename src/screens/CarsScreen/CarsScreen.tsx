@@ -61,9 +61,9 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer scroll={false} title={t('cars.title')}>
-      <Typography.R14 marginBottom={4} color={Colors.grey}>
+      <Typography.R16 marginBottom={4} color={Colors.grey}>
         {t('cars.subTitle')}
-      </Typography.R14>
+      </Typography.R16>
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
