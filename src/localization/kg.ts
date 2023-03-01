@@ -66,6 +66,8 @@ export const kgTranslation = {
       unpaid: 'Неоплаченые',
       paid: 'Оплаченые',
       selectType: 'Выберите тип штрафа',
+      cameraFine: 'ШТРАФЫ \nБезопасного города',
+      policeFine: 'ШТРАФЫ \nДПС',
     },
     payments: {
       title: 'Платежи',
