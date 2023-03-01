@@ -17,3 +17,4 @@ export {SingleFineScreen} from './SingleFineScreen/SingleFineScreen';
 export {ModalImageViewer} from './ModalImageViewer/ModalImageViewer';
 export {PaymentScreen} from './PaymentScreen/PaymentScreen';
 export {SelectFineTypeScreen} from './SelectFineTypeScreen/SelectFineTypeScreen';
+export {PaymentByQRScreen} from './PaymentByQRScreen/PaymentByQRScreen';

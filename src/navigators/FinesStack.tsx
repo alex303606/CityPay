@@ -4,6 +4,7 @@ import {FinesStackParamList, FinesStackProps} from './navigationTypes';
 import {
   FinesScreen,
   ModalImageViewer,
+  PaymentByQRScreen,
   SelectFineTypeScreen,
   SingleFineScreen,
 } from '@screens';
@@ -50,6 +51,13 @@ export const FinesStack: React.FC<FinesStackProps> = () => {
             headerStyle: {
               backgroundColor: theme.backgroundColor,
             },
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.PAYMENTS_BY_QR_SCREEN}
+          component={PaymentByQRScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Group>

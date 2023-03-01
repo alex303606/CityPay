@@ -26,4 +26,5 @@ export enum EScreens {
   SINGLE_FINE_SCREEN = 'SingleFineScreen',
   MODAL_IMAGE_VIEWER = 'ModalImageViewer',
   SELECT_FINE_TYPE_SCREEN = 'SelectFineTypeScreen',
+  PAYMENTS_BY_QR_SCREEN = 'PaymentByQRScreen',
 }

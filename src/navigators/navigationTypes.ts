@@ -2,6 +2,7 @@ import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ICar, IFine} from '@store';
+import {IconNames} from '@UIKit';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -44,6 +45,7 @@ export type FinesStackParamList = {
   [EScreens.SELECT_FINE_TYPE_SCREEN]: undefined;
   [EScreens.MODAL_IMAGE_VIEWER]: {url: string};
   [EScreens.SINGLE_FINE_SCREEN]: {fine: IFine};
+  [EScreens.PAYMENTS_BY_QR_SCREEN]: {icon: IconNames};
 };
 
 export type PaymentsStackParamList = {

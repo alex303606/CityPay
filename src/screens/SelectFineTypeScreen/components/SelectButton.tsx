@@ -1,11 +1,11 @@
 import {Colors, Row, Block, Icon, IconNames, Typography} from '@UIKit';
-import React from 'react';
+import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
 import {useTheme} from '@hooks';
 
 type Props = {
-  onPress: () => void;
+  onPress: (icon: IconNames) => void;
   iconName: IconNames;
   text: string;
 };
@@ -13,9 +13,13 @@ type Props = {
 export const SelectButton: React.FC<Props> = ({onPress, iconName, text}) => {
   const {theme} = useTheme();
 
+  const onPressHandler = useCallback(() => {
+    onPress(iconName);
+  }, [iconName, onPress]);
+
   return (
     <StyledRow backgroundColor={theme.fineBackgroundColor} marginVertical={16}>
-      <StyledPressable onPress={onPress}>
+      <StyledPressable onPress={onPressHandler}>
         <StyledBlock
           backgroundColor={Colors.blue}
           justifyContent={'center'}
