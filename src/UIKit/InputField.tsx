@@ -10,7 +10,7 @@ type Props = {
   marginBottom?: number;
   value: string;
   label?: string;
-  onChangeValue: (value: string) => void;
+  onChangeValue?: (value: string) => void;
   placeholder?: string;
   maxLength?: number;
   keyboardType?: KeyboardType;

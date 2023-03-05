@@ -72,6 +72,7 @@ export const ruTranslation = {
       paymentCode: 'Код оплаты',
       paymentAmmount: 'Сумма к оплате \nЗаполняется автоматически',
       goToPay: 'Перейти к оплате',
+      codeNotFound: 'Код оплаты не найдет!',
     },
     payments: {
       title: 'Платежи',

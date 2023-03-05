@@ -69,3 +69,28 @@ export const getPaymentDetails = (paymentNumber: string) => {
     )
     .catch(error => console.warn(error));
 };
+
+export const getCurrentAmount = (paymentCode: string) => {
+  return axios
+    .post('', {
+      TYPE: 'get_current_amount',
+      PAYMENT_CODE: paymentCode,
+    })
+    .then(
+      (response: {
+        data: {
+          data: {
+            current_amount: number | null;
+            totalAmount: number;
+          };
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};

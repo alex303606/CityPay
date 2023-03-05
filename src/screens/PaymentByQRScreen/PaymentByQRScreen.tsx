@@ -11,13 +11,14 @@ import {
   ShadowsSizes,
   Typography,
 } from '@UIKit';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
-import {useTheme} from '@hooks';
+import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import styled from 'styled-components';
-import {Alert} from 'react-native';
+import {getCurrentAmount} from '@store';
+import {ActivityIndicator} from 'react-native';
 
 type Props = NativeStackScreenProps<
   FinesStackParamList,
@@ -27,6 +28,8 @@ type Props = NativeStackScreenProps<
 export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
+  const {loading, hideLoader, showLoader} = useLoading();
+  const {showNotification} = useSnackbarNotification();
 
   const {
     params: {type},
@@ -35,12 +38,33 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
   const [ammount, setAmmount] = useState('');
 
   const maxLength = type === 'police' ? 16 : 14;
+  const icon = type === 'police' ? IconNames.police : IconNames.camera;
+
+  const getCurrentAmountHandler = useCallback(async () => {
+    showLoader();
+    const response = await getCurrentAmount(code);
+    hideLoader();
+    if (!response?.result) {
+      if (response?.message) {
+        return showNotification(response.message);
+      }
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (!response?.data) {
+      return showNotification(t('errors.somethingWentWrong'));
+    }
+    if (!response.data.current_amount) {
+      return showNotification(t('fines.codeNotFound'));
+    }
+
+    setAmmount(response.data.current_amount.toString());
+  }, [code, hideLoader, showLoader, showNotification, t]);
 
   useEffect(() => {
     if (code.length === maxLength) {
-      Alert.alert('FULL');
+      getCurrentAmountHandler();
     }
-  }, [code.length, maxLength]);
+  }, [code.length, getCurrentAmountHandler, maxLength]);
 
   return (
     <ScreenContainer title={t('fines.title')}>
@@ -50,11 +74,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
             {t('fines.paymentByCode')}
           </Typography.R20>
           <StyledBlock backgroundColor={Colors.white} marginRight={8}>
-            <Icon
-              name={type === 'police' ? IconNames.police : IconNames.camera}
-              size={32}
-              color={Colors.blue}
-            />
+            <Icon name={icon} size={32} color={Colors.blue} />
           </StyledBlock>
         </Row>
         <Row marginVertical={16}>
@@ -72,7 +92,6 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
             disabled={false}
             keyboardType={'numeric'}
             value={ammount}
-            onChangeValue={setAmmount}
             label={t('fines.paymentAmmount')}
           />
         </Row>
@@ -82,9 +101,25 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
           marginTop={16}
         />
       </Block>
+      {loading && (
+        <StyledFloatingBlock>
+          <ActivityIndicator size="large" color={Colors.blue} />
+        </StyledFloatingBlock>
+      )}
     </ScreenContainer>
   );
 };
+
+const StyledFloatingBlock = styled(Block)({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(255,255,255,0.3)',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 const StyledBlock = styled(Block)({
   borderRadius: 10,
