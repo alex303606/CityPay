@@ -4,6 +4,7 @@ import {
   Colors,
   EShadow,
   Icon,
+  IconNames,
   InputField,
   Row,
   ScreenContainer,
@@ -27,7 +28,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
   const {theme} = useTheme();
 
   const {
-    params: {icon},
+    params: {type},
   } = route;
   const [code, setCode] = useState('');
   const [ammount, setAmmount] = useState('');
@@ -40,12 +41,16 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
             {t('fines.paymentByCode')}
           </Typography.R20>
           <StyledBlock backgroundColor={Colors.white} marginRight={8}>
-            <Icon name={icon} size={32} color={Colors.blue} />
+            <Icon
+              name={type === 'police' ? IconNames.police : IconNames.camera}
+              size={32}
+              color={Colors.blue}
+            />
           </StyledBlock>
         </Row>
         <Row marginVertical={16}>
           <InputField
-            maxLength={14}
+            maxLength={type === 'police' ? 16 : 14}
             keyboardType={'numeric'}
             value={code}
             onChangeValue={setCode}

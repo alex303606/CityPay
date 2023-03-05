@@ -1,21 +1,21 @@
-import {Colors, Row, Block, Icon, IconNames, Typography} from '@UIKit';
+import {Block, Colors, Icon, IconNames, Row, Typography} from '@UIKit';
 import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
 import {useTheme} from '@hooks';
 
 type Props = {
-  onPress: (icon: IconNames) => void;
-  iconName: IconNames;
+  onPress: (type: string) => void;
+  type: string;
   text: string;
 };
 
-export const SelectButton: React.FC<Props> = ({onPress, iconName, text}) => {
+export const SelectButton: React.FC<Props> = ({onPress, type, text}) => {
   const {theme} = useTheme();
 
   const onPressHandler = useCallback(() => {
-    onPress(iconName);
-  }, [iconName, onPress]);
+    onPress(type);
+  }, [type, onPress]);
 
   return (
     <StyledRow backgroundColor={theme.fineBackgroundColor} marginVertical={16}>
@@ -24,7 +24,11 @@ export const SelectButton: React.FC<Props> = ({onPress, iconName, text}) => {
           backgroundColor={Colors.blue}
           justifyContent={'center'}
           alignItems={'center'}>
-          <Icon name={iconName} color={Colors.white} size={64} />
+          <Icon
+            name={type === 'police' ? IconNames.police : IconNames.camera}
+            color={Colors.white}
+            size={64}
+          />
         </StyledBlock>
         <Typography.R18 padding={16} color={theme.textColor}>
           {text}

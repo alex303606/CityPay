@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {Colors, IconNames, ScreenContainer, Typography} from '@UIKit';
+import {Colors, ScreenContainer, Typography} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {SelectButton} from './components/SelectButton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -14,8 +14,8 @@ export const SelectFineTypeScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
 
   const onPressHandler = useCallback(
-    (icon: IconNames) => {
-      navigation.navigate(EScreens.PAYMENTS_BY_QR_SCREEN, {icon});
+    (type: string) => {
+      navigation.navigate(EScreens.PAYMENTS_BY_QR_SCREEN, {type});
     },
     [navigation],
   );
@@ -27,12 +27,12 @@ export const SelectFineTypeScreen: React.FC<Props> = ({navigation}) => {
       </Typography.R16>
       <SelectButton
         text={t('fines.cameraFine')}
-        iconName={IconNames.camera}
+        type={'camera'}
         onPress={onPressHandler}
       />
       <SelectButton
         text={t('fines.policeFine')}
-        iconName={IconNames.police}
+        type={'police'}
         onPress={onPressHandler}
       />
     </ScreenContainer>
