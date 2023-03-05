@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {Alert, KeyboardType, Pressable, TextInput} from 'react-native';
+import {KeyboardType, Pressable, TextInput} from 'react-native';
 import {Block, Row} from './helpers';
 import {useTheme} from '@hooks';
 import {Colors, Typography} from './constants';
@@ -16,6 +16,7 @@ type Props = {
   keyboardType?: KeyboardType;
   disabled?: boolean;
   showAdditionalButton?: boolean;
+  onPress?: () => void;
 };
 
 export const InputField: React.FC<Props> = ({
@@ -28,12 +29,9 @@ export const InputField: React.FC<Props> = ({
   keyboardType = 'default',
   disabled,
   showAdditionalButton = false,
+  onPress,
 }) => {
   const {theme} = useTheme();
-
-  const onPressHandler = useCallback(() => {
-    Alert.alert('HELLO');
-  }, []);
 
   return (
     <StyledBlock>
@@ -59,7 +57,7 @@ export const InputField: React.FC<Props> = ({
             paddingHorizontal={8}
             alignItems={'center'}
             justifyContent={'center'}>
-            <StyledPressable onPress={onPressHandler}>
+            <StyledPressable onPress={onPress}>
               <Icon name={IconNames.qr} size={32} color={Colors.blue} />
             </StyledPressable>
           </StyledIconBlock>

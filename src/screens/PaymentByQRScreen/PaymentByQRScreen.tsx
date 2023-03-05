@@ -11,14 +11,14 @@ import {
   ShadowsSizes,
   Typography,
 } from '@UIKit';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import styled from 'styled-components';
 import {getCurrentAmount} from '@store';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, Alert} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera as Camera} from 'react-native-camera';
 
@@ -32,12 +32,12 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
   const {theme} = useTheme();
   const {loading, hideLoader, showLoader} = useLoading();
   const {showNotification} = useSnackbarNotification();
-
   const {
     params: {type},
   } = route;
   const [code, setCode] = useState('');
   const [ammount, setAmmount] = useState('');
+  const [scannerOpened, setScannerOpened] = useState(false);
 
   const maxLength = type === 'police' ? 16 : 14;
   const icon = type === 'police' ? IconNames.police : IconNames.camera;
@@ -68,63 +68,76 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
     }
   }, [code.length, getCurrentAmountHandler, maxLength]);
 
-  const onSuccess = e => {
-    const check = e.data.substring(0, 4);
-    console.log('scanned data' + check);
+  const onSuccess = ({data}: {data: string}) => {
+    setScannerOpened(false);
+    if (data) {
+      setCode(data);
+      console.log(data);
+      Alert.alert(data);
+    }
   };
 
-  const scanner = useRef();
+  const onPressHandler = useCallback(() => {
+    setScannerOpened(true);
+  }, []);
 
   return (
-    <QRCodeScanner
-      fadeIn={false}
-      onRead={onSuccess}
-      flashMode={Camera.Constants.FlashMode.off}
-      cameraProps={{ratio: '1:1'}}
-    />
-  );
-
-  return (
-    <ScreenContainer title={t('fines.title')}>
-      <Block flex={1}>
-        <Row alignItems={'center'} justifyContent={'space-between'}>
-          <Typography.R20 numberOfLines={2} color={theme.textColor}>
-            {t('fines.paymentByCode')}
-          </Typography.R20>
-          <StyledBlock backgroundColor={Colors.white} marginRight={8}>
-            <Icon name={icon} size={32} color={Colors.blue} />
-          </StyledBlock>
-        </Row>
-        <Row marginVertical={16}>
-          <InputField
-            maxLength={maxLength}
-            keyboardType={'numeric'}
-            value={code}
-            onChangeValue={setCode}
-            label={t('fines.paymentCode')}
-            showAdditionalButton
+    <>
+      {scannerOpened ? (
+        <Block flex={1} backgroundColor={theme.backgroundColor}>
+          <QRCodeScanner
+            fadeIn={false}
+            onRead={onSuccess}
+            flashMode={Camera.Constants.FlashMode.off}
+            cameraProps={{ratio: '2:1'}}
           />
-        </Row>
-        <Row marginVertical={16}>
-          <InputField
-            disabled={false}
-            keyboardType={'numeric'}
-            value={ammount}
-            label={t('fines.paymentAmmount')}
-          />
-        </Row>
-        <Button
-          title={t('fines.goToPay')}
-          onPress={() => null}
-          marginTop={16}
-        />
-      </Block>
-      {loading && (
-        <StyledFloatingBlock>
-          <ActivityIndicator size="large" color={Colors.blue} />
-        </StyledFloatingBlock>
+        </Block>
+      ) : (
+        <ScreenContainer title={t('fines.title')}>
+          <>
+            <Block flex={1}>
+              <Row alignItems={'center'} justifyContent={'space-between'}>
+                <Typography.R20 numberOfLines={2} color={theme.textColor}>
+                  {t('fines.paymentByCode')}
+                </Typography.R20>
+                <StyledBlock backgroundColor={Colors.white} marginRight={8}>
+                  <Icon name={icon} size={32} color={Colors.blue} />
+                </StyledBlock>
+              </Row>
+              <Row marginVertical={16}>
+                <InputField
+                  onPress={onPressHandler}
+                  maxLength={maxLength}
+                  keyboardType={'numeric'}
+                  value={code}
+                  onChangeValue={setCode}
+                  label={t('fines.paymentCode')}
+                  showAdditionalButton
+                />
+              </Row>
+              <Row marginVertical={16}>
+                <InputField
+                  disabled={false}
+                  keyboardType={'numeric'}
+                  value={ammount}
+                  label={t('fines.paymentAmmount')}
+                />
+              </Row>
+              <Button
+                title={t('fines.goToPay')}
+                onPress={() => null}
+                marginTop={16}
+              />
+            </Block>
+            {loading && (
+              <StyledFloatingBlock>
+                <ActivityIndicator size="large" color={Colors.blue} />
+              </StyledFloatingBlock>
+            )}
+          </>
+        </ScreenContainer>
       )}
-    </ScreenContainer>
+    </>
   );
 };
 
