@@ -11,12 +11,13 @@ import {
   ShadowsSizes,
   Typography,
 } from '@UIKit';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
+import {Alert} from 'react-native';
 
 type Props = NativeStackScreenProps<
   FinesStackParamList,
@@ -32,6 +33,14 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
   } = route;
   const [code, setCode] = useState('');
   const [ammount, setAmmount] = useState('');
+
+  const maxLength = type === 'police' ? 16 : 14;
+
+  useEffect(() => {
+    if (code.length === maxLength) {
+      Alert.alert('FULL');
+    }
+  }, [code.length, maxLength]);
 
   return (
     <ScreenContainer title={t('fines.title')}>
@@ -50,7 +59,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
         </Row>
         <Row marginVertical={16}>
           <InputField
-            maxLength={type === 'police' ? 16 : 14}
+            maxLength={maxLength}
             keyboardType={'numeric'}
             value={code}
             onChangeValue={setCode}
