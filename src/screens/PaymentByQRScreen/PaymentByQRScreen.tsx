@@ -11,7 +11,7 @@ import {
   ShadowsSizes,
   Typography,
 } from '@UIKit';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
@@ -19,6 +19,8 @@ import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import styled from 'styled-components';
 import {getCurrentAmount} from '@store';
 import {ActivityIndicator} from 'react-native';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import {RNCamera as Camera} from 'react-native-camera';
 
 type Props = NativeStackScreenProps<
   FinesStackParamList,
@@ -65,6 +67,22 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
       getCurrentAmountHandler();
     }
   }, [code.length, getCurrentAmountHandler, maxLength]);
+
+  const onSuccess = e => {
+    const check = e.data.substring(0, 4);
+    console.log('scanned data' + check);
+  };
+
+  const scanner = useRef();
+
+  return (
+    <QRCodeScanner
+      fadeIn={false}
+      onRead={onSuccess}
+      flashMode={Camera.Constants.FlashMode.off}
+      cameraProps={{ratio: '1:1'}}
+    />
+  );
 
   return (
     <ScreenContainer title={t('fines.title')}>
