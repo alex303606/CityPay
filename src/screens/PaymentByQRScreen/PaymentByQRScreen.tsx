@@ -18,7 +18,7 @@ import {useTranslation} from 'react-i18next';
 import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import styled from 'styled-components';
 import {getCurrentAmount} from '@store';
-import {ActivityIndicator, Alert} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera as Camera} from 'react-native-camera';
 
@@ -66,14 +66,14 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
     if (code.length === maxLength) {
       getCurrentAmountHandler();
     }
-  }, [code.length, getCurrentAmountHandler, maxLength]);
+  }, [code, getCurrentAmountHandler, maxLength]);
 
   const onSuccess = ({data}: {data: string}) => {
     setScannerOpened(false);
     if (data) {
       setCode(data);
-      console.log(data);
-      Alert.alert(data);
+    } else {
+      return showNotification(t('errors.somethingWentWrong'));
     }
   };
 
