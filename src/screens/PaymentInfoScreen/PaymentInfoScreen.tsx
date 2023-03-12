@@ -18,8 +18,8 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
 
   return (
     <ScreenContainer title={t('payments.paymentInfo')}>
-      <PaymentRow label={'Номер квитанции'} value={paymentNumber} />
-      <PaymentRow label={'Сумма'} value={amount} />
+      <PaymentRow label={t('payments.paymentNumber')} value={paymentNumber} />
+      <PaymentRow label={t('payments.paymentSum')} value={amount} />
     </ScreenContainer>
   );
 };

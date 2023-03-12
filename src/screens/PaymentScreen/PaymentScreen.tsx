@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Block,
   Colors,
@@ -23,6 +23,8 @@ type Props = NativeStackScreenProps<
   PaymentsStackParamList,
   EScreens.PAYMENT_SCREEN
 >;
+
+const DPS = '8';
 
 export const PaymentScreen: React.FC<Props> = ({route}) => {
   const {t} = useTranslation();
@@ -68,6 +70,18 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
       });
     });
   }, []);
+
+  const serviceProvider = useMemo(() => {
+    return payment?.finesType === DPS
+      ? {
+          type: t('payments.serviceProviderDps.type'),
+          provider: t('payments.serviceProviderDps.provider'),
+        }
+      : {
+          type: t('payments.serviceProviderCity.type'),
+          provider: t('payments.serviceProviderCity.provider'),
+        };
+  }, [payment?.finesType, t]);
 
   if (loading) {
     return (
@@ -120,15 +134,27 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
         showButton={payment.status === '1'}
         iconName={IconNames.share}
         title={t('payments.receipt')}>
-        <PaymentRow label={'Тип операции'} value={payment.protocolNumber} />
-        <PaymentRow label={'Статья'} value={payment.article} />
-        <PaymentRow label={'Номер квитанции'} value={paymentNumber} />
-        <PaymentRow label={'Поставщик услуг'} value={paymentNumber} />
-        <PaymentRow label={'Дата создания'} value={dateCreate} />
-        <PaymentRow label={'Дата оплаты'} value={datePayment} />
-        <PaymentRow label={'Номер протокола'} value={payment.protocolNumber} />
-        <PaymentRow label={'Номер авто'} value={payment.number} />
-        <PaymentRow label={'Сумма к оплате'} value={payment.paymentSum} />
+        <PaymentRow
+          label={t('payments.operationType')}
+          value={serviceProvider.type}
+        />
+        <PaymentRow label={t('payments.article')} value={payment.article} />
+        <PaymentRow label={t('payments.paymentNumber')} value={paymentNumber} />
+        <PaymentRow
+          label={t('payments.serviceProvider')}
+          value={serviceProvider.provider}
+        />
+        <PaymentRow label={t('payments.dateCreate')} value={dateCreate} />
+        <PaymentRow label={t('payments.datePayment')} value={datePayment} />
+        <PaymentRow
+          label={t('payments.protocolNumber')}
+          value={payment.protocolNumber}
+        />
+        <PaymentRow label={t('payments.number')} value={payment.number} />
+        <PaymentRow
+          label={t('payments.paymentSum')}
+          value={payment.paymentSum}
+        />
         <Row alignItems={'center'} justifyContent={'center'}>
           <StatusText color={Colors.red}>{payment.status_payment}</StatusText>
         </Row>

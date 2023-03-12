@@ -83,6 +83,23 @@ export const kgTranslation = {
       paymentInfo: 'Платежная информация',
       subTitle:
         'Найдено платежей: {{number}}\nОтображаются платежи за последние 30 дней. Для просмотра всей истории платежей активируйте Премиум подписку',
+      serviceProviderDps: {
+        type: 'Оплата штрафа ДПС',
+        provider: 'Инфосистемс',
+      },
+      serviceProviderCity: {
+        type: 'Оплата штрафа Безопасного города',
+        provider: 'Безопасный город Инфосистемс',
+      },
+      operationType: 'Тип операции',
+      article: 'Статья',
+      paymentNumber: 'Номер квитанции',
+      serviceProvider: 'Поставщик услуг',
+      dateCreate: 'Дата создания',
+      datePayment: 'Дата оплаты',
+      protocolNumber: 'Номер протокола',
+      number: 'Номер авто',
+      paymentSum: 'Сумма к оплате',
     },
     settings: {
       title: 'Настройки',
