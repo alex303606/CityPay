@@ -1,7 +1,7 @@
 import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ICar, IFine} from '@store';
+import {ICar, IFine, IFinesType} from '@store';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -36,6 +36,7 @@ export type CarsStackParamList = {
     paymentNumber: string;
     amount: string;
     fine?: IFine;
+    finesType: IFinesType;
   };
 };
 
@@ -54,6 +55,7 @@ export type FinesStackParamList = {
     paymentNumber: string;
     amount: string;
     fine?: IFine;
+    finesType: IFinesType;
   };
 };
 

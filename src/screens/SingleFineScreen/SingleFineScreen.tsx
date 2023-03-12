@@ -14,7 +14,7 @@ import {CarsStackParamList, EScreens} from '@navigators';
 import {ActivityIndicator, Image, Pressable} from 'react-native';
 import styled from 'styled-components';
 import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
-import {getCurrentAmount} from '@store';
+import {getCurrentAmount, IFinesType} from '@store';
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,
@@ -74,6 +74,7 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
       paymentNumber: fine.paymentNumber,
       amount: amount.toString(),
       fine,
+      finesType: IFinesType.BG,
     });
   }, [amount, fine, navigation]);
 

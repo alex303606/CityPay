@@ -17,7 +17,7 @@ import {EScreens, FinesStackParamList} from '@navigators';
 import {useTranslation} from 'react-i18next';
 import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import styled from 'styled-components';
-import {getCurrentAmount} from '@store';
+import {getCurrentAmount, IFinesType} from '@store';
 import {ActivityIndicator} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera as Camera} from 'react-native-camera';
@@ -41,6 +41,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route, navigation}) => {
 
   const maxLength = type === 'police' ? 16 : 14;
   const icon = type === 'police' ? IconNames.police : IconNames.camera;
+  const finesType = type === 'police' ? IFinesType.DPS : IFinesType.BG;
 
   const getCurrentAmountHandler = useCallback(async () => {
     showLoader();
@@ -93,8 +94,9 @@ export const PaymentByQRScreen: React.FC<Props> = ({route, navigation}) => {
     navigation.navigate(EScreens.PAYMENTS_INFO_SCREEN, {
       paymentNumber: code,
       amount,
+      finesType,
     });
-  }, [amount, code, navigation]);
+  }, [amount, code, finesType, navigation]);
 
   return (
     <>

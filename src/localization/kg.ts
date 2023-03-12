@@ -77,6 +77,7 @@ export const kgTranslation = {
       closeScanner: 'Закрыть',
     },
     payments: {
+      payByCard: 'Оплатить картой',
       title: 'Платежи',
       empty: 'Не найдено ни одной квитанции',
       receipt: 'Квитанция',
