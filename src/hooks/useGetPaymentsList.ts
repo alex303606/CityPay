@@ -17,20 +17,26 @@ export const useGetPaymentsList = () => {
     const response = await getPaymentsList({phone});
     hideLoader();
     if (!response?.result) {
+      if (!response?.data) {
+        dispatch(
+          getPaymentsSuccess({
+            payments: [],
+          }),
+        );
+      }
       if (response?.message) {
         return showNotification(response.message);
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
-    if (!response?.data) {
-      return showNotification(t('errors.somethingWentWrong'));
-    }
 
-    dispatch(
-      getPaymentsSuccess({
-        payments: response.data,
-      }),
-    );
+    if (response.data) {
+      dispatch(
+        getPaymentsSuccess({
+          payments: response.data,
+        }),
+      );
+    }
   }, [dispatch, hideLoader, phone, showLoader, showNotification, t]);
   return {
     getPaymentsListHandler,

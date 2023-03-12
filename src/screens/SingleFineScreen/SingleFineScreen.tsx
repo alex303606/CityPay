@@ -73,8 +73,9 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
     navigation.navigate(EScreens.PAYMENTS_INFO_SCREEN, {
       paymentNumber: fine.paymentNumber,
       amount: amount.toString(),
+      fine,
     });
-  }, [amount, fine.paymentNumber, navigation]);
+  }, [amount, fine, navigation]);
 
   const handlePressImage = useCallback(() => {
     return navigation.navigate(EScreens.MODAL_IMAGE_VIEWER, {

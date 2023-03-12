@@ -35,7 +35,7 @@ export const getPaymentsList = ({phone}: {phone: string}) => {
     .then(
       (response: {
         data: {
-          data: IPayment[];
+          data: IPayment[] | null;
           result: boolean;
           message: string;
         };

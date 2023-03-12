@@ -26,23 +26,31 @@ export const useGetFinesByAllCarsNumberAndPin = (cars: ICar[]) => {
     });
     hideLoader();
     if (!response?.result) {
+      if (!response?.data) {
+        dispatch(
+          getFinesSuccess({
+            fines: [],
+          }),
+        );
+      }
       if (response?.message) {
         return showNotification(response.message);
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
-    if (!response?.data) {
-      return showNotification(t('errors.somethingWentWrong'));
+
+    if (response.data) {
+      const fines = response.data.reduce((acc, fineArr) => {
+        fineArr.forEach(fine => acc.push(fine));
+        return acc;
+      }, [] as IFine[]);
+
+      dispatch(
+        getFinesSuccess({
+          fines,
+        }),
+      );
     }
-    const fines = response.data.reduce((acc, fineArr) => {
-      fineArr.forEach(fine => acc.push(fine));
-      return acc;
-    }, [] as IFine[]);
-    dispatch(
-      getFinesSuccess({
-        fines,
-      }),
-    );
   }, [cars, dispatch, hideLoader, showLoader, showNotification, t]);
   return {
     getFinesByAllCarsNumberAndPin,
