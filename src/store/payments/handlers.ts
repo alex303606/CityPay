@@ -94,3 +94,58 @@ export const getCurrentAmount = (paymentCode: string) => {
     )
     .catch(error => console.warn(error));
 };
+
+type AddPaymentParams = {
+  paymentNumber: string;
+  amount: string;
+  phone: string;
+  inn?: string;
+  finesType?: string;
+  article?: string;
+  number?: string;
+  protocolNumber?: string;
+};
+
+export const addPayment = ({
+  paymentNumber,
+  amount,
+  phone,
+  inn = 'не указан',
+  number = '-',
+  article = '-',
+  protocolNumber = '',
+  finesType = '-',
+}: AddPaymentParams) => {
+  return axios
+    .post('', {
+      TYPE: 'add_payment_megapay',
+      USERNAME: 'anonymous',
+      INN: inn,
+      NUMBER: number,
+      ARTICLE: article,
+      PROTOCOL_NUMBER: protocolNumber,
+      PAYMENT_NUMBER: `${paymentNumber}-${Math.floor(
+        1000 + Math.random() * 9000,
+      )}`,
+      AMOUNT: amount,
+      STATUS: false,
+      PHONE: phone,
+      FINES_TYPE: finesType,
+    })
+    .then(
+      (response: {
+        data: {
+          data: {
+            paymentSum: string;
+          };
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
