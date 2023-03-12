@@ -72,6 +72,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
     setScannerOpened(false);
     if (data) {
       setCode(data);
+      getCurrentAmountHandler();
     } else {
       return showNotification(t('errors.somethingWentWrong'));
     }
@@ -79,6 +80,10 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
 
   const onPressHandler = useCallback(() => {
     setScannerOpened(true);
+  }, []);
+
+  const onPressClose = useCallback(() => {
+    setScannerOpened(false);
   }, []);
 
   return (
@@ -89,7 +94,29 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
             fadeIn={false}
             onRead={onSuccess}
             flashMode={Camera.Constants.FlashMode.off}
-            cameraProps={{ratio: '2:1'}}
+            cameraProps={{ratio: '1:1'}}
+            topContent={
+              <StyledContent
+                justifyContent={'center'}
+                alignItems={'center'}
+                paddingVertical={16}>
+                <Typography.B20
+                  textAlign={'center'}
+                  numberOfLines={2}
+                  color={theme.textColor}>
+                  {t('fines.scanQrCode')}
+                </Typography.B20>
+              </StyledContent>
+            }
+            bottomContent={
+              <StyledContent justifyContent={'center'} padding={16}>
+                <Button
+                  color={theme.buttonColor}
+                  title={t('fines.closeScanner')}
+                  onPress={onPressClose}
+                />
+              </StyledContent>
+            }
           />
         </Block>
       ) : (
@@ -124,6 +151,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
                 />
               </Row>
               <Button
+                color={theme.buttonColor}
                 title={t('fines.goToPay')}
                 onPress={() => null}
                 marginTop={16}
@@ -159,4 +187,8 @@ const StyledBlock = styled(Block)({
   alignItems: 'center',
   justifyContent: 'center',
   elevation: ShadowsSizes[EShadow.S],
+});
+
+const StyledContent = styled(Block)({
+  width: '100%',
 });
