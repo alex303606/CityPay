@@ -36,9 +36,12 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
   const {reloadCarList, loading} = useReloadCarList();
 
   useEffect(() => {
-    getFinesByAllCarsNumberAndPin();
     reloadCarList();
   }, []);
+
+  useEffect(() => {
+    getFinesByAllCarsNumberAndPin();
+  }, [cars.length]);
 
   const addCarHandler = useCallback(() => {
     navigation.navigate(EScreens.MODAL_ADD_CAR);
