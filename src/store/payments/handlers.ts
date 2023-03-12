@@ -95,12 +95,18 @@ export const getCurrentAmount = (paymentCode: string) => {
     .catch(error => console.warn(error));
 };
 
+export enum IFinesType {
+  DPS = 'DPS_protocol',
+  BG = 'BG_protocol',
+  EMPTY = '-',
+}
+
 type AddPaymentParams = {
   paymentNumber: string;
   amount: string;
   phone: string;
   inn?: string;
-  finesType?: string;
+  finesType?: IFinesType;
   article?: string;
   number?: string;
   protocolNumber?: string;
@@ -114,7 +120,7 @@ export const addPayment = ({
   number = '-',
   article = '-',
   protocolNumber = '',
-  finesType = '-',
+  finesType = IFinesType.EMPTY,
 }: AddPaymentParams) => {
   return axios
     .post('', {

@@ -32,7 +32,11 @@ export type CarsStackParamList = {
   };
   [EScreens.MODAL_DELETE_CAR]: {car: ICar};
   [EScreens.MODAL_IMAGE_VIEWER]: {url: string};
-  [EScreens.PAYMENTS_INFO_SCREEN]: {paymentNumber: string; amount: string};
+  [EScreens.PAYMENTS_INFO_SCREEN]: {
+    paymentNumber: string;
+    amount: string;
+    fine?: IFine;
+  };
 };
 
 export type CarsStackProps = NativeStackScreenProps<
@@ -46,7 +50,11 @@ export type FinesStackParamList = {
   [EScreens.MODAL_IMAGE_VIEWER]: {url: string};
   [EScreens.SINGLE_FINE_SCREEN]: {fine: IFine};
   [EScreens.PAYMENTS_BY_QR_SCREEN]: {type: string};
-  [EScreens.PAYMENTS_INFO_SCREEN]: {paymentNumber: string; amount: string};
+  [EScreens.PAYMENTS_INFO_SCREEN]: {
+    paymentNumber: string;
+    amount: string;
+    fine?: IFine;
+  };
 };
 
 export type PaymentsStackParamList = {
