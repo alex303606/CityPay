@@ -70,8 +70,11 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
   });
 
   const onHandlePressPay = useCallback(() => {
-    return;
-  }, []);
+    navigation.navigate(EScreens.PAYMENTS_INFO_SCREEN, {
+      paymentNumber: fine.paymentNumber,
+      amount: amount.toString(),
+    });
+  }, [amount, fine.paymentNumber, navigation]);
 
   const handlePressImage = useCallback(() => {
     return navigation.navigate(EScreens.MODAL_IMAGE_VIEWER, {
@@ -162,12 +165,14 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
           animating={imageLoading}
         />
       </StyledPressable>
-      <Button
-        loading={loading}
-        color={theme.buttonColor}
-        title={t('fines.pay')}
-        onPress={onHandlePressPay}
-      />
+      {fine.paymentStatus === '0' && (
+        <Button
+          loading={loading}
+          color={theme.buttonColor}
+          title={t('fines.pay')}
+          onPress={onHandlePressPay}
+        />
+      )}
       {loading && (
         <StyledFloatingBlock>
           <ActivityIndicator size="large" color={Colors.blue} />

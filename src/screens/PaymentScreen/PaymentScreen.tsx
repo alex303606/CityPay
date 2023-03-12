@@ -3,6 +3,7 @@ import {
   Block,
   Colors,
   IconNames,
+  PaymentRow,
   Row,
   ScreenContainer,
   Typography,
@@ -22,26 +23,6 @@ type Props = NativeStackScreenProps<
   PaymentsStackParamList,
   EScreens.PAYMENT_SCREEN
 >;
-
-type RowProps = {
-  label: string;
-  value: string | number | null | undefined;
-};
-
-const PaymentRow: React.FC<RowProps> = ({label, value}) => {
-  const {theme} = useTheme();
-
-  if (!value) {
-    return null;
-  }
-
-  return (
-    <Block marginBottom={16}>
-      <Typography.B20 color={theme.textColor}>{label}</Typography.B20>
-      <Typography.R16 color={theme.textColor}>{value}</Typography.R16>
-    </Block>
-  );
-};
 
 export const PaymentScreen: React.FC<Props> = ({route}) => {
   const {t} = useTranslation();
@@ -136,7 +117,7 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
       options={{format: 'jpg', quality: 0.9}}>
       <ScreenContainer
         onPressButton={onPressShare}
-        showButton
+        showButton={payment.status === '1'}
         iconName={IconNames.share}
         title={t('payments.receipt')}>
         <PaymentRow label={'Тип операции'} value={payment.protocolNumber} />
@@ -145,11 +126,9 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
         <PaymentRow label={'Поставщик услуг'} value={paymentNumber} />
         <PaymentRow label={'Дата создания'} value={dateCreate} />
         <PaymentRow label={'Дата оплаты'} value={datePayment} />
-        <PaymentRow label={'ФИО/Наименование'} value={payment.username} />
         <PaymentRow label={'Номер протокола'} value={payment.protocolNumber} />
         <PaymentRow label={'Номер авто'} value={payment.number} />
-        <PaymentRow label={'Сумма'} value={payment.amount} />
-        <PaymentRow label={'Коммисия'} value={payment.paymentService} />
+        <PaymentRow label={'Сумма к оплате'} value={payment.paymentSum} />
         <Row alignItems={'center'} justifyContent={'center'}>
           <StatusText color={Colors.red}>{payment.status_payment}</StatusText>
         </Row>

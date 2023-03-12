@@ -20,7 +20,7 @@ const keyExtractor = (item: IPayment) =>
 
 export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const payments = useAppSelector(getPayments); //.filter(p => p.status === '1');
+  const payments = useAppSelector(getPayments).filter(p => p.status === '1');
   const {isPremiumAccess} = useAppSelector(getUserState);
   const handlePressPayment = useCallback(
     (paymentNumber: string) => {
@@ -40,7 +40,7 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
 
   useEffect(() => {
     getPaymentsListHandler();
-  }, []);
+  }, [getPaymentsListHandler]);
 
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>

@@ -27,7 +27,7 @@ type Props = NativeStackScreenProps<
   EScreens.PAYMENTS_BY_QR_SCREEN
 >;
 
-export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
+export const PaymentByQRScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
   const {loading, hideLoader, showLoader} = useLoading();
@@ -36,7 +36,7 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
     params: {type},
   } = route;
   const [code, setCode] = useState('');
-  const [ammount, setAmmount] = useState('');
+  const [amount, setAmmount] = useState('');
   const [scannerOpened, setScannerOpened] = useState(false);
 
   const maxLength = type === 'police' ? 16 : 14;
@@ -88,6 +88,13 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
   const onPressClose = useCallback(() => {
     setScannerOpened(false);
   }, []);
+
+  const goToPayHandler = useCallback(() => {
+    navigation.navigate(EScreens.PAYMENTS_INFO_SCREEN, {
+      paymentNumber: code,
+      amount,
+    });
+  }, [amount, code, navigation]);
 
   return (
     <>
@@ -149,14 +156,16 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
                 <InputField
                   disabled={false}
                   keyboardType={'numeric'}
-                  value={ammount}
+                  value={amount}
                   label={t('fines.paymentAmmount')}
                 />
               </Row>
               <Button
+                disabled={!Boolean(amount)}
+                loading={loading}
                 color={theme.buttonColor}
                 title={t('fines.goToPay')}
-                onPress={() => null}
+                onPress={goToPayHandler}
                 marginTop={16}
               />
             </Block>

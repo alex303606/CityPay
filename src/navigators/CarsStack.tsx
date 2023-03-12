@@ -4,6 +4,7 @@ import {
   CarsScreen,
   ModalDeleteCar,
   ModalImageViewer,
+  PaymentInfoScreen,
   SingleCarScreen,
   SingleFineScreen,
 } from '@screens';
@@ -66,6 +67,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
             headerStyle: {
               backgroundColor: theme.backgroundColor,
             },
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.PAYMENTS_INFO_SCREEN}
+          component={PaymentInfoScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Group>

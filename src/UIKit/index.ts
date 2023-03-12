@@ -11,3 +11,4 @@ export {InputField} from './InputField';
 export {RoundButton} from './RoundButton';
 export {CarComponent} from './CarComponent';
 export {FineComponent} from './FineComponent';
+export {PaymentRow} from './PaymentRow';

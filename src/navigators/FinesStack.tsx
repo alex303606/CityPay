@@ -5,6 +5,7 @@ import {
   FinesScreen,
   ModalImageViewer,
   PaymentByQRScreen,
+  PaymentInfoScreen,
   SelectFineTypeScreen,
   SingleFineScreen,
 } from '@screens';
@@ -37,6 +38,13 @@ export const FinesStack: React.FC<FinesStackProps> = () => {
       <Stack.Screen
         name={EScreens.SELECT_FINE_TYPE_SCREEN}
         component={SelectFineTypeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.PAYMENTS_INFO_SCREEN}
+        component={PaymentInfoScreen}
         options={{
           headerShown: false,
         }}
