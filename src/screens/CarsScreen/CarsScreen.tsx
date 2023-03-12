@@ -16,7 +16,11 @@ import {
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {useAppSelector, useReloadCarList} from '@hooks';
+import {
+  useAppSelector,
+  useGetFinesByAllCarsNumberAndPin,
+  useReloadCarList,
+} from '@hooks';
 import {FlatListType} from '../types';
 import {getCars, ICar} from '@store';
 
@@ -27,10 +31,12 @@ const keyExtractor = (item: ICar) => item.number;
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const cars = useAppSelector(getCars);
-
+  const {getFinesByAllCarsNumberAndPin} =
+    useGetFinesByAllCarsNumberAndPin(cars);
   const {reloadCarList, loading} = useReloadCarList();
 
   useEffect(() => {
+    getFinesByAllCarsNumberAndPin();
     reloadCarList();
   }, []);
 
