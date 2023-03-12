@@ -9,6 +9,9 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "clean": "cd android && ./gradlew clean && cd ../",
+    "androidBundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "androidReleaseBuild": "cd android && ./gradlew clean && ./gradlew :app:bundleRelease",
+    "androidApkBuild": "cd android && ./gradlew clean && ./gradlew :app:assembleRelease",
     "postinstall": "patch-package"
   },
   "dependencies": {
