@@ -2,7 +2,7 @@ import {Block, Button, ModalContainer} from '@UIKit';
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useAppDispatch} from '@hooks';
-import {signOut} from '@store';
+import {clearCars, clearFines, clearPayments, signOut} from '@store';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
 
@@ -17,6 +17,9 @@ export const ModalExitScreen: React.FC<Props> = ({navigation}) => {
 
   const handleExit = useCallback(() => {
     dispatch(signOut());
+    dispatch(clearFines());
+    dispatch(clearCars());
+    dispatch(clearPayments());
   }, [dispatch]);
 
   const handleCancel = useCallback(() => {

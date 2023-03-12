@@ -14,6 +14,9 @@ const paymentsSlice = createSlice({
   name: 'fines',
   initialState: initialState,
   reducers: {
+    clearPayments() {
+      return initialState;
+    },
     getPaymentsSuccess(state, action: PayloadAction<{payments: IPayment[]}>) {
       state.payments = action.payload.payments;
     },
@@ -22,4 +25,4 @@ const paymentsSlice = createSlice({
 
 export const paymentsReducer = paymentsSlice.reducer;
 export const getPayments = (state: RootState) => state.payments.payments;
-export const {getPaymentsSuccess} = paymentsSlice.actions;
+export const {getPaymentsSuccess, clearPayments} = paymentsSlice.actions;

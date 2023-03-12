@@ -17,6 +17,9 @@ export const useGetFinesByAllCarsNumberAndPin = (cars: ICar[]) => {
   const dispatch = useAppDispatch();
 
   const getFinesByAllCarsNumberAndPin = useCallback(async () => {
+    if (cars.length === 0) {
+      return;
+    }
     const numbers = cars.map(c => c.number);
     const inns = cars.map(c => c.inn);
     showLoader();

@@ -7,6 +7,9 @@ import {Header} from './components/Header';
 import {Item} from './components/Item';
 import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
 import {
+  clearCars,
+  clearFines,
+  clearPayments,
   getUser,
   getUserState,
   getUserSuccess,
@@ -27,8 +30,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const dispatch = useAppDispatch();
-  const {balls, rating, name, last_name, phone, avatar} =
-    useAppSelector(getUserState);
+  const {balls, name, last_name, phone, avatar} = useAppSelector(getUserState);
 
   useFocusEffect(() => {
     reload();
@@ -47,6 +49,9 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     }
     if (response.data.black_list) {
       dispatch(signOut());
+      dispatch(clearFines());
+      dispatch(clearCars());
+      dispatch(clearPayments());
       return showNotification(t('errors.blackList'));
     }
     dispatch(

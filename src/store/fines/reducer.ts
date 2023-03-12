@@ -14,6 +14,9 @@ const finesSlice = createSlice({
   name: 'fines',
   initialState: initialState,
   reducers: {
+    clearFines() {
+      return initialState;
+    },
     getFinesSuccess(state, action: PayloadAction<{fines: IFine[]}>) {
       state.fines = action.payload.fines;
     },
@@ -21,5 +24,5 @@ const finesSlice = createSlice({
 });
 
 export const finesReducer = finesSlice.reducer;
-export const {getFinesSuccess} = finesSlice.actions;
+export const {getFinesSuccess, clearFines} = finesSlice.actions;
 export const getFines = (state: RootState) => state.fines.fines;

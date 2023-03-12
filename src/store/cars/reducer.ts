@@ -18,6 +18,9 @@ const carsSlice = createSlice({
   name: 'cars',
   initialState: initialState,
   reducers: {
+    clearCars() {
+      return initialState;
+    },
     getCarsSuccess(state, action: PayloadAction<{cars: ICar[]}>) {
       state.cars = action.payload.cars;
     },
@@ -25,5 +28,5 @@ const carsSlice = createSlice({
 });
 
 export const carsReducer = carsSlice.reducer;
-export const {getCarsSuccess} = carsSlice.actions;
+export const {getCarsSuccess, clearCars} = carsSlice.actions;
 export const getCars = (state: RootState) => state.cars.cars;
