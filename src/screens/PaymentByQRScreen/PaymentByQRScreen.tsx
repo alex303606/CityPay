@@ -68,15 +68,18 @@ export const PaymentByQRScreen: React.FC<Props> = ({route}) => {
     }
   }, [code, getCurrentAmountHandler, maxLength]);
 
-  const onSuccess = ({data}: {data: string}) => {
-    setScannerOpened(false);
-    if (data) {
-      setCode(data);
-      getCurrentAmountHandler();
-    } else {
-      return showNotification(t('errors.somethingWentWrong'));
-    }
-  };
+  const onSuccess = useCallback(
+    ({data}: {data: string}) => {
+      setScannerOpened(false);
+      if (data) {
+        setCode(data);
+        getCurrentAmountHandler();
+      } else {
+        return showNotification(t('errors.somethingWentWrong'));
+      }
+    },
+    [getCurrentAmountHandler, showNotification, t],
+  );
 
   const onPressHandler = useCallback(() => {
     setScannerOpened(true);
