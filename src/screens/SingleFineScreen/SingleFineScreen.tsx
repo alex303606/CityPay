@@ -117,8 +117,8 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
               </ViolationAmmountText>
             </Row>
             <Row alignItems={'center'}>
-              <Typography.B16 color={Colors.black}>{amount}</Typography.B16>
-              <Typography.R14 color={Colors.black}>⊆</Typography.R14>
+              <Typography.B16 color={theme.textColor}>{amount}</Typography.B16>
+              <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
             </Row>
           </Row>
         ) : (
