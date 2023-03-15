@@ -22,7 +22,7 @@ import {
   useReloadCarList,
 } from '@hooks';
 import {FlatListType} from '../types';
-import {getCars, ICar} from '@store';
+import {getCars, getUserState, ICar} from '@store';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
@@ -31,6 +31,7 @@ const keyExtractor = (item: ICar) => item.number;
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const cars = useAppSelector(getCars);
+  const {isPremiumAccess} = useAppSelector(getUserState);
   const {getFinesByAllCarsNumberAndPin} =
     useGetFinesByAllCarsNumberAndPin(cars);
   const {reloadCarList, loading} = useReloadCarList();
@@ -44,8 +45,11 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
   }, [cars.length]);
 
   const addCarHandler = useCallback(() => {
+    if (!isPremiumAccess && cars.length >= 2) {
+      return navigation.navigate(EScreens.MODAL_BUY_PREMIUM_SCREEN);
+    }
     navigation.navigate(EScreens.MODAL_ADD_CAR);
-  }, [navigation]);
+  }, [cars.length, isPremiumAccess, navigation]);
 
   const handlePressNumber = useCallback(
     ({car, isNewNumber}: {car: ICar; isNewNumber: boolean}) => {

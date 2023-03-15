@@ -10,6 +10,8 @@ export const HeaderModal: React.FC<ModalHeaderProps> = ({
 }) => (
   <Row alignItems="center" paddingVertical={16} paddingRight={16}>
     <ModalCloseBtn onClosePress={onClosePress} />
-    <Typography.R18>{title}</Typography.R18>
+    <Row flex={1}>
+      <Typography.R18>{title}</Typography.R18>
+    </Row>
   </Row>
 );

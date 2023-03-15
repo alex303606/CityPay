@@ -25,6 +25,7 @@ export type CarsStackParamList = {
   [EScreens.CARS_SCREEN]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
   [EScreens.MODAL_ADD_CAR]: undefined;
+  [EScreens.MODAL_BUY_PREMIUM_SCREEN]: undefined;
   [EScreens.SINGLE_FINE_SCREEN]: {fine: IFine};
   [EScreens.SINGLE_CAR_SCREEN]: {
     car: ICar;

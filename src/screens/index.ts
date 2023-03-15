@@ -19,3 +19,4 @@ export {PaymentScreen} from './PaymentScreen/PaymentScreen';
 export {SelectFineTypeScreen} from './SelectFineTypeScreen/SelectFineTypeScreen';
 export {PaymentByQRScreen} from './PaymentByQRScreen/PaymentByQRScreen';
 export {PaymentInfoScreen} from './PaymentInfoScreen/PaymentInfoScreen';
+export {ModalBuyPremiumScreen} from './ModalBuyPremiumScreen/ModalBuyPremiumScreen';

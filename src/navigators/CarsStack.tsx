@@ -2,6 +2,7 @@ import React from 'react';
 import {
   AddAutoModalScreen,
   CarsScreen,
+  ModalBuyPremiumScreen,
   ModalDeleteCar,
   ModalImageViewer,
   PaymentInfoScreen,
@@ -37,6 +38,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
         }}
       />
       <Stack.Group screenOptions={modalStackScreenOptions}>
+        <Stack.Screen
+          name={EScreens.MODAL_BUY_PREMIUM_SCREEN}
+          component={ModalBuyPremiumScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name={EScreens.MODAL_ADD_CAR}
           component={AddAutoModalScreen}
