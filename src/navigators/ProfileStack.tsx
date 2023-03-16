@@ -2,6 +2,7 @@ import React from 'react';
 import {EScreens} from './types';
 import {ProfileStackParamList, ProfileStackProps} from './navigationTypes';
 import {
+  ModalBuyPremiumScreen,
   ModalLanguageScreen,
   ModalPhotoScreen,
   ProfileScreen,
@@ -35,6 +36,13 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         />
       </Stack.Group>
       <Stack.Group screenOptions={modalStackScreenOptions}>
+        <Stack.Screen
+          name={EScreens.MODAL_BUY_PREMIUM_SCREEN}
+          component={ModalBuyPremiumScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name={EScreens.MODAL_LANGUAGE_SCREEN}
           component={ModalLanguageScreen}

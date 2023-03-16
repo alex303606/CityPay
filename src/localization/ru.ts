@@ -131,6 +131,7 @@ export const ruTranslation = {
       fromCamera: 'Камера',
     },
     premium: {
+      activate: 'Ативировать премиум',
       title: {
         carsLimit:
           'Для добавления более 2-х авто неоходимо активировать премиум подписку',

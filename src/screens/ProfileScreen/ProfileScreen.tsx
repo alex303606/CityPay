@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {Block, ScreenContainer} from '@UIKit';
+import {Block, Button, ScreenContainer} from '@UIKit';
 import {EScreens, ProfileStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
@@ -30,7 +30,8 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const dispatch = useAppDispatch();
-  const {balls, name, last_name, phone, avatar} = useAppSelector(getUserState);
+  const {balls, name, last_name, phone, avatar, isPremiumAccess} =
+    useAppSelector(getUserState);
 
   useFocusEffect(() => {
     reload();
@@ -88,6 +89,12 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     return navigation.navigate(EScreens.MODAL_PHOTO_SCREEN);
   }, [navigation]);
 
+  const buyPremiumHandler = useCallback(() => {
+    navigation.navigate(EScreens.MODAL_BUY_PREMIUM_SCREEN, {
+      title: t('premium.activate'),
+    });
+  }, [navigation, t]);
+
   return (
     <ScreenContainer
       reload={reload}
@@ -115,6 +122,9 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
         />
         <Item text={t('profile.exit')} onPress={handlePressExit} />
       </Block>
+      {!isPremiumAccess && (
+        <Button title={t('premium.activate')} onPress={buyPremiumHandler} />
+      )}
     </ScreenContainer>
   );
 };

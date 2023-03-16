@@ -96,6 +96,7 @@ export type ProfileStackParamList = {
   [EScreens.MODAL_EXIT_SCREEN]: undefined;
   [EScreens.PROFILE_SETTINGS_SCREEN]: undefined;
   [EScreens.MODAL_PHOTO_SCREEN]: undefined;
+  [EScreens.MODAL_BUY_PREMIUM_SCREEN]: {title: string};
 };
 
 //TABS
