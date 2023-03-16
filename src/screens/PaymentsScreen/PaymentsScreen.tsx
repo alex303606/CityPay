@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {Colors, ScreenContainer, Typography} from '@UIKit';
 import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import {useAppSelector, useGetPaymentsList} from '@hooks';
 import {getPayments, getUserState, IPayment} from '@store';
 import {PaymentCard} from './components/PaymentCard';
+
+const DAYS_LIMIT = 30;
 
 type Props = NativeStackScreenProps<
   PaymentsStackParamList,
@@ -28,6 +30,18 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
     },
     [navigation],
   );
+
+  const data = useMemo(() => {
+    return payments.filter(p => {
+      const currentDate = new Date().getTime();
+      const fineDate = new Date(p.dateCreate).getTime();
+      const diff = Math.ceil(
+        Math.abs(currentDate - fineDate) / (1000 * 60 * 60 * 24),
+      );
+
+      return isPremiumAccess ? p : diff < DAYS_LIMIT;
+    });
+  }, [isPremiumAccess, payments]);
 
   const renderItem: ListRenderItem<IPayment> = useCallback(
     ({item}) => {
@@ -52,7 +66,7 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        data={payments}
+        data={data}
         renderItem={renderItem}
         ListEmptyComponent={EmptyList}
         ItemSeparatorComponent={Separator}

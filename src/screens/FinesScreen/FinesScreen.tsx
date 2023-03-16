@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Colors,
   FineComponent,
@@ -70,6 +70,11 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
     getFinesByAllCarsNumberAndPin();
   }, []);
 
+  const data = useMemo(
+    () => fines.filter(fine => fine.paymentStatus === paymentStatus),
+    [fines, paymentStatus],
+  );
+
   return (
     <ScreenContainer
       onPressButton={handlePressQR}
@@ -116,7 +121,7 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        data={fines.filter(fine => fine.paymentStatus === paymentStatus)}
+        data={data}
         renderItem={renderItem}
         ListEmptyComponent={<EmptyList showHappy={!fines.length} />}
         ItemSeparatorComponent={Separator}
