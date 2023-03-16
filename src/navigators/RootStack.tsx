@@ -4,8 +4,13 @@ import {RootStackParamList} from './navigationTypes';
 import {AuthorizationStack} from './AuthorizationStack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootTabs} from './RootTabs';
-import {useAppSelector, useTheme} from '@hooks';
-import {selectedLanguage, selectUserIsLoggedIn} from '@store';
+import {useAppSelector, useDependencies, useTheme} from '@hooks';
+import {
+  getUserState,
+  saveFcmToken,
+  selectedLanguage,
+  selectUserIsLoggedIn,
+} from '@store';
 import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
 
@@ -15,6 +20,17 @@ export const RootStack: React.FC = () => {
   const {i18n} = useTranslation();
   const userIsLoggedIn = useAppSelector(selectUserIsLoggedIn);
   const language = useAppSelector(selectedLanguage);
+  const deps = useDependencies();
+  const remoteNotificationClient = deps.get('remoteNotificationClient');
+  const {phone} = useAppSelector(getUserState);
+
+  useEffect(() => {
+    if (userIsLoggedIn) {
+      remoteNotificationClient.getToken().then((token: string) => {
+        saveFcmToken({phone, token});
+      });
+    }
+  }, [phone, remoteNotificationClient, userIsLoggedIn]);
 
   useEffect(() => {
     i18n.changeLanguage(language);

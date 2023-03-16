@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "615217733363",
-    "firebase_url": "https://brandgallery-e5b8a-default-rtdb.firebaseio.com",
-    "project_id": "brandgallery-e5b8a",
-    "storage_bucket": "brandgallery-e5b8a.appspot.com"
+    "project_number": "1009667930398",
+    "project_id": "citypay-app",
+    "storage_bucket": "citypay-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615217733363:android:92870d8b6539b2f4afa186",
+        "mobilesdk_app_id": "1:1009667930398:android:25b001c1457e60afaf310f",
         "android_client_info": {
           "package_name": "com.citypay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "615217733363-n3g7nf8bl122iu16o5aa1jcvurhnb070.apps.googleusercontent.com",
+          "client_id": "1009667930398-a42cu94g0m6riq36l1coq4mbt39597rh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyClBjG8oub36rpg9ijmemmPsjLOmS5-6sc"
+          "current_key": "AIzaSyAA943w7Sa8sd8Xs6rX8XQGG2gDcmI7r8M"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "615217733363-n3g7nf8bl122iu16o5aa1jcvurhnb070.apps.googleusercontent.com",
+              "client_id": "1009667930398-a42cu94g0m6riq36l1coq4mbt39597rh.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "615217733363-mp0nukbbtlgahs1cbnecs17aikenrv9r.apps.googleusercontent.com",
+              "client_id": "1009667930398-2uf5l5csrut8iaq9tajfis27ak39dlr7.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "kg.brandgallery.admin.BGAdmin"
+                "bundle_id": "kg.citypay.TrafficFines",
+                "app_store_id": "1628371664"
               }
             }
           ]

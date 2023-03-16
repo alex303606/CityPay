@@ -9,6 +9,10 @@ export interface INavigationService {
   navigate: (name: EScreens, params: ParamListBase) => void;
 }
 
+export interface IRemoteNotificationsClient {
+  getToken: () => Promise<string>;
+}
+
 export interface ILocalNotificationsClient {
   displayNotification: (
     remoteMessage: FirebaseMessagingTypes.RemoteMessage,
@@ -53,7 +57,7 @@ export interface PresentationDependencies {
   navigationService: INavigationService;
   permissions: IPermissions;
   localNotificationClient: ILocalNotificationsClient;
-  // remoteNotificationClient: IRemoteNotificationsClient;
+  remoteNotificationClient: IRemoteNotificationsClient;
 }
 
 export interface IPermissionParams {

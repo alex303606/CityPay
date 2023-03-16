@@ -111,3 +111,32 @@ export const editUserData = ({
     )
     .catch(error => console.warn(error));
 };
+
+export const saveFcmToken = ({
+  phone,
+  token,
+}: {
+  phone: string;
+  token: string;
+}) => {
+  return axios
+    .post('', {
+      TYPE: 'save_fcm_token',
+      PHONE: phone,
+      TOKEN: token,
+    })
+    .then(
+      (response: {
+        data: {
+          data: null;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};

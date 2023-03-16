@@ -4,6 +4,7 @@ import {LocalNotificationsClient} from './LocalNotificationsClient';
 import {NotificationHandlersService} from './NotificationHandlersService';
 import {Permissions} from './Permissions';
 import {NetInfo} from './NetInfo';
+import {FirebaseNotificationsClient} from './RemoteNotificationsClient';
 
 export const getInfrastructureContainer = async () => {
   const localization = new I18nextClient();
@@ -18,13 +19,13 @@ export const getInfrastructureContainer = async () => {
     notificationHandlersService,
   );
   await localNotificationClient.init();
-  //
-  // const remoteNotificationClient = new FirebaseNotificationsClient(
-  //   localNotificationClient,
-  // );
+
+  const remoteNotificationClient = new FirebaseNotificationsClient(
+    localNotificationClient,
+  );
 
   const onDestroy = () => {
-    // remoteNotificationClient.destroy();
+    remoteNotificationClient.destroy();
     localNotificationClient.destroy();
   };
 
@@ -34,7 +35,7 @@ export const getInfrastructureContainer = async () => {
       navigationService,
       permissions,
       localNotificationClient,
-      // remoteNotificationClient,
+      remoteNotificationClient,
     },
     onDestroy,
   };
