@@ -9,8 +9,11 @@ type Props = NativeStackScreenProps<
   EScreens.MODAL_BUY_PREMIUM_SCREEN
 >;
 
-export const ModalBuyPremiumScreen: React.FC<Props> = ({navigation}) => {
+export const ModalBuyPremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
+  const {
+    params: {title},
+  } = route;
 
   const handleCancel = useCallback(() => {
     navigation.goBack();
@@ -21,8 +24,7 @@ export const ModalBuyPremiumScreen: React.FC<Props> = ({navigation}) => {
   }, []);
 
   return (
-    <ModalContainer
-      title={'Для добавления более 2-х авто неоходимо активировать подписку'}>
+    <ModalContainer title={title}>
       <Block paddingHorizontal={16} paddingBottom={16}>
         <Button
           marginVertical={8}

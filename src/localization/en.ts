@@ -129,5 +129,13 @@ export const enTranslation = {
       fromGallery: 'Gallery',
       fromCamera: 'Camera',
     },
+    premium: {
+      title: {
+        carsLimit:
+          'Для добавления более 2-х авто неоходимо активировать премиум подписку',
+        timeLimit:
+          'Вы сможете добавить авто через {{count}} мин. или активировать преум подписку',
+      },
+    },
   },
 };

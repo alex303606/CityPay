@@ -3,7 +3,7 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
-import {editCar, getUserState} from '@store';
+import {editCar, getUserState, setUserLastTimeDeletionCar} from '@store';
 import {
   useAppSelector,
   useReloadCarList,
@@ -40,6 +40,11 @@ export const ModalDeleteCar: React.FC<Props> = ({navigation, route}) => {
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
+    const timeToSeconds = Math.round(new Date().getTime() / 1000).toString();
+    await setUserLastTimeDeletionCar({
+      phone,
+      time: timeToSeconds,
+    });
     await reloadCarList();
     navigation.navigate(EScreens.CARS_SCREEN);
   }, [
