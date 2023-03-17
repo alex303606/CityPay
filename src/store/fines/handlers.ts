@@ -48,17 +48,21 @@ export const getFinesListByCarNumber = ({number}: {number: string}) => {
 export const getFinesListByCarNumberAndPin = ({
   numbers,
   inns,
+  save = false,
+  infocom = false,
 }: {
   numbers: string[];
   inns: string[];
+  save?: boolean;
+  infocom?: boolean;
 }) => {
   return axios
     .post('', {
       TYPE: 'get_fines_list_by_car_number_and_pin',
       NUMBERS: numbers,
       INNS: inns,
-      SAVE: false,
-      INFOCOM: false,
+      SAVE: save,
+      INFOCOM: infocom,
     })
     .then(
       (response: {

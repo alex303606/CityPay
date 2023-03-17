@@ -7,7 +7,7 @@ import {
   useSnackbarNotification,
   useTheme,
 } from '@hooks';
-import {editCar, getUserState} from '@store';
+import {editCar, getFinesListByCarNumberAndPin, getUserState} from '@store';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
 
@@ -19,13 +19,6 @@ export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
   const {showNotification} = useSnackbarNotification();
   const {phone} = useAppSelector(getUserState);
   const {reloadCarList} = useReloadCarList();
-
-  //const [pushValue, changePushValue] = useState<boolean>(false);
-
-  // const handleChangePush = useCallback((value: boolean) => {
-  //   changePushValue(value);
-  // }, []);
-
   const [number, setNumber] = useState<string>('');
   const [pin, setPin] = useState<string>('');
 
@@ -56,17 +49,18 @@ export const AddAutoModalScreen: React.FC<Props> = ({navigation}) => {
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
+    await getFinesListByCarNumberAndPin({
+      numbers: [number],
+      inns: [pin],
+      infocom: true,
+      save: true,
+    });
     await reloadCarList();
     navigation.goBack();
   }, [navigation, number, phone, pin, reloadCarList, showNotification, t]);
 
   return (
     <ScreenContainer title={t('cars.addAuto')}>
-      {/*<SwitchComponent*/}
-      {/*  onValueChange={handleChangePush}*/}
-      {/*  text={t('settings.pushLabel')}*/}
-      {/*  value={pushValue}*/}
-      {/*/>*/}
       <InputField
         label={t('cars.pin.label')}
         placeholder={t('cars.pin.placeholder')}

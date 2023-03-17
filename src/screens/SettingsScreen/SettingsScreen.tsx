@@ -1,14 +1,25 @@
-import React, {useCallback, useState} from 'react';
-import {Colors, IconNames, Row, Typography} from '@UIKit';
+import React, {useCallback} from 'react';
+import {
+  Colors,
+  IconNames,
+  Row,
+  ScreenContainer,
+  SwitchComponent,
+  Typography,
+} from '@UIKit';
 import {EScreens, SettingsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {ThemeItem} from './components/ThemeItem';
-import {SwitchComponent} from '@UIKit';
 import {InfoItem} from './components/InfoItem';
 import {Themes} from '../../themes';
-import {useTheme} from '@hooks';
-import {ScreenContainer} from '@UIKit';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useDependencies,
+  useTheme,
+} from '@hooks';
+import {changePushActive, editUserData, getUserState, PushActive} from '@store';
 
 type Props = NativeStackScreenProps<
   SettingsStackParamList,
@@ -18,8 +29,10 @@ type Props = NativeStackScreenProps<
 export const SettingsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {changeTheme} = useTheme();
-
-  const [pushValue, changePushValue] = useState<boolean>(false);
+  const deps = useDependencies();
+  const remoteNotificationClient = deps.get('remoteNotificationClient');
+  const user = useAppSelector(getUserState);
+  const dispatch = useAppDispatch();
 
   const handleSelectTheme = useCallback(
     (theme: Themes) => {
@@ -28,9 +41,21 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
     [changeTheme],
   );
 
-  const handleChangePush = useCallback((value: boolean) => {
-    changePushValue(value);
-  }, []);
+  const handleChangePush = useCallback(
+    async (value: boolean) => {
+      await remoteNotificationClient.getToken().then((token: string) => {
+        editUserData({
+          ...user,
+          pushToken: token,
+          pushActive: value ? PushActive.enabled : PushActive.disabled,
+        });
+      });
+      dispatch(
+        changePushActive(value ? PushActive.enabled : PushActive.disabled),
+      );
+    },
+    [dispatch, remoteNotificationClient, user],
+  );
 
   const onPressInfoItem = useCallback(
     ({uri, title}: {uri: string; title: string}) =>
@@ -66,7 +91,7 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
       <SwitchComponent
         onValueChange={handleChangePush}
         text={t('settings.pushLabel')}
-        value={pushValue}
+        value={user.pushActive === PushActive.enabled}
       />
       <Typography.R16 marginBottom={8} numberOfLines={1} color={Colors.grey}>
         {t('settings.info')}

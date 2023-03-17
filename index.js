@@ -6,6 +6,7 @@ import {AppRegistry, View, StyleSheet, ActivityIndicator} from 'react-native';
 import {name as appName} from './app.json';
 import {init} from './src';
 import axios from 'axios';
+import notifee, {EventType} from '@notifee/react-native';
 
 class RootComponent extends React.Component {
   state = {
@@ -67,5 +68,14 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+notifee.onBackgroundEvent(async ({type, detail}) => {
+  const {notification, pressAction} = detail;
+  // Check if the user pressed the "Mark as read" action
+  if (type === EventType.ACTION_PRESS && pressAction.id === 'mark-as-read') {
+    // Remove the notification
+    await notifee.cancelNotification(notification.id);
+  }
+});
 
 AppRegistry.registerComponent(appName, () => RootComponent);

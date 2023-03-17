@@ -6,8 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootTabs} from './RootTabs';
 import {useAppSelector, useDependencies, useTheme} from '@hooks';
 import {
+  editUserData,
   getUserState,
-  saveFcmToken,
   selectedLanguage,
   selectUserIsLoggedIn,
 } from '@store';
@@ -22,15 +22,15 @@ export const RootStack: React.FC = () => {
   const language = useAppSelector(selectedLanguage);
   const deps = useDependencies();
   const remoteNotificationClient = deps.get('remoteNotificationClient');
-  const {phone} = useAppSelector(getUserState);
+  const user = useAppSelector(getUserState);
 
   useEffect(() => {
     if (userIsLoggedIn) {
       remoteNotificationClient.getToken().then((token: string) => {
-        saveFcmToken({phone, token});
+        editUserData({...user, pushToken: token});
       });
     }
-  }, [phone, remoteNotificationClient, userIsLoggedIn]);
+  }, [remoteNotificationClient, user, userIsLoggedIn]);
 
   useEffect(() => {
     i18n.changeLanguage(language);

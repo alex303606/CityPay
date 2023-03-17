@@ -1,3 +1,4 @@
+import {PushActive} from '@store';
 import axios from 'axios';
 
 export const sendPhone = (phone: string) => {
@@ -83,7 +84,7 @@ export const editUserData = ({
   newPhone?: string;
   active?: boolean;
   pushToken?: string;
-  pushActive?: string;
+  pushActive?: PushActive;
 }) => {
   return axios
     .post('', {
@@ -115,15 +116,18 @@ export const editUserData = ({
 export const saveFcmToken = ({
   phone,
   token,
+  active,
 }: {
   phone: string;
   token: string;
+  active: boolean;
 }) => {
   return axios
     .post('', {
       TYPE: 'save_fcm_token',
       PHONE: phone,
       TOKEN: token,
+      PUSH_ACTIVE: active,
     })
     .then(
       (response: {

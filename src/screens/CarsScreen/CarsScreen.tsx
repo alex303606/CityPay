@@ -67,7 +67,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
         });
       }
 
-      if (diffMinutes < MINUTES_LIMIT) {
+      if (diffMinutes < MINUTES_LIMIT && cars.length === CARS_LIMIT - 1) {
         return navigation.navigate(EScreens.MODAL_BUY_PREMIUM_SCREEN, {
           title: t('premium.title.timeLimit', {
             count: MINUTES_LIMIT - diffMinutes,

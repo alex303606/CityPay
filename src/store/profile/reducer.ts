@@ -2,6 +2,11 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../configureStore';
 import {Themes} from '../../themes';
 
+export enum PushActive {
+  enabled = 'Y',
+  disabled = 'N',
+}
+
 export interface IProfileState {
   userIsLoggedIn: boolean;
   selectedLanguage: string;
@@ -16,6 +21,8 @@ export interface IProfileState {
   name: string;
   rating: number;
   avatar: string;
+  pushToken?: string;
+  pushActive: PushActive;
 }
 
 const initialState: IProfileState = {
@@ -32,6 +39,8 @@ const initialState: IProfileState = {
   carsLimit: 0,
   isPremiumAccess: false,
   avatar: '',
+  pushToken: undefined,
+  pushActive: PushActive.enabled,
 };
 
 const profileSlice = createSlice({
@@ -57,6 +66,9 @@ const profileSlice = createSlice({
     },
     saveAvatar(state, action: PayloadAction<string>) {
       state.avatar = action.payload;
+    },
+    changePushActive(state, action: PayloadAction<PushActive>) {
+      state.pushActive = action.payload;
     },
     getUserSuccess(
       state,
@@ -101,6 +113,7 @@ export const {
   changeTheme,
   getUserSuccess,
   saveAvatar,
+  changePushActive,
 } = profileSlice.actions;
 export const profileReducer = profileSlice.reducer;
 export const selectUserIsLoggedIn = (state: RootState) =>
