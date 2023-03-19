@@ -2,12 +2,15 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
 import notifee, {
+  AndroidColor,
   AndroidImportance,
   AndroidVisibility,
+  AuthorizationStatus,
   EventType,
   Notification,
 } from '@notifee/react-native';
 import {ILocalNotificationsClient, INotificationHandlersService} from './types';
+import {AndroidCategory} from '@notifee/react-native/src/types/NotificationAndroid';
 
 export type BaseNotificationWithData = {data?: Record<string, any>};
 
@@ -33,6 +36,14 @@ export class LocalNotificationsClient implements ILocalNotificationsClient {
       visibility: AndroidVisibility.PUBLIC,
     });
 
+    notifee.onBackgroundEvent(async ({type, detail}) => {
+      const {notification} = detail;
+      console.log('Notification received: background', type, detail);
+      if (notification) {
+        this.handleNotification(notification);
+      }
+    });
+
     const onNotificationOpenedAppUnsubscribe =
       messaging().onNotificationOpenedApp((remoteMessage: Notification) => {
         this.handleNotification(remoteMessage);
@@ -40,10 +51,14 @@ export class LocalNotificationsClient implements ILocalNotificationsClient {
 
     const onForegroundEventUnsubscribe = notifee.onForegroundEvent(
       ({type, detail}) => {
-        if (type === EventType.ACTION_PRESS || type === EventType.PRESS) {
-          if (detail.notification) {
-            this.handleNotification(detail.notification);
-          }
+        switch (type) {
+          case EventType.DISMISSED:
+            console.log('User dismissed notification', detail.notification);
+            break;
+          case EventType.PRESS:
+            console.log('User pressed notification', detail.notification);
+            this.handleNotification(detail.notification as Notification);
+            break;
         }
       },
     );
@@ -67,11 +82,24 @@ export class LocalNotificationsClient implements ILocalNotificationsClient {
     }
   };
 
+  async checkPermissions() {
+    const settings = await notifee.requestPermission();
+
+    if (settings.authorizationStatus >= AuthorizationStatus.AUTHORIZED) {
+      console.log('Permission settings:', settings);
+      return true;
+    } else {
+      console.log('User declined permissions');
+      return false;
+    }
+  }
+
   displayNotification = async (
     remoteMessage: FirebaseMessagingTypes.RemoteMessage,
   ) => {
-    if (remoteMessage.notification) {
-      notifee.displayNotification({
+    const hasPermissions = await this.checkPermissions();
+    if (remoteMessage.notification && hasPermissions) {
+      await notifee.displayNotification({
         id: remoteMessage.messageId,
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
@@ -80,18 +108,19 @@ export class LocalNotificationsClient implements ILocalNotificationsClient {
           channelId: this.defaultChannelId,
           importance: AndroidImportance.HIGH,
           visibility: AndroidVisibility.PUBLIC,
+          autoCancel: false,
+          category: AndroidCategory.MESSAGE,
+          color: AndroidColor.RED,
+          pressAction: {
+            id: 'default',
+          },
         },
       });
     }
   };
 
   private handleNotification = (notification: Notification) => {
-    const type = notification.data?.type;
-    if (type) {
-      const handler = this.notificationHandlersService.getHandler(type);
-      if (handler) {
-        handler(notification.data);
-      }
-    }
+    const {data} = notification;
+    console.log('Notification received: foreground', data);
   };
 }
