@@ -7,7 +7,7 @@ import {name as appName} from './app.json';
 import {init} from './src';
 import axios from 'axios';
 import notifee, {EventType} from '@notifee/react-native';
-
+import messaging from '@react-native-firebase/messaging';
 class RootComponent extends React.Component {
   state = {
     mainComponent: null,
@@ -69,13 +69,16 @@ axios.interceptors.request.use(
   },
 );
 
-// notifee.onBackgroundEvent(async ({type, detail}) => {
-//   const {notification, pressAction} = detail;
-//   // Check if the user pressed the "Mark as read" action
-//   if (type === EventType.ACTION_PRESS && pressAction.id === 'mark-as-read') {
-//     // Remove the notification
-//     await notifee.cancelNotification(notification.id);
-//   }
-// });
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
+notifee.onBackgroundEvent(async ({type, detail}) => {
+  const {notification, pressAction} = detail;
+  // Check if the user pressed the "Mark as read" action
+  if (type === EventType.ACTION_PRESS && pressAction.id === 'mark-as-read') {
+    // Remove the notification
+    await notifee.cancelNotification(notification.id);
+  }
+});
 
 AppRegistry.registerComponent(appName, () => RootComponent);

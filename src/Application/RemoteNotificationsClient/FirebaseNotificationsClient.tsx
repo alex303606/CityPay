@@ -13,10 +13,6 @@ export interface IRemoteNotificationsClient {
   getToken: () => Promise<string>;
 }
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
-});
-
 export class FirebaseNotificationsClient implements IRemoteNotificationsClient {
   unsubscribe!: () => void;
   localNotificationClient!: ILocalNotificationsClient;

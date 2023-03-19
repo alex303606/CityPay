@@ -2,7 +2,6 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
 import notifee, {
-  AndroidColor,
   AndroidImportance,
   AndroidVisibility,
   AuthorizationStatus,
@@ -11,6 +10,7 @@ import notifee, {
 } from '@notifee/react-native';
 import {ILocalNotificationsClient, INotificationHandlersService} from './types';
 import {AndroidCategory} from '@notifee/react-native/src/types/NotificationAndroid';
+import {PermissionsAndroid} from 'react-native';
 
 export type BaseNotificationWithData = {data?: Record<string, any>};
 
@@ -36,13 +36,9 @@ export class LocalNotificationsClient implements ILocalNotificationsClient {
       visibility: AndroidVisibility.PUBLIC,
     });
 
-    notifee.onBackgroundEvent(async ({type, detail}) => {
-      const {notification} = detail;
-      console.log('Notification received: background', type, detail);
-      if (notification) {
-        this.handleNotification(notification);
-      }
-    });
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    );
 
     const onNotificationOpenedAppUnsubscribe =
       messaging().onNotificationOpenedApp((remoteMessage: Notification) => {
@@ -108,12 +104,7 @@ export class LocalNotificationsClient implements ILocalNotificationsClient {
           channelId: this.defaultChannelId,
           importance: AndroidImportance.HIGH,
           visibility: AndroidVisibility.PUBLIC,
-          autoCancel: false,
           category: AndroidCategory.MESSAGE,
-          color: AndroidColor.RED,
-          pressAction: {
-            id: 'default',
-          },
         },
       });
     }
