@@ -10,6 +10,7 @@ import {profileReducer} from './profile';
 import {carsReducer} from './cars';
 import {finesReducer} from './fines';
 import {paymentsReducer} from './payments';
+import {settingsReducer} from './settings/reducer';
 
 const persistConfig = {
   key: 'root',
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   cars: carsReducer,
   fines: finesReducer,
   payments: paymentsReducer,
+  settings: settingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
