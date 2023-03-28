@@ -32,7 +32,6 @@ import {
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
-const CARS_LIMIT = 2;
 const MINUTES_LIMIT = 5;
 
 const keyExtractor = (item: ICar) => item.number;
