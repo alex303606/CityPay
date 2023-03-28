@@ -43,4 +43,4 @@ const settingsSlice = createSlice({
 });
 
 export const settingsReducer = settingsSlice.reducer;
-export const {getSettingsSuccess} = settingsSlice.actions;
+export const {getSettingsSuccess, clearSettings} = settingsSlice.actions;

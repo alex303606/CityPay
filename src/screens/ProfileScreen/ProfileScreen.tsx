@@ -10,6 +10,7 @@ import {
   clearCars,
   clearFines,
   clearPayments,
+  clearSettings,
   getUser,
   getUserState,
   getUserSuccess,
@@ -53,6 +54,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
       dispatch(clearFines());
       dispatch(clearCars());
       dispatch(clearPayments());
+      dispatch(clearSettings());
       return showNotification(t('errors.blackList'));
     }
     dispatch(
