@@ -94,7 +94,7 @@ export const ruTranslation = {
       },
       operationType: 'Тип операции',
       article: 'Статья',
-      paymentNumber: 'Номер квитанции',
+      paymentNumber: 'Код оплаты',
       serviceProvider: 'Поставщик услуг',
       dateCreate: 'Дата создания',
       datePayment: 'Дата оплаты',

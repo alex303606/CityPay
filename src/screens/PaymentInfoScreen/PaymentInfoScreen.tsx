@@ -1,16 +1,16 @@
 import {Block, Button, Colors, PaymentRow, ScreenContainer} from '@UIKit';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
-import {addPayment, getSettingsState, getUserState} from '@store';
+import {addPayment, getSettingsState, getUserState, IFinesType} from '@store';
 import {
   useAppSelector,
   useLoading,
   useSnackbarNotification,
   useTheme,
 } from '@hooks';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, Alert} from 'react-native';
 import styled from 'styled-components';
 
 type Props = NativeStackScreenProps<
@@ -69,12 +69,47 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   }, [addPaymentHandler]);
 
   const onHandlePressPay = useCallback(() => {
-    return null;
+    return Alert.alert('Сервис временно не доступен');
   }, []);
+
+  const serviceProvider = useMemo(() => {
+    return finesType === IFinesType.DPS
+      ? {
+          type: t('payments.serviceProviderDps.type'),
+          provider: t('payments.serviceProviderDps.provider'),
+        }
+      : {
+          type: t('payments.serviceProviderCity.type'),
+          provider: t('payments.serviceProviderCity.provider'),
+        };
+  }, [finesType, t]);
 
   return (
     <ScreenContainer title={t('payments.paymentInfo')}>
       <Block flex={1}>
+        <PaymentRow
+          label={t('payments.operationType')}
+          value={serviceProvider.type}
+        />
+        <PaymentRow
+          label={t('payments.serviceProvider')}
+          value={serviceProvider.provider}
+        />
+        {!!fine?.violationArticle && (
+          <PaymentRow
+            label={t('payments.article')}
+            value={fine?.violationArticle}
+          />
+        )}
+        {!!fine?.plateNumber && (
+          <PaymentRow
+            label={t('payments.protocolNumber')}
+            value={fine?.protocolNumber}
+          />
+        )}
+        {!!fine?.plateNumber && (
+          <PaymentRow label={t('payments.number')} value={fine?.plateNumber} />
+        )}
         <PaymentRow label={t('payments.paymentNumber')} value={paymentNumber} />
         <PaymentRow label={t('payments.paymentSum')} value={paymentSum} />
       </Block>
