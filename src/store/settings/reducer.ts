@@ -44,3 +44,4 @@ const settingsSlice = createSlice({
 
 export const settingsReducer = settingsSlice.reducer;
 export const {getSettingsSuccess, clearSettings} = settingsSlice.actions;
+export const getSettingsState = (state: RootState) => state.settings;

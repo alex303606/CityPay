@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
-import {addPayment, getUserState} from '@store';
+import {addPayment, getSettingsState, getUserState} from '@store';
 import {
   useAppSelector,
   useLoading,
@@ -24,7 +24,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   const [paymentSum, setPaymentSum] = useState('');
   const {loading, hideLoader, showLoader} = useLoading();
   const {theme} = useTheme();
-
+  const {isPaymentActive} = useAppSelector(getSettingsState);
   const {
     params: {paymentNumber, amount, fine, finesType},
   } = route;
@@ -79,7 +79,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
         <PaymentRow label={t('payments.paymentSum')} value={paymentSum} />
       </Block>
       <Button
-        disabled={!paymentSum}
+        disabled={!paymentSum || isPaymentActive !== 1}
         loading={loading}
         color={theme.buttonColor}
         title={t('payments.payByCard')}
