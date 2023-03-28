@@ -19,7 +19,13 @@ import {
   useDependencies,
   useTheme,
 } from '@hooks';
-import {changePushActive, editUserData, getUserState, PushActive} from '@store';
+import {
+  changePushActive,
+  editUserData,
+  getUserState,
+  ILanguages,
+  PushActive,
+} from '@store';
 
 type Props = NativeStackScreenProps<
   SettingsStackParamList,
@@ -66,6 +72,8 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
     [navigation],
   );
 
+  const {selectedLanguage} = useAppSelector(getUserState);
+
   return (
     <ScreenContainer title={t('settings.title')}>
       <Typography.R16 marginBottom={16} numberOfLines={1} color={Colors.grey}>
@@ -100,25 +108,33 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
         onPress={onPressInfoItem}
         text={t('settings.questions')}
         iconName={IconNames.clipboard}
-        uri={'https://citysoft.kido.kg/docs/faq.php'}
+        uri={`https://citysoft.kido.kg/docs/faq${
+          selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+        }.php`}
       />
       <InfoItem
         onPress={onPressInfoItem}
         text={t('settings.privacyPolicy')}
         iconName={IconNames.shield}
-        uri={'https://citysoft.kido.kg/docs/conf.php'}
+        uri={`https://citysoft.kido.kg/docs/conf${
+          selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+        }.php`}
       />
       <InfoItem
         onPress={onPressInfoItem}
         text={t('settings.userAgreement')}
         iconName={IconNames.code}
-        uri={'https://citysoft.kido.kg/docs/license.php'}
+        uri={`https://citysoft.kido.kg/docs/license${
+          selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+        }.php`}
       />
       <InfoItem
         onPress={onPressInfoItem}
         text={t('settings.eula')}
         iconName={IconNames.code}
-        uri={'https://citysoft.kido.kg/docs/subscriptions.php'}
+        uri={`https://citysoft.kido.kg/docs/subscriptions${
+          selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+        }.php`}
       />
     </ScreenContainer>
   );

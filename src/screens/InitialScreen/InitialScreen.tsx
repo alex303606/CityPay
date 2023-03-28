@@ -7,7 +7,7 @@ import {AuthStackParamList} from '@navigators';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {changeLanguage, selectedLanguage} from '@store';
+import {changeLanguage, ILanguages, selectedLanguage} from '@store';
 const logo = require('@assets/images/logo.webp');
 
 type Props = NativeStackScreenProps<
@@ -19,7 +19,7 @@ export const InitialScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const dispatch = useAppDispatch();
   const changeLanguageHandler = useCallback(
-    async (lang: string) => {
+    async (lang: ILanguages) => {
       dispatch(changeLanguage(lang));
       await i18n.changeLanguage(lang);
       navigation.navigate(EScreens.LOGIN_SCREEN);
@@ -50,21 +50,21 @@ export const InitialScreen: React.FC<Props> = ({navigation}) => {
           textColor={isRUSelected ? Colors.black : Colors.white}
           color={isRUSelected ? Colors.white : Colors.darkBlue}
           title={t('languages.ru')}
-          onPress={() => changeLanguageHandler('ru')}
+          onPress={() => changeLanguageHandler(ILanguages.ru)}
         />
         <Button
           marginVertical={8}
           textColor={isRUSelected ? Colors.white : Colors.black}
           color={isRUSelected ? Colors.darkBlue : Colors.white}
           title={t('languages.kg')}
-          onPress={() => changeLanguageHandler('kg')}
+          onPress={() => changeLanguageHandler(ILanguages.kg)}
         />
         <Button
           marginVertical={8}
           textColor={isRUSelected ? Colors.white : Colors.black}
           color={isRUSelected ? Colors.darkBlue : Colors.white}
           title={t('languages.en')}
-          onPress={() => changeLanguageHandler('en')}
+          onPress={() => changeLanguageHandler(ILanguages.en)}
         />
       </Block>
     </Block>

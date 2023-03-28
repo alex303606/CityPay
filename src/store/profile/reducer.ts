@@ -2,6 +2,12 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../configureStore';
 import {Themes} from '../../themes';
 
+export enum ILanguages {
+  en = 'en',
+  ru = 'ru',
+  kg = 'kg',
+}
+
 export enum PushActive {
   enabled = 'Y',
   disabled = 'N',
@@ -9,7 +15,7 @@ export enum PushActive {
 
 export interface IProfileState {
   userIsLoggedIn: boolean;
-  selectedLanguage: string;
+  selectedLanguage: ILanguages;
   phone: string;
   userId: string | null;
   theme: Themes;
@@ -27,7 +33,7 @@ export interface IProfileState {
 
 const initialState: IProfileState = {
   userIsLoggedIn: false,
-  selectedLanguage: 'ru',
+  selectedLanguage: ILanguages.ru,
   phone: '',
   userId: null,
   theme: Themes.DEFAULT,
@@ -58,7 +64,7 @@ const profileSlice = createSlice({
     signOut(state) {
       return {...initialState, selectedLanguage: state.selectedLanguage};
     },
-    changeLanguage(state, action: PayloadAction<string>) {
+    changeLanguage(state, action: PayloadAction<ILanguages>) {
       state.selectedLanguage = action.payload;
     },
     changeTheme(state, action: PayloadAction<Themes>) {
