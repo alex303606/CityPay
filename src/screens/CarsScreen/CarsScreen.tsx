@@ -22,7 +22,13 @@ import {
   useReloadCarList,
 } from '@hooks';
 import {FlatListType} from '../types';
-import {getCars, getUserLastTimeDeletionCar, getUserState, ICar} from '@store';
+import {
+  getCars,
+  getSettingsState,
+  getUserLastTimeDeletionCar,
+  getUserState,
+  ICar,
+} from '@store';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
@@ -33,7 +39,9 @@ const keyExtractor = (item: ICar) => item.number;
 
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
-  const cars = useAppSelector(getCars);
+  const {standardCarsLimit, premiumCarsLimit} =
+    useAppSelector(getSettingsState);
+  const cars = useAppSelector(getCars).slice(0, premiumCarsLimit);
   const {isPremiumAccess, phone} = useAppSelector(getUserState);
   const {getFinesByAllCarsNumberAndPin} =
     useGetFinesByAllCarsNumberAndPin(cars);
@@ -61,13 +69,16 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
     );
 
     if (!isPremiumAccess) {
-      if (cars.length >= CARS_LIMIT) {
+      if (cars.length >= standardCarsLimit) {
         return navigation.navigate(EScreens.MODAL_BUY_PREMIUM_SCREEN, {
           title: t('premium.title.carsLimit'),
         });
       }
 
-      if (diffMinutes < MINUTES_LIMIT && cars.length === CARS_LIMIT - 1) {
+      if (
+        diffMinutes < MINUTES_LIMIT &&
+        cars.length === standardCarsLimit - 1
+      ) {
         return navigation.navigate(EScreens.MODAL_BUY_PREMIUM_SCREEN, {
           title: t('premium.title.timeLimit', {
             count: MINUTES_LIMIT - diffMinutes,
