@@ -18,11 +18,11 @@ class PayBoxModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initPayment(String orderId, String payUserId, float payAmount, String payComment) {
         //Параметр указывающий на рекурентность платежа
-        boolean checkIsRecurring = false;
+        boolean checkIsRecurring = true;
 
         if (checkIsRecurring) {
             //При активации рекурентного платежа указывается период от 1 до 156 месяцев
-            PBHelper.getSdk().enableRecurring(2);
+            PBHelper.getSdk().enableRecurring(12);
         } else {
             PBHelper.getSdk().disableRecurring();
         }
