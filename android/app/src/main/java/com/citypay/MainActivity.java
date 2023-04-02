@@ -53,16 +53,12 @@ public class MainActivity extends ReactActivity implements PBListener {
     private final String secretKey = "UnPLLvWsuXPyC3wd";
     private final int merchantId = 503623;
 
-    //Если email или phone не указан, то выбор будет предложен на сайте платежного гейта
-    private final String email = "user@mail.com";
-    private final String phone = "77012345678";
-
     @Override
     protected void onResume() {
         super.onResume();
 
         //Вызов инициализации SDK
-        MainApplication.instance.initBuilder(secretKey, merchantId, email, phone);
+        MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
         MainApplication.instance.builder.build();
 
         //Регистрация текущего активити для просушивания событий

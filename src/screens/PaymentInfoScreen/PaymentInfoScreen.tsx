@@ -20,16 +20,29 @@ type Props = NativeStackScreenProps<
   EScreens.PAYMENTS_INFO_SCREEN
 >;
 
+const payBoxModuleInitPayment = ({
+  payUserId,
+  payAmount,
+  payComment,
+  orderId,
+}: {
+  payUserId: string | null;
+  orderId: string | null;
+  payAmount: number;
+  payComment: string;
+}) => PayBoxModule.initPayment(orderId, payUserId, payAmount, payComment);
+
 export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
-  const [paymentSum, setPaymentSum] = useState('');
+  const [paymentSum, setPaymentSum] = useState(0);
   const {loading, hideLoader, showLoader} = useLoading();
   const {theme} = useTheme();
   const {isPaymentActive} = useAppSelector(getSettingsState);
   const {
     params: {paymentNumber, amount, fine, finesType},
   } = route;
+  const {userId} = useAppSelector(getUserState);
 
   const {phone} = useAppSelector(getUserState);
 
@@ -44,7 +57,6 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
       protocolNumber: fine?.protocolNumber,
       finesType,
     });
-    hideLoader();
     if (!response?.result || !response?.data?.paymentSum) {
       if (response?.message) {
         return showNotification(response.message);
@@ -52,6 +64,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
       return showNotification(t('errors.somethingWentWrong'));
     }
     setPaymentSum(response.data.paymentSum);
+    hideLoader();
   }, [
     amount,
     fine?.plateNumber,
@@ -71,8 +84,13 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   }, [addPaymentHandler]);
 
   const onHandlePressPay = useCallback(() => {
-    PayBoxModule.initPayment('Тестовое сообщение');
-  }, []);
+    payBoxModuleInitPayment({
+      orderId: paymentNumber,
+      payAmount: paymentSum,
+      payComment: 'Тестовое сообщение',
+      payUserId: userId,
+    });
+  }, [paymentSum, userId]);
 
   const serviceProvider = useMemo(() => {
     return finesType === IFinesType.DPS

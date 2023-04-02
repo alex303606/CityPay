@@ -142,7 +142,7 @@ export const addPayment = ({
       (response: {
         data: {
           data: {
-            paymentSum: string;
+            paymentSum: number;
           };
           result: boolean;
           message: string;
