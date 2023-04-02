@@ -10,8 +10,10 @@ import {
   useSnackbarNotification,
   useTheme,
 } from '@hooks';
-import {ActivityIndicator, Alert} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
+import {NativeModules} from 'react-native';
+const {PayBoxModule} = NativeModules;
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,
@@ -69,7 +71,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   }, [addPaymentHandler]);
 
   const onHandlePressPay = useCallback(() => {
-    return Alert.alert('Сервис временно не доступен');
+    PayBoxModule.initPayment('Тестовое сообщение');
   }, []);
 
   const serviceProvider = useMemo(() => {
