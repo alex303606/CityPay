@@ -49,14 +49,26 @@ public class MainActivity extends ReactActivity implements PBListener {
     }
 
     //***PAYBOX***
+    //Необходимо заменить тестовый secretKey и merchantId на свой
+    private final String secretKey = "QEKjpHz1DKAm4tIa";
+    private final int merchantId = 547561;
+
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Вызов инициализации SDK
+        MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
+        MainApplication.instance.builder.build();
+
+        //Регистрация текущего активити для просушивания событий
+        PBHelper.getSdk().registerPbListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        PBHelper.getSdk().removePbListener(this);
     }
 
     @Override
