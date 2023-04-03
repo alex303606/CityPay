@@ -57,8 +57,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 
     //***PAYBOX***
     //Необходимо заменить тестовый secretKey и merchantId на свой
-    private final String secretKey = "QEKjpHz1DKAm4tIa";
-    private final int merchantId = 547561;
+    private final String secretKey = "6yzvHbcFliUlIdnu";
+    private final int merchantId = 544793;
 
     @Override
     public void onCreate() {
@@ -82,14 +82,12 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                 .setPaymentSystem(Constants.PBPAYMENT_SYSTEM.NONE)
                 //Выбор валюты платежа
                 .setPaymentCurrency(Constants.CURRENCY.KGS)
-                //Дополнительная информация пользователя
-                .setUserInfo(email, phone)
                 //Активация автоклиринга
                 .enabledAutoClearing(true)
                 //Запрашивать Frame вместо платежной страницы
                 .setFrameRequired(true) //false по умолчанию
                 //Для активации режима тестирования
-                .enabledTestMode(true)
+                .enabledTestMode(false)
                 .setLanguage(Constants.PBLANGUAGE.ru)
                 //Время от 300 до 604800 (в секундах) в течение которого платеж должен быть завершен
                 .setPaymentLifeTime(300);
