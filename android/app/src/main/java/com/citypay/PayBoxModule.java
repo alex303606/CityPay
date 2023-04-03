@@ -96,18 +96,18 @@ class PayBoxModule extends ReactContextBaseJavaModule implements PBListener {
 
     @Override
     public void onPaymentRevoke(Response response) {
-        sendEvent("Status = ", response.getStatus());
+        sendEvent("onPaymentRevoke Status = ", response.getStatus());
     }
 
     @Override
     public void onPaymentPaid(Response response) {
-        sendEvent("Payment ID = ", response.getPaymentId() +
+        sendEvent("onPaymentPaid Payment ID = ", response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
     }
 
     @Override
     public void onPaymentStatus(PStatus pStatus) {
-        sendEvent("Status = ", pStatus.getStatus() +
+        sendEvent("onPaymentStatus Status = ", pStatus.getStatus() +
                 "\nPayment system = " + pStatus.getPaymentSystem() +
                 "\nTransaction Status = " + pStatus.getTransactionStatus() +
                 "\nCaptured = " + pStatus.isCaptured() +
@@ -117,34 +117,34 @@ class PayBoxModule extends ReactContextBaseJavaModule implements PBListener {
 
     @Override
     public void onCardAdded(Response response) {
-        sendEvent("Payment ID = ", response.getPaymentId() +
+        sendEvent("onCardAdded Payment ID = ", response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
     }
 
     @Override
     public void onCardRemoved(Card card) {
         if (card != null) {
-            sendEvent("\nDeleted At = ", card.getDate() +
+            sendEvent("onCardRemoved Deleted At = ", card.getDate() +
                     "\nStatus = " + card.getStatus());
         }
     }
 
     @Override
     public void onCardPayInited(Response response) {
-        sendEvent("Status = ", response.getStatus() +
+        sendEvent("onCardPayInited Status = ", response.getStatus() +
                 "\nPayment ID = " + response.getPaymentId());
         PBHelper.getSdk().payWithCard(Integer.parseInt(response.getPaymentId()));
     }
 
     @Override
     public void onCardPaid(Response response) {
-        sendEvent("Payment ID = ", response.getPaymentId() +
+        sendEvent("onCardPaid Payment ID = ", response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
     }
 
     @Override
     public void onRecurringPaid(RecurringPaid recurringPaid) {
-        sendEvent("Payment ID = ", recurringPaid.getPaymentId() +
+        sendEvent("onRecurringPaid Payment ID = ", recurringPaid.getPaymentId() +
                 "\nStatus = " + recurringPaid.getStatus() +
                 "\nCurrency = " + recurringPaid.getCurrency() +
                 "\nDate = " + recurringPaid.getExpireDate().toGMTString());
@@ -152,18 +152,18 @@ class PayBoxModule extends ReactContextBaseJavaModule implements PBListener {
 
     @Override
     public void onPaymentCaptured(Capture capture) {
-        sendEvent("Status = ", capture.getStatus() +
+        sendEvent("onPaymentCaptured Status = ", capture.getStatus() +
                 "\nAmount = " + capture.getAmount() +
                 "\nClearing Amount = " + capture.getClearingAmount());
     }
 
     @Override
     public void onPaymentCanceled(Response response) {
-        sendEvent("Status = ", response.getStatus());
+        sendEvent("onPaymentCanceled Status = ", response.getStatus());
     }
 
     @Override
     public void onError(Error error) {
-        sendEvent("Error = ", error.getErrorDesription());
+        sendEvent("onError Error = ", error.getErrorDesription());
     }
 }

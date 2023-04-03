@@ -71,7 +71,8 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
-    setPaymentSum(response.data.paymentSum);
+    // setPaymentSum(response.data.paymentSum);
+    setPaymentSum(5);
     hideLoader();
   }, [
     amount,
@@ -93,8 +94,9 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
 
   useEffect(() => {
     const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
-    eventEmitter.addListener('EventReminder', event => {
-      console.log(event.eventProperty);
+    eventEmitter.addListener('EventReminder', (event: Object) => {
+      const message = Object.keys(event)[0] + Object.values(event)[0];
+      console.log(message);
     });
   }, []);
 
