@@ -49,28 +49,14 @@ public class MainActivity extends ReactActivity implements PBListener {
     }
 
     //***PAYBOX***
-    //Необходимо заменить тестовый secretKey и merchantId на свой
-    private final String secretKey = "UnPLLvWsuXPyC3wd";
-    private final int merchantId = 503623;
-
     @Override
     protected void onResume() {
         super.onResume();
-
-        //Вызов инициализации SDK
-        MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
-        MainApplication.instance.builder.build();
-
-        //Регистрация текущего активити для просушивания событий
-        PBHelper.getSdk().registerPbListener(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        //Отвязываем текущее активити от просушивания событий
-        PBHelper.getSdk().removePbListener(this);
     }
 
     @Override
@@ -89,7 +75,7 @@ public class MainActivity extends ReactActivity implements PBListener {
 
     @Override
     public void onPaymentRevoke(Response response) {
-        Log.d("PayBoxModule","Status = "+ response.getStatus());
+        Log.d("PayBoxModule", "Status = " + response.getStatus());
     }
 
     @Override
@@ -110,14 +96,14 @@ public class MainActivity extends ReactActivity implements PBListener {
 
     @Override
     public void onCardAdded(Response response) {
-        Log.d("PayBoxModule","Payment ID = " + response.getPaymentId() +
+        Log.d("PayBoxModule", "Payment ID = " + response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
 
     }
 
     @Override
     public void onCardRemoved(Card card) {
-        if(card != null) {
+        if (card != null) {
             Log.d("PayBoxModule", "\nDeleted At = " + card.getDate() +
                     "\nStatus = " + card.getStatus());
         }
@@ -139,7 +125,7 @@ public class MainActivity extends ReactActivity implements PBListener {
     @Override
     public void onRecurringPaid(RecurringPaid recurringPaid) {
         Constants.logMessage("Rec paid");
-        Log.d("PayBoxModule","Payment ID = " + recurringPaid.getPaymentId() +
+        Log.d("PayBoxModule", "Payment ID = " + recurringPaid.getPaymentId() +
                 "\nStatus = " + recurringPaid.getStatus() +
                 "\nCurrency = " + recurringPaid.getCurrency() +
                 "\nDate = " + recurringPaid.getExpireDate().toGMTString());
@@ -162,7 +148,7 @@ public class MainActivity extends ReactActivity implements PBListener {
 
     @Override
     public void onError(Error error) {
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),error.getErrorDesription(),Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), error.getErrorDesription(), Snackbar.LENGTH_INDEFINITE);
         snackbar.setDuration(5000);
         snackbar.show();
     }

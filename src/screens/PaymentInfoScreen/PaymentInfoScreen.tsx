@@ -13,6 +13,7 @@ import {
 import {ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
 import {NativeModules} from 'react-native';
+
 const {PayBoxModule} = NativeModules;
 
 type Props = NativeStackScreenProps<
@@ -23,14 +24,16 @@ type Props = NativeStackScreenProps<
 const payBoxModuleInitPayment = ({
   payUserId,
   payAmount,
-  payComment,
+  phone,
   orderId,
+  resultUrl,
 }: {
   payUserId: string | null;
   orderId: string | null;
   payAmount: number;
-  payComment: string;
-}) => PayBoxModule.initPayment(orderId, payUserId, payAmount, payComment);
+  phone: string;
+  resultUrl: string;
+}) => PayBoxModule.initPayment(orderId, payUserId, payAmount, phone, resultUrl);
 
 export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   const {t} = useTranslation();
@@ -46,10 +49,15 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
 
   const {phone} = useAppSelector(getUserState);
 
+  const orderId = useMemo(
+    () => `${paymentNumber}-${Math.floor(1000 + Math.random() * 9000)}`,
+    [paymentNumber],
+  );
+
   const addPaymentHandler = useCallback(async () => {
     showLoader();
     const response = await addPayment({
-      paymentNumber,
+      paymentNumber: orderId,
       amount,
       phone,
       number: fine?.plateNumber,
@@ -84,11 +92,14 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   }, [addPaymentHandler]);
 
   const onHandlePressPay = useCallback(() => {
+    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}`;
+    console.log(resultUrl);
     payBoxModuleInitPayment({
-      orderId: paymentNumber,
+      orderId,
       payAmount: paymentSum,
-      payComment: 'Тестовое сообщение',
+      phone,
       payUserId: userId,
+      resultUrl,
     });
   }, [paymentSum, userId]);
 

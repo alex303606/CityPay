@@ -130,9 +130,7 @@ export const addPayment = ({
       NUMBER: number,
       ARTICLE: article,
       PROTOCOL_NUMBER: protocolNumber,
-      PAYMENT_NUMBER: `${paymentNumber}-${Math.floor(
-        1000 + Math.random() * 9000,
-      )}`,
+      PAYMENT_NUMBER: paymentNumber,
       AMOUNT: amount,
       STATUS: false,
       PHONE: phone,

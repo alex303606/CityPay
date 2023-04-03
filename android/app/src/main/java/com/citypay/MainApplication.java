@@ -7,6 +7,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
+
 import money.paybox.payboxsdk.PBHelper;
 import money.paybox.payboxsdk.Utils.Constants;
 
@@ -15,10 +16,6 @@ import java.util.List;
 import androidx.multidex.MultiDexApplication;
 
 public class MainApplication extends MultiDexApplication implements ReactApplication {
-    private final String checkUrl = "http://test.paybox.kz/";
-    private final String resultUrl = "http://test.paybox.kz/";
-    private final String refundUrl = "http://test.paybox.kz/";
-    private final String captureUrl = "http://test.paybox.kz/";
     public static MainApplication instance;
     public PBHelper.Builder builder;
     private final ReactNativeHost mReactNativeHost =
@@ -85,8 +82,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                 .setFrameRequired(true) //false по умолчанию
                 //Для активации режима тестирования
                 .enabledTestMode(true)
-                //Для передачи информации от платежного гейта
-                .setFeedBackUrl(checkUrl, resultUrl, refundUrl, captureUrl, Constants.PBREQUEST_METHOD.GET)
+                .setLanguage(Constants.PBLANGUAGE.ru)
                 //Время от 300 до 604800 (в секундах) в течение которого платеж должен быть завершен
                 .setPaymentLifeTime(300);
     }
