@@ -12,7 +12,7 @@ import {
 } from '@hooks';
 import {ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
-import {NativeModules} from 'react-native';
+import {NativeModules, NativeEventEmitter} from 'react-native';
 
 const {PayBoxModule} = NativeModules;
 
@@ -91,9 +91,17 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
     addPaymentHandler();
   }, [addPaymentHandler]);
 
+  useEffect(() => {
+    const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
+    eventEmitter.addListener('EventReminder', event => {
+      console.log(event.eventProperty);
+    });
+  }, []);
+
   const onHandlePressPay = useCallback(() => {
     const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}`;
     console.log(resultUrl);
+
     payBoxModuleInitPayment({
       orderId,
       payAmount: paymentSum,
