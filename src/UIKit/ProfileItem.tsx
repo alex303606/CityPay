@@ -10,7 +10,7 @@ type Props = {
   onPress?: () => void;
 };
 
-export const Item: React.FC<Props> = ({text, secondText, onPress}) => {
+export const ProfileItem: React.FC<Props> = ({text, secondText, onPress}) => {
   const {theme} = useTheme();
 
   const Container = onPress ? StyledPressable : Row;

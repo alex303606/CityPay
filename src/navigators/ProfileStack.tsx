@@ -5,6 +5,7 @@ import {
   ModalBuyPremiumScreen,
   ModalLanguageScreen,
   ModalPhotoScreen,
+  MyCardsScreen,
   ProfileScreen,
   ProfileSettingsScreen,
 } from '@screens';
@@ -30,6 +31,13 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         <Stack.Screen
           name={EScreens.PROFILE_SETTINGS_SCREEN}
           component={ProfileSettingsScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.MY_CARDS_SCREEN}
+          component={MyCardsScreen}
           options={{
             headerShown: false,
           }}

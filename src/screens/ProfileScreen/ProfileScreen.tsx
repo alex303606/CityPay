@@ -1,10 +1,9 @@
 import React, {useCallback} from 'react';
-import {Block, Button, ScreenContainer} from '@UIKit';
+import {Block, Button, ScreenContainer, ProfileItem} from '@UIKit';
 import {EScreens, ProfileStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {Header} from './components/Header';
-import {Item} from './components/Item';
 import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
 import {
   clearCars,
@@ -76,6 +75,10 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     navigation.navigate(EScreens.MODAL_LANGUAGE_SCREEN);
   }, [navigation]);
 
+  const handlePressMyCards = useCallback(() => {
+    navigation.navigate(EScreens.MY_CARDS_SCREEN);
+  }, [navigation]);
+
   const handlePressSupport = useCallback(async () => {
     const url = `whatsapp://send?phone=${SUPPORT_NUMBER}`;
     try {
@@ -111,18 +114,19 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           lastName={last_name}
           avatar={avatar}
         />
-        <Item text={t('profile.finesPaid')} secondText={String(balls)} />
-        <Item
+        <ProfileItem text={t('profile.finesPaid')} secondText={String(balls)} />
+        <ProfileItem text={t('profile.myCards')} onPress={handlePressMyCards} />
+        <ProfileItem
           text={t('profile.accumulatedPoints')}
           secondText={String(balls)}
         />
-        <Item text={t('profile.support')} onPress={handlePressSupport} />
-        <Item
+        <ProfileItem text={t('profile.support')} onPress={handlePressSupport} />
+        <ProfileItem
           text={t('profile.selectLanguage')}
           secondText={t(`profile.${language}`)}
           onPress={handlePressChangeLanguage}
         />
-        <Item text={t('profile.exit')} onPress={handlePressExit} />
+        <ProfileItem text={t('profile.exit')} onPress={handlePressExit} />
       </Block>
       {!isPremiumAccess && (
         <Button title={t('premium.activate')} onPress={buyPremiumHandler} />

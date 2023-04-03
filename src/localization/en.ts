@@ -128,6 +128,7 @@ export const enTranslation = {
       selectAvatar: 'Select photo',
       fromGallery: 'Gallery',
       fromCamera: 'Camera',
+      myCards: 'My credit cards',
     },
     premium: {
       activate: 'Ативировать премиум',

@@ -71,8 +71,8 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
-    // setPaymentSum(response.data.paymentSum);
-    setPaymentSum(5);
+    // setPaymentSum(response.data.paymentSum); //TODO RETURN
+    setPaymentSum(5); //TODO REMOVE
     hideLoader();
   }, [
     amount,

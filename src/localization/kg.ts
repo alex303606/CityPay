@@ -128,6 +128,7 @@ export const kgTranslation = {
       selectAvatar: 'Профиль сүрөтүн тандоо',
       fromGallery: 'Галереядан тандоо',
       fromCamera: 'Камера',
+      myCards: 'Менин кредиттик карталарым',
     },
     premium: {
       activate: 'Ативировать премиум',

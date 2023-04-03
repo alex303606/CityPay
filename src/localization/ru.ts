@@ -129,6 +129,7 @@ export const ruTranslation = {
       selectAvatar: 'Выбрать фото',
       fromGallery: 'Галерея',
       fromCamera: 'Камера',
+      myCards: 'Мои карты',
     },
     premium: {
       activate: 'Ативировать премиум',

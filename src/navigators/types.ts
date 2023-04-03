@@ -29,4 +29,5 @@ export enum EScreens {
   PAYMENTS_BY_QR_SCREEN = 'PaymentByQRScreen',
   PAYMENTS_INFO_SCREEN = 'PaymentInfoScreen',
   MODAL_BUY_PREMIUM_SCREEN = 'ModalBuyPremiumScreen',
+  MY_CARDS_SCREEN = 'MyCardsScreen',
 }
