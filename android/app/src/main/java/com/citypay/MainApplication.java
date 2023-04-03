@@ -55,6 +55,11 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         return mReactNativeHost;
     }
 
+    //***PAYBOX***
+    //Необходимо заменить тестовый secretKey и merchantId на свой
+    private final String secretKey = "QEKjpHz1DKAm4tIa";
+    private final int merchantId = 547561;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -65,6 +70,9 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             DefaultNewArchitectureEntryPoint.load();
         }
         ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+        //Вызов инициализации SDK
+        MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
+        MainApplication.instance.builder.build();
     }
 
     public void initBuilder(String secretKey, int merchantId, String email, String phone) {
