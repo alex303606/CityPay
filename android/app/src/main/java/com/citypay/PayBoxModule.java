@@ -1,7 +1,5 @@
 package com.citypay;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -60,6 +58,12 @@ class PayBoxModule extends ReactContextBaseJavaModule implements PBListener {
         PBHelper.getSdk().initNewPayment(orderId, payUserId, payAmount, "CityPay", null);
     }
 
+    @ReactMethod
+    public void getCards(String userId) {
+        PBHelper.getSdk().getCards(userId);
+        sendEvent("getCards Status = ", "success");
+    }
+
     //***PAYBOX***
     //Необходимо заменить тестовый secretKey и merchantId на свой
     private final String secretKey = "6yzvHbcFliUlIdnu";
@@ -91,7 +95,7 @@ class PayBoxModule extends ReactContextBaseJavaModule implements PBListener {
                     "Status = " + card.getStatus() + "\n\n";
 
         }
-        Log.d("PayBoxModule", message);
+        sendEvent("onCardList Status = ", message);
     }
 
     @Override
