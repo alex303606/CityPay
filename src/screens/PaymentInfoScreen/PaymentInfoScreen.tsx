@@ -93,11 +93,19 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
   }, [addPaymentHandler]);
 
   useEffect(() => {
+    PayBoxModule.registerPbListener();
     const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
-    eventEmitter.addListener('EventReminder', (event: Object) => {
-      const message = Object.keys(event)[0] + Object.values(event)[0];
-      console.log(message);
-    });
+    const subscription = eventEmitter.addListener(
+      'EventReminder',
+      (event: Object) => {
+        const message = Object.keys(event)[0] + Object.values(event)[0];
+        console.log(message);
+      },
+    );
+    return () => {
+      PayBoxModule.removePbListener();
+      subscription.remove();
+    };
   }, []);
 
   const onHandlePressPay = useCallback(() => {

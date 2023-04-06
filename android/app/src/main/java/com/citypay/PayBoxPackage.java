@@ -25,5 +25,4 @@ public class PayBoxPackage implements ReactPackage {
 
         return modules;
     }
-
 }
