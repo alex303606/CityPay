@@ -58,6 +58,7 @@ export const MyCardsScreen: React.FC<Props> = () => {
             setCards(cardsList);
           }
         } catch (e) {
+          console.log(e);
           return showNotification(t('errors.somethingWentWrong'));
         }
       },

@@ -98,7 +98,14 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
     const subscription = eventEmitter.addListener(
       'EventReminder',
       (event: Object) => {
-        console.log(event);
+        try {
+          const eventName = Object.keys(event)[0];
+          const values = Object.values(event)[0];
+          console.log(eventName, values);
+        } catch (e) {
+          console.log(e);
+          return showNotification(t('errors.somethingWentWrong'));
+        }
       },
     );
     return () => {
