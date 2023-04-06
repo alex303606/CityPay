@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Block, ScreenContainer} from '@UIKit';
+import React, {useCallback, useEffect} from 'react';
+import {Block, Button, ScreenContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
@@ -14,6 +14,10 @@ type Props = NativeStackScreenProps<
   EScreens.MY_CARDS_SCREEN
 >;
 const payBoxModuleGetCards = (userId: string) => PayBoxModule.getCards(userId);
+const payBoxModuleAddCard = (userId: string) => {
+  const postUrl = 'https://citysoft.kido.kg/';
+  return PayBoxModule.addCard(userId, postUrl);
+};
 
 export const MyCardsScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
@@ -25,8 +29,11 @@ export const MyCardsScreen: React.FC<Props> = () => {
     const subscription = eventEmitter.addListener(
       'EventReminder',
       (event: Object) => {
-        const message = Object.keys(event)[0] + Object.values(event)[0];
-        console.log(message);
+        const eventName = Object.keys(event)[0];
+        console.log(Object.values(event)[0]);
+        if (eventName === 'cardsList') {
+          console.log(eventName, JSON.parse(Object.values(event)[0]));
+        }
       },
     );
     return () => {
@@ -41,9 +48,17 @@ export const MyCardsScreen: React.FC<Props> = () => {
     }
   }, [userId]);
 
+  const addCardHandler = useCallback(() => {
+    if (userId) {
+      payBoxModuleAddCard(userId);
+    }
+  }, [userId]);
+
   return (
     <ScreenContainer title={t('profile.myCards')}>
-      <Block flex={1} backgroundColor={'blue'}></Block>
+      <Block flex={1}>
+        <Button title={'Добавить карту'} onPress={addCardHandler} />
+      </Block>
     </ScreenContainer>
   );
 };
