@@ -132,6 +132,7 @@ export const ruTranslation = {
       myCards: 'Мои карты',
       deleteAcc: 'Удалить аккаунт',
       delete: 'Удалить',
+      addCard: 'Добавить карту',
     },
     premium: {
       activate: 'Ативировать премиум',

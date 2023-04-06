@@ -57,7 +57,7 @@ export const MyCardsScreen: React.FC<Props> = () => {
   return (
     <ScreenContainer title={t('profile.myCards')}>
       <Block flex={1}>
-        <Button title={'Добавить карту'} onPress={addCardHandler} />
+        <Button title={t('profile.addCard')} onPress={addCardHandler} />
       </Block>
     </ScreenContainer>
   );

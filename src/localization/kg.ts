@@ -131,6 +131,7 @@ export const kgTranslation = {
       myCards: 'Менин кредиттик карталарым',
       deleteAcc: 'Удалить аккаунт',
       delete: 'Удалить',
+      addCard: 'Добавить карту',
     },
     premium: {
       activate: 'Ативировать премиум',

@@ -131,6 +131,7 @@ export const enTranslation = {
       myCards: 'My credit cards',
       deleteAcc: 'Удалить аккаунт',
       delete: 'Удалить',
+      addCard: 'Добавить карту',
     },
     premium: {
       activate: 'Ативировать премиум',
