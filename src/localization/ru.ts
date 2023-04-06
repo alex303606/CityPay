@@ -130,6 +130,8 @@ export const ruTranslation = {
       fromGallery: 'Галерея',
       fromCamera: 'Камера',
       myCards: 'Мои карты',
+      deleteAcc: 'Удалить аккаунт',
+      delete: 'Удалить',
     },
     premium: {
       activate: 'Ативировать премиум',

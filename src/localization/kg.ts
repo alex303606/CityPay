@@ -129,6 +129,8 @@ export const kgTranslation = {
       fromGallery: 'Галереядан тандоо',
       fromCamera: 'Камера',
       myCards: 'Менин кредиттик карталарым',
+      deleteAcc: 'Удалить аккаунт',
+      delete: 'Удалить',
     },
     premium: {
       activate: 'Ативировать премиум',

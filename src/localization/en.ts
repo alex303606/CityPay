@@ -129,6 +129,8 @@ export const enTranslation = {
       fromGallery: 'Gallery',
       fromCamera: 'Camera',
       myCards: 'My credit cards',
+      deleteAcc: 'Удалить аккаунт',
+      delete: 'Удалить',
     },
     premium: {
       activate: 'Ативировать премиум',

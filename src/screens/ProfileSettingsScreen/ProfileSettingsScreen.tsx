@@ -27,6 +27,10 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
     setUserLastName(value);
   }, []);
 
+  const deleteHandler = useCallback(() => {
+    navigation.navigate(EScreens.MODAL_DELETE_ACCOUNT_SCREEN);
+  }, [navigation]);
+
   const saveHandler = useCallback(async () => {
     const response = await editUserData({
       phone,
@@ -63,9 +67,16 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
           value={userLastName}
         />
         <Button
+          marginVertical={8}
           color={theme.buttonColor}
           title={t('profile.save')}
           onPress={saveHandler}
+        />
+        <Button
+          marginVertical={8}
+          color={theme.buttonColor}
+          title={t('profile.deleteAcc')}
+          onPress={deleteHandler}
         />
       </Block>
     </ScreenContainer>

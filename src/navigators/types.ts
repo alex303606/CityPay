@@ -30,4 +30,5 @@ export enum EScreens {
   PAYMENTS_INFO_SCREEN = 'PaymentInfoScreen',
   MODAL_BUY_PREMIUM_SCREEN = 'ModalBuyPremiumScreen',
   MY_CARDS_SCREEN = 'MyCardsScreen',
+  MODAL_DELETE_ACCOUNT_SCREEN = 'ModalDeleteAccount',
 }

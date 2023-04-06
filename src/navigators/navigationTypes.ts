@@ -94,6 +94,7 @@ export type ProfileStackParamList = {
   [EScreens.PROFILE_SCREEN]: undefined;
   [EScreens.MODAL_LANGUAGE_SCREEN]: undefined;
   [EScreens.MODAL_EXIT_SCREEN]: undefined;
+  [EScreens.MODAL_DELETE_ACCOUNT_SCREEN]: undefined;
   [EScreens.PROFILE_SETTINGS_SCREEN]: undefined;
   [EScreens.MODAL_PHOTO_SCREEN]: undefined;
   [EScreens.MY_CARDS_SCREEN]: undefined;
