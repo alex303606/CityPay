@@ -62,6 +62,11 @@ class PayBoxModule extends ReactContextBaseJavaModule {
         PBHelper.getSdk().addCard(userId, postUrl);
         sendEvent("addCard = ", "success");
     }
+    @ReactMethod
+    public void deleteCard(String userId, int cardId) {
+        PBHelper.getSdk().removeCard(userId, cardId);
+        sendEvent("deleteCard = ", "success");
+    }
 
     @ReactMethod
     public void registerPbListener() {
