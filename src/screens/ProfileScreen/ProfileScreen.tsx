@@ -115,11 +115,11 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           avatar={avatar}
         />
         <ProfileItem text={t('profile.finesPaid')} secondText={String(balls)} />
-        <ProfileItem text={t('profile.myCards')} onPress={handlePressMyCards} />
         <ProfileItem
           text={t('profile.accumulatedPoints')}
           secondText={String(balls)}
         />
+        <ProfileItem text={t('profile.myCards')} onPress={handlePressMyCards} />
         <ProfileItem text={t('profile.support')} onPress={handlePressSupport} />
         <ProfileItem
           text={t('profile.selectLanguage')}
