@@ -20,32 +20,27 @@ public class PBListenerImpl implements PBListener {
 
     @Override
     public void onCardList(ArrayList<Card> cards) {
-        String message = new String();
+        ArrayList<String> list = new ArrayList<>();
         for (Card card : cards) {
-            message += "Card hash = " + card.getCardhash() + "\n" +
-                    "Card ID = " + card.getCardId() + "\n" +
-                    "Recurring profile = " + card.getRecurringProfile() + "\n" +
-                    "Created At = " + card.getDate() + "\n" +
-                    "Status = " + card.getStatus() + "\n\n";
-
+            list.add("{\"id\":" + card.getCardId() + ",\"number\":\"" + card.getCardhash() + "\"}");
         }
-        this.module.sendEvent("onCardList Status = ", message);
+        this.module.sendEvent("cardsList", list.toString());
     }
 
     @Override
     public void onPaymentRevoke(Response response) {
-        this.module.sendEvent("onPaymentRevoke Status = ", response.getStatus());
+        this.module.sendEvent("onPaymentRevoke", response.getStatus());
     }
 
     @Override
     public void onPaymentPaid(Response response) {
-        this.module.sendEvent("onPaymentPaid Payment ID = ", response.getPaymentId() +
+        this.module.sendEvent("onPaymentPaid", response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
     }
 
     @Override
     public void onPaymentStatus(PStatus pStatus) {
-        this.module.sendEvent("onPaymentStatus Status = ", pStatus.getStatus() +
+        this.module.sendEvent("onPaymentStatus", pStatus.getStatus() +
                 "\nPayment system = " + pStatus.getPaymentSystem() +
                 "\nTransaction Status = " + pStatus.getTransactionStatus() +
                 "\nCaptured = " + pStatus.isCaptured() +
@@ -55,34 +50,34 @@ public class PBListenerImpl implements PBListener {
 
     @Override
     public void onCardAdded(Response response) {
-        this.module.sendEvent("onCardAdded Payment ID = ", response.getPaymentId() +
+        this.module.sendEvent("onCardAdded", response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
     }
 
     @Override
     public void onCardRemoved(Card card) {
         if (card != null) {
-            this.module.sendEvent("onCardRemoved Deleted At = ", card.getDate() +
+            this.module.sendEvent("onCardRemoved", card.getDate() +
                     "\nStatus = " + card.getStatus());
         }
     }
 
     @Override
     public void onCardPayInited(Response response) {
-        this.module.sendEvent("onCardPayInited Status = ", response.getStatus() +
+        this.module.sendEvent("onCardPayInited", response.getStatus() +
                 "\nPayment ID = " + response.getPaymentId());
         PBHelper.getSdk().payWithCard(Integer.parseInt(response.getPaymentId()));
     }
 
     @Override
     public void onCardPaid(Response response) {
-        this.module.sendEvent("onCardPaid Payment ID = ", response.getPaymentId() +
+        this.module.sendEvent("onCardPaid", response.getPaymentId() +
                 "\nStatus = " + response.getStatus());
     }
 
     @Override
     public void onRecurringPaid(RecurringPaid recurringPaid) {
-        this.module.sendEvent("onRecurringPaid Payment ID = ", recurringPaid.getPaymentId() +
+        this.module.sendEvent("onRecurringPaid", recurringPaid.getPaymentId() +
                 "\nStatus = " + recurringPaid.getStatus() +
                 "\nCurrency = " + recurringPaid.getCurrency() +
                 "\nDate = " + recurringPaid.getExpireDate().toGMTString());
@@ -90,18 +85,18 @@ public class PBListenerImpl implements PBListener {
 
     @Override
     public void onPaymentCaptured(Capture capture) {
-        this.module.sendEvent("onPaymentCaptured Status = ", capture.getStatus() +
+        this.module.sendEvent("onPaymentCaptured", capture.getStatus() +
                 "\nAmount = " + capture.getAmount() +
                 "\nClearing Amount = " + capture.getClearingAmount());
     }
 
     @Override
     public void onPaymentCanceled(Response response) {
-        this.module.sendEvent("onPaymentCanceled Status = ", response.getStatus());
+        this.module.sendEvent("onPaymentCanceled", response.getStatus());
     }
 
     @Override
     public void onError(Error error) {
-        this.module.sendEvent("onError Error = ", error.getErrorDesription());
+        this.module.sendEvent("onError", error.getErrorDesription());
     }
 }
