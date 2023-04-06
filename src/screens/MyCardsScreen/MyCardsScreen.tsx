@@ -14,6 +14,7 @@ import {useAppSelector, useSnackbarNotification, useTheme} from '@hooks';
 import {getUserState} from '@store';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
+import {EmptyList} from './components/EmptyList';
 
 const {PayBoxModule} = NativeModules;
 
@@ -51,7 +52,6 @@ export const MyCardsScreen: React.FC<Props> = () => {
       (event: Object) => {
         try {
           const eventName = Object.keys(event)[0];
-          console.log(eventName, Object.values(event)[0]);
           if (eventName === 'cardsList') {
             console.log(eventName, JSON.parse(Object.values(event)[0]));
             const cardsList = JSON.parse(Object.values(event)[0]);
@@ -95,6 +95,7 @@ export const MyCardsScreen: React.FC<Props> = () => {
           data={cards}
           renderItem={renderItem}
           ItemSeparatorComponent={Separator}
+          ListEmptyComponent={<EmptyList />}
         />
       </Block>
       <Button title={t('profile.addCard')} onPress={addCardHandler} />
