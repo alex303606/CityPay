@@ -87,7 +87,7 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
       showLoader();
       payBoxModuleGetCards(userId);
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     reload();
