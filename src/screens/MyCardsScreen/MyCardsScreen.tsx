@@ -9,6 +9,7 @@ import {
   FlatList,
   View,
   ListRenderItem,
+  RefreshControl,
 } from 'react-native';
 import {useAppSelector, useLoading, useSnackbarNotification} from '@hooks';
 import {getUserState} from '@store';
@@ -46,7 +47,6 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
   const [cards, setCards] = useState<ICard[]>([]);
 
   useEffect(() => {
-    showLoader();
     PayBoxModule.registerPbListener();
     const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
     const subscription = eventEmitter.addListener(
@@ -72,11 +72,16 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
     };
   }, []);
 
-  useEffect(() => {
+  const reload = useCallback(() => {
     if (userId) {
       payBoxModuleGetCards(userId);
     }
-  }, [userId]);
+  }, []);
+
+  useEffect(() => {
+    showLoader();
+    reload();
+  }, []);
 
   const addCardHandler = useCallback(() => {
     if (userId) {
@@ -105,6 +110,9 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
           renderItem={renderItem}
           ItemSeparatorComponent={Separator}
           ListEmptyComponent={<EmptyList />}
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={reload} />
+          }
         />
       </Block>
       <Button title={t('profile.addCard')} onPress={addCardHandler} />
