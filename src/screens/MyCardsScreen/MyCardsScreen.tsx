@@ -66,6 +66,7 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
             case 'onCardAdded':
               return reload();
             case 'onError':
+              hideLoader();
               return showNotification(message);
             default:
               return;

@@ -40,6 +40,7 @@ export type CarsStackParamList = {
     fine?: IFine;
     finesType: IFinesType;
   };
+  [EScreens.FINES_SCREEN]: undefined;
 };
 
 export type CarsStackProps = NativeStackScreenProps<
@@ -64,6 +65,7 @@ export type FinesStackParamList = {
 export type PaymentsStackParamList = {
   [EScreens.PAYMENTS_SCREEN]: undefined;
   [EScreens.PAYMENT_SCREEN]: {paymentNumber: string};
+  [EScreens.FINES_SCREEN]: undefined;
 };
 
 export type FinesStackProps = NativeStackScreenProps<

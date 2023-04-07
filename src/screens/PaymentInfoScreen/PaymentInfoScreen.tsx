@@ -33,7 +33,7 @@ const payBoxModuleInitPayment = ({
   resultUrl: string;
 }) => PayBoxModule.initPayment(orderId, payUserId, payAmount, phone, resultUrl);
 
-export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
+export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const [paymentSum, setPaymentSum] = useState(0);
@@ -98,8 +98,16 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
       (event: Object) => {
         try {
           const eventName = Object.keys(event)[0];
-          const values = Object.values(event)[0];
-          console.log(eventName, values);
+          const message = Object.values(event)[0];
+          console.log(eventName, message);
+          switch (eventName) {
+            case 'onPaymentPaid':
+              return navigation.navigate(EScreens.FINES_SCREEN);
+            case 'onError':
+              return showNotification(message);
+            default:
+              return;
+          }
         } catch (e) {
           console.log(e);
           return showNotification(t('errors.somethingWentWrong'));
