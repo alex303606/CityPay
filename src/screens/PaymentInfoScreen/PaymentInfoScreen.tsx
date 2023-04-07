@@ -109,7 +109,6 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
               return;
           }
         } catch (e) {
-          console.log(e);
           return showNotification(t('errors.somethingWentWrong'));
         }
       },
