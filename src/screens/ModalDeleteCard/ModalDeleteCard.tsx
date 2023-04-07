@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Alert, NativeModules} from 'react-native';
+import {NativeModules} from 'react-native';
 import {Block, Button, ModalContainer} from '@UIKit';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
