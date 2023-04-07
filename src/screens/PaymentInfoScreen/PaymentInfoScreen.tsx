@@ -102,6 +102,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
           console.log(eventName, message);
           switch (eventName) {
             case 'onPaymentPaid':
+              showNotification(t('Операция прошла успешно'));
               return navigation.navigate(EScreens.FINES_SCREEN);
             case 'onError':
               return showNotification(message);
