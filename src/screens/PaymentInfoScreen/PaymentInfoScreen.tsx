@@ -1,4 +1,4 @@
-import {Block, Button, Colors, PaymentRow, ScreenContainer} from '@UIKit';
+import {Block, Button, Loader, PaymentRow, ScreenContainer} from '@UIKit';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -10,8 +10,6 @@ import {
   useSnackbarNotification,
   useTheme,
 } from '@hooks';
-import {ActivityIndicator} from 'react-native';
-import styled from 'styled-components';
 import {NativeModules, NativeEventEmitter} from 'react-native';
 
 const {PayBoxModule} = NativeModules;
@@ -175,22 +173,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route}) => {
         title={t('payments.payByCard')}
         onPress={onHandlePressPay}
       />
-      {loading && (
-        <StyledFloatingBlock>
-          <ActivityIndicator size="large" color={Colors.blue} />
-        </StyledFloatingBlock>
-      )}
+      {loading && <Loader />}
     </ScreenContainer>
   );
 };
-
-const StyledFloatingBlock = styled(Block)({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(255,255,255,0.3)',
-  alignItems: 'center',
-  justifyContent: 'center',
-});

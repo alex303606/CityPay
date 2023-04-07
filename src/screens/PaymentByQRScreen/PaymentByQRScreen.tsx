@@ -6,6 +6,7 @@ import {
   Icon,
   IconNames,
   InputField,
+  Loader,
   Row,
   ScreenContainer,
   ShadowsSizes,
@@ -18,7 +19,6 @@ import {useTranslation} from 'react-i18next';
 import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import styled from 'styled-components';
 import {getCurrentAmount, IFinesType} from '@store';
-import {ActivityIndicator} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera as Camera} from 'react-native-camera';
 
@@ -171,28 +171,13 @@ export const PaymentByQRScreen: React.FC<Props> = ({route, navigation}) => {
                 marginTop={16}
               />
             </Block>
-            {loading && (
-              <StyledFloatingBlock>
-                <ActivityIndicator size="large" color={Colors.blue} />
-              </StyledFloatingBlock>
-            )}
+            {loading && <Loader />}
           </>
         </ScreenContainer>
       )}
     </>
   );
 };
-
-const StyledFloatingBlock = styled(Block)({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(255,255,255,0.3)',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
 
 const StyledBlock = styled(Block)({
   borderRadius: 10,

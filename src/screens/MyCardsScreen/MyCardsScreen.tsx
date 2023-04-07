@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Block, Button, ScreenContainer} from '@UIKit';
+import {Block, Button, Loader, ScreenContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
@@ -10,7 +10,7 @@ import {
   View,
   ListRenderItem,
 } from 'react-native';
-import {useAppSelector, useSnackbarNotification} from '@hooks';
+import {useAppSelector, useLoading, useSnackbarNotification} from '@hooks';
 import {getUserState} from '@store';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
@@ -41,10 +41,12 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {userId} = useAppSelector(getUserState);
   const {showNotification} = useSnackbarNotification();
+  const {loading, hideLoader, showLoader} = useLoading();
 
   const [cards, setCards] = useState<ICard[]>([]);
 
   useEffect(() => {
+    showLoader();
     PayBoxModule.registerPbListener();
     const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
     const subscription = eventEmitter.addListener(
@@ -56,6 +58,7 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
             console.log(eventName, JSON.parse(Object.values(event)[0]));
             const cardsList = JSON.parse(Object.values(event)[0]);
             setCards(cardsList);
+            hideLoader();
           }
         } catch (e) {
           console.log(e);
@@ -105,6 +108,7 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
         />
       </Block>
       <Button title={t('profile.addCard')} onPress={addCardHandler} />
+      {loading && <Loader />}
     </ScreenContainer>
   );
 };

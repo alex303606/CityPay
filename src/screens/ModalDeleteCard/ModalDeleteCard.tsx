@@ -31,7 +31,6 @@ export const ModalDeleteCard: React.FC<Props> = ({navigation, route}) => {
   }, [navigation]);
 
   const handleDeleteCard = useCallback(() => {
-    debugger;
     if (userId) {
       payBoxModuleDeleteCard(userId, card.id);
     }

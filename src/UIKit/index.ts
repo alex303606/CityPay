@@ -13,3 +13,4 @@ export {CarComponent} from './CarComponent';
 export {FineComponent} from './FineComponent';
 export {PaymentRow} from './PaymentRow';
 export {ProfileItem} from './ProfileItem';
+export {Loader} from './Loader';
