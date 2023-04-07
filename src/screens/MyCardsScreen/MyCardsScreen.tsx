@@ -54,14 +54,23 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
       (event: Object) => {
         try {
           const eventName = Object.keys(event)[0];
-          if (eventName === 'cardsList') {
-            console.log(eventName, JSON.parse(Object.values(event)[0]));
-            const cardsList = JSON.parse(Object.values(event)[0]);
-            setCards(cardsList);
-            hideLoader();
+          const message = Object.values(event)[0];
+          console.log(eventName, message);
+          switch (eventName) {
+            case 'cardsList':
+              const cardsList = JSON.parse(message);
+              setCards(cardsList);
+              return hideLoader();
+            case 'onCardRemoved':
+              return reload();
+            case 'onCardAdded':
+              return reload();
+            case 'onError':
+              return showNotification(message);
+            default:
+              return;
           }
         } catch (e) {
-          console.log(e);
           return showNotification(t('errors.somethingWentWrong'));
         }
       },
@@ -74,12 +83,12 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
 
   const reload = useCallback(() => {
     if (userId) {
+      showLoader();
       payBoxModuleGetCards(userId);
     }
   }, []);
 
   useEffect(() => {
-    showLoader();
     reload();
   }, []);
 
