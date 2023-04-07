@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Block, Button, ScreenContainer, Typography} from '@UIKit';
+import {Block, Button, ScreenContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
@@ -10,11 +10,12 @@ import {
   View,
   ListRenderItem,
 } from 'react-native';
-import {useAppSelector, useSnackbarNotification, useTheme} from '@hooks';
+import {useAppSelector, useSnackbarNotification} from '@hooks';
 import {getUserState} from '@store';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
 import {EmptyList} from './components/EmptyList';
+import {Card} from './components/Card';
 
 const {PayBoxModule} = NativeModules;
 
@@ -23,23 +24,22 @@ type Props = NativeStackScreenProps<
   EScreens.MY_CARDS_SCREEN
 >;
 
-type ICard = {
+export type ICard = {
   id: number;
   number: string;
 };
+const postUrl = 'https://citysoft.kido.kg/';
 
 const keyExtractor = (item: ICard) => String(item.id);
 
 const payBoxModuleGetCards = (userId: string) => PayBoxModule.getCards(userId);
 const payBoxModuleAddCard = (userId: string) => {
-  const postUrl = 'https://citysoft.kido.kg/';
   return PayBoxModule.addCard(userId, postUrl);
 };
 
-export const MyCardsScreen: React.FC<Props> = () => {
+export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {userId} = useAppSelector(getUserState);
-  const {theme} = useTheme();
   const {showNotification} = useSnackbarNotification();
 
   const [cards, setCards] = useState<ICard[]>([]);
@@ -81,10 +81,15 @@ export const MyCardsScreen: React.FC<Props> = () => {
     }
   }, [userId]);
 
+  const deleteCardHandler = useCallback(
+    (card: ICard) => {
+      navigation.navigate(EScreens.MODAL_DELETE_CARD_SCREEN, {card});
+    },
+    [userId],
+  );
+
   const renderItem: ListRenderItem<ICard> = useCallback(({item}) => {
-    return (
-      <Typography.S16 color={theme.textColor}>{item.number}</Typography.S16>
-    );
+    return <Card onPressDelete={deleteCardHandler} card={item} />;
   }, []);
 
   return (

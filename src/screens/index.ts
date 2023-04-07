@@ -22,3 +22,4 @@ export {PaymentInfoScreen} from './PaymentInfoScreen/PaymentInfoScreen';
 export {ModalBuyPremiumScreen} from './ModalBuyPremiumScreen/ModalBuyPremiumScreen';
 export {MyCardsScreen} from './MyCardsScreen/MyCardsScreen';
 export {ModalDeleteAccount} from './ModalDeleteAccount/ModalDeleteAccount';
+export {ModalDeleteCard} from './ModalDeleteCard/ModalDeleteCard';

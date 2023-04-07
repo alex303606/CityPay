@@ -4,6 +4,7 @@ import {ProfileStackParamList, ProfileStackProps} from './navigationTypes';
 import {
   ModalBuyPremiumScreen,
   ModalDeleteAccount,
+  ModalDeleteCard,
   ModalLanguageScreen,
   ModalPhotoScreen,
   MyCardsScreen,
@@ -67,6 +68,10 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         <Stack.Screen
           name={EScreens.MODAL_DELETE_ACCOUNT_SCREEN}
           component={ModalDeleteAccount}
+        />
+        <Stack.Screen
+          name={EScreens.MODAL_DELETE_CARD_SCREEN}
+          component={ModalDeleteCard}
         />
       </Stack.Group>
     </Stack.Navigator>

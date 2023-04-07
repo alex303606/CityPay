@@ -129,10 +129,12 @@ export const enTranslation = {
       fromGallery: 'Gallery',
       fromCamera: 'Camera',
       myCards: 'My credit cards',
-      deleteAcc: 'Удалить аккаунт',
+      deleteAcc: 'Удалить аккаунт?',
+      deleteAccount: 'Удалить аккаунт',
       delete: 'Удалить',
       addCard: 'Добавить карту',
       emptyCards: 'У вас нет сохраненных карт',
+      deleteCard: 'Удалить карту {{number}}?',
     },
     premium: {
       activate: 'Ативировать премиум',

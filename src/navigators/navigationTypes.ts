@@ -2,6 +2,7 @@ import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ICar, IFine, IFinesType} from '@store';
+import {ICard} from 'src/screens/MyCardsScreen/MyCardsScreen';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -95,6 +96,7 @@ export type ProfileStackParamList = {
   [EScreens.MODAL_LANGUAGE_SCREEN]: undefined;
   [EScreens.MODAL_EXIT_SCREEN]: undefined;
   [EScreens.MODAL_DELETE_ACCOUNT_SCREEN]: undefined;
+  [EScreens.MODAL_DELETE_CARD_SCREEN]: {card: ICard};
   [EScreens.PROFILE_SETTINGS_SCREEN]: undefined;
   [EScreens.MODAL_PHOTO_SCREEN]: undefined;
   [EScreens.MY_CARDS_SCREEN]: undefined;
