@@ -3,7 +3,12 @@ import {useTranslation} from 'react-i18next';
 import {Block, Button, Loader, ModalContainer} from '@UIKit';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
-import {useAppDispatch, useAppSelector, useLoading} from '@hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLoading,
+  useSnackbarNotification,
+} from '@hooks';
 import {
   clearCars,
   clearFines,
@@ -27,6 +32,7 @@ export const ModalDeleteAccount: React.FC<Props> = ({navigation}) => {
   const {phone} = useAppSelector(getUserState);
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
+  const {showNotification} = useSnackbarNotification();
 
   const handleCancel = useCallback(() => {
     navigation.goBack();
@@ -35,12 +41,19 @@ export const ModalDeleteAccount: React.FC<Props> = ({navigation}) => {
   const handleDeleteAccount = useCallback(async () => {
     showLoader();
     const deletedCars = cars.map(async car => {
-      return await editCar({
+      const response = await editCar({
         phone,
         number: car.number,
         inn: car.inn,
         active: false,
       });
+      if (!response?.result) {
+        if (response?.message) {
+          return showNotification(response.message);
+        }
+        return showNotification(t('errors.somethingWentWrong'));
+      }
+      return response;
     });
     await Promise.all([deletedCars]);
     await eraseAccount(phone);
