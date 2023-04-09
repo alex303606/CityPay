@@ -103,6 +103,6 @@ const StyledKg34 = styled(Typography.B28)({
   lineHeight: 30,
 });
 
-const StyledNumber = styled(Typography.B56)({
+const StyledNumber = styled(Typography.B48)({
   textTransform: 'uppercase',
 });

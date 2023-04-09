@@ -124,9 +124,9 @@ const B34 = styled(bold)`
   line-height: 40px;
 `;
 
-const B56 = styled(bold)`
+const B48 = styled(bold)`
   font-size: 48px;
-  line-height: 68px;
+  line-height: 56px;
 `;
 
 export const Typography = {
@@ -149,5 +149,5 @@ export const Typography = {
   R28,
   B28,
   B34,
-  B56,
+  B48,
 };
