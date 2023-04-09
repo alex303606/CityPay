@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Block, Button, ModalContainer} from '@UIKit';
+import {Block, Button, Loader, ModalContainer} from '@UIKit';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
 import {useAppDispatch, useAppSelector, useLoading} from '@hooks';
@@ -56,13 +56,13 @@ export const ModalDeleteAccount: React.FC<Props> = ({navigation}) => {
     <ModalContainer title={t('profile.deleteAcc')}>
       <Block paddingHorizontal={16} paddingBottom={16}>
         <Button
-          loading={loading}
           marginVertical={8}
           title={t('profile.delete')}
           onPress={handleDeleteAccount}
         />
         <Button marginVertical={8} title={t('cancel')} onPress={handleCancel} />
       </Block>
+      {loading && <Loader />}
     </ModalContainer>
   );
 };
