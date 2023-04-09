@@ -15,7 +15,7 @@ export const enTranslation = {
       kg: 'Кыргыз тили',
       en: 'English',
     },
-    cancel: 'cancel',
+    cancel: 'Cancel',
     auth: {
       agree:
         'By clicking on the button, \nI agree to the terms of the Public Offer',
@@ -140,8 +140,7 @@ export const enTranslation = {
       activate: 'Premium subscription',
       activateButton: 'Subscribe',
       title: {
-        carsLimit:
-          'To add more 2 cars You need to activate a subscription',
+        carsLimit: 'To add more 2 cars You need to activate a subscription',
         timeLimit:
           'You will be able to add a car in {{count}} мин. or activate the Premium subscription',
       },
