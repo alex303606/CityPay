@@ -15,7 +15,7 @@ type Props = {
 
 export const Button: React.FC<Props> = ({
   title,
-  color = Colors.blue,
+  color,
   textColor = Colors.white,
   onPress,
   disabled,

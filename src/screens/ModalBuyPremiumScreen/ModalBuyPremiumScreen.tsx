@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
 import {Alert} from 'react-native';
+import {useTheme} from '@hooks';
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,
@@ -29,7 +30,7 @@ export const ModalBuyPremiumScreen: React.FC<Props> = ({route, navigation}) => {
       <Block paddingHorizontal={16} paddingBottom={16}>
         <Button
           marginVertical={8}
-          title={'Активировать'}
+          title={t('premium.activateButton')}
           onPress={handleBuyPremium}
         />
         <Button marginVertical={8} title={t('cancel')} onPress={handleCancel} />

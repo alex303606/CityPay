@@ -139,6 +139,7 @@ export const ruTranslation = {
     },
     premium: {
       activate: 'Активировать премиум',
+      activateButton: 'Активировать',
       title: {
         carsLimit:
           'Для добавления более 2-х авто неоходимо активировать премиум подписку',
