@@ -18,6 +18,14 @@ import {
   selectedLanguage,
   selectUserIsLoggedIn,
   getAppSettings,
+  getUser,
+  signOut,
+  clearFines,
+  clearCars,
+  clearPayments,
+  clearSettings,
+  getUserSuccess,
+  IProfileState,
 } from '@store';
 import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
@@ -31,7 +39,7 @@ export const RootStack: React.FC = () => {
   const language = useAppSelector(selectedLanguage);
   const deps = useDependencies();
   const remoteNotificationClient = deps.get('remoteNotificationClient');
-  const user = useAppSelector(getUserState);
+  const {phone} = useAppSelector(getUserState);
   const {hideLoader, showLoader} = useLoading();
   const {showNotification} = useSnackbarNotification();
   const dispatch = useAppDispatch();
@@ -39,12 +47,37 @@ export const RootStack: React.FC = () => {
 
   useEffect(() => {
     if (userIsLoggedIn) {
-      remoteNotificationClient.getToken().then((token: string) => {
-        editUserData({...user, pushToken: token});
-        getSettingsHandler();
+      remoteNotificationClient.getToken().then(async (token: string) => {
+        const response = await getUser(phone);
+        if (!response?.result) {
+          if (response?.message) {
+            return showNotification(response.message);
+          }
+          return showNotification(t('errors.somethingWentWrong'));
+        }
+        if (!response?.data) {
+          return showNotification(t('errors.somethingWentWrong'));
+        }
+        if (response.data.black_list) {
+          dispatch(signOut());
+          dispatch(clearFines());
+          dispatch(clearCars());
+          dispatch(clearPayments());
+          dispatch(clearSettings());
+          return showNotification(t('errors.blackList'));
+        }
+        dispatch(
+          getUserSuccess({
+            ...response.data,
+          }),
+        );
+        // @ts-ignore
+        const userState = response.data as IProfileState;
+        await editUserData({...userState, pushToken: token});
+        await getSettingsHandler();
       });
     }
-  }, [remoteNotificationClient, user, userIsLoggedIn]);
+  }, [remoteNotificationClient, phone, userIsLoggedIn]);
 
   const getSettingsHandler = useCallback(async () => {
     showLoader();
