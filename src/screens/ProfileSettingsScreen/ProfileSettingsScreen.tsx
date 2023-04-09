@@ -53,7 +53,7 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
     <ScreenContainer title={t('profile.editProfile')}>
       <Block flex={1}>
         <InputField
-          label={t('profile.title')}
+          label={t('profile.name')}
           placeholder={t('profile.name')}
           onChangeValue={onChangeNameHandler}
           marginBottom={16}
@@ -75,7 +75,7 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
         <Button
           marginVertical={8}
           color={theme.buttonColor}
-          title={t('profile.deleteAcc')}
+          title={t('profile.deleteAccount')}
           onPress={deleteHandler}
         />
       </Block>

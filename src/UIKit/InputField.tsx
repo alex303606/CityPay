@@ -36,7 +36,10 @@ export const InputField: React.FC<Props> = ({
   return (
     <StyledBlock>
       {!!label && (
-        <Typography.R16 marginBottom={4} numberOfLines={2} color={Colors.grey}>
+        <Typography.R16
+          marginBottom={4}
+          numberOfLines={2}
+          color={theme.textColor}>
           {label}
         </Typography.R16>
       )}
@@ -87,8 +90,10 @@ const StyledRow = styled(Row)({
   height: 48,
   borderWidth: 1,
   borderRadius: 8,
+  borderColor: '#AAAAAA',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
   alignItems: 'center',
+  overflow: 'hidden',
 });
 
 const StyledBlock = styled(Block)({

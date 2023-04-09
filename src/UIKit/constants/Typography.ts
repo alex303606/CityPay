@@ -66,7 +66,7 @@ const S14 = styled(semiBold)`
 
 const S16 = styled(semiBold)`
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
 `;
 
 const S11 = styled(semiBold)`

@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {ActivityIndicator, Pressable} from 'react-native';
 import {Typography, Block, SpacingsProps, Colors} from '@UIKit';
+import {useTheme} from '@hooks';
 
 type Props = {
   title: string;
@@ -25,10 +26,12 @@ export const Button: React.FC<Props> = ({
     return disabled || loading ? undefined : onPress();
   }, [disabled, loading, onPress]);
 
+  const {theme} = useTheme();
+
   return (
     <Block overflow borderRadius={10} {...props}>
       <StyledPressable
-        color={color}
+        color={color || theme.buttonColor}
         disabled={disabled}
         onPress={onPressHandler}>
         {loading ? (

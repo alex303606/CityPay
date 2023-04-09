@@ -38,12 +38,12 @@ export const Header: React.FC<Props> = ({
         </StyledPressable>
       </Wrapper>
       <Block paddingLeft={16} flex={1}>
-        <Typography.B20 color={theme.textColor}>
+        <Typography.R20 color={theme.textColor}>
           {name || t('profile.name')} {lastName || t('profile.lastName')}
-        </Typography.B20>
-        <Typography.B16 color={theme.textColor} numberOfLines={1}>
+        </Typography.R20>
+        <Typography.R16 color={theme.textColor} numberOfLines={1}>
           {phone}
-        </Typography.B16>
+        </Typography.R16>
       </Block>
     </Row>
   );

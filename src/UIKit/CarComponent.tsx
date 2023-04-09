@@ -65,7 +65,7 @@ const StyledPressable = styled(Pressable).attrs(() => ({
 const StyledRow = styled(Row)({
   height: 65,
   borderWidth: 1,
-  borderColor: Colors.black,
+  borderColor: '#AAAAAA',
   borderRadius: 5,
   overflow: 'hidden',
 });
@@ -77,7 +77,7 @@ const BottomRow = styled(Row)({
 
 const StyledBlock = styled(Block)({
   borderRightWidth: 1,
-  borderColor: Colors.black,
+  borderColor: '#AAAAAA',
   padding: 8,
   width: 80,
   height: 65,

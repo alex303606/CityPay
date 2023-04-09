@@ -28,18 +28,18 @@ export const FineComponent: React.FC<Props> = ({fine, onPress}) => {
     <StyledRow backgroundColor={theme.fineBackgroundColor}>
       <StyledPressable onPress={handlePress}>
         <Row justifyContent={'space-between'}>
-          <Typography.B18 color={theme.textColor}>
+          <Typography.B18 color={theme.secondTextColor}>
             {fine.plateNumber}
           </Typography.B18>
           <Row alignItems={'center'}>
-            <Typography.B18 color={theme.textColor}>
+            <Typography.B18 color={theme.secondTextColor}>
               {fine.violationAmmount}
             </Typography.B18>
-            <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
+            <Typography.R14 color={theme.secondTextColor}>⊆</Typography.R14>
           </Row>
         </Row>
-        <Typography.R14 color={theme.textColor}>{date}</Typography.R14>
-        <Typography.R14 color={theme.textColor} numberOfLines={2}>
+        <Typography.R14 color={theme.secondTextColor}>{date}</Typography.R14>
+        <Typography.R14 color={theme.secondTextColor} numberOfLines={2}>
           {fine.violationType}
         </Typography.R14>
       </StyledPressable>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Switch, View} from 'react-native';
 import {Colors, Typography} from './constants';
 import {Row} from './helpers';
+import {useTheme} from '@hooks';
 
 const trackColor = {
   true: 'rgba(155,155,155,0.3)',
@@ -20,10 +21,12 @@ export const SwitchComponent: React.FC<Props> = ({
   value,
   text,
 }) => {
+  const {theme} = useTheme();
+
   return (
     <Row alignItems="center" marginVertical={10}>
       <TextContainer>
-        <Typography.R16 color={Colors.grey} numberOfLines={1}>
+        <Typography.R16 color={theme.textColor} numberOfLines={1}>
           {text}
         </Typography.R16>
       </TextContainer>

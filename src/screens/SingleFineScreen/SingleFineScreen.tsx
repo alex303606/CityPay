@@ -97,14 +97,17 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
         marginBottom={16}>
         {fine.plateNumber}
       </Typography.B28>
-      <Typography.R16 numberOfLines={1} color={Colors.grey} marginBottom={8}>
+      <Typography.R16
+        numberOfLines={1}
+        color={theme.textColor}
+        marginBottom={8}>
         {date}
       </Typography.R16>
       <Typography.B16 color={theme.textColor} marginBottom={16}>
         {fine.violationType}
       </Typography.B16>
       <Block marginBottom={8}>
-        <Typography.R16 numberOfLines={1} color={Colors.grey}>
+        <Typography.R16 numberOfLines={1} color={theme.textColor}>
           {t('fines.violationAmmount')}
         </Typography.R16>
         {violationAmmount !== amount ? (
@@ -132,7 +135,7 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
         )}
       </Block>
       <Block marginBottom={8}>
-        <Typography.R16 numberOfLines={1} color={Colors.grey}>
+        <Typography.R16 numberOfLines={1} color={theme.textColor}>
           {t('fines.violationPlace')}
         </Typography.R16>
         <Typography.B16 color={theme.textColor}>
@@ -140,15 +143,15 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
         </Typography.B16>
       </Block>
       <Block marginBottom={8}>
-        <Typography.R16 numberOfLines={1} color={Colors.grey}>
+        <Typography.R16 numberOfLines={1} color={theme.textColor}>
           {t('fines.paymentStatusName')}
         </Typography.R16>
-        <Typography.B16 color={Colors.red}>
+        <Typography.B16 color={'#FF0000'}>
           {fine.paymentStatusName}
         </Typography.B16>
       </Block>
       <Block marginBottom={32}>
-        <Typography.R16 numberOfLines={1} color={Colors.grey}>
+        <Typography.R16 numberOfLines={1} color={theme.textColor}>
           {t('fines.paymentNumber')}
         </Typography.R16>
         <Typography.B16 color={theme.textColor}>

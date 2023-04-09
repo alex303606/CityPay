@@ -68,10 +68,9 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
             </Typography.B18>
             <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
           </Row>
-          <StyledStatus color={theme.buttonColor}>
+          <StyledStatus color={'#FF0000'}>
             {payment.status_payment}
           </StyledStatus>
-          {/*{payment.status === '1' && <StyledImage source={paidImg} />}*/}
         </Block>
       </StyledPressable>
     </StyledRow>

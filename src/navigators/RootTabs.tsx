@@ -9,8 +9,7 @@ import {useTranslation} from 'react-i18next';
 import {PaymentsStack} from './PaymentsStack';
 import {SettingsStack} from './SettingsStack';
 import {ProfileStack} from './ProfileStack';
-import {useAppSelector, useTheme} from '@hooks';
-import {getFines} from '@store';
+import {useTheme} from '@hooks';
 
 type LabelProps = {
   focused: boolean;
@@ -32,12 +31,6 @@ export const RootTabs: React.FC = () => {
   const {t} = useTranslation();
   const {theme} = useTheme();
 
-  const fines = useAppSelector(getFines);
-  const unPaidFines = useMemo(
-    () => fines.filter(fine => fine.paymentStatus === '0'),
-    [fines],
-  );
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -47,7 +40,7 @@ export const RootTabs: React.FC = () => {
           paddingBottom: 7,
           paddingTop: 7,
           elevation: 8,
-          backgroundColor: theme.backgroundColor,
+          backgroundColor: theme.tabBarColor,
         },
         tabBarActiveTintColor: theme.tabActiveColor,
         tabBarInactiveTintColor: theme.tabInactiveColor,
@@ -75,7 +68,6 @@ export const RootTabs: React.FC = () => {
           tabBarIcon: ({color}) => (
             <Icon size={24} color={color} name={IconNames.fines} />
           ),
-          tabBarBadge: unPaidFines.length,
           headerShown: false,
         }}
       />

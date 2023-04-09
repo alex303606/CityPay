@@ -6,7 +6,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
-import {useAppDispatch, useAppSelector} from '@hooks';
+import {useAppDispatch, useAppSelector, useTheme} from '@hooks';
 import {changeLanguage, ILanguages, selectedLanguage} from '@store';
 const logo = require('@assets/images/logo.webp');
 
@@ -18,6 +18,8 @@ type Props = NativeStackScreenProps<
 export const InitialScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const dispatch = useAppDispatch();
+  const {theme} = useTheme();
+
   const changeLanguageHandler = useCallback(
     async (lang: ILanguages) => {
       dispatch(changeLanguage(lang));

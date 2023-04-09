@@ -7,7 +7,7 @@ import {EmptyList} from './components/EmptyList';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
-import {useAppSelector, useGetPaymentsList} from '@hooks';
+import {useAppSelector, useGetPaymentsList, useTheme} from '@hooks';
 import {getPayments, getUserState, IPayment} from '@store';
 import {PaymentCard} from './components/PaymentCard';
 
@@ -21,6 +21,7 @@ const keyExtractor = (item: IPayment) =>
   `${item.paymentNumber}-${item.protocolNumber}-${Math.random()}`;
 
 export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
+  const {theme} = useTheme();
   const {t} = useTranslation();
   const payments = useAppSelector(getPayments).filter(p => p.status === '1');
   const {isPremiumAccess} = useAppSelector(getUserState);
@@ -59,7 +60,7 @@ export const PaymentsScreen: React.FC<Props> = ({navigation}) => {
   return (
     <ScreenContainer scroll={false} title={t('payments.title')}>
       {!isPremiumAccess && (
-        <Typography.R16 marginBottom={16} color={Colors.grey}>
+        <Typography.R16 marginBottom={16} color={theme.textColor}>
           {t('payments.subTitle', {number: payments.length})}
         </Typography.R16>
       )}

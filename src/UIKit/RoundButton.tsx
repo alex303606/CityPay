@@ -32,10 +32,10 @@ export const RoundButton: React.FC<Props> = ({
       backgroundColor={backgroundColor}
       diameter={diameter}>
       <StyledPressable
-        backgroundColor={theme.buttonColor}
+        backgroundColor={theme.addCarButtonColor}
         diameter={diameter}
         onPress={onPress}>
-        <Icon size={iconSize} color={Colors.white} name={iconName} />
+        <Icon size={iconSize} color={theme.backgroundColor} name={iconName} />
       </StyledPressable>
     </Wrapper>
   );

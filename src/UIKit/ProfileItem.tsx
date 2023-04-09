@@ -22,9 +22,9 @@ export const ProfileItem: React.FC<Props> = ({text, secondText, onPress}) => {
       marginBottom={8}
       paddingVertical={8}
       paddingRight={16}>
-      <Typography.B18 numberOfLines={1} color={theme.textColor}>
+      <Typography.R18 numberOfLines={1} color={theme.textColor}>
         {text}
-      </Typography.B18>
+      </Typography.R18>
       {!!secondText && (
         <Typography.R16 numberOfLines={1} color={theme.textColor}>
           {secondText}

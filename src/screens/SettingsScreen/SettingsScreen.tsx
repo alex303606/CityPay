@@ -39,6 +39,7 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
   const remoteNotificationClient = deps.get('remoteNotificationClient');
   const user = useAppSelector(getUserState);
   const dispatch = useAppDispatch();
+  const {theme} = useTheme();
 
   const handleSelectTheme = useCallback(
     (theme: Themes) => {
@@ -76,7 +77,10 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer title={t('settings.title')}>
-      <Typography.R16 marginBottom={16} numberOfLines={1} color={Colors.grey}>
+      <Typography.R16
+        marginBottom={16}
+        numberOfLines={1}
+        color={theme.textColor}>
         {t('settings.registration')}
       </Typography.R16>
       <Row justifyContent={'space-between'} marginBottom={32}>
@@ -87,7 +91,7 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
         />
         <ThemeItem
           theme={Themes.RED}
-          color={Colors.red}
+          color={'#FF6A6F'}
           onPress={handleSelectTheme}
         />
         <ThemeItem
@@ -101,7 +105,10 @@ export const SettingsScreen: React.FC<Props> = ({navigation}) => {
         text={t('settings.pushLabel')}
         value={user.pushActive === PushActive.enabled}
       />
-      <Typography.R16 marginBottom={8} numberOfLines={1} color={Colors.grey}>
+      <Typography.R16
+        marginBottom={8}
+        numberOfLines={1}
+        color={theme.textColor}>
         {t('settings.info')}
       </Typography.R16>
       <InfoItem

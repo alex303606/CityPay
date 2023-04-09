@@ -20,6 +20,7 @@ import {
   useAppSelector,
   useGetFinesByAllCarsNumberAndPin,
   useReloadCarList,
+  useTheme,
 } from '@hooks';
 import {FlatListType} from '../types';
 import {
@@ -29,6 +30,7 @@ import {
   getUserState,
   ICar,
 } from '@store';
+import {themes} from '../../themes';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
@@ -38,6 +40,7 @@ const keyExtractor = (item: ICar) => item.number;
 
 export const CarsScreen: FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
+  const {theme} = useTheme();
   const {standardCarsLimit, premiumCarsLimit} =
     useAppSelector(getSettingsState);
   const cars = useAppSelector(getCars).slice(0, premiumCarsLimit);
@@ -112,7 +115,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer scroll={false} title={t('cars.title')}>
-      <Typography.R16 marginBottom={4} color={Colors.grey}>
+      <Typography.R16 marginBottom={4} color={theme.textColor}>
         {t('cars.subTitle')}
       </Typography.R16>
       <List

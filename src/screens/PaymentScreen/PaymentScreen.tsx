@@ -156,7 +156,7 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
           value={payment.paymentSum}
         />
         <Row alignItems={'center'} justifyContent={'center'}>
-          <StatusText color={Colors.red}>{payment.status_payment}</StatusText>
+          <StatusText color={'#FF0000'}>{payment.status_payment}</StatusText>
         </Row>
       </ScreenContainer>
     </ViewShot>
@@ -166,9 +166,9 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
 const StatusText = styled(Typography.B24)({
   textTransform: 'uppercase',
   borderWidth: 3,
-  borderColor: Colors.red,
+  borderColor: '#FF0000',
   paddingVertical: 4,
   paddingHorizontal: 16,
   height: 44,
-  lineHeight: 36,
+  lineHeight: 40,
 });

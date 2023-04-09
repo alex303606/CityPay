@@ -138,7 +138,7 @@ export const ruTranslation = {
       deleteCard: 'Удалить карту {{number}}?',
     },
     premium: {
-      activate: 'Ативировать премиум',
+      activate: 'Активировать премиум',
       title: {
         carsLimit:
           'Для добавления более 2-х авто неоходимо активировать премиум подписку',

@@ -2,12 +2,14 @@ import {Colors} from '@UIKit';
 import {ITheme} from './types';
 
 export const defaultTheme: ITheme = {
-  backgroundColor: Colors.white,
+  backgroundColor: '#FAFAFA',
   tabBarColor: Colors.white,
   tabActiveColor: Colors.blue,
   tabInactiveColor: Colors.grey,
   buttonColor: Colors.blue,
   textColor: Colors.black,
-  fineBackgroundColor: 'rgba(137,146,210,0.3)',
+  secondTextColor: Colors.black,
+  fineBackgroundColor: 'rgba(18,18,29,0.1)',
   filterColor: 'rgba(18, 18, 29, 0.1)',
+  addCarButtonColor: Colors.blue,
 };
