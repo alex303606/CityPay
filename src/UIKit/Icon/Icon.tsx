@@ -21,6 +21,7 @@ export enum IconNames {
   delete = 'delete',
   camera = 'camera',
   police = 'police',
+  creditCard = 'credit-card',
 }
 
 export const IconSet = createIconSetFromIcoMoon(config);

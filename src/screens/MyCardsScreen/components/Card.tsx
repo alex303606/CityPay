@@ -24,7 +24,11 @@ export const Card: React.FC<Props> = ({card, onPressDelete}) => {
       paddingVertical={8}
       alignItems={'center'}
       justifyContent={'space-between'}>
-      <Typography.S16 numberOfLines={1} color={theme.textColor}>
+      <Icon color={theme.textColor} name={IconNames.creditCard} size={24} />
+      <Typography.S16
+        paddingHorizontal={8}
+        numberOfLines={1}
+        color={theme.textColor}>
         {card.number}
       </Typography.S16>
       <Wrapper>
