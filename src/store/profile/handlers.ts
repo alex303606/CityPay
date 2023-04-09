@@ -144,3 +144,26 @@ export const saveFcmToken = ({
     )
     .catch(error => console.warn(error));
 };
+
+export const eraseAccount = (phone: string) => {
+  return axios
+    .post('', {
+      TYPE: 'erase_account',
+      PHONE: phone,
+      DELETED: true,
+    })
+    .then(
+      (response: {
+        data: {
+          data: null;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
