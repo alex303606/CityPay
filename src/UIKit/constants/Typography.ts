@@ -18,15 +18,15 @@ const coloredText = styled(Text)<ColoredTextProps & SpacingsProps>`
 `;
 
 const regular = styled(coloredText)`
-  font-family: 'SBSansDisplay-Regular';
+  font-family: 'SF-Pro-Display-Light';
 `;
 
 const semiBold = styled(coloredText)`
-  font-family: 'SBSansDisplay-SemiBold';
+  font-family: 'SF-Pro-Display-Semibold';
 `;
 
 const bold = styled(coloredText)`
-  font-family: 'SBSansDisplay-Bold';
+  font-family: 'SF-Pro-Display-Semibold';
 `;
 
 const R11 = styled(regular)`
