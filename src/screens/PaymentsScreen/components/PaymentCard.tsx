@@ -112,7 +112,8 @@ const StyledStatusRow = styled(Row)<{color: string}>(({color}) => ({
   borderWidth: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  padding: 2,
+  paddingVertical: 4,
+  paddingHorizontal: 8,
   borderColor: color,
 }));
 

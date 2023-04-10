@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Block,
-  Colors,
   IconNames,
   PaymentRow,
   Row,
@@ -134,41 +133,63 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
         showButton={payment.status === '1'}
         iconName={IconNames.share}
         title={t('payments.receipt')}>
-        <PaymentRow
-          label={t('payments.operationType')}
-          value={serviceProvider.type}
-        />
-        <PaymentRow label={t('payments.article')} value={payment.article} />
-        <PaymentRow label={t('payments.paymentNumber')} value={paymentNumber} />
-        <PaymentRow
-          label={t('payments.serviceProvider')}
-          value={serviceProvider.provider}
-        />
-        <PaymentRow label={t('payments.dateCreate')} value={dateCreate} />
-        <PaymentRow label={t('payments.datePayment')} value={datePayment} />
-        <PaymentRow
-          label={t('payments.protocolNumber')}
-          value={payment.protocolNumber}
-        />
-        <PaymentRow label={t('payments.number')} value={payment.number} />
-        <PaymentRow
-          label={t('payments.paymentSum')}
-          value={payment.paymentSum}
-        />
-        <Row alignItems={'center'} justifyContent={'center'}>
-          <StatusText color={'#FF0000'}>{payment.status_payment}</StatusText>
-        </Row>
+        <Block flex={1}>
+          <PaymentRow
+            label={t('payments.operationType')}
+            value={serviceProvider.type}
+          />
+          <PaymentRow label={t('payments.article')} value={payment.article} />
+          <PaymentRow
+            label={t('payments.paymentNumber')}
+            value={paymentNumber}
+          />
+          <PaymentRow
+            label={t('payments.serviceProvider')}
+            value={serviceProvider.provider}
+          />
+          <PaymentRow label={t('payments.dateCreate')} value={dateCreate} />
+          <PaymentRow label={t('payments.datePayment')} value={datePayment} />
+          <PaymentRow
+            label={t('payments.protocolNumber')}
+            value={payment.protocolNumber}
+          />
+          <PaymentRow label={t('payments.number')} value={payment.number} />
+          <PaymentRow
+            label={t('payments.paymentSum')}
+            value={payment.paymentSum}
+          />
+          <StyledStatusRow
+            color={
+              payment.status_payment === 'Оплачен' ? theme.paidColor : '#FF0000'
+            }>
+            <StatusText
+              color={
+                payment.status_payment === 'Оплачен'
+                  ? theme.paidColor
+                  : '#FF0000'
+              }>
+              {payment.status_payment}
+            </StatusText>
+          </StyledStatusRow>
+        </Block>
       </ScreenContainer>
     </ViewShot>
   );
 };
 
+const StyledStatusRow = styled(Row)<{color: string}>(({color}) => ({
+  transform: 'rotate(-25deg)',
+  borderWidth: 3,
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute',
+  paddingVertical: 8,
+  paddingHorizontal: 16,
+  borderColor: color,
+  bottom: 100,
+  right: 0,
+}));
+
 const StatusText = styled(Typography.B24)({
   textTransform: 'uppercase',
-  borderWidth: 3,
-  borderColor: '#FF0000',
-  paddingVertical: 4,
-  paddingHorizontal: 16,
-  height: 44,
-  lineHeight: 40,
 });

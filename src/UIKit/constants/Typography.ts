@@ -46,7 +46,7 @@ const R12 = styled(regular)`
 
 const B12 = styled(bold)`
   font-size: 12px;
-  line-height: 16px;
+  line-height: 14px;
 `;
 
 const R14 = styled(regular)`

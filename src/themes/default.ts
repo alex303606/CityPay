@@ -12,5 +12,5 @@ export const defaultTheme: ITheme = {
   fineBackgroundColor: 'rgba(18,18,29,0.1)',
   filterColor: 'rgba(18, 18, 29, 0.1)',
   addCarButtonColor: Colors.blue,
-  paidColor: Colors.white,
+  paidColor: Colors.blue,
 };
