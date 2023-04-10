@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import {Pressable} from 'react-native';
 import {useTheme} from '@hooks';
 
-// const paidImg = require('@assets/images/paid.webp');
-
 type Props = {
   payment: IPayment;
   onPress: (paymentNumber: string) => void;
@@ -109,7 +107,7 @@ const StyledRow = styled(Row)({
   overflow: 'hidden',
 });
 
-const StyledStatusRow = styled(Block)<{color: number}>(({color}) => ({
+const StyledStatusRow = styled(Row)<{color: string}>(({color}) => ({
   transform: 'rotate(20deg)',
   borderWidth: 1,
   alignItems: 'center',
