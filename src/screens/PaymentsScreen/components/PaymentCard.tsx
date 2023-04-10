@@ -68,9 +68,19 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
             </Typography.B18>
             <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
           </Row>
-          <StyledStatus color={'#FF0000'}>
-            {payment.status_payment}
-          </StyledStatus>
+          <StyledStatusRow
+            color={
+              payment.status_payment === 'Оплачен' ? theme.paidColor : '#FF0000'
+            }>
+            <StyledStatus
+              color={
+                payment.status_payment === 'Оплачен'
+                  ? theme.paidColor
+                  : '#FF0000'
+              }>
+              {payment.status_payment}
+            </StyledStatus>
+          </StyledStatusRow>
         </Block>
       </StyledPressable>
     </StyledRow>
@@ -79,7 +89,6 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
 
 const StyledStatus = styled(Typography.B12)({
   textTransform: 'uppercase',
-  transform: 'rotate(20deg)',
 });
 
 const StyledPressable = styled(Pressable).attrs(() => ({
@@ -100,6 +109,15 @@ const StyledRow = styled(Row)({
   overflow: 'hidden',
 });
 
+const StyledStatusRow = styled(Block)<{color: number}>(({color}) => ({
+  transform: 'rotate(20deg)',
+  borderWidth: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 2,
+  borderColor: color,
+}));
+
 const StyledIcon = styled(Block)({
   width: 40,
   height: 40,
@@ -108,8 +126,3 @@ const StyledIcon = styled(Block)({
   justifyContent: 'center',
   marginRight: 8,
 });
-
-// const StyledImage = styled(Image)({
-//   width: 70,
-//   height: 16,
-// });

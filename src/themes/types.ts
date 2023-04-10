@@ -4,6 +4,7 @@ export type ITheme = {
   tabActiveColor: string;
   tabInactiveColor: string;
   buttonColor: string;
+  paidColor: string;
   textColor: string;
   secondTextColor: string;
   addCarButtonColor: string;

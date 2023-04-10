@@ -12,4 +12,5 @@ export const blueTheme: ITheme = {
   fineBackgroundColor: 'rgba(255, 255, 255, 0.3)',
   filterColor: 'rgba(255, 255, 255, 0.3)',
   addCarButtonColor: Colors.white,
+  paidColor: Colors.white,
 };
