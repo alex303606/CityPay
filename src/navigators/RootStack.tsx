@@ -25,7 +25,6 @@ import {
   clearPayments,
   clearSettings,
   getUserSuccess,
-  IProfileState,
 } from '@store';
 import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
@@ -39,7 +38,7 @@ export const RootStack: React.FC = () => {
   const language = useAppSelector(selectedLanguage);
   const deps = useDependencies();
   const remoteNotificationClient = deps.get('remoteNotificationClient');
-  const {phone} = useAppSelector(getUserState);
+  const {phone, pushActive} = useAppSelector(getUserState);
   const {hideLoader, showLoader} = useLoading();
   const {showNotification} = useSnackbarNotification();
   const dispatch = useAppDispatch();
@@ -71,13 +70,17 @@ export const RootStack: React.FC = () => {
             ...response.data,
           }),
         );
-        // @ts-ignore
-        const userState = response.data as IProfileState;
-        await editUserData({...userState, pushToken: token});
+
+        await editUserData({
+          phone,
+          lastName: response.data.last_name,
+          pushToken: token,
+          pushActive,
+        });
         await getSettingsHandler();
       });
     }
-  }, [remoteNotificationClient, phone, userIsLoggedIn]);
+  }, [remoteNotificationClient, phone, pushActive, userIsLoggedIn]);
 
   const getSettingsHandler = useCallback(async () => {
     showLoader();
