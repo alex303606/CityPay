@@ -6,7 +6,6 @@ import {useTranslation} from 'react-i18next';
 import {
   Block,
   CarComponent,
-  Colors,
   EShadow,
   RoundButton,
   ScreenContainer,
@@ -30,7 +29,6 @@ import {
   getUserState,
   ICar,
 } from '@store';
-import {themes} from '../../themes';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
 
@@ -61,10 +59,14 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
     const response = await getUserLastTimeDeletionCar({
       phone,
     });
+
     const currentDateToSeconds = new Date().getTime() / 1000;
 
     const lastCarDeletionTime =
-      response?.data.lastCarDeletionTime || currentDateToSeconds;
+      typeof response?.data?.lastCarDeletionTime === 'number' &&
+      response?.data.lastCarDeletionTime >= 0
+        ? response?.data.lastCarDeletionTime
+        : currentDateToSeconds;
 
     const diffMinutes = Math.floor(
       (currentDateToSeconds - lastCarDeletionTime) / 60,
