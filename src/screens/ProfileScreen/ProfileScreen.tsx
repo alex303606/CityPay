@@ -5,6 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {Header} from './components/Header';
 import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
+import DeviceInfo from 'react-native-device-info';
 import {
   clearCars,
   clearFines,
@@ -103,6 +104,8 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     });
   }, [navigation, t]);
 
+  const version = DeviceInfo.getVersion();
+
   return (
     <ScreenContainer
       reload={reload}
@@ -130,6 +133,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           secondText={t(`profile.${language}`)}
           onPress={handlePressChangeLanguage}
         />
+        <ProfileItem text={'Версия программы'} secondText={String(version)} />
         <ProfileItem text={t('profile.exit')} onPress={handlePressExit} />
       </Block>
       {!isPremiumAccess && (

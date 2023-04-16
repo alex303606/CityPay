@@ -34,6 +34,7 @@
     "react-native": "0.71.4",
     "react-native-camera": "git+https://git@github.com/react-native-community/react-native-camera.git",
     "react-native-confirmation-code-field": "^6.5.1",
+    "react-native-device-info": "^10.6.0",
     "react-native-flipper": "^0.173.0",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.8.0",
