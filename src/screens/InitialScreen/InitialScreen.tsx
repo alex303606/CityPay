@@ -56,9 +56,17 @@ export const InitialScreen: React.FC<Props> = ({navigation}) => {
         <StyledImage resizeMode="contain" source={logo} />
       </Row>
       <Block flex={1} justifyContent={'flex-end'}>
-        <Typography.R18 numberOfLines={1} color={Colors.white}>
-          {version}
-        </Typography.R18>
+        <Row marginBottom={16} justifyContent={'center'}>
+          <Typography.R18
+            paddingRight={16}
+            numberOfLines={1}
+            color={Colors.white}>
+            {t('version')}
+          </Typography.R18>
+          <Typography.R18 numberOfLines={1} color={Colors.white}>
+            {version}
+          </Typography.R18>
+        </Row>
         <Button
           marginVertical={8}
           textColor={isRUSelected ? Colors.black : Colors.white}
