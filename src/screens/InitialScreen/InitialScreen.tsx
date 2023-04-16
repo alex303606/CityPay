@@ -1,13 +1,21 @@
 import React, {useCallback} from 'react';
 import {Image} from 'react-native';
-import {Block, Button, Colors, FocusAwareStatusBar, Row} from '@UIKit';
+import {
+  Block,
+  Button,
+  Colors,
+  FocusAwareStatusBar,
+  Row,
+  Typography,
+} from '@UIKit';
 import {EScreens} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
-import {useAppDispatch, useAppSelector, useTheme} from '@hooks';
+import {useAppDispatch, useAppSelector} from '@hooks';
 import {changeLanguage, ILanguages, selectedLanguage} from '@store';
+import DeviceInfo from 'react-native-device-info';
 const logo = require('@assets/images/logo.webp');
 
 type Props = NativeStackScreenProps<
@@ -15,10 +23,11 @@ type Props = NativeStackScreenProps<
   EScreens.INITIAL_SCREEN
 >;
 
+const version = DeviceInfo.getVersion();
+
 export const InitialScreen: React.FC<Props> = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const dispatch = useAppDispatch();
-  const {theme} = useTheme();
 
   const changeLanguageHandler = useCallback(
     async (lang: ILanguages) => {
@@ -47,6 +56,9 @@ export const InitialScreen: React.FC<Props> = ({navigation}) => {
         <StyledImage resizeMode="contain" source={logo} />
       </Row>
       <Block flex={1} justifyContent={'flex-end'}>
+        <Typography.R18 numberOfLines={1} color={Colors.white}>
+          {version}
+        </Typography.R18>
         <Button
           marginVertical={8}
           textColor={isRUSelected ? Colors.black : Colors.white}

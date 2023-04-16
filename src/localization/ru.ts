@@ -1,5 +1,6 @@
 export const ruTranslation = {
   translation: {
+    version: 'Версия программы',
     tabs: {
       fines: 'Штрафы',
       cars: 'Мои авто',

@@ -1,5 +1,6 @@
 export const enTranslation = {
   translation: {
+    version: 'Program version',
     tabs: {
       fines: 'Fines',
       cars: 'My cars',

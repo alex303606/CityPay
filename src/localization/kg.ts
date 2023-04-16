@@ -1,5 +1,6 @@
 export const kgTranslation = {
   translation: {
+    version: 'Программанын версиясы',
     tabs: {
       fines: 'Айыптар',
       cars: 'Машиналар',
@@ -140,10 +141,8 @@ export const kgTranslation = {
       activate: 'Премиум активдештирүү',
       activateButton: 'Активдештирүү',
       title: {
-        carsLimit:
-          '2төн көп автону кошуу үчүн катталууну активдештирүү керек',
-        timeLimit:
-          'Автону {{count}} мин. кийин кошо аласыз',
+        carsLimit: '2төн көп автону кошуу үчүн катталууну активдештирүү керек',
+        timeLimit: 'Автону {{count}} мин. кийин кошо аласыз',
       },
     },
   },

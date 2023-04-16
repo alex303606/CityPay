@@ -133,7 +133,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           secondText={t(`profile.${language}`)}
           onPress={handlePressChangeLanguage}
         />
-        <ProfileItem text={'Версия программы'} secondText={String(version)} />
+        <ProfileItem text={t('version')} secondText={version} />
         <ProfileItem text={t('profile.exit')} onPress={handlePressExit} />
       </Block>
       {!isPremiumAccess && (
