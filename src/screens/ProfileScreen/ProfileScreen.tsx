@@ -19,7 +19,7 @@ import {
 import {Linking} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 
-const SUPPORT_NUMBER = +996706110024;
+const SUPPORT_NUMBER = +996553010328;
 
 type Props = NativeStackScreenProps<
   ProfileStackParamList,

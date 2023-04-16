@@ -13,6 +13,8 @@ type Props = {
   avatar: string;
 };
 
+const emptyAvatar = require('@assets/images/man.webp');
+
 export const Header: React.FC<Props> = ({
   name,
   lastName,
@@ -33,7 +35,7 @@ export const Header: React.FC<Props> = ({
           {avatar ? (
             <StyledImage resizeMode="cover" source={{uri: avatar}} />
           ) : (
-            <Icon color={theme.textColor} name={IconNames.profile} size={48} />
+            <EmptyAvatar resizeMode="cover" source={emptyAvatar} />
           )}
         </StyledPressable>
       </Wrapper>
@@ -76,4 +78,9 @@ const StyledPressable = styled(Pressable).attrs(() => ({
 const StyledImage = styled(Image)({
   width: 100,
   height: 100,
+});
+
+const EmptyAvatar = styled(Image)({
+  width: 80,
+  height: 80,
 });
