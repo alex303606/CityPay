@@ -27,7 +27,7 @@ export const Header: React.FC<Props> = ({
 
   return (
     <Row
-      marginBottom={32}
+      marginBottom={16}
       justifyContent={'space-between'}
       alignItems={'center'}>
       <Wrapper borderColor={theme.textColor}>

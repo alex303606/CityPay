@@ -16,10 +16,13 @@ import {
   selectedLanguage,
   signOut,
 } from '@store';
-import {Linking} from 'react-native';
+import {Image, Linking} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
+import styled from 'styled-components';
 
 const SUPPORT_NUMBER = +996553010328;
+
+const line = require('@assets/images/line.webp');
 
 type Props = NativeStackScreenProps<
   ProfileStackParamList,
@@ -114,6 +117,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           lastName={last_name}
           avatar={avatar}
         />
+        <Line source={line} />
         <ProfileItem text={t('profile.finesPaid')} secondText={String(balls)} />
         <ProfileItem
           text={t('profile.accumulatedPoints')}
@@ -134,3 +138,9 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     </ScreenContainer>
   );
 };
+
+const Line = styled(Image)({
+  width: '100%',
+  height: 10,
+  marginBottom: 16,
+});
