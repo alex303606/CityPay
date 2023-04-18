@@ -121,8 +121,8 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
               </ViolationAmmountText>
             </Row>
             <Row alignItems={'center'}>
-              <Typography.B16 color={theme.textColor}>{amount}</Typography.B16>
-              <Typography.R14 color={theme.textColor}>⊆</Typography.R14>
+              <Typography.B16 color={'#FE0002'}>{amount}</Typography.B16>
+              <Typography.R14 color={'#FE0002'}>⊆</Typography.R14>
             </Row>
           </Row>
         ) : (
@@ -146,7 +146,7 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
         <Typography.R16 numberOfLines={1} color={theme.textColor}>
           {t('fines.paymentStatusName')}
         </Typography.R16>
-        <Typography.B16 color={'#FF0000'}>
+        <Typography.B16 color={'#FE0002'}>
           {fine.paymentStatusName}
         </Typography.B16>
       </Block>
@@ -174,7 +174,7 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
       {fine.paymentStatus === '0' && (
         <Button
           loading={loading}
-          color={theme.buttonColor}
+          color={'theme.buttonColor'}
           title={t('fines.pay')}
           onPress={onHandlePressPay}
         />

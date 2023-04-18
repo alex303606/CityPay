@@ -76,7 +76,9 @@ export const PaymentCard: React.FC<Props> = ({payment, onPress}) => {
                   ? theme.paidColor
                   : '#FF0000'
               }>
-              {payment.status_payment}
+              {payment.status_payment === 'Оплачен'
+                ? 'Оплачено'
+                : payment.status_payment}
             </StyledStatus>
           </StyledStatusRow>
         </Block>
