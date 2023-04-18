@@ -38,6 +38,9 @@ export const FineComponent: React.FC<Props> = ({fine, onPress}) => {
             <Typography.R14 color={theme.secondTextColor}>⊆</Typography.R14>
           </Row>
         </Row>
+        <Typography.B14 color={theme.secondTextColor} paddingBottom={4}>
+          {fine.paymentNumber}
+        </Typography.B14>
         <Typography.R14 color={theme.secondTextColor}>{date}</Typography.R14>
         <Typography.R14
           paddingRight={
