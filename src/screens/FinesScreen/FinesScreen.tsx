@@ -68,7 +68,7 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
 
   useEffect(() => {
     getFinesByAllCarsNumberAndPin();
-  }, []);
+  }, [cars]);
 
   const data = useMemo(
     () => fines.filter(fine => fine.paymentStatus === paymentStatus),

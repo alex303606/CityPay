@@ -15,12 +15,7 @@ import {
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
 import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {
-  useAppSelector,
-  useGetFinesByAllCarsNumberAndPin,
-  useReloadCarList,
-  useTheme,
-} from '@hooks';
+import {useAppSelector, useReloadCarList, useTheme} from '@hooks';
 import {FlatListType} from '../types';
 import {
   getCars,
@@ -43,17 +38,11 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
     useAppSelector(getSettingsState);
   const cars = useAppSelector(getCars).slice(0, premiumCarsLimit);
   const {isPremiumAccess, phone} = useAppSelector(getUserState);
-  const {getFinesByAllCarsNumberAndPin} =
-    useGetFinesByAllCarsNumberAndPin(cars);
   const {reloadCarList, loading} = useReloadCarList();
 
   useEffect(() => {
     reloadCarList();
   }, []);
-
-  useEffect(() => {
-    getFinesByAllCarsNumberAndPin();
-  }, [cars.length]);
 
   const addCarHandler = useCallback(async () => {
     const response = await getUserLastTimeDeletionCar({
@@ -92,7 +81,7 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
     }
 
     navigation.navigate(EScreens.MODAL_ADD_CAR);
-  }, [cars.length, isPremiumAccess, navigation, phone, t]);
+  }, [cars.length, isPremiumAccess, navigation, phone, t, standardCarsLimit]);
 
   const handlePressNumber = useCallback(
     ({car, isNewNumber}: {car: ICar; isNewNumber: boolean}) => {

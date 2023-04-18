@@ -15,18 +15,16 @@ export const useGetFinesByAllCarsNumberAndPin = (cars: ICar[]) => {
   const {showNotification} = useSnackbarNotification();
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
+  const numbers = cars.map(c => c.number);
+  const inns = cars.map(c => c.inn);
 
   const getFinesByAllCarsNumberAndPin = useCallback(async () => {
-    if (cars.length === 0) {
-      return;
-    }
-    const numbers = cars.map(c => c.number);
-    const inns = cars.map(c => c.inn);
     showLoader();
     const response = await getFinesListByCarNumberAndPin({
       numbers,
       inns,
     });
+
     hideLoader();
     if (!response?.result) {
       if (!response?.data) {
@@ -54,7 +52,7 @@ export const useGetFinesByAllCarsNumberAndPin = (cars: ICar[]) => {
         }),
       );
     }
-  }, [cars, dispatch, hideLoader, showLoader, showNotification, t]);
+  }, [numbers, inns, dispatch, hideLoader, showLoader, showNotification, t]);
   return {
     getFinesByAllCarsNumberAndPin,
     loading,

@@ -25,6 +25,7 @@ export const useReloadCarList = () => {
     if (!response?.data) {
       return showNotification(t('errors.somethingWentWrong'));
     }
+
     dispatch(
       getCarsSuccess({
         cars: response.cars,

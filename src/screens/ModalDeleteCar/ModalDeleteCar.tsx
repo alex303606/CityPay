@@ -3,7 +3,12 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
-import {editCar, getUserState, setUserLastTimeDeletionCar} from '@store';
+import {
+  editCar,
+  getCars,
+  getUserState,
+  setUserLastTimeDeletionCar,
+} from '@store';
 import {
   useAppSelector,
   useReloadCarList,
@@ -23,9 +28,9 @@ export const ModalDeleteCar: React.FC<Props> = ({navigation, route}) => {
   const handleCancel = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
-
   const {phone} = useAppSelector(getUserState);
   const {reloadCarList} = useReloadCarList();
+  const cars = useAppSelector(getCars);
 
   const handleDeleteCar = useCallback(async () => {
     const response = await editCar({
@@ -34,28 +39,24 @@ export const ModalDeleteCar: React.FC<Props> = ({navigation, route}) => {
       inn: car.inn,
       active: false,
     });
+
     if (!response?.result) {
       if (response?.message) {
         return showNotification(response.message);
       }
       return showNotification(t('errors.somethingWentWrong'));
     }
+
     const timeToSeconds = Math.round(new Date().getTime() / 1000).toString();
+
     await setUserLastTimeDeletionCar({
       phone,
       time: timeToSeconds,
     });
+
     await reloadCarList();
     navigation.navigate(EScreens.CARS_SCREEN);
-  }, [
-    phone,
-    car.number,
-    car.inn,
-    reloadCarList,
-    navigation,
-    showNotification,
-    t,
-  ]);
+  }, [phone, reloadCarList, navigation, showNotification, t, cars]);
 
   return (
     <ModalContainer title={t('cars.deleteCar', {number: car.number})}>
