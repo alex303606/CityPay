@@ -174,7 +174,7 @@ export const SingleFineScreen: React.FC<Props> = ({route, navigation}) => {
       {fine.paymentStatus === '0' && (
         <Button
           loading={loading}
-          color={'theme.buttonColor'}
+          color={theme.buttonColor}
           title={t('fines.pay')}
           onPress={onHandlePressPay}
         />
