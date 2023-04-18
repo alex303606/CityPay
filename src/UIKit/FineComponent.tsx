@@ -39,15 +39,23 @@ export const FineComponent: React.FC<Props> = ({fine, onPress}) => {
           </Row>
         </Row>
         <Typography.R14 color={theme.secondTextColor}>{date}</Typography.R14>
-        <Typography.R14 color={theme.secondTextColor} numberOfLines={2}>
+        <Typography.R14
+          paddingRight={
+            fine.paymentStatusName === 'Оплачено' ||
+            fine.offlinePaymentStatus === '1'
+              ? 80
+              : 0
+          }
+          color={theme.secondTextColor}
+          numberOfLines={2}>
           {fine.violationType}
         </Typography.R14>
-        {fine.paymentStatusName === 'Оплачено' ||
-          (fine.offlinePaymentStatus === '1' && (
-            <StyledStatusRow color={theme.paidColor}>
-              <StatusText color={theme.paidColor}>Оплачено</StatusText>
-            </StyledStatusRow>
-          ))}
+        {(fine.paymentStatusName === 'Оплачено' ||
+          fine.offlinePaymentStatus === '1') && (
+          <StyledStatusRow color={theme.paidColor}>
+            <StatusText color={theme.paidColor}>Оплачено</StatusText>
+          </StyledStatusRow>
+        )}
       </StyledPressable>
     </StyledRow>
   );
