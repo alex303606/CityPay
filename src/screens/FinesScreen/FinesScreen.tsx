@@ -105,11 +105,7 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
           <StyledRow marginRight={8}>
             <StyledPressable
               onPress={() => handleChangePaymentStatus(PAID_STATUS)}
-              color={
-                paymentStatus === PAID_STATUS
-                  ? theme.buttonColor
-                  : theme.filterColor
-              }>
+              color={paymentStatus === PAID_STATUS ? '#258E00' : '#EAEAEA'}>
               <Typography.S16
                 color={
                   paymentStatus === PAID_STATUS ? Colors.white : Colors.black
@@ -121,11 +117,7 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
           <StyledRow marginLeft={8}>
             <StyledPressable
               onPress={() => handleChangePaymentStatus(UNPAID_STATUS)}
-              color={
-                paymentStatus === UNPAID_STATUS
-                  ? theme.buttonColor
-                  : theme.filterColor
-              }>
+              color={paymentStatus === UNPAID_STATUS ? '#FE0002' : '#EAEAEA'}>
               <Typography.S16
                 color={
                   paymentStatus === PAID_STATUS ? Colors.black : Colors.white
