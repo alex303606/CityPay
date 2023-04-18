@@ -70,16 +70,34 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
     getFinesByAllCarsNumberAndPin();
   }, [cars]);
 
-  const data = useMemo(
-    () => fines.filter(fine => fine.paymentStatus === paymentStatus),
-    [fines, paymentStatus],
+  const dataPaid = useMemo(
+    () =>
+      fines.filter(fine => {
+        return (
+          fine.paymentStatusName === 'Оплачено' ||
+          fine.offlinePaymentStatus === '1'
+        );
+      }),
+    [fines],
+  );
+
+  const dataUnPaid = useMemo(
+    () =>
+      fines.filter(fine => {
+        return (
+          fine.paymentStatusName !== 'Оплачено' &&
+          fine.offlinePaymentStatus === ''
+        );
+      }),
+    [fines],
   );
 
   return (
     <ScreenContainer
+      color={theme.QRColor}
       onPressButton={handlePressQR}
       showButton
-      iconName={IconNames.qr}
+      iconName={IconNames.qrCode}
       scroll={false}
       title={t('fines.title')}>
       {!!fines.length && (
@@ -121,7 +139,7 @@ export const FinesScreen: React.FC<Props> = ({navigation}) => {
       <List
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        data={data}
+        data={paymentStatus === PAID_STATUS ? dataPaid : dataUnPaid}
         renderItem={renderItem}
         ListEmptyComponent={<EmptyList showHappy={!fines.length} />}
         ItemSeparatorComponent={Separator}

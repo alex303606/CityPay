@@ -21,6 +21,7 @@ export type IFine = {
   violationImage: string;
   violationPlace: string;
   violationType: string;
+  offlinePaymentStatus: string;
 };
 
 export const getFinesListByCarNumber = ({number}: {number: string}) => {

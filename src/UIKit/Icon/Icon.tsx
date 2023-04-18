@@ -22,6 +22,9 @@ export enum IconNames {
   camera = 'camera',
   police = 'police',
   creditCard = 'credit-card',
+  qrCode = 'qrCode',
+  trash = 'trash',
+  settings = 'settings',
 }
 
 export const IconSet = createIconSetFromIcoMoon(config);

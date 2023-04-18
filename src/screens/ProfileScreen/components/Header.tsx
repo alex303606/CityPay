@@ -58,8 +58,6 @@ const Wrapper = styled(Block)<{borderColor: string}>(({borderColor}) => ({
   height: 80,
   alignItems: 'center',
   justifyContent: 'center',
-  borderColor,
-  borderWidth: 3,
 }));
 
 const StyledPressable = styled(Pressable).attrs(() => ({

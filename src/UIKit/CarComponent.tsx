@@ -28,7 +28,11 @@ export const CarComponent: React.FC<Props> = ({car, onPress, isNewNumber}) => {
     <StyledRow backgroundColor={Colors.white}>
       <Button flex={1} onPress={onPressHandler}>
         {isNewNumber ? (
-          <StyledBlock padding={8} justifyContent={'space-between'}>
+          <StyledBlock
+            paddingTop={8}
+            paddingBottom={10}
+            paddingHorizontal={8}
+            justifyContent={'space-between'}>
             <StyledKg34 textAlign={'center'} color={Colors.black}>
               {series}
             </StyledKg34>
@@ -43,9 +47,15 @@ export const CarComponent: React.FC<Props> = ({car, onPress, isNewNumber}) => {
           <StyledImage source={flag} resizeMode={'cover'} />
         )}
         <Row justifyContent={'center'} flex={1} alignItems={'center'}>
-          <StyledNumber textAlign={'center'} color={Colors.black}>
-            {isNewNumber ? number : car.number}
-          </StyledNumber>
+          {isNewNumber ? (
+            <StyledNewNumber textAlign={'center'} color={Colors.black}>
+              {number}
+            </StyledNewNumber>
+          ) : (
+            <StyledNumber textAlign={'center'} color={Colors.black}>
+              {car.number}
+            </StyledNumber>
+          )}
         </Row>
       </Button>
     </StyledRow>
@@ -78,8 +88,7 @@ const BottomRow = styled(Row)({
 const StyledBlock = styled(Block)({
   borderRightWidth: 1,
   borderColor: '#AAAAAA',
-  padding: 8,
-  width: 80,
+  width: 75,
   height: 65,
 });
 
@@ -94,15 +103,19 @@ const StyledSmallImage = styled(Image)({
   height: 17,
 });
 
-const StyledKg20 = styled(Typography.B18)({
+const StyledKg20 = styled(Typography.RF20)({
   lineHeight: 21,
   textTransform: 'uppercase',
 });
 
-const StyledKg34 = styled(Typography.B28)({
+const StyledKg34 = styled(Typography.RF28)({
   lineHeight: 30,
 });
 
-const StyledNumber = styled(Typography.B48)({
+const StyledNumber = styled(Typography.RF52)({
+  textTransform: 'uppercase',
+});
+
+const StyledNewNumber = styled(Typography.RF48)({
   textTransform: 'uppercase',
 });

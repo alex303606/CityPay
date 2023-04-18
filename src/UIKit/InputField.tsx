@@ -61,7 +61,11 @@ export const InputField: React.FC<Props> = ({
             alignItems={'center'}
             justifyContent={'center'}>
             <StyledPressable onPress={onPress}>
-              <Icon name={IconNames.qr} size={32} color={theme.buttonColor} />
+              <Icon
+                name={IconNames.qrCode}
+                size={32}
+                color={theme.buttonColor}
+              />
             </StyledPressable>
           </StyledIconBlock>
         )}

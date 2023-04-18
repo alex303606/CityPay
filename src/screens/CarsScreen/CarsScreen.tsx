@@ -122,6 +122,8 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
       />
       <FloatingButton>
         <RoundButton
+          iconSize={40}
+          diameter={60}
           elevation={ShadowsSizes[EShadow.S]}
           onPress={addCarHandler}
         />

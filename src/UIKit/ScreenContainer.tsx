@@ -15,6 +15,7 @@ type Props = {
   reload?: () => Promise<void>;
   scroll?: boolean;
   iconName?: IconNames;
+  color?: string;
 };
 
 export const ScreenContainer: React.FC<Props> = ({
@@ -24,7 +25,8 @@ export const ScreenContainer: React.FC<Props> = ({
   onPressButton,
   reload,
   scroll = true,
-  iconName = IconNames.help,
+  iconName = IconNames.settings,
+  color,
 }) => {
   const {theme} = useTheme();
   const ScrollComponent = scroll ? ScrollContainer : Block;
@@ -44,7 +46,11 @@ export const ScreenContainer: React.FC<Props> = ({
         {showButton && (
           <Wrapper>
             <StyledPressable onPress={onPressButton}>
-              <Icon color={theme.textColor} name={iconName} size={30} />
+              <Icon
+                color={color || theme.textColor}
+                name={iconName}
+                size={30}
+              />
             </StyledPressable>
           </Wrapper>
         )}
@@ -66,7 +72,6 @@ const Wrapper = styled(Block)({
   overflow: 'hidden',
   width: 46,
   height: 46,
-  backgroundColor: 'rgba(18, 18, 29, 0.2)',
   alignItems: 'center',
   justifyContent: 'center',
 });

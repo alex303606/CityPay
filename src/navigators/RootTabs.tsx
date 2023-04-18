@@ -90,7 +90,7 @@ export const RootTabs: React.FC = () => {
             <Label color={color} focused={focused} title={t('tabs.settings')} />
           ),
           tabBarIcon: ({color}) => (
-            <Icon size={24} color={color} name={IconNames.help} />
+            <Icon size={24} color={color} name={IconNames.settings} />
           ),
           headerShown: false,
         }}

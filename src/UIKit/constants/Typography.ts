@@ -21,6 +21,10 @@ const regular = styled(coloredText)`
   font-family: 'SF-Pro-Display-Light';
 `;
 
+const regularFont = styled(coloredText)`
+  font-family: 'SF-Pro-Display-Regular';
+`;
+
 const semiBold = styled(coloredText)`
   font-family: 'SF-Pro-Display-Semibold';
 `;
@@ -129,6 +133,31 @@ const B48 = styled(bold)`
   line-height: 56px;
 `;
 
+const RF52 = styled(regularFont)`
+  font-size: 52px;
+  line-height: 62px;
+`;
+
+const RF48 = styled(regularFont)`
+  font-size: 48px;
+  line-height: 56px;
+`;
+
+const RF20 = styled(regularFont)`
+  font-size: 20px;
+  line-height: 28px;
+`;
+
+const RF28 = styled(regularFont)`
+  font-size: 28px;
+  line-height: 32px;
+`;
+
+const RF14 = styled(regularFont)`
+  font-size: 14px;
+  line-height: 20px;
+`;
+
 export const Typography = {
   R11,
   R12,
@@ -150,4 +179,9 @@ export const Typography = {
   B28,
   B34,
   B48,
+  RF52,
+  RF20,
+  RF28,
+  RF48,
+  RF14,
 };

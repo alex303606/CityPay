@@ -4,7 +4,12 @@ import {EScreens, ProfileStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 import {Header} from './components/Header';
-import {useAppDispatch, useAppSelector, useSnackbarNotification} from '@hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useSnackbarNotification,
+  useTheme,
+} from '@hooks';
 import DeviceInfo from 'react-native-device-info';
 import {
   clearCars,
@@ -34,6 +39,8 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const dispatch = useAppDispatch();
+  const version = DeviceInfo.getVersion();
+  const {theme} = useTheme();
   const {balls, name, last_name, phone, avatar, isPremiumAccess} =
     useAppSelector(getUserState);
 
@@ -104,10 +111,9 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     });
   }, [navigation, t]);
 
-  const version = DeviceInfo.getVersion();
-
   return (
     <ScreenContainer
+      color={theme.QRColor}
       reload={reload}
       showButton
       onPressButton={handlePressHeaderButton}
@@ -145,6 +151,6 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
 
 const Line = styled(Image)({
   width: '100%',
-  height: 10,
+  height: 4,
   marginBottom: 16,
 });

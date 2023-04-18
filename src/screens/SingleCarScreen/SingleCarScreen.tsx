@@ -64,10 +64,11 @@ export const SingleCarScreen: React.FC<Props> = ({route, navigation}) => {
 
   return (
     <ScreenContainer
+      color={theme.QRColor}
       title={t('cars.car', {number: car.number})}
       showButton
       scroll={false}
-      iconName={IconNames.delete}
+      iconName={IconNames.trash}
       onPressButton={handlePressHeaderButton}>
       <Block flex={1}>
         <CarComponent isNewNumber={isNewNumber} car={car} />

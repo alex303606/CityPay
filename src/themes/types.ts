@@ -10,6 +10,7 @@ export type ITheme = {
   addCarButtonColor: string;
   fineBackgroundColor: string;
   filterColor: string;
+  QRColor: string;
 };
 
 export enum Themes {
