@@ -168,7 +168,9 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
                   ? theme.paidColor
                   : '#FF0000'
               }>
-              {payment.status_payment}
+              {payment.status_payment === 'Оплачен'
+                ? 'Оплачено'
+                : payment.status_payment}
             </StatusText>
           </StyledStatusRow>
         </Block>
