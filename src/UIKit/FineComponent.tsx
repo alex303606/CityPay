@@ -19,7 +19,7 @@ export const FineComponent: React.FC<Props> = ({fine, onPress}) => {
     day: 'numeric',
     year: 'numeric',
   });
-  console.log('offlinePaymentStatus = ', fine.offlinePaymentStatus);
+
   const handlePress = useCallback(() => {
     onPress(fine);
   }, [fine, onPress]);
