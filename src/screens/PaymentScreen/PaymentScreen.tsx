@@ -153,7 +153,7 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
     let options = {
       html,
       fileName: payment?.protocolNumber
-        ? `Электронная квитанция №${payment?.protocolNumber}`
+        ? `Электронная квитанция №${paymentNumber}`
         : 'Электронная квитанция',
       directory: 'Documents',
     };
@@ -163,7 +163,7 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
     Share.open({
       title: '',
       filename: payment?.protocolNumber
-        ? `Электронная квитанция №${payment?.protocolNumber}`
+        ? `Электронная квитанция №${paymentNumber}`
         : 'Электронная квитанция',
       url: `file://${file.filePath}`,
     })
