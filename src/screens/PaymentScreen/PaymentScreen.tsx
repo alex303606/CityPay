@@ -126,7 +126,8 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
 <p style="padding-top: 1pt;padding-left: 65pt;text-indent: 0pt;text-align: center;">ИНН 00912202010247</p>
 <p style="padding-top: 1pt;padding-left: 65pt;text-indent: 0pt;text-align: center;">г.Бишкек, ул.Исанова 79 к.505</p>
 <p style="text-indent: 0pt;text-align: left;"><br /></p>
-<p style="padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Наименование услуги: ${serviceProvider.type} Статья нарушения: ${payment?.article}</p>
+<p style="padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Наименование услуги: ${serviceProvider.type}</p>
+<p style="padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Статья нарушения: ${payment?.article}</p>
 <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">Номер протокола: ${payment?.protocolNumber}</p>
 <p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Код оплаты: ${payment?.paymentNumber}</p>
 <p style="text-indent: 0pt;text-align: left;"><br /></p>
