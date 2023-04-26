@@ -131,8 +131,11 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
 <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">Номер протокола: ${payment?.protocolNumber}</p>
 <p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Код оплаты: ${payment?.paymentNumber}</p>
 <p style="text-indent: 0pt;text-align: left;"><br /></p>
-<!--<p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">Оплата произведена картой: 4215-89XX-XXXX-5314</p>-->
-<p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Сумма штрафа: ${payment?.amount} сом Сумма комиссии: ${payment?.paymentService} сом Комиссия за эквайринг: ${payment?.paymentBank} сом Сумма платежа: ${payment?.paymentSum} сом</p>
+<p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">Оплата произведена картой: ${payment?.pan}</p>
+<p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Сумма штрафа: ${payment?.amount} сом</p>
+<p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Сумма комиссии: ${payment?.paymentService} сом</p>
+<p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Комиссия за эквайринг: ${payment?.paymentBank} сом</p>
+<p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 111%;text-align: left;">Сумма платежа: ${payment?.paymentSum} сом</p>
 <p style="text-indent: 0pt;text-align: left;"><br /></p>
 <p style="text-indent: 0pt;text-align: left;" />
 <p style="padding-top: 4pt;padding-left: 21pt;text-indent: 0pt;text-align: left;">Служба поддержки: +996 553 01 03 28</p>
@@ -191,7 +194,7 @@ export const PaymentScreen: React.FC<Props> = ({route}) => {
   return (
     <ScreenContainer
       onPressButton={onPressShare}
-      showButton={payment.status === '1'}
+      showButton={payment.status_payment === 'Оплачен'}
       iconName={IconNames.share}
       title={t('payments.receipt')}>
       <Block flex={1}>
