@@ -54,7 +54,9 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
     useState<ISubscription | null>(null);
 
   const onPressSubscribe = useCallback(() => {
-    return Alert.alert(JSON.stringify(selectedSubscription));
+    if (selectedSubscription) {
+      Alert.alert(JSON.stringify(selectedSubscription));
+    }
   }, [selectedSubscription]);
 
   const onSelectSubscribeItem = useCallback(
@@ -103,7 +105,11 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
           ))}
         </Row>
         <Block paddingHorizontal={16}>
-          <Button title={t('premium.subscribe')} onPress={onPressSubscribe} />
+          <Button
+            disabled={!selectedSubscription}
+            title={t('premium.subscribe')}
+            onPress={onPressSubscribe}
+          />
         </Block>
       </Block>
     </StyledScrollView>
