@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootStack} from '@navigators';
 import {Provider} from 'react-redux';
@@ -20,6 +20,7 @@ import {PresentationDependencies} from './Application/types';
 import {Text} from 'react-native';
 import {DependenciesContext} from './Application/dependencies';
 import {UIDependenciesServiceLocator} from './Application/IUIDependenciesServiceLocator';
+import {adapty, LogLevel} from 'react-native-adapty';
 
 enableScreens();
 
@@ -34,6 +35,11 @@ if (Text && !Text.defaultProps) {
 const getMainComponent = (deps: PresentationDependencies) => {
   const MainComponent: React.FC = () => {
     const {navigationService} = deps;
+
+    useEffect(() => {
+      adapty.activate('public_live_t4AzGo3Q.0stLfLxTmzhs9cvx6GqD');
+      adapty.setLogLevel(LogLevel.VERBOSE);
+    }, []);
 
     return (
       <DependenciesContext.Provider

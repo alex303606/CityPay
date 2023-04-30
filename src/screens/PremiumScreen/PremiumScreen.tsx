@@ -125,6 +125,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         <Row flex={1} justifyContent={'space-between'} paddingHorizontal={16}>
           {subscriptions.map(subscription => (
             <PremiumItem
+              key={subscription.id}
               active={selectedSubscription?.id === subscription.id}
               subscription={subscription}
               onPress={onSelectSubscribeItem}
