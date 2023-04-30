@@ -6,11 +6,11 @@ import {
   Row,
   Typography,
 } from '@UIKit';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
 import styled from 'styled-components';
-import {ImageBackground, ScrollView} from 'react-native';
+import {Alert, ImageBackground, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {PremiumItem} from './components/PremiumItem';
 
@@ -21,15 +21,48 @@ type Props = NativeStackScreenProps<
   EScreens.PREMIUM_SCREEN
 >;
 
+export type ISubscription = {
+  id: number;
+  validity: string;
+  price: string;
+};
+
+const subscriptions: ISubscription[] = [
+  {
+    id: 0,
+    validity: '1 месяц',
+    price: '$4.99',
+  },
+  {
+    id: 1,
+    validity: '6 месяцев',
+    price: '$29.99',
+  },
+  {
+    id: 2,
+    validity: '1 год',
+    price: '$49.99',
+  },
+];
+
 export const PremiumScreen: React.FC<Props> = ({route}) => {
   const {
     params: {title},
   } = route;
   const {t} = useTranslation();
+  const [selectedSubscription, setSelectedSubscription] =
+    useState<ISubscription | null>(null);
 
   const onPressSubscribe = useCallback(() => {
-    return null;
-  }, []);
+    return Alert.alert(JSON.stringify(selectedSubscription));
+  }, [selectedSubscription]);
+
+  const onSelectSubscribeItem = useCallback(
+    (subscription: ISubscription) => {
+      setSelectedSubscription(subscription);
+    },
+    [setSelectedSubscription],
+  );
 
   return (
     <StyledScrollView>
@@ -55,18 +88,22 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
           {t('premium.premium')}
         </Typography.B34>
         <Typography.R18
-          marginBottom={16}
+          marginBottom={32}
           textAlign={'center'}
           color={Colors.white}>
           {t('premium.description')}
         </Typography.R18>
         <Row flex={1} justifyContent={'space-between'} paddingHorizontal={16}>
-          <PremiumItem />
-          <PremiumItem />
-          <PremiumItem />
+          {subscriptions.map(subscription => (
+            <PremiumItem
+              active={selectedSubscription?.id === subscription.id}
+              subscription={subscription}
+              onPress={onSelectSubscribeItem}
+            />
+          ))}
         </Row>
         <Block paddingHorizontal={16}>
-          <Button title={'Оформить подписку'} onPress={onPressSubscribe} />
+          <Button title={t('premium.subscribe')} onPress={onPressSubscribe} />
         </Block>
       </Block>
     </StyledScrollView>

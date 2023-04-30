@@ -145,6 +145,7 @@ export const kgTranslation = {
         timeLimit: 'Автону {{count}} мин. кийин кошо аласыз',
       },
       premium: 'Премиум',
+      subscribe: 'Оформить подписку',
       description:
         'до 10 авто в профиле \nистория платежей \nобновление статусов 2 раза в сутки',
     },

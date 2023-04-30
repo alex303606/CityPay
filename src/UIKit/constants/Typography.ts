@@ -83,6 +83,11 @@ const R16 = styled(regular)`
   line-height: 24px;
 `;
 
+const RF16 = styled(regularFont)`
+  font-size: 16px;
+  line-height: 24px;
+`;
+
 const R18 = styled(regular)`
   font-size: 18px;
   line-height: 26px;
@@ -190,4 +195,5 @@ export const Typography = {
   RF48,
   RF14,
   R24,
+  RF16,
 };
