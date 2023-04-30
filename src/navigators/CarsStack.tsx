@@ -9,6 +9,7 @@ import {
   PremiumScreen,
   SingleCarScreen,
   SingleFineScreen,
+  WebViewScreen,
 } from '@screens';
 import {EScreens} from './types';
 import {CarsStackParamList, CarsStackProps} from './navigationTypes';
@@ -91,6 +92,10 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name={EScreens.WEBVIEW_SCREEN}
+          component={WebViewScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

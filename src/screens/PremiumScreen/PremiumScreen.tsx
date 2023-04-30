@@ -13,7 +13,9 @@ import styled from 'styled-components';
 import {Alert, ImageBackground, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {PremiumItem} from './components/PremiumItem';
-import {Footer} from './components/Footer';
+import {useAppSelector} from '@hooks';
+import {getUserState, ILanguages} from '@store';
+import {TextButton} from './components/TextButton';
 
 const image = require('@assets/images/car.webp');
 
@@ -46,11 +48,13 @@ const subscriptions: ISubscription[] = [
   },
 ];
 
-export const PremiumScreen: React.FC<Props> = ({route}) => {
+export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const {
     params: {title},
   } = route;
   const {t} = useTranslation();
+  const {selectedLanguage} = useAppSelector(getUserState);
+
   const [selectedSubscription, setSelectedSubscription] =
     useState<ISubscription | null>(null);
 
@@ -66,6 +70,32 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
     },
     [setSelectedSubscription],
   );
+
+  const onPressEula = useCallback(() => {
+    const uri = `https://citysoft.kido.kg/docs/subscriptions${
+      selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+    }.php`;
+
+    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
+      uri,
+      title: t('settings.eula'),
+    });
+  }, [navigation]);
+
+  const onPressAgreement = useCallback(() => {
+    const uri = `https://citysoft.kido.kg/docs/license${
+      selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+    }.php`;
+
+    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
+      uri,
+      title: t('settings.userAgreement'),
+    });
+  }, [navigation]);
+
+  const restorePurchase = useCallback(() => {
+    Alert.alert('Restore Purchase');
+  }, []);
 
   return (
     <StyledScrollView>
@@ -108,7 +138,23 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
             onPress={onPressSubscribe}
           />
         </Block>
-        <Footer />
+        <Row
+          alignItems={'center'}
+          justifyContent={'center'}
+          paddingHorizontal={8}
+          paddingVertical={16}>
+          <TextButton
+            title={t('premium.agreement')}
+            onPress={onPressAgreement}
+          />
+          <Row flex={1} justifyContent={'center'}>
+            <TextButton
+              title={t('premium.restorePurchase')}
+              onPress={restorePurchase}
+            />
+          </Row>
+          <TextButton title={t('premium.eula')} onPress={onPressEula} />
+        </Row>
       </Block>
     </StyledScrollView>
   );

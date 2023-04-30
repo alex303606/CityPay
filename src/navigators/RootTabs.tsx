@@ -60,7 +60,11 @@ export const RootTabs: React.FC = () => {
             ),
             headerShown: false,
             tabBarStyle: {
-              display: routeName === EScreens.PREMIUM_SCREEN ? 'none' : 'flex',
+              display:
+                routeName === EScreens.PREMIUM_SCREEN ||
+                routeName === EScreens.WEBVIEW_SCREEN
+                  ? 'none'
+                  : 'flex',
               height: TAB_BAR_HEIGHT,
               paddingBottom: 7,
               paddingTop: 7,

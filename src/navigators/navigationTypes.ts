@@ -42,6 +42,7 @@ export type CarsStackParamList = {
   };
   [EScreens.FINES_SCREEN]: undefined;
   [EScreens.PREMIUM_SCREEN]: {title: string};
+  [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
 };
 
 export type CarsStackProps = NativeStackScreenProps<
