@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import {Alert, ImageBackground, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {PremiumItem} from './components/PremiumItem';
+import {Footer} from './components/Footer';
 
 const image = require('@assets/images/car.webp');
 
@@ -68,11 +69,7 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
 
   return (
     <StyledScrollView>
-      <Block
-        flex={1}
-        backgroundColor={Colors.black}
-        paddingTop={32}
-        paddingBottom={32}>
+      <Block flex={1} backgroundColor={Colors.black} paddingTop={32}>
         <FocusAwareStatusBar
           animated={true}
           backgroundColor={Colors.black}
@@ -104,13 +101,14 @@ export const PremiumScreen: React.FC<Props> = ({route}) => {
             />
           ))}
         </Row>
-        <Block paddingHorizontal={16}>
+        <Block paddingHorizontal={16} paddingTop={32} paddingBottom={16}>
           <Button
             disabled={!selectedSubscription}
             title={t('premium.subscribe')}
             onPress={onPressSubscribe}
           />
         </Block>
+        <Footer />
       </Block>
     </StyledScrollView>
   );

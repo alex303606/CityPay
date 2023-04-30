@@ -23,12 +23,16 @@ export const PremiumItem: React.FC<Props> = ({
     <Wrapper active={active}>
       <StyledPressable onPress={onPressSubscription}>
         <Typography.RF16
+          numberOfLines={1}
           color={Colors.white}
           marginBottom={16}
           textAlign={'center'}>
           {subscription.validity}
         </Typography.RF16>
-        <Typography.RF20 textAlign={'center'} color={Colors.white}>
+        <Typography.RF20
+          numberOfLines={1}
+          textAlign={'center'}
+          color={Colors.white}>
           {subscription.price}
         </Typography.RF20>
       </StyledPressable>

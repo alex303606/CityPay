@@ -149,6 +149,9 @@ export const enTranslation = {
       subscribe: 'Оформить подписку',
       description:
         'до 10 авто в профиле \nистория платежей \nобновление статусов 2 раза в сутки',
+      eula: 'EULA',
+      agreement: 'Соглашение',
+      restorePurchase: 'Восстановить покупку',
     },
   },
 };
