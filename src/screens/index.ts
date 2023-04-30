@@ -23,3 +23,4 @@ export {ModalBuyPremiumScreen} from './ModalBuyPremiumScreen/ModalBuyPremiumScre
 export {MyCardsScreen} from './MyCardsScreen/MyCardsScreen';
 export {ModalDeleteAccount} from './ModalDeleteAccount/ModalDeleteAccount';
 export {ModalDeleteCard} from './ModalDeleteCard/ModalDeleteCard';
+export {PremiumScreen} from './PremiumScreen/PremiumScreen';

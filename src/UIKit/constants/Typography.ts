@@ -153,6 +153,11 @@ const RF28 = styled(regularFont)`
   line-height: 32px;
 `;
 
+const R24 = styled(regularFont)`
+  font-size: 24px;
+  line-height: 28px;
+`;
+
 const RF14 = styled(regularFont)`
   font-size: 14px;
   line-height: 20px;
@@ -184,4 +189,5 @@ export const Typography = {
   RF28,
   RF48,
   RF14,
+  R24,
 };

@@ -3,8 +3,6 @@ import {Block, Button, ModalContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
-import {Alert} from 'react-native';
-import {useTheme} from '@hooks';
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,
@@ -22,7 +20,7 @@ export const ModalBuyPremiumScreen: React.FC<Props> = ({route, navigation}) => {
   }, [navigation]);
 
   const handleBuyPremium = useCallback(() => {
-    return Alert.alert('Сервис временно не доступен');
+    return navigation.navigate(EScreens.PREMIUM_SCREEN, {title});
   }, []);
 
   return (

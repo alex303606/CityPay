@@ -1,3 +1,5 @@
+import {PremiumScreen} from '../screens/PremiumScreen/PremiumScreen';
+
 export enum EScreens {
   ROOT_TABS = 'RootTabs',
   LOGIN_SCREEN = 'LoginScreen',
@@ -32,4 +34,5 @@ export enum EScreens {
   MY_CARDS_SCREEN = 'MyCardsScreen',
   MODAL_DELETE_ACCOUNT_SCREEN = 'ModalDeleteAccount',
   MODAL_DELETE_CARD_SCREEN = 'ModalDeleteCard',
+  PREMIUM_SCREEN = 'PremiumScreen',
 }

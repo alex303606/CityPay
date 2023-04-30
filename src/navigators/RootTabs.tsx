@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon, IconNames, TAB_BAR_HEIGHT, Typography} from '@UIKit';
 import {RootTabParamList} from './navigationTypes';
@@ -10,6 +10,7 @@ import {PaymentsStack} from './PaymentsStack';
 import {SettingsStack} from './SettingsStack';
 import {ProfileStack} from './ProfileStack';
 import {useTheme} from '@hooks';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 type LabelProps = {
   focused: boolean;
@@ -48,14 +49,20 @@ export const RootTabs: React.FC = () => {
       <Tab.Screen
         name={EScreens.CARS_STACK}
         component={CarsStack}
-        options={{
-          tabBarLabel: ({focused, color}) => (
-            <Label color={color} focused={focused} title={t('tabs.cars')} />
-          ),
-          tabBarIcon: ({color}) => (
-            <Icon size={24} color={color} name={IconNames.myAuto} />
-          ),
-          headerShown: false,
+        options={({route}) => {
+          const routeName = getFocusedRouteNameFromRoute(route);
+          return {
+            tabBarLabel: ({focused, color}) => (
+              <Label color={color} focused={focused} title={t('tabs.cars')} />
+            ),
+            tabBarIcon: ({color}) => (
+              <Icon size={24} color={color} name={IconNames.myAuto} />
+            ),
+            headerShown: false,
+            tabBarStyle: {
+              display: routeName === EScreens.PREMIUM_SCREEN ? 'none' : 'flex',
+            },
+          };
         }}
       />
       <Tab.Screen

@@ -6,6 +6,7 @@ import {
   ModalDeleteCar,
   ModalImageViewer,
   PaymentInfoScreen,
+  PremiumScreen,
   SingleCarScreen,
   SingleFineScreen,
 } from '@screens';
@@ -80,6 +81,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
         <Stack.Screen
           name={EScreens.PAYMENTS_INFO_SCREEN}
           component={PaymentInfoScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.PREMIUM_SCREEN}
+          component={PremiumScreen}
           options={{
             headerShown: false,
           }}

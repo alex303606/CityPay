@@ -145,6 +145,9 @@ export const enTranslation = {
         timeLimit:
           'You will be able to add a car in {{count}} мин. or activate the Premium subscription',
       },
+      premium: 'Премиум',
+      description:
+        'до 10 авто в профиле \nистория платежей \nобновление статусов 2 раза в сутки',
     },
   },
 };

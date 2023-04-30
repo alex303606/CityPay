@@ -41,6 +41,7 @@ export type CarsStackParamList = {
     finesType: IFinesType;
   };
   [EScreens.FINES_SCREEN]: undefined;
+  [EScreens.PREMIUM_SCREEN]: {title: string};
 };
 
 export type CarsStackProps = NativeStackScreenProps<
@@ -103,6 +104,7 @@ export type ProfileStackParamList = {
   [EScreens.MODAL_PHOTO_SCREEN]: undefined;
   [EScreens.MY_CARDS_SCREEN]: undefined;
   [EScreens.MODAL_BUY_PREMIUM_SCREEN]: {title: string};
+  [EScreens.PREMIUM_SCREEN]: {title: string};
 };
 
 //TABS

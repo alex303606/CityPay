@@ -8,6 +8,7 @@ import {
   ModalLanguageScreen,
   ModalPhotoScreen,
   MyCardsScreen,
+  PremiumScreen,
   ProfileScreen,
   ProfileSettingsScreen,
 } from '@screens';
@@ -72,6 +73,13 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         <Stack.Screen
           name={EScreens.MODAL_DELETE_CARD_SCREEN}
           component={ModalDeleteCard}
+        />
+        <Stack.Screen
+          name={EScreens.PREMIUM_SCREEN}
+          component={PremiumScreen}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

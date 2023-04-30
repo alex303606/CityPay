@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo} from 'react';
-import {Colors, ScreenContainer, Typography} from '@UIKit';
+import {ScreenContainer, Typography} from '@UIKit';
 import {EScreens, PaymentsStackParamList} from '@navigators';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
