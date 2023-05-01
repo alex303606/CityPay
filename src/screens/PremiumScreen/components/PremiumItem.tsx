@@ -25,16 +25,23 @@ export const PremiumItem: React.FC<Props> = ({
         <Typography.RF16
           numberOfLines={1}
           color={Colors.white}
-          marginBottom={16}
+          marginBottom={8}
           textAlign={'center'}>
           {subscription.validity}
         </Typography.RF16>
         <Typography.RF20
           numberOfLines={1}
+          marginBottom={8}
           textAlign={'center'}
           color={Colors.white}>
           {subscription.price}
         </Typography.RF20>
+        <Typography.RF12
+          numberOfLines={2}
+          textAlign={'center'}
+          color={Colors.white}>
+          {subscription.description}
+        </Typography.RF12>
       </StyledPressable>
     </Wrapper>
   );
@@ -45,7 +52,6 @@ const Wrapper = styled(Block)<{active: boolean}>(({active}) => ({
   borderRadius: 10,
   overflow: 'hidden',
   backgroundColor: Colors.blue,
-  height: 115,
   borderWidth: 2,
   borderColor: active ? '#ff6600' : Colors.blue,
 }));
@@ -59,4 +65,5 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   alignItems: 'center',
   paddingVertical: 8,
   flex: 1,
+  //justifyContent: 'space-between',
 }));

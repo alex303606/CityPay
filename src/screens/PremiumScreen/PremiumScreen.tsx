@@ -28,6 +28,7 @@ export type ISubscription = {
   id: number;
   validity: string;
   price: string;
+  description: string;
 };
 
 const subscriptions: ISubscription[] = [
@@ -35,16 +36,19 @@ const subscriptions: ISubscription[] = [
     id: 0,
     validity: '1 месяц',
     price: '$4.99',
+    description: 'Премиум на\nмесяц',
   },
   {
     id: 1,
     validity: '6 месяцев',
     price: '$29.99',
+    description: 'Премиум на\nполгода',
   },
   {
     id: 2,
     validity: '1 год',
     price: '$49.99',
+    description: 'Премиум на\nгод',
   },
 ];
 
