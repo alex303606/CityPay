@@ -11,7 +11,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int SPLASH_DISPLAY_LENGTH = 1000;
+        int SPLASH_DISPLAY_LENGTH = 0;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
