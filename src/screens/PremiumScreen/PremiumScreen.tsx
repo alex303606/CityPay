@@ -14,8 +14,19 @@ import styled from 'styled-components';
 import {Alert, ImageBackground, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {PremiumItem} from './components/PremiumItem';
-import {useAppSelector, useLoading} from '@hooks';
-import {getUserState, ILanguages} from '@store';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLoading,
+  useSnackbarNotification,
+} from '@hooks';
+import {
+  getUser,
+  getUserState,
+  getUserSuccess,
+  ILanguages,
+  setUserAccountTypeAndCarsLimit,
+} from '@store';
 import {TextButton} from './components/TextButton';
 import {adapty} from 'react-native-adapty';
 import * as Model from 'react-native-adapty/lib/dist/types';
@@ -32,10 +43,11 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
     params: {title},
   } = route;
   const {t} = useTranslation();
-  const {selectedLanguage} = useAppSelector(getUserState);
+  const {selectedLanguage, phone} = useAppSelector(getUserState);
   const {loading, hideLoader, showLoader} = useLoading();
-
+  const dispatch = useAppDispatch();
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
+  const {showNotification} = useSnackbarNotification();
 
   const getPremium = useCallback(async () => {
     try {
@@ -45,13 +57,13 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
       setSubscriptions(products);
       hideLoader();
       if (!products.length) {
-        Alert.alert('Сервис вренно не доступен', undefined, [
+        Alert.alert(t('errors.somethingWentWrong'), undefined, [
           {text: 'OK', onPress: navigation.goBack},
         ]);
       }
     } catch (e) {
       hideLoader();
-      Alert.alert('Сервис вренно не доступен', undefined, [
+      Alert.alert(t('errors.somethingWentWrong'), undefined, [
         {text: 'OK', onPress: navigation.goBack},
       ]);
     }
@@ -66,7 +78,49 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
 
   const onPressSubscribe = useCallback(async () => {
     if (selectedSubscription) {
-      const adaptyProfile = await adapty.makePurchase(selectedSubscription);
+      try {
+        const adaptyProfile = await adapty.makePurchase(selectedSubscription);
+        // если получили ответ что премиум аккаунт оплачен и действителен вызываем следуюшие запросы
+        if (!adaptyProfile.profileId) {
+          // TODO учтонить параметр
+          await setUserAccountTypeAndCarsLimit({
+            phone,
+            isPremium: false, //??
+            ufPurchaseStart: '', //??
+            ufPurchaseType: '', //??
+          });
+          const response = await getUser(phone);
+          if (!response?.result) {
+            if (response?.message) {
+              return Alert.alert(response.message, undefined, [
+                {text: 'OK', onPress: navigation.goBack},
+              ]);
+            }
+            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+              {text: 'OK', onPress: navigation.goBack},
+            ]);
+          }
+          if (!response?.data) {
+            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+              {text: 'OK', onPress: navigation.goBack},
+            ]);
+          }
+          dispatch(
+            getUserSuccess({
+              ...response.data,
+            }),
+          );
+          showNotification('Поздравляем!!');
+          return navigation.navigate(EScreens.CARS_SCREEN);
+        }
+      } catch (e) {
+        return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+          {
+            text: 'OK',
+            onPress: navigation.goBack,
+          },
+        ]);
+      }
     }
   }, [selectedSubscription]);
 

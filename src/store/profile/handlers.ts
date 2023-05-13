@@ -167,3 +167,38 @@ export const eraseAccount = (phone: string) => {
     )
     .catch(error => console.warn(error));
 };
+
+export const setUserAccountTypeAndCarsLimit = ({
+  phone,
+  isPremium,
+  ufPurchaseStart,
+  ufPurchaseType,
+}: {
+  phone: string;
+  isPremium: boolean;
+  ufPurchaseType: string;
+  ufPurchaseStart: string;
+}) => {
+  return axios
+    .post('', {
+      TYPE: 'set_user_account_type_and_cars_limit',
+      PHONE: phone,
+      IS_PREMIUM: isPremium,
+      UF_PURCHASE_TYPE: ufPurchaseType,
+      UF_PURCHASE_START: ufPurchaseStart,
+    })
+    .then(
+      (response: {
+        data: {
+          data: null;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
