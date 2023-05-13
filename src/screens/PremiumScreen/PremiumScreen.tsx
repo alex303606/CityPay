@@ -38,12 +38,18 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const getPremium = useCallback(async () => {
     try {
       const paywall = await adapty.getPaywall('premium');
-      console.log('paywall: ', paywall);
       const products = await adapty.getPaywallProducts(paywall);
       setSubscriptions(products);
       console.log(products);
+      if (!products.length) {
+        Alert.alert('Сервис вренно не доступен', undefined, [
+          {text: 'OK', onPress: navigation.goBack},
+        ]);
+      }
     } catch (e) {
-      Alert.alert('Сервис вренно не доступен');
+      Alert.alert('Сервис вренно не доступен', undefined, [
+        {text: 'OK', onPress: navigation.goBack},
+      ]);
     }
   }, []);
 
