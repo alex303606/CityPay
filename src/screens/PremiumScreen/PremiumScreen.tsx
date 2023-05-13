@@ -100,11 +100,6 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
               {text: 'OK', onPress: navigation.goBack},
             ]);
           }
-          if (!response?.data) {
-            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-              {text: 'OK', onPress: navigation.goBack},
-            ]);
-          }
           dispatch(
             getUserSuccess({
               ...response.data,
