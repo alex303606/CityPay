@@ -79,15 +79,25 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const onPressSubscribe = useCallback(async () => {
     if (selectedSubscription) {
       try {
-        const adaptyProfile = await adapty.makePurchase(selectedSubscription);
-        // если получили ответ что премиум аккаунт оплачен и действителен вызываем следуюшие запросы
-        if (!adaptyProfile.profileId) {
-          // TODO учтонить параметр
+        const profile = await adapty.makePurchase(selectedSubscription);
+        let isSubscribed = false;
+        if (
+          !!profile &&
+          profile?.accessLevels &&
+          profile?.accessLevels['premium']
+        ) {
+          isSubscribed = profile?.accessLevels['premium']?.isActive;
+        }
+        if (isSubscribed) {
+          // profile?.subscriptions['premium_annual_subsriptions'];
+          // profile?.subscriptions['premium_6month_subsriptions'];
+          // profile?.subscriptions['premium_monthly_subsriptions'];
           await setUserAccountTypeAndCarsLimit({
             phone,
-            isPremium: false, //??
+            isPremium: true,
             ufPurchaseStart: '', //??
-            ufPurchaseType: '', //??
+            ufPurchaseType:
+              'profile?.subscriptions["premium"]?.isActive ? profile?.subscriptions["premium"]?.activeIntroductoryOfferType',
           });
           const response = await getUser(phone);
           if (!response?.result) {
@@ -148,8 +158,9 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
     });
   }, [navigation]);
 
-  const restorePurchase = useCallback(() => {
-    Alert.alert('Restore Purchase');
+  const restorePurchase = useCallback(async () => {
+    const restorePurchases = await adapty.restorePurchases();
+    console.log(restorePurchases);
   }, []);
 
   return (
