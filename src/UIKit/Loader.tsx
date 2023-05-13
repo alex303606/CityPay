@@ -4,12 +4,17 @@ import {Block} from './helpers';
 import {ActivityIndicator} from 'react-native';
 import {useTheme} from '@hooks';
 
-export const Loader: React.FC = () => {
+type Props = {
+  backgroundColor?: string;
+  color?: string;
+};
+
+export const Loader: React.FC<Props> = ({backgroundColor, color}) => {
   const {theme} = useTheme();
 
   return (
-    <StyledFloatingBlock color={theme.backgroundColor}>
-      <ActivityIndicator size="large" color={theme.textColor} />
+    <StyledFloatingBlock color={backgroundColor || theme.backgroundColor}>
+      <ActivityIndicator size="large" color={color || theme.textColor} />
     </StyledFloatingBlock>
   );
 };

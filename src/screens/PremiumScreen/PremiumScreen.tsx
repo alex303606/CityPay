@@ -3,6 +3,7 @@ import {
   Button,
   Colors,
   FocusAwareStatusBar,
+  Loader,
   Row,
   Typography,
 } from '@UIKit';
@@ -13,7 +14,7 @@ import styled from 'styled-components';
 import {Alert, ImageBackground, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {PremiumItem} from './components/PremiumItem';
-import {useAppSelector} from '@hooks';
+import {useAppSelector, useLoading} from '@hooks';
 import {getUserState, ILanguages} from '@store';
 import {TextButton} from './components/TextButton';
 import {adapty} from 'react-native-adapty';
@@ -32,21 +33,24 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   } = route;
   const {t} = useTranslation();
   const {selectedLanguage} = useAppSelector(getUserState);
+  const {loading, hideLoader, showLoader} = useLoading();
 
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
 
   const getPremium = useCallback(async () => {
     try {
+      showLoader();
       const paywall = await adapty.getPaywall('premium');
       const products = await adapty.getPaywallProducts(paywall);
       setSubscriptions(products);
-      console.log(products);
+      hideLoader();
       if (!products.length) {
         Alert.alert('Сервис вренно не доступен', undefined, [
           {text: 'OK', onPress: navigation.goBack},
         ]);
       }
     } catch (e) {
+      hideLoader();
       Alert.alert('Сервис вренно не доступен', undefined, [
         {text: 'OK', onPress: navigation.goBack},
       ]);
@@ -112,55 +116,64 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
             {title}
           </Typography.R24>
         </StyledImageBackground>
-        <Typography.B34
-          marginBottom={32}
-          textAlign={'center'}
-          color={Colors.white}>
-          {t('premium.premium')}
-        </Typography.B34>
-        <Typography.R18
-          marginBottom={32}
-          textAlign={'center'}
-          color={Colors.white}>
-          {t('premium.description')}
-        </Typography.R18>
-        <Row flex={1} justifyContent={'space-between'} paddingHorizontal={16}>
-          {subscriptions.map(subscription => (
-            <PremiumItem
-              key={subscription.vendorProductId}
-              active={
-                selectedSubscription?.vendorProductId ===
-                subscription.vendorProductId
-              }
-              subscription={subscription}
-              onPress={onSelectSubscribeItem}
-            />
-          ))}
-        </Row>
-        <Block paddingHorizontal={16} paddingTop={32} paddingBottom={16}>
-          <Button
-            disabled={!selectedSubscription}
-            title={t('premium.subscribe')}
-            onPress={onPressSubscribe}
-          />
-        </Block>
-        <Row
-          alignItems={'center'}
-          justifyContent={'center'}
-          paddingHorizontal={8}
-          paddingVertical={16}>
-          <TextButton
-            title={t('premium.agreement')}
-            onPress={onPressAgreement}
-          />
-          <Row flex={1} justifyContent={'center'}>
-            <TextButton
-              title={t('premium.restorePurchase')}
-              onPress={restorePurchase}
-            />
-          </Row>
-          <TextButton title={t('premium.eula')} onPress={onPressEula} />
-        </Row>
+        {loading ? (
+          <Loader color={Colors.white} backgroundColor={Colors.black} />
+        ) : (
+          <>
+            <Typography.B34
+              marginBottom={32}
+              textAlign={'center'}
+              color={Colors.white}>
+              {t('premium.premium')}
+            </Typography.B34>
+            <Typography.R18
+              marginBottom={32}
+              textAlign={'center'}
+              color={Colors.white}>
+              {t('premium.description')}
+            </Typography.R18>
+            <Row
+              flex={1}
+              justifyContent={'space-between'}
+              paddingHorizontal={16}>
+              {subscriptions.map(subscription => (
+                <PremiumItem
+                  key={subscription.vendorProductId}
+                  active={
+                    selectedSubscription?.vendorProductId ===
+                    subscription.vendorProductId
+                  }
+                  subscription={subscription}
+                  onPress={onSelectSubscribeItem}
+                />
+              ))}
+            </Row>
+            <Block paddingHorizontal={16} paddingTop={32} paddingBottom={16}>
+              <Button
+                disabled={!selectedSubscription}
+                title={t('premium.subscribe')}
+                onPress={onPressSubscribe}
+              />
+            </Block>
+            <Row
+              alignItems={'center'}
+              justifyContent={'center'}
+              paddingHorizontal={8}
+              paddingVertical={16}>
+              <TextButton
+                title={t('premium.agreement')}
+                onPress={onPressAgreement}
+              />
+              <Row flex={1} justifyContent={'center'}>
+                <TextButton
+                  title={t('premium.restorePurchase')}
+                  onPress={restorePurchase}
+                />
+              </Row>
+              <TextButton title={t('premium.eula')} onPress={onPressEula} />
+            </Row>
+          </>
+        )}
       </Block>
     </StyledScrollView>
   );
