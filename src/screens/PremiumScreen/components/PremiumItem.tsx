@@ -29,13 +29,13 @@ export const PremiumItem: React.FC<Props> = ({
           textAlign={'center'}>
           {subscription.localizedSubscriptionPeriod}
         </Typography.RF16>
-        <Typography.RF20
+        <Typography.RF16
           numberOfLines={1}
           marginBottom={8}
           textAlign={'center'}
           color={Colors.white}>
           {subscription.localizedPrice}
-        </Typography.RF20>
+        </Typography.RF16>
         <Typography.RF12 textAlign={'center'} color={Colors.white}>
           {subscription.localizedTitle}
         </Typography.RF12>
