@@ -6,7 +6,7 @@ import {
   Row,
   Typography,
 } from '@UIKit';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
 import styled from 'styled-components';
@@ -16,6 +16,8 @@ import {PremiumItem} from './components/PremiumItem';
 import {useAppSelector} from '@hooks';
 import {getUserState, ILanguages} from '@store';
 import {TextButton} from './components/TextButton';
+import {adapty} from 'react-native-adapty';
+import * as Model from 'react-native-adapty/lib/dist/types';
 
 const image = require('@assets/images/car.webp');
 
@@ -24,34 +26,6 @@ type Props = NativeStackScreenProps<
   EScreens.PREMIUM_SCREEN
 >;
 
-export type ISubscription = {
-  id: number;
-  validity: string;
-  price: string;
-  description: string;
-};
-
-const subscriptions: ISubscription[] = [
-  {
-    id: 0,
-    validity: '1 месяц',
-    price: '$4.99',
-    description: 'Премиум на\nмесяц',
-  },
-  {
-    id: 1,
-    validity: '6 месяцев',
-    price: '$29.99',
-    description: 'Премиум на\nполгода',
-  },
-  {
-    id: 2,
-    validity: '1 год',
-    price: '$49.99',
-    description: 'Премиум на\nгод',
-  },
-];
-
 export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const {
     params: {title},
@@ -59,17 +33,35 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {selectedLanguage} = useAppSelector(getUserState);
 
-  const [selectedSubscription, setSelectedSubscription] =
-    useState<ISubscription | null>(null);
+  const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
 
-  const onPressSubscribe = useCallback(() => {
+  const getPremium = useCallback(async () => {
+    try {
+      const paywall = await adapty.getPaywall('premium');
+      console.log('paywall: ', paywall);
+      const products = await adapty.getPaywallProducts(paywall);
+      setSubscriptions(products);
+      console.log(products);
+    } catch (e) {
+      Alert.alert('Сервис вренно не доступен');
+    }
+  }, []);
+
+  useEffect(() => {
+    getPremium();
+  }, []);
+
+  const [selectedSubscription, setSelectedSubscription] =
+    useState<Model.AdaptyProduct | null>(null);
+
+  const onPressSubscribe = useCallback(async () => {
     if (selectedSubscription) {
-      Alert.alert(JSON.stringify(selectedSubscription));
+      const adaptyProfile = await adapty.makePurchase(selectedSubscription);
     }
   }, [selectedSubscription]);
 
   const onSelectSubscribeItem = useCallback(
-    (subscription: ISubscription) => {
+    (subscription: Model.AdaptyProduct) => {
       setSelectedSubscription(subscription);
     },
     [setSelectedSubscription],
@@ -129,8 +121,11 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         <Row flex={1} justifyContent={'space-between'} paddingHorizontal={16}>
           {subscriptions.map(subscription => (
             <PremiumItem
-              key={subscription.id}
-              active={selectedSubscription?.id === subscription.id}
+              key={subscription.vendorProductId}
+              active={
+                selectedSubscription?.vendorProductId ===
+                subscription.vendorProductId
+              }
               subscription={subscription}
               onPress={onSelectSubscribeItem}
             />

@@ -3,7 +3,6 @@ import {Block, Button, ModalContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarsStackParamList, EScreens} from '@navigators';
-import {adapty} from 'react-native-adapty';
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,
@@ -21,15 +20,6 @@ export const ModalBuyPremiumScreen: React.FC<Props> = ({route, navigation}) => {
   }, [navigation]);
 
   const handleBuyPremium = useCallback(async () => {
-    try {
-      const paywall = await adapty.getPaywall('premium');
-      console.log('paywall: ', paywall);
-      const products = await adapty.getPaywallProducts(paywall);
-      console.log(products);
-    } catch (e) {
-      console.log(e);
-    }
-
     return navigation.navigate(EScreens.PREMIUM_SCREEN, {title});
   }, []);
 

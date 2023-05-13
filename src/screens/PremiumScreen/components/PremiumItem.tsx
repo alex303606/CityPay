@@ -2,12 +2,12 @@ import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {Block, Colors, Typography, WINDOW_WIDTH} from '@UIKit';
 import {Pressable} from 'react-native';
-import {ISubscription} from '../PremiumScreen';
+import * as Model from 'react-native-adapty/lib/dist/types';
 
 type Props = {
   active: boolean;
-  subscription: ISubscription;
-  onPress: (subscription: ISubscription) => void;
+  subscription: Model.AdaptyProduct;
+  onPress: (subscription: Model.AdaptyProduct) => void;
 };
 
 export const PremiumItem: React.FC<Props> = ({
@@ -27,20 +27,17 @@ export const PremiumItem: React.FC<Props> = ({
           color={Colors.white}
           marginBottom={8}
           textAlign={'center'}>
-          {subscription.validity}
+          {subscription.localizedSubscriptionPeriod}
         </Typography.RF16>
         <Typography.RF20
           numberOfLines={1}
           marginBottom={8}
           textAlign={'center'}
           color={Colors.white}>
-          {subscription.price}
+          {subscription.localizedPrice}
         </Typography.RF20>
-        <Typography.RF12
-          numberOfLines={2}
-          textAlign={'center'}
-          color={Colors.white}>
-          {subscription.description}
+        <Typography.RF12 textAlign={'center'} color={Colors.white}>
+          {subscription.localizedTitle}
         </Typography.RF12>
       </StyledPressable>
     </Wrapper>
@@ -63,7 +60,6 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   },
 }))(() => ({
   alignItems: 'center',
-  paddingVertical: 8,
+  padding: 4,
   flex: 1,
-  //justifyContent: 'space-between',
 }));
