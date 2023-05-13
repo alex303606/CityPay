@@ -106,6 +106,7 @@ export type ProfileStackParamList = {
   [EScreens.MY_CARDS_SCREEN]: undefined;
   [EScreens.MODAL_BUY_PREMIUM_SCREEN]: {title: string};
   [EScreens.PREMIUM_SCREEN]: {title: string};
+  [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
 };
 
 //TABS

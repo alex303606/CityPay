@@ -114,14 +114,33 @@ export const RootTabs: React.FC = () => {
       <Tab.Screen
         name={EScreens.PROFILE_STACK}
         component={ProfileStack}
-        options={{
-          tabBarLabel: ({focused, color}) => (
-            <Label color={color} focused={focused} title={t('tabs.profile')} />
-          ),
-          tabBarIcon: ({color}) => (
-            <Icon size={24} color={color} name={IconNames.profile} />
-          ),
-          headerShown: false,
+        options={({route}) => {
+          const routeName = getFocusedRouteNameFromRoute(route);
+          return {
+            tabBarLabel: ({focused, color}) => (
+              <Label
+                color={color}
+                focused={focused}
+                title={t('tabs.profile')}
+              />
+            ),
+            tabBarIcon: ({color}) => (
+              <Icon size={24} color={color} name={IconNames.profile} />
+            ),
+            headerShown: false,
+            tabBarStyle: {
+              display:
+                routeName === EScreens.PREMIUM_SCREEN ||
+                routeName === EScreens.WEBVIEW_SCREEN
+                  ? 'none'
+                  : 'flex',
+              height: TAB_BAR_HEIGHT,
+              paddingBottom: 7,
+              paddingTop: 7,
+              elevation: 8,
+              backgroundColor: theme.tabBarColor,
+            },
+          };
         }}
       />
     </Tab.Navigator>

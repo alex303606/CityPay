@@ -11,6 +11,7 @@ import {
   PremiumScreen,
   ProfileScreen,
   ProfileSettingsScreen,
+  WebViewScreen,
 } from '@screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useModalScreenOptions} from './screenOptions';
@@ -80,6 +81,10 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name={EScreens.WEBVIEW_SCREEN}
+          component={WebViewScreen}
         />
       </Stack.Group>
     </Stack.Navigator>
