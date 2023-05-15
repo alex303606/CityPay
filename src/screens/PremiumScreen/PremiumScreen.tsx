@@ -46,7 +46,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const showError = useCallback(() => {
     return Alert.alert(
       t('errors.somethingWentWrong'),
-      'Сервис временно не доступен',
+      'Сервис временно не доступен, попробуйте обновить приложение или попробовать позже.',
       [{text: 'OK', onPress: navigation.goBack}],
     );
   }, []);
