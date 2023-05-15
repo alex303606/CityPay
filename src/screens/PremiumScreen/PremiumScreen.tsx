@@ -177,23 +177,19 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const onPressEula = useCallback(() => {
-    const uri = `https://citysoft.kido.kg/docs/subscriptions${
-      selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
-    }.php`;
-
     navigation.navigate(EScreens.WEBVIEW_SCREEN, {
-      uri,
+      uri: `https://citysoft.kido.kg/docs/subscriptions${
+        selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+      }.php`,
       title: t('settings.eula'),
     });
   }, [navigation]);
 
   const onPressAgreement = useCallback(() => {
-    const uri = `https://citysoft.kido.kg/docs/license${
-      selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
-    }.php`;
-
     navigation.navigate(EScreens.WEBVIEW_SCREEN, {
-      uri,
+      uri: `https://citysoft.kido.kg/docs/license${
+        selectedLanguage === ILanguages.ru ? '' : `_${selectedLanguage}`
+      }.php`,
       title: t('settings.userAgreement'),
     });
   }, [navigation]);
