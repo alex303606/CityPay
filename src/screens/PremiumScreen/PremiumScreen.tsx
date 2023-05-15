@@ -43,6 +43,12 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const dispatch = useAppDispatch();
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
 
+  const showError = useCallback(() => {
+    return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+      {text: 'OK', onPress: navigation.goBack},
+    ]);
+  }, []);
+
   const getPremium = useCallback(async () => {
     try {
       showLoader();
@@ -52,15 +58,11 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
       setSubscriptions(products);
       hideLoader();
       if (!products.length) {
-        Alert.alert(t('errors.somethingWentWrong'), undefined, [
-          {text: 'OK', onPress: navigation.goBack},
-        ]);
+        return showError();
       }
     } catch (e) {
       hideLoader();
-      Alert.alert(t('errors.somethingWentWrong'), undefined, [
-        {text: 'OK', onPress: navigation.goBack},
-      ]);
+      return showError();
     }
   }, []);
 
@@ -78,7 +80,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         if (profile.accessLevels && profile.accessLevels['premium']) {
           isSubscribed = profile.accessLevels['premium'].isActive;
         }
-        if (isSubscribed) {
+        if (isSubscribed && profile.subscriptions) {
           let type: string | null = null;
           let date: string | null = null;
           if (!!profile.subscriptions['premium_annual_subscription']) {
@@ -103,9 +105,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
           }
 
           if (!date || !type) {
-            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-              {text: 'OK', onPress: navigation.goBack},
-            ]);
+            return showError();
           }
 
           const premium = await setUserAccountTypeAndCarsLimit({
@@ -116,9 +116,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
           });
 
           if (!premium || !premium.result) {
-            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-              {text: 'OK', onPress: navigation.goBack},
-            ]);
+            return showError();
           }
 
           const response = await getUser(phone);
@@ -129,9 +127,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
                 {text: 'OK', onPress: navigation.goBack},
               ]);
             }
-            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-              {text: 'OK', onPress: navigation.goBack},
-            ]);
+            return showError();
           }
           dispatch(
             getUserSuccess({
@@ -139,14 +135,11 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
             }),
           );
           return navigation.navigate(EScreens.CARS_SCREEN);
+        } else {
+          return showError();
         }
       } catch (e) {
-        return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-          {
-            text: 'OK',
-            onPress: navigation.goBack,
-          },
-        ]);
+        return showError();
       }
     },
     [],
@@ -158,12 +151,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         const profile = await adapty.makePurchase(selectedSubscription);
         await makePurchaseSuccess(profile);
       } catch (e) {
-        return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-          {
-            text: 'OK',
-            onPress: navigation.goBack,
-          },
-        ]);
+        return showError();
       }
     }
   }, [selectedSubscription]);
@@ -173,12 +161,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
       const restoreProfile = await adapty.restorePurchases();
       await makePurchaseSuccess(restoreProfile);
     } catch (e) {
-      return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-        {
-          text: 'OK',
-          onPress: navigation.goBack,
-        },
-      ]);
+      return showError();
     }
   }, []);
 
