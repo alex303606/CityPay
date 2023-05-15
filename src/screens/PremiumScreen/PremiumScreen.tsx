@@ -14,12 +14,7 @@ import styled from 'styled-components';
 import {Alert, ImageBackground, ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {PremiumItem} from './components/PremiumItem';
-import {
-  useAppDispatch,
-  useAppSelector,
-  useLoading,
-  useSnackbarNotification,
-} from '@hooks';
+import {useAppDispatch, useAppSelector, useLoading} from '@hooks';
 import {
   getUser,
   getUserState,
@@ -47,13 +42,13 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
-  const {showNotification} = useSnackbarNotification();
 
   const getPremium = useCallback(async () => {
     try {
       showLoader();
       const paywall = await adapty.getPaywall('premium');
       const products = await adapty.getPaywallProducts(paywall);
+      console.log(products);
       setSubscriptions(products);
       hideLoader();
       if (!products.length) {
@@ -76,30 +71,58 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const [selectedSubscription, setSelectedSubscription] =
     useState<Model.AdaptyProduct | null>(null);
 
-  const onPressSubscribe = useCallback(async () => {
-    if (selectedSubscription) {
+  const makePurchaseSuccess = useCallback(
+    async (profile: Model.AdaptyProfile) => {
       try {
-        const profile = await adapty.makePurchase(selectedSubscription);
         let isSubscribed = false;
-        if (
-          !!profile &&
-          profile?.accessLevels &&
-          profile?.accessLevels['premium']
-        ) {
-          isSubscribed = profile?.accessLevels['premium']?.isActive;
+        if (profile.accessLevels && profile.accessLevels['premium']) {
+          isSubscribed = profile.accessLevels['premium'].isActive;
         }
         if (isSubscribed) {
-          // profile?.subscriptions['premium_annual_subsriptions'];
-          // profile?.subscriptions['premium_6month_subsriptions'];
-          // profile?.subscriptions['premium_monthly_subsriptions'];
-          await setUserAccountTypeAndCarsLimit({
+          let type: string | null = null;
+          let date: string | null = null;
+          if (!!profile.subscriptions['premium_annual_subscription']) {
+            type = 'premium_annual_subscription';
+            date = String(
+              profile.subscriptions['premium_annual_subscription'].activatedAt,
+            );
+          }
+
+          if (!!profile.subscriptions['premium_6month_subscription']) {
+            type = 'premium_6month_subscription';
+            date = String(
+              profile.subscriptions['premium_6month_subscription'].activatedAt,
+            );
+          }
+
+          if (!!profile.subscriptions['premium_monthly_subscription']) {
+            type = 'premium_monthly_subscription';
+            date = String(
+              profile.subscriptions['premium_monthly_subscription'].activatedAt,
+            );
+          }
+
+          if (!date || !type) {
+            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+              {text: 'OK', onPress: navigation.goBack},
+            ]);
+          }
+
+          const premium = await setUserAccountTypeAndCarsLimit({
             phone,
             isPremium: true,
-            ufPurchaseStart: '', //??
-            ufPurchaseType:
-              'profile?.subscriptions["premium"]?.isActive ? profile?.subscriptions["premium"]?.activeIntroductoryOfferType',
+            ufPurchaseStart: date,
+            ufPurchaseType: type,
           });
+
+          if (!premium || !premium.result) {
+            return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+              {text: 'OK', onPress: navigation.goBack},
+            ]);
+          }
+
           const response = await getUser(phone);
+
           if (!response?.result) {
             if (response?.message) {
               return Alert.alert(response.message, undefined, [
@@ -115,7 +138,6 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
               ...response.data,
             }),
           );
-          showNotification('Поздравляем!!');
           return navigation.navigate(EScreens.CARS_SCREEN);
         }
       } catch (e) {
@@ -126,8 +148,39 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
           },
         ]);
       }
+    },
+    [],
+  );
+
+  const onPressSubscribe = useCallback(async () => {
+    if (selectedSubscription) {
+      try {
+        const profile = await adapty.makePurchase(selectedSubscription);
+        await makePurchaseSuccess(profile);
+      } catch (e) {
+        return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+          {
+            text: 'OK',
+            onPress: navigation.goBack,
+          },
+        ]);
+      }
     }
   }, [selectedSubscription]);
+
+  const restorePurchase = useCallback(async () => {
+    try {
+      const restoreProfile = await adapty.restorePurchases();
+      await makePurchaseSuccess(restoreProfile);
+    } catch (e) {
+      return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+        {
+          text: 'OK',
+          onPress: navigation.goBack,
+        },
+      ]);
+    }
+  }, []);
 
   const onSelectSubscribeItem = useCallback(
     (subscription: Model.AdaptyProduct) => {
@@ -157,11 +210,6 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
       title: t('settings.userAgreement'),
     });
   }, [navigation]);
-
-  const restorePurchase = useCallback(async () => {
-    const restorePurchases = await adapty.restorePurchases();
-    console.log(restorePurchases);
-  }, []);
 
   return (
     <StyledScrollView>
