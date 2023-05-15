@@ -22,9 +22,9 @@ import {
   ILanguages,
   setUserAccountTypeAndCarsLimit,
 } from '@store';
-import {TextButton} from './components/TextButton';
 import {adapty} from 'react-native-adapty';
 import * as Model from 'react-native-adapty/lib/dist/types';
+import Footer from './components/Footer';
 
 const image = require('@assets/images/car.webp');
 
@@ -44,9 +44,11 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
 
   const showError = useCallback(() => {
-    return Alert.alert(t('errors.somethingWentWrong'), undefined, [
-      {text: 'OK', onPress: navigation.goBack},
-    ]);
+    return Alert.alert(
+      t('errors.somethingWentWrong'),
+      'Сервис временно не доступен',
+      [{text: 'OK', onPress: navigation.goBack}],
+    );
   }, []);
 
   const getPremium = useCallback(async () => {
@@ -54,7 +56,6 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
       showLoader();
       const paywall = await adapty.getPaywall('premium');
       const products = await adapty.getPaywallProducts(paywall);
-      console.log(products);
       setSubscriptions(products);
       hideLoader();
       if (!products.length) {
@@ -77,12 +78,15 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
     async (profile: Model.AdaptyProfile) => {
       try {
         let isSubscribed = false;
+
         if (profile.accessLevels && profile.accessLevels['premium']) {
           isSubscribed = profile.accessLevels['premium'].isActive;
         }
+
         if (isSubscribed && profile.subscriptions) {
           let type: string | null = null;
           let date: string | null = null;
+
           if (!!profile.subscriptions['premium_annual_subscription']) {
             type = 'premium_annual_subscription';
             date = String(
@@ -246,23 +250,11 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
                 onPress={onPressSubscribe}
               />
             </Block>
-            <Row
-              alignItems={'center'}
-              justifyContent={'center'}
-              paddingHorizontal={8}
-              paddingVertical={16}>
-              <TextButton
-                title={t('premium.agreement')}
-                onPress={onPressAgreement}
-              />
-              <Row flex={1} justifyContent={'center'}>
-                <TextButton
-                  title={t('premium.restorePurchase')}
-                  onPress={restorePurchase}
-                />
-              </Row>
-              <TextButton title={t('premium.eula')} onPress={onPressEula} />
-            </Row>
+            <Footer
+              onPressEula={onPressEula}
+              restorePurchase={restorePurchase}
+              onPressAgreement={onPressAgreement}
+            />
           </>
         )}
       </Block>

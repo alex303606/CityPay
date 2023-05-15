@@ -37,7 +37,7 @@ export const PremiumItem: React.FC<Props> = ({
           {subscription.localizedPrice}
         </Typography.RF16>
         <Typography.RF12 textAlign={'center'} color={Colors.white}>
-          {subscription.localizedTitle}
+          {subscription.localizedTitle.split('(')[0]}
         </Typography.RF12>
       </StyledPressable>
     </Wrapper>
