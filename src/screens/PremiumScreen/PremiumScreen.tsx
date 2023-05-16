@@ -44,11 +44,9 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
 
   const showError = useCallback(() => {
-    return Alert.alert(
-      t('errors.somethingWentWrong'),
-      'Сервис временно не доступен, попробуйте обновить приложение или попробовать позже.',
-      [{text: 'OK', onPress: navigation.goBack}],
-    );
+    return Alert.alert(t('errors.somethingWentWrong'), undefined, [
+      {text: 'OK', onPress: navigation.goBack},
+    ]);
   }, []);
 
   const getPremium = useCallback(async () => {
@@ -155,7 +153,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         const profile = await adapty.makePurchase(selectedSubscription);
         await makePurchaseSuccess(profile);
       } catch (e) {
-        return showError();
+        console.log(e);
       }
     }
   }, [selectedSubscription]);
@@ -165,7 +163,9 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
       const restoreProfile = await adapty.restorePurchases();
       await makePurchaseSuccess(restoreProfile);
     } catch (e) {
-      return showError();
+      return Alert.alert('У вас нет активных подписок', undefined, [
+        {text: 'OK', onPress: navigation.goBack},
+      ]);
     }
   }, []);
 
