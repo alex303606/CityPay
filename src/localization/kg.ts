@@ -134,7 +134,7 @@ export const kgTranslation = {
       deleteAccount: 'Аккаунтту өчүрүү',
       delete: 'Өчүрүү',
       addCard: 'Карт кошуу',
-      emptyCards: 'У вас нет сохраненных карт',
+      emptyCards: 'Сакталган карталарыңыз жок',
       deleteCard: 'Картты өчүрүү {{number}}?',
     },
     premium: {
@@ -145,12 +145,12 @@ export const kgTranslation = {
         timeLimit: 'Автону {{count}} мин. кийин кошо аласыз',
       },
       premium: 'Премиум',
-      subscribe: 'Оформить подписку',
+      subscribe: 'Премиумдук активдештирүү',
       description:
-        'до 10 авто в профиле \nистория платежей \nобновление статусов 2 раза в сутки',
+        'профилдеги 10 унаага чейин \nтөлөм тарыхы \nстатусу күнүнө 2 жолу жаңыртылат',
       eula: 'EULA',
-      agreement: 'Соглашение',
-      restorePurchase: 'Восстановить покупку',
+      agreement: 'Макулдашуу',
+      restorePurchase: 'Калыбына келтирүү',
     },
   },
 };

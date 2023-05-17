@@ -145,13 +145,13 @@ export const enTranslation = {
         timeLimit:
           'You will be able to add a car in {{count}} мин. or activate the Premium subscription',
       },
-      premium: 'Премиум',
-      subscribe: 'Оформить подписку',
+      premium: 'Premium',
+      subscribe: 'Subscribe',
       description:
-        'до 10 авто в профиле \nистория платежей \nобновление статусов 2 раза в сутки',
+        'up to 10 cars in the profile\npayment history\nstatus update 2 times a day',
       eula: 'EULA',
-      agreement: 'Соглашение',
-      restorePurchase: 'Восстановить покупку',
+      agreement: 'Terms of use',
+      restorePurchase: 'Restore Purchase',
     },
   },
 };
