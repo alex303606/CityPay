@@ -53,7 +53,9 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
     try {
       showLoader();
       const paywall = await adapty.getPaywall('premium');
+      console.log(paywall);
       const products = await adapty.getPaywallProducts(paywall);
+      console.log(products);
       setSubscriptions(products);
       hideLoader();
       if (!products.length) {
@@ -74,6 +76,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
 
   const makePurchaseSuccess = useCallback(
     async (profile: Model.AdaptyProfile) => {
+      console.log('profile', profile);
       try {
         let isSubscribed = false;
 
@@ -82,39 +85,25 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         }
 
         if (isSubscribed && profile.subscriptions) {
-          let type: string | null = null;
-          let date: string | null = null;
+          console.log('profile.subscriptions', profile.subscriptions);
+          const activeSubscription = Object.values(profile.subscriptions).find(
+            s => s.isActive,
+          );
 
-          if (!!profile.subscriptions['premium_annual_subscription']) {
-            type = 'premium_annual_subscription';
-            date = String(
-              profile.subscriptions['premium_annual_subscription'].activatedAt,
-            );
+          if (activeSubscription) {
+            console.log('activatedAt', activeSubscription.activatedAt);
+            console.log('vendorProductId', activeSubscription.vendorProductId);
           }
 
-          if (!!profile.subscriptions['premium_6month_subscription']) {
-            type = 'premium_6month_subscription';
-            date = String(
-              profile.subscriptions['premium_6month_subscription'].activatedAt,
-            );
-          }
-
-          if (!!profile.subscriptions['premium_monthly_subscription']) {
-            type = 'premium_monthly_subscription';
-            date = String(
-              profile.subscriptions['premium_monthly_subscription'].activatedAt,
-            );
-          }
-
-          if (!date || !type) {
+          if (!activeSubscription) {
             return showError();
           }
 
           const premium = await setUserAccountTypeAndCarsLimit({
             phone,
             isPremium: true,
-            ufPurchaseStart: date,
-            ufPurchaseType: type,
+            ufPurchaseStart: String(activeSubscription.activatedAt),
+            ufPurchaseType: activeSubscription.vendorProductId,
           });
 
           if (!premium || !premium.result) {
