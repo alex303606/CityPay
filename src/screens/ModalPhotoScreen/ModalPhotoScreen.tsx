@@ -6,6 +6,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, ProfileStackParamList} from '@navigators';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {saveAvatar} from '@store';
+import {PermissionsAndroid} from 'react-native';
 
 type Props = NativeStackScreenProps<
   ProfileStackParamList,
@@ -32,6 +33,7 @@ export const ModalPhotoScreen: React.FC<Props> = ({navigation}) => {
   }, [dispatch, navigation]);
 
   const handleCamera = useCallback(async () => {
+    await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
     const result = await launchCamera(
       {
         saveToPhotos: false,
