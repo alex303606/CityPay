@@ -44,6 +44,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
 
   const showError = useCallback(() => {
+    hideLoader();
     return Alert.alert(t('errors.somethingWentWrong'), undefined, [
       {text: 'OK', onPress: navigation.goBack},
     ]);
@@ -53,9 +54,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
     try {
       showLoader();
       const paywall = await adapty.getPaywall('premium');
-      console.log(paywall);
       const products = await adapty.getPaywallProducts(paywall);
-      console.log(products);
       setSubscriptions(products);
       hideLoader();
       if (!products.length) {
@@ -76,7 +75,6 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
 
   const makePurchaseSuccess = useCallback(
     async (profile: Model.AdaptyProfile) => {
-      console.log('profile', profile);
       try {
         let isSubscribed = false;
 
@@ -85,20 +83,14 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
         }
 
         if (isSubscribed && profile.subscriptions) {
-          console.log('profile.subscriptions', profile.subscriptions);
           const activeSubscription = Object.values(profile.subscriptions).find(
             s => s.isActive,
           );
 
-          if (activeSubscription) {
-            console.log('activatedAt', activeSubscription.activatedAt);
-            console.log('vendorProductId', activeSubscription.vendorProductId);
-          }
-
           if (!activeSubscription) {
             return showError();
           }
-
+          showLoader();
           const premium = await setUserAccountTypeAndCarsLimit({
             phone,
             isPremium: true,
@@ -114,6 +106,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
 
           if (!response?.result) {
             if (response?.message) {
+              hideLoader();
               return Alert.alert(response.message, undefined, [
                 {text: 'OK', onPress: navigation.goBack},
               ]);
@@ -125,6 +118,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
               ...response.data,
             }),
           );
+          hideLoader();
           return navigation.navigate(EScreens.CARS_SCREEN);
         } else {
           return showError();

@@ -21,7 +21,8 @@ export const Footer: React.FC<Props> = ({
       alignItems={'center'}
       justifyContent={'center'}
       paddingHorizontal={8}
-      paddingVertical={16}>
+      paddingTop={16}
+      paddingBottom={32}>
       <TextButton title={t('premium.agreement')} onPress={onPressAgreement} />
       <Row flex={1} justifyContent={'center'}>
         <TextButton
