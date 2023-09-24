@@ -79,6 +79,7 @@ export const ruTranslation = {
     },
     payments: {
       payByCard: 'Оплатить картой',
+      payByMBank: 'Оплатить через Mbank',
       title: 'Платежи',
       empty: 'Не найдено ни одной квитанции',
       receipt: 'Квитанция',

@@ -79,6 +79,7 @@ export const kgTranslation = {
     },
     payments: {
       payByCard: 'Карта менен төлөө',
+      payByMBank: 'MBank аркылуу төлөө',
       title: 'Төлөмдөр',
       empty: 'Не Бир да дүмүрчөк табылган жок',
       receipt: 'Квитанция',

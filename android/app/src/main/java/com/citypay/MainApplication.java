@@ -31,6 +31,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                     List<ReactPackage> packages = new PackageList(this).getPackages();
                     // Packages that cannot be autolinked yet can be added manually here, for example:
                     packages.add(new PayBoxPackage());
+                    packages.add(new MBankPackage());
                     return packages;
                 }
 
@@ -58,7 +59,9 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     //***PAYBOX***
     //Необходимо заменить тестовый secretKey и merchantId на свой
     private final String secretKey = "6yzvHbcFliUlIdnu";
+    private final String secretKeyMBank = "65JGemXjCb97xnGa";
     private final int merchantId = 544793;
+    private final int merchantIdMBank = 548528;
 
     @Override
     public void onCreate() {
@@ -72,10 +75,29 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
         //Вызов инициализации SDK
         MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
+        MainApplication.instance.initMBankBuilder(secretKeyMBank, merchantIdMBank, null, null);
         MainApplication.instance.builder.build();
     }
 
     public void initBuilder(String secretKey, int merchantId, String email, String phone) {
+        //Инициализация SDK
+        builder = new PBHelper.Builder(this, secretKey, merchantId)
+                //Выбор платежной системы
+                .setPaymentSystem(Constants.PBPAYMENT_SYSTEM.NONE)
+                //Выбор валюты платежа
+                .setPaymentCurrency(Constants.CURRENCY.KGS)
+                //Активация автоклиринга
+                .enabledAutoClearing(true)
+                //Запрашивать Frame вместо платежной страницы
+                .setFrameRequired(true) //false по умолчанию
+                //Для активации режима тестирования
+                .enabledTestMode(false)
+                .setLanguage(Constants.PBLANGUAGE.ru)
+                //Время от 300 до 604800 (в секундах) в течение которого платеж должен быть завершен
+                .setPaymentLifeTime(300);
+    }
+
+    public void initMBankBuilder(String secretKey, int merchantId, String email, String phone) {
         //Инициализация SDK
         builder = new PBHelper.Builder(this, secretKey, merchantId)
                 //Выбор платежной системы

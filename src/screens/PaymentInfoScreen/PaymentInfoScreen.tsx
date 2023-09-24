@@ -12,7 +12,7 @@ import {
 } from '@hooks';
 import {NativeModules, NativeEventEmitter} from 'react-native';
 
-const {PayBoxModule} = NativeModules;
+const {PayBoxModule, MBankModule} = NativeModules;
 
 type Props = NativeStackScreenProps<
   CarsStackParamList,
@@ -32,6 +32,20 @@ const payBoxModuleInitPayment = ({
   phone: string;
   resultUrl: string;
 }) => PayBoxModule.initPayment(orderId, payUserId, payAmount, phone, resultUrl);
+
+const MBankModuleInitPayment = ({
+  payUserId,
+  payAmount,
+  phone,
+  orderId,
+  resultUrl,
+}: {
+  payUserId: string | null;
+  orderId: string | null;
+  payAmount: number;
+  phone: string;
+  resultUrl: string;
+}) => MBankModule.initPayment(orderId, payUserId, payAmount, phone, resultUrl);
 
 export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
@@ -121,11 +135,20 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
     };
   }, []);
 
-  const onHandlePressPay = useCallback(() => {
+  const onHandlePressPayByCard = useCallback(() => {
     const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}`;
-    console.log(resultUrl);
-
     payBoxModuleInitPayment({
+      orderId,
+      payAmount: paymentSum,
+      phone,
+      payUserId: userId,
+      resultUrl,
+    });
+  }, [paymentSum, userId]);
+
+  const onHandlePressPayByMBank = useCallback(() => {
+    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}?isMbank=1`;
+    MBankModuleInitPayment({
       orderId,
       payAmount: paymentSum,
       phone,
@@ -180,7 +203,15 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
         loading={loading}
         color={theme.buttonColor}
         title={t('payments.payByCard')}
-        onPress={onHandlePressPay}
+        onPress={onHandlePressPayByCard}
+        marginBottom={16}
+      />
+      <Button
+        disabled={!paymentSum || isPaymentActive !== 1}
+        loading={loading}
+        color={theme.buttonColor}
+        title={t('payments.payByMBank')}
+        onPress={onHandlePressPayByMBank}
       />
       {loading && <Loader />}
     </ScreenContainer>

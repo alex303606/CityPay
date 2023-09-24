@@ -79,6 +79,7 @@ export const enTranslation = {
     },
     payments: {
       payByCard: 'Pay by card',
+      payByMBank: 'Pay via Mbank',
       title: 'Payments',
       empty: 'No receipts found',
       receipt: 'Receipt',
