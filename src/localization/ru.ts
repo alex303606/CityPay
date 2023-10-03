@@ -117,6 +117,7 @@ export const ruTranslation = {
     profile: {
       title: 'Профиль',
       finesPaid: 'Оплачено штрафов',
+      settings: 'Настройки',
       accumulatedPoints: 'Накопленных балов',
       support: 'Тех. поддержка',
       selectLanguage: 'Выбрать язык',

@@ -117,6 +117,7 @@ export const enTranslation = {
     profile: {
       title: 'Profile',
       finesPaid: 'Fines paid',
+      settings: 'Settings',
       accumulatedPoints: 'Accumulated points',
       support: 'Support',
       selectLanguage: 'Language',

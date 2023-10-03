@@ -117,6 +117,7 @@ export const kgTranslation = {
     profile: {
       title: 'Профиль',
       finesPaid: 'Төлөнгөн айыптар',
+      settings: 'Ырастоо',
       accumulatedPoints: 'Балл топтоо',
       support: 'Техникалык колдоо',
       selectLanguage: 'Выбрать язык',

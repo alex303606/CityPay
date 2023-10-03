@@ -135,6 +135,10 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
         <ProfileItem text={t('profile.myCards')} onPress={handlePressMyCards} />
         <ProfileItem text={t('profile.support')} onPress={handlePressSupport} />
         <ProfileItem
+          text={t('profile.settings')}
+          onPress={handlePressSupport}
+        />
+        <ProfileItem
           text={t('profile.selectLanguage')}
           secondText={t(`profile.${language}`)}
           onPress={handlePressChangeLanguage}
