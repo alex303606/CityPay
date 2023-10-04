@@ -7,6 +7,7 @@ export const ruTranslation = {
       profile: 'Профиль',
       payments: 'Платежи',
       settings: 'Настройки',
+      osago: 'ОСАГО',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

@@ -99,6 +99,10 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     }
   }, [showNotification, t]);
 
+  const handleNavigateToSettings = useCallback(async () => {
+    navigation.navigate(EScreens.SETTINGS_STACK);
+  }, []);
+
   const language = useAppSelector(selectedLanguage);
 
   const handleChangeAvatar = useCallback(async () => {
@@ -136,7 +140,7 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
         <ProfileItem text={t('profile.support')} onPress={handlePressSupport} />
         <ProfileItem
           text={t('profile.settings')}
-          onPress={handlePressSupport}
+          onPress={handleNavigateToSettings}
         />
         <ProfileItem
           text={t('profile.selectLanguage')}

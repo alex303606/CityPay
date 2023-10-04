@@ -7,6 +7,7 @@ export const enTranslation = {
       profile: 'Profile',
       payments: 'Payments',
       settings: 'Settings',
+      osago: 'ОСАГО',
     },
     notifications: {
       noConnection: 'No internet connection',

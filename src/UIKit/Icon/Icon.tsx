@@ -25,6 +25,7 @@ export enum IconNames {
   qrCode = 'qrCode',
   trash = 'trash',
   settings = 'settings',
+  osago = 'osago',
 }
 
 export const IconSet = createIconSetFromIcoMoon(config);

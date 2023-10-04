@@ -7,6 +7,7 @@ export const kgTranslation = {
       profile: 'Профиль',
       payments: 'Төлөмдөр',
       settings: 'Ырастоо',
+      osago: 'ОСАГО',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

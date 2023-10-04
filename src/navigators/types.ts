@@ -1,4 +1,5 @@
 import {PremiumScreen} from '../screens/PremiumScreen/PremiumScreen';
+import {OsagoScreen} from '../screens/Osago/OsagoScreen';
 
 export enum EScreens {
   ROOT_TABS = 'RootTabs',
@@ -18,6 +19,7 @@ export enum EScreens {
   FINES_STACK = 'FinesStack',
   PAYMENTS_STACK = 'PaymentsStack',
   SETTINGS_STACK = 'SettingsStack',
+  OSAGO_STACK = 'OsagoStack',
   INITIAL_SCREEN = 'InitialScreen',
   WEBVIEW_SCREEN = 'WebViewScreen',
   MODAL_LANGUAGE_SCREEN = 'ModalLanguageScreen',
@@ -35,4 +37,5 @@ export enum EScreens {
   MODAL_DELETE_ACCOUNT_SCREEN = 'ModalDeleteAccount',
   MODAL_DELETE_CARD_SCREEN = 'ModalDeleteCard',
   PREMIUM_SCREEN = 'PremiumScreen',
+  OSAGO_SCREEN = 'OsagoScreen',
 }
