@@ -156,5 +156,10 @@ export const enTranslation = {
       agreement: 'Terms of use',
       restorePurchase: 'Restore Purchase',
     },
+    osago: {
+      title: 'ОСАГО',
+      emptyDescription: 'У вас нет \n оформленных полисов',
+      applyOsago: 'Оформить ОСАГО',
+    },
   },
 };

@@ -155,5 +155,10 @@ export const kgTranslation = {
       agreement: 'Макулдашуу',
       restorePurchase: 'Калыбына келтирүү',
     },
+    osago: {
+      title: 'ОСАГО',
+      emptyDescription: 'У вас нет \n оформленных полисов',
+      applyOsago: 'Оформить ОСАГО',
+    },
   },
 };
