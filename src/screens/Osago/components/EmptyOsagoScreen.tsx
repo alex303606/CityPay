@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Block, Button, ScreenContainer, Typography} from '@UIKit';
 import styled from 'styled-components';
 import {Image} from 'react-native';
 import {useTheme} from '@hooks';
 import {useTranslation} from 'react-i18next';
 import {Picker} from '@react-native-picker/picker';
+import {useNavigation} from '@react-navigation/native';
+import {EScreens} from '@navigators';
 
 const emptyImage = require('@assets/images/empty-image.webp');
 
-export const EmptyOsagoScreen = () => {
+type Props = {
+  onPress: () => void;
+};
+
+export const EmptyOsagoScreen: React.FC<Props> = ({onPress}) => {
   const {theme} = useTheme();
 
   const {t} = useTranslation();
@@ -34,7 +40,7 @@ export const EmptyOsagoScreen = () => {
         </Typography.B18>
       </Block>
 
-      <Button title={t('osago.applyOsago')} onPress={() => null} />
+      <Button title={t('osago.applyOsago')} onPress={onPress} />
     </ScreenContainer>
   );
 };

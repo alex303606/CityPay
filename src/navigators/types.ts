@@ -38,4 +38,5 @@ export enum EScreens {
   MODAL_DELETE_CARD_SCREEN = 'ModalDeleteCard',
   PREMIUM_SCREEN = 'PremiumScreen',
   OSAGO_SCREEN = 'OsagoScreen',
+  SELECT_CITY_SCREEN = 'SelectCityScreen',
 }
