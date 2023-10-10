@@ -2,13 +2,13 @@ import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {BlueTitle, CheckBoxField, ScreenContainer} from '@UIKit';
 
-type MyData = {
+type MyDataState = {
   iAmTheOwner: boolean;
   iHaveCard: boolean;
   carRegisteredInKr: boolean;
 };
 
-const initialState = {
+const initialState: MyDataState = {
   iAmTheOwner: false,
   iHaveCard: false,
   carRegisteredInKr: false,
@@ -16,7 +16,7 @@ const initialState = {
 
 export const StatementScreen = () => {
   const {t} = useTranslation();
-  const [state, setMyData] = useState<MyData>(initialState);
+  const [state, setMyData] = useState<MyDataState>(initialState);
 
   const onChangeValueIAmTheOwner = useCallback(
     (value: boolean) => {
