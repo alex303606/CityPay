@@ -7,12 +7,12 @@ import {useTheme} from '@hooks';
 
 type Item = {
   label: string;
-  value: string;
+  value: string | null;
 };
 
 type Props = {
   items: Item[];
-  selectedValue: string;
+  selectedValue: string | null;
   onValueChange: (itemValue: any) => void;
   title: string;
 };
@@ -48,11 +48,12 @@ export const PickerComponent: React.FC<Props> = ({
 };
 
 const StyledPicker = styled(Picker)({
-  backgroundColor: 'rgba(18, 18, 29, 0.05)',
   flex: 1,
 });
 
 const StyledRow = styled(Row)({
   borderRadius: 10,
   overflow: 'hidden',
+  backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  paddingHorizontal: 10,
 });

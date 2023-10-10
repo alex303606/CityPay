@@ -8,6 +8,10 @@ const map = require('@assets/images/map.webp');
 
 const CITES = [
   {
+    label: '-',
+    value: null,
+  },
+  {
     label: 'Бишкек',
     value: 'Бишкек',
   },
