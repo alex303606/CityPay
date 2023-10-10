@@ -14,4 +14,5 @@ export const defaultTheme: ITheme = {
   addCarButtonColor: Colors.blue,
   paidColor: Colors.blue,
   QRColor: '#797979',
+  blueTitle: '#ffffff',
 };

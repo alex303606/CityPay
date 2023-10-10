@@ -1,6 +1,3 @@
-import {PremiumScreen} from '../screens/PremiumScreen/PremiumScreen';
-import {OsagoScreen} from '../screens/Osago/OsagoScreen';
-
 export enum EScreens {
   ROOT_TABS = 'RootTabs',
   LOGIN_SCREEN = 'LoginScreen',
@@ -39,4 +36,5 @@ export enum EScreens {
   PREMIUM_SCREEN = 'PremiumScreen',
   OSAGO_SCREEN = 'OsagoScreen',
   SELECT_CITY_SCREEN = 'SelectCityScreen',
+  NEW_STATEMENT_SCREEN = 'NewStatementScreen',
 }

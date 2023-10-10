@@ -73,6 +73,7 @@ export type PaymentsStackParamList = {
 export type OsagoStackParamList = {
   [EScreens.OSAGO_SCREEN]: undefined;
   [EScreens.SELECT_CITY_SCREEN]: undefined;
+  [EScreens.NEW_STATEMENT_SCREEN]: undefined;
 };
 
 export type SettingsStackProps = StackScreenProps<

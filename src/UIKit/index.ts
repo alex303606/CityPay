@@ -15,3 +15,5 @@ export {PaymentRow} from './PaymentRow';
 export {ProfileItem} from './ProfileItem';
 export {Loader} from './Loader';
 export {PickerComponent} from './PickerComponent';
+export {BlueTitle} from './BlueTitle';
+export {CheckBoxField} from './CheckBoxField';

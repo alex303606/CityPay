@@ -12,8 +12,15 @@ import {useTheme} from '@hooks';
 import styled from 'styled-components';
 import {FlatList, Image, ListRenderItem, Pressable} from 'react-native';
 import {FlatListType} from '../types';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {EScreens, OsagoStackParamList} from '@navigators';
 const map = require('@assets/images/map.webp');
 const insuranceCompany = require('@assets/images/Insurance_company.png');
+
+type Props = NativeStackScreenProps<
+  OsagoStackParamList,
+  EScreens.SELECT_CITY_SCREEN
+>;
 
 const CITES = [
   {
@@ -38,7 +45,7 @@ const CITES = [
   },
 ];
 
-export const SelectCityScreen = () => {
+export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const {t} = useTranslation();
   const {theme} = useTheme();
@@ -50,10 +57,14 @@ export const SelectCityScreen = () => {
     [setSelectedCity],
   );
 
+  const insurancePressHandler = useCallback(() => {
+    return navigation.navigate(EScreens.NEW_STATEMENT_SCREEN);
+  }, []);
+
   const renderInsurance: ListRenderItem<number> = useCallback(() => {
     return (
       <Row marginVertical={10}>
-        <StyledPressable>
+        <StyledPressable onPress={insurancePressHandler}>
           <Image source={insuranceCompany} />
         </StyledPressable>
       </Row>
