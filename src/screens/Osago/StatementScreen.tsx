@@ -226,7 +226,7 @@ export const StatementScreen = () => {
         onChangeValue={onEmailChangeHandler}
         title={t('osago.statementScreen.email')}
         autoComplete={'email'}
-        placeholder={'example@gmail.com'}
+        placeholder={'mail@mail.com'}
         marginBottom={16}
       />
       <MaskedInput
