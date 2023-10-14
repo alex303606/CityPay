@@ -19,3 +19,4 @@ export {BlueTitle} from './BlueTitle';
 export {CheckBoxField} from './CheckBoxField';
 export {InputComponent} from './InputComponent';
 export {MaskedInput} from './MaskedInput';
+export {DatePickerComponent} from './DatePickerComponent';

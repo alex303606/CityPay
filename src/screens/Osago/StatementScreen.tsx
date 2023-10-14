@@ -5,8 +5,7 @@ import {
   BlueTitle,
   CheckBoxField,
   Colors,
-  Icon,
-  IconNames,
+  DatePickerComponent,
   InputComponent,
   MaskedInput,
   PickerComponent,
@@ -15,7 +14,7 @@ import {
   Typography,
 } from '@UIKit';
 import styled from 'styled-components';
-import {Pressable, Text} from 'react-native';
+import {Text} from 'react-native';
 import {useTheme} from '@hooks';
 import {DateTimePickerEvent} from '@react-native-community/datetimepicker';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
@@ -144,7 +143,7 @@ export const StatementScreen = () => {
     }
   };
 
-  const showDatepicker = useCallback(() => {
+  const showDatePicker = useCallback(() => {
     return DateTimePickerAndroid.open({
       value: state.date,
       onChange: onChangeDate,
@@ -222,23 +221,12 @@ export const StatementScreen = () => {
           />
         </StyledPhoneInput>
       </Block>
-      <Block marginBottom={16}>
-        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
-          {t('osago.statementScreen.date')}
-        </Typography.RF16>
-        <StyledRow justifyContent={'space-between'} alignItems={'center'}>
-          <Typography.RF16 marginBottom={4} color={theme.textColor}>
-            {state.date.toLocaleDateString()}
-          </Typography.RF16>
-          <Pressable onPress={showDatepicker}>
-            <Icon
-              name={IconNames.calendar}
-              size={24}
-              color={theme.tabInactiveColor}
-            />
-          </Pressable>
-        </StyledRow>
-      </Block>
+      <DatePickerComponent
+        marginBottom={16}
+        title={t('osago.statementScreen.date')}
+        value={state.date.toLocaleDateString()}
+        onPress={showDatePicker}
+      />
       <InputComponent
         value={state.pin}
         onChangeValue={onPinChangeHandler}
@@ -248,23 +236,12 @@ export const StatementScreen = () => {
         keyboardType={'numeric'}
         maxLength={14}
       />
-      <Block marginBottom={16}>
-        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
-          {t('osago.statementScreen.driverLicenseDate')}
-        </Typography.RF16>
-        <StyledRow justifyContent={'space-between'} alignItems={'center'}>
-          <Typography.RF16 marginBottom={4} color={theme.textColor}>
-            {state.driverLicenseDate.toLocaleDateString()}
-          </Typography.RF16>
-          <Pressable onPress={showDriverLicenseDatepicker}>
-            <Icon
-              name={IconNames.calendar}
-              size={24}
-              color={theme.tabInactiveColor}
-            />
-          </Pressable>
-        </StyledRow>
-      </Block>
+      <DatePickerComponent
+        marginBottom={16}
+        title={t('osago.statementScreen.driverLicenseDate')}
+        value={state.driverLicenseDate.toLocaleDateString()}
+        onPress={showDriverLicenseDatepicker}
+      />
     </ScreenContainer>
   );
 };
@@ -278,11 +255,4 @@ const DialCode = styled(Text)({
   fontSize: 20,
   lineHeight: 48,
   color: Colors.black,
-});
-
-const StyledRow = styled(Row)({
-  backgroundColor: 'rgba(18, 18, 29, 0.05)',
-  height: 50,
-  borderRadius: 10,
-  paddingHorizontal: 10,
 });
