@@ -17,6 +17,8 @@ type Props = {
   placeholder?: string;
   title?: string;
   autoComplete?: TextInputAndroidProps['autoComplete'];
+  disabled?: boolean;
+  maxLength?: number;
 };
 export const InputComponent: React.FC<Props> = ({
   marginBottom,
@@ -26,6 +28,8 @@ export const InputComponent: React.FC<Props> = ({
   placeholder,
   title,
   autoComplete,
+  disabled,
+  maxLength,
 }) => {
   const {theme} = useTheme();
 
@@ -37,11 +41,13 @@ export const InputComponent: React.FC<Props> = ({
         </Typography.RF16>
       ) : null}
       <StyledInput
+        editable={!disabled}
         onChangeText={onChangeValue}
         value={value}
         placeholder={placeholder}
         keyboardType={keyboardType}
         autoComplete={autoComplete}
+        maxLength={maxLength}
       />
     </Block>
   );

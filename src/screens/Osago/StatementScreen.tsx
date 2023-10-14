@@ -5,6 +5,8 @@ import {
   BlueTitle,
   CheckBoxField,
   Colors,
+  Icon,
+  IconNames,
   InputComponent,
   MaskedInput,
   PickerComponent,
@@ -13,8 +15,10 @@ import {
   Typography,
 } from '@UIKit';
 import styled from 'styled-components';
-import {Text} from 'react-native';
+import {Pressable, Text} from 'react-native';
 import {useTheme} from '@hooks';
+import {DateTimePickerEvent} from '@react-native-community/datetimepicker';
+import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 
 const MASK = '999 99-99-99';
 
@@ -26,6 +30,9 @@ type MyDataState = {
   validity: string;
   email: string;
   phone: string;
+  date: Date;
+  driverLicenseDate: Date;
+  pin: string;
 };
 
 const initialState: MyDataState = {
@@ -36,6 +43,9 @@ const initialState: MyDataState = {
   validity: '1 год',
   email: '',
   phone: '',
+  date: new Date(631144800000),
+  driverLicenseDate: new Date(631144800000),
+  pin: '',
 };
 
 const NUMBER_OF_DRIVERS = [
@@ -112,6 +122,44 @@ export const StatementScreen = () => {
     [state, setMyData],
   );
 
+  const onPinChangeHandler = useCallback(
+    (value: string) => {
+      setMyData({...state, pin: value});
+    },
+    [state, setMyData],
+  );
+
+  const onChangeDate = (event: DateTimePickerEvent, date?: Date) => {
+    if (date) {
+      setMyData({...state, date: date});
+    }
+  };
+
+  const onChangeDriverLicenseDate = (
+    event: DateTimePickerEvent,
+    date?: Date,
+  ) => {
+    if (date) {
+      setMyData({...state, driverLicenseDate: date});
+    }
+  };
+
+  const showDatepicker = useCallback(() => {
+    return DateTimePickerAndroid.open({
+      value: state.date,
+      onChange: onChangeDate,
+      mode: 'date',
+    });
+  }, [onChangeDate]);
+
+  const showDriverLicenseDatepicker = useCallback(() => {
+    return DateTimePickerAndroid.open({
+      value: state.driverLicenseDate,
+      onChange: onChangeDriverLicenseDate,
+      mode: 'date',
+    });
+  }, [onChangeDriverLicenseDate]);
+
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
       <BlueTitle
@@ -163,7 +211,7 @@ export const StatementScreen = () => {
         <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
           {t('osago.statementScreen.phone')}
         </Typography.RF16>
-        <StyledPhoneInput paddingHorizontal={10} marginBottom={32}>
+        <StyledPhoneInput paddingHorizontal={10}>
           <DialCode>+996</DialCode>
           <MaskedInput
             placeholder={MASK}
@@ -173,6 +221,49 @@ export const StatementScreen = () => {
             value={state.phone}
           />
         </StyledPhoneInput>
+      </Block>
+      <Block marginBottom={16}>
+        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+          {t('osago.statementScreen.date')}
+        </Typography.RF16>
+        <StyledRow justifyContent={'space-between'} alignItems={'center'}>
+          <Typography.RF16 marginBottom={4} color={theme.textColor}>
+            {state.date.toLocaleDateString()}
+          </Typography.RF16>
+          <Pressable onPress={showDatepicker}>
+            <Icon
+              name={IconNames.calendar}
+              size={24}
+              color={theme.tabInactiveColor}
+            />
+          </Pressable>
+        </StyledRow>
+      </Block>
+      <InputComponent
+        value={state.pin}
+        onChangeValue={onPinChangeHandler}
+        title={t('osago.statementScreen.pin')}
+        placeholder={'12345678901234'}
+        marginBottom={16}
+        keyboardType={'numeric'}
+        maxLength={14}
+      />
+      <Block marginBottom={16}>
+        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+          {t('osago.statementScreen.driverLicenseDate')}
+        </Typography.RF16>
+        <StyledRow justifyContent={'space-between'} alignItems={'center'}>
+          <Typography.RF16 marginBottom={4} color={theme.textColor}>
+            {state.driverLicenseDate.toLocaleDateString()}
+          </Typography.RF16>
+          <Pressable onPress={showDriverLicenseDatepicker}>
+            <Icon
+              name={IconNames.calendar}
+              size={24}
+              color={theme.tabInactiveColor}
+            />
+          </Pressable>
+        </StyledRow>
       </Block>
     </ScreenContainer>
   );
@@ -187,4 +278,11 @@ const DialCode = styled(Text)({
   fontSize: 20,
   lineHeight: 48,
   color: Colors.black,
+});
+
+const StyledRow = styled(Row)({
+  backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  height: 50,
+  borderRadius: 10,
+  paddingHorizontal: 10,
 });
