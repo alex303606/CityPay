@@ -52,4 +52,6 @@ const StyledTextInputMask = styled(TextInputMask)({
   borderRadius: 10,
   overflow: 'hidden',
   fontSize: 20,
+  backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  paddingHorizontal: 10,
 });

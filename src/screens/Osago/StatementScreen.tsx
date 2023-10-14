@@ -1,25 +1,20 @@
 import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
-  Block,
   BlueTitle,
   CheckBoxField,
-  Colors,
   DatePickerComponent,
   InputComponent,
   MaskedInput,
   PickerComponent,
-  Row,
   ScreenContainer,
-  Typography,
 } from '@UIKit';
-import styled from 'styled-components';
-import {Text} from 'react-native';
-import {useTheme} from '@hooks';
+import {useAppSelector} from '@hooks';
 import {DateTimePickerEvent} from '@react-native-community/datetimepicker';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
+import {getUserState} from '@store';
 
-const MASK = '999 99-99-99';
+const MASK = '+996 999 99-99-99';
 
 type MyDataState = {
   iAmTheOwner: boolean;
@@ -35,22 +30,6 @@ type MyDataState = {
   surname: string;
   name: string;
   secondName: string;
-};
-
-const initialState: MyDataState = {
-  iAmTheOwner: false,
-  iHaveCard: false,
-  carRegisteredInKr: false,
-  numberOfDrivers: '',
-  validity: '1 год',
-  email: '',
-  phone: '',
-  date: new Date(631144800000),
-  driverLicenseDate: new Date(631144800000),
-  pin: '',
-  surname: '',
-  name: '',
-  secondName: '',
 };
 
 const NUMBER_OF_DRIVERS = [
@@ -72,8 +51,25 @@ const VALIDITY = [
 
 export const StatementScreen = () => {
   const {t} = useTranslation();
+  const {phone} = useAppSelector(getUserState);
+
+  const initialState: MyDataState = {
+    iAmTheOwner: false,
+    iHaveCard: false,
+    carRegisteredInKr: false,
+    numberOfDrivers: '',
+    validity: '1 год',
+    email: '',
+    phone: phone,
+    date: new Date(631144800000),
+    driverLicenseDate: new Date(631144800000),
+    pin: '',
+    surname: '',
+    name: '',
+    secondName: '',
+  };
+
   const [state, setMyData] = useState<MyDataState>(initialState);
-  const {theme} = useTheme();
 
   const onChangeValueIAmTheOwner = useCallback(
     (value: boolean) => {
@@ -233,21 +229,15 @@ export const StatementScreen = () => {
         placeholder={'example@gmail.com'}
         marginBottom={16}
       />
-      <Block marginBottom={16}>
-        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
-          {t('osago.statementScreen.phone')}
-        </Typography.RF16>
-        <StyledPhoneInput paddingHorizontal={10}>
-          <DialCode>+996</DialCode>
-          <MaskedInput
-            placeholder={MASK}
-            keyboardType="phone-pad"
-            mask={MASK}
-            changeValueHandler={changePhoneHandler}
-            value={state.phone}
-          />
-        </StyledPhoneInput>
-      </Block>
+      <MaskedInput
+        marginBottom={16}
+        title={t('osago.statementScreen.phone')}
+        placeholder={MASK}
+        keyboardType="phone-pad"
+        mask={MASK}
+        changeValueHandler={changePhoneHandler}
+        value={state.phone}
+      />
       <BlueTitle marginBottom={16} title={t('osago.statementScreen.driver')} />
       <InputComponent
         autoComplete={'name-family'}
@@ -293,14 +283,3 @@ export const StatementScreen = () => {
     </ScreenContainer>
   );
 };
-
-const StyledPhoneInput = styled(Row)({
-  borderRadius: 10,
-  backgroundColor: 'rgba(18, 18, 29, 0.05)',
-});
-
-const DialCode = styled(Text)({
-  fontSize: 20,
-  lineHeight: 48,
-  color: Colors.black,
-});
