@@ -17,3 +17,5 @@ export {Loader} from './Loader';
 export {PickerComponent} from './PickerComponent';
 export {BlueTitle} from './BlueTitle';
 export {CheckBoxField} from './CheckBoxField';
+export {InputComponent} from './InputComponent';
+export {MaskedInput} from './MaskedInput';

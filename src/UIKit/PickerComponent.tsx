@@ -12,9 +12,10 @@ type Item = {
 
 type Props = {
   items: Item[];
-  selectedValue: string | null;
+  selectedValue: string | null | number;
   onValueChange: (itemValue: any) => void;
   title: string;
+  marginBottom?: number;
 };
 
 export const PickerComponent: React.FC<Props> = ({
@@ -22,6 +23,7 @@ export const PickerComponent: React.FC<Props> = ({
   selectedValue,
   onValueChange,
   title,
+  marginBottom,
 }) => {
   const {theme} = useTheme();
 
@@ -32,7 +34,7 @@ export const PickerComponent: React.FC<Props> = ({
   }, []);
 
   return (
-    <Block>
+    <Block marginBottom={marginBottom}>
       <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
         {title}
       </Typography.RF16>

@@ -6,13 +6,14 @@ import styled from 'styled-components';
 
 type Props = {
   title: string;
+  marginBottom?: number;
 };
 
-export const BlueTitle: React.FC<Props> = ({title}) => {
+export const BlueTitle: React.FC<Props> = ({title, marginBottom}) => {
   const {theme} = useTheme();
 
   return (
-    <Block alignItems={'flex-start'}>
+    <Block alignItems={'flex-start'} marginBottom={marginBottom}>
       <StyledRow
         backgroundColor={'rgba(13, 110, 253, 0.5)'}
         alignItems={'center'}

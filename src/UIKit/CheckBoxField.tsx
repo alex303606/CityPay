@@ -9,7 +9,7 @@ type Props = {
   subTitle?: string;
   value: boolean;
   onChangeValue: (value: boolean) => void;
-  marginTop: number;
+  marginBottom?: number;
 };
 
 export const CheckBoxField: React.FC<Props> = ({
@@ -17,12 +17,12 @@ export const CheckBoxField: React.FC<Props> = ({
   subTitle,
   value,
   onChangeValue,
-  marginTop,
+  marginBottom,
 }) => {
   const {theme} = useTheme();
 
   return (
-    <Row alignItems={'center'} marginTop={marginTop}>
+    <Row alignItems={'center'} marginBottom={marginBottom}>
       <Block flex={1} marginRight={24}>
         <Typography.B16 color={theme.textColor} marginBottom={5}>
           {title}
