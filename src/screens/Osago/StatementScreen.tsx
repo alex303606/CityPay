@@ -32,6 +32,9 @@ type MyDataState = {
   date: Date;
   driverLicenseDate: Date;
   pin: string;
+  surname: string;
+  name: string;
+  secondName: string;
 };
 
 const initialState: MyDataState = {
@@ -45,6 +48,9 @@ const initialState: MyDataState = {
   date: new Date(631144800000),
   driverLicenseDate: new Date(631144800000),
   pin: '',
+  surname: '',
+  name: '',
+  secondName: '',
 };
 
 const NUMBER_OF_DRIVERS = [
@@ -110,6 +116,27 @@ export const StatementScreen = () => {
   const onEmailChangeHandler = useCallback(
     (value: string) => {
       setMyData({...state, email: value});
+    },
+    [state, setMyData],
+  );
+
+  const onSurnameChangeHandler = useCallback(
+    (value: string) => {
+      setMyData({...state, surname: value});
+    },
+    [state, setMyData],
+  );
+
+  const onNameChangeHandler = useCallback(
+    (value: string) => {
+      setMyData({...state, name: value});
+    },
+    [state, setMyData],
+  );
+
+  const onSecondNameChangeHandler = useCallback(
+    (value: string) => {
+      setMyData({...state, secondName: value});
     },
     [state, setMyData],
   );
@@ -221,6 +248,27 @@ export const StatementScreen = () => {
           />
         </StyledPhoneInput>
       </Block>
+      <BlueTitle marginBottom={16} title={t('osago.statementScreen.driver')} />
+      <InputComponent
+        autoComplete={'name-family'}
+        value={state.surname}
+        onChangeValue={onSurnameChangeHandler}
+        title={t('osago.statementScreen.surname')}
+        marginBottom={16}
+      />
+      <InputComponent
+        autoComplete={'name'}
+        value={state.name}
+        onChangeValue={onNameChangeHandler}
+        title={t('osago.statementScreen.name')}
+        marginBottom={16}
+      />
+      <InputComponent
+        value={state.secondName}
+        onChangeValue={onSecondNameChangeHandler}
+        title={t('osago.statementScreen.secondName')}
+        marginBottom={16}
+      />
       <DatePickerComponent
         marginBottom={16}
         title={t('osago.statementScreen.date')}
