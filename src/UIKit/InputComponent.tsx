@@ -58,4 +58,5 @@ const StyledInput = styled(TextInput)({
   overflow: 'hidden',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
   paddingHorizontal: 10,
+  fontSize: 18,
 });

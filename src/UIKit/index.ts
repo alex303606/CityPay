@@ -20,3 +20,4 @@ export {CheckBoxField} from './CheckBoxField';
 export {InputComponent} from './InputComponent';
 export {MaskedInput} from './MaskedInput';
 export {DatePickerComponent} from './DatePickerComponent';
+export {Driver} from './Driver';
