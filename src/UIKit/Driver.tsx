@@ -76,27 +76,27 @@ export const Driver: React.FC<Props> = ({
 
   const onSurnameChange = useCallback(
     (value: string) => onSurnameChangeHandler(value, index),
-    [index],
+    [onSurnameChangeHandler],
   );
 
   const onNameChange = useCallback(
     (value: string) => onNameChangeHandler(value, index),
-    [index],
+    [onNameChangeHandler],
   );
 
   const onSecondName = useCallback(
     (value: string) => onSecondNameChangeHandler(value, index),
-    [index],
+    [onSecondNameChangeHandler],
   );
 
   const onPinChange = useCallback(
     (value: string) => onPinChangeHandler(value, index),
-    [index],
+    [onPinChangeHandler],
   );
 
   const onClassChang = useCallback(
     (value: string) => onClassChangeHandler(value, index),
-    [index],
+    [onClassChangeHandler],
   );
 
   return (

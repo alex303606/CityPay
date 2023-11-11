@@ -1,5 +1,3 @@
-import {IDriver} from './types';
-
 export const NUMBER_OF_DRIVERS = [
   {
     label: 'Авто водит несколько водителей',
@@ -18,15 +16,3 @@ export const VALIDITY = [
 ];
 
 export const MASK = '+996 999 99-99-99';
-
-export const DRIVER: IDriver = {
-  date: new Date(631144800000),
-  driverLicenseDate: new Date(631144800000),
-  pin: '',
-  surname: '',
-  name: '',
-  secondName: '',
-  class: '',
-};
-
-export const initialDriversState: IDriver[] = [DRIVER];

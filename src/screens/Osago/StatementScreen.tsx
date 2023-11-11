@@ -15,20 +15,13 @@ import {useAppSelector} from '@hooks';
 import {getUserState} from '@store';
 import styled from 'styled-components';
 import {Pressable} from 'react-native';
-import {
-  DRIVER,
-  initialDriversState,
-  MASK,
-  NUMBER_OF_DRIVERS,
-  VALIDITY,
-} from './constans';
+import {MASK, NUMBER_OF_DRIVERS, VALIDITY} from './constans';
 import {IDriver, MyDataState} from './types';
 
 export const StatementScreen = () => {
   const {t} = useTranslation();
   const {phone} = useAppSelector(getUserState);
-
-  const initialState: MyDataState = {
+  const [state, setMyData] = useState<MyDataState>({
     iAmTheOwner: false,
     iHaveCard: false,
     carRegisteredInKr: false,
@@ -36,208 +29,138 @@ export const StatementScreen = () => {
     validity: '1 год',
     email: '',
     phone: phone,
-  };
+  });
 
-  const [state, setMyData] = useState<MyDataState>(initialState);
-  const [driversState, setDrivers] = useState<IDriver[]>(initialDriversState);
+  const [driversState, setDrivers] = useState<IDriver[]>([
+    {
+      date: new Date(631144800000),
+      driverLicenseDate: new Date(631144800000),
+      pin: '',
+      surname: '',
+      name: '',
+      secondName: '',
+      class: '',
+    },
+  ]);
 
   const onChangeValueIAmTheOwner = useCallback(
-    (value: boolean) => {
+    (value: boolean) =>
       setMyData({
         ...state,
         iAmTheOwner: value,
-      });
-    },
-    [setMyData, state],
+      }),
+    [state],
   );
 
   const onChangeValueIHaveCard = useCallback(
     (value: boolean) => {
       setMyData({...state, iHaveCard: value});
     },
-    [setMyData, state],
+    [state],
   );
 
   const onChangeValueCarRegisteredInKr = useCallback(
     (value: boolean) => setMyData({...state, carRegisteredInKr: value}),
-    [setMyData, state],
+    [state],
   );
 
   const onNumberOfDriversChangeHandler = useCallback(
     (value: string) => setMyData({...state, numberOfDrivers: value}),
-    [state, setMyData],
+    [state],
   );
 
   const onValidityChangeHandler = useCallback(
     (value: string) => setMyData({...state, validity: value}),
-    [state, setMyData],
+    [state],
   );
 
   const onEmailChangeHandler = useCallback(
     (value: string) => setMyData({...state, email: value}),
-    [state, setMyData],
+    [state],
   );
 
   const changePhoneHandler = useCallback(
     (value: string) => setMyData({...state, phone: value}),
-    [state, setMyData],
+    [state],
   );
 
   const onSurnameChangeHandler = useCallback(
     (value: string, index: number) => {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              surname: value,
-            };
-          }
-          return driver;
-        },
-      );
-
+      const newDriversState = [...driversState];
+      newDriversState[index].surname = value;
       setDrivers(newDriversState);
     },
-    [driversState, setDrivers],
+    [driversState],
   );
 
   const onNameChangeHandler = useCallback(
     (value: string, index: number) => {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              name: value,
-            };
-          }
-          return driver;
-        },
-      );
+      const newDriversState = [...driversState];
+      newDriversState[index].name = value;
       setDrivers(newDriversState);
     },
-    [driversState, setDrivers],
+    [driversState],
   );
 
   const onSecondNameChangeHandler = useCallback(
     (value: string, index: number) => {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              secondName: value,
-            };
-          }
-          return driver;
-        },
-      );
+      const newDriversState = [...driversState];
+      newDriversState[index].secondName = value;
       setDrivers(newDriversState);
     },
-    [driversState, setDrivers],
+    [driversState],
   );
 
   const onPinChangeHandler = useCallback(
     (value: string, index: number) => {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              pin: value,
-            };
-          }
-          return driver;
-        },
-      );
+      const newDriversState = [...driversState];
+      newDriversState[index].pin = value;
       setDrivers(newDriversState);
     },
-    [driversState, setDrivers],
+    [driversState],
   );
 
   const onClassChangeHandler = useCallback(
     (value: string, index: number) => {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              class: value,
-            };
-          }
-          return driver;
-        },
-      );
+      const newDriversState = [...driversState];
+      newDriversState[index].class = value;
       setDrivers(newDriversState);
     },
-    [driversState, setDrivers],
+    [driversState],
   );
 
   const onChangeDate = (index: number, date?: Date) => {
     if (date) {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              date,
-            };
-          }
-          return driver;
-        },
-      );
+      const newDriversState = [...driversState];
+      newDriversState[index].date = date;
       setDrivers(newDriversState);
     }
   };
 
   const onChangeDriverLicenseDate = (index: number, date?: Date) => {
     if (date) {
-      const newDriversState = driversState.map(
-        (driver: IDriver, stateIndex) => {
-          if (stateIndex === index) {
-            return {
-              ...driversState[stateIndex],
-              driverLicenseDate: date,
-            };
-          }
-          return driver;
-        },
-      );
+      const newDriversState = [...driversState];
+      newDriversState[index].driverLicenseDate = date;
       setDrivers(newDriversState);
     }
   };
 
   const onAddNewDriverPress = useCallback(() => {
-    setDrivers(driversState => [...driversState, DRIVER]);
-  }, []);
+    const newDriversState = [
+      ...driversState,
+      {
+        date: new Date(631144800000),
+        driverLicenseDate: new Date(631144800000),
+        pin: '',
+        surname: '',
+        name: '',
+        secondName: '',
+        class: '',
+      },
+    ];
 
-  const renderDriver = useCallback(
-    (item: IDriver, index: number) => {
-      return (
-        <Driver
-          key={index}
-          index={index}
-          driver={item}
-          onChangeDate={onChangeDate}
-          onChangeDriverLicenseDate={onChangeDriverLicenseDate}
-          onClassChangeHandler={onClassChangeHandler}
-          onNameChangeHandler={onNameChangeHandler}
-          onPinChangeHandler={onPinChangeHandler}
-          onSecondNameChangeHandler={onSecondNameChangeHandler}
-          onSurnameChangeHandler={onSurnameChangeHandler}
-        />
-      );
-    },
-    [
-      driversState,
-      onClassChangeHandler,
-      onNameChangeHandler,
-      onPinChangeHandler,
-      onSecondNameChangeHandler,
-      onSurnameChangeHandler,
-    ],
-  );
+    setDrivers(newDriversState);
+  }, [driversState]);
 
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
@@ -295,7 +218,20 @@ export const StatementScreen = () => {
         changeValueHandler={changePhoneHandler}
         value={state.phone}
       />
-      {driversState.map(renderDriver)}
+      {driversState.map((driver, index) => (
+        <Driver
+          key={index}
+          index={index}
+          driver={driver}
+          onChangeDate={onChangeDate}
+          onChangeDriverLicenseDate={onChangeDriverLicenseDate}
+          onClassChangeHandler={onClassChangeHandler}
+          onNameChangeHandler={onNameChangeHandler}
+          onPinChangeHandler={onPinChangeHandler}
+          onSecondNameChangeHandler={onSecondNameChangeHandler}
+          onSurnameChangeHandler={onSurnameChangeHandler}
+        />
+      ))}
       <StyledPressable onPress={onAddNewDriverPress}>
         <Typography.B18 color={'rgba(39, 77, 137, 1)'}>
           {t('osago.statementScreen.addDriver')}
