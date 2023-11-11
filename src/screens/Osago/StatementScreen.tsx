@@ -326,8 +326,8 @@ export const StatementScreen = () => {
           onSurnameChangeHandler={onSurnameChangeHandler}
         />
       ))}
-      <StyledPressable onPress={onAddNewDriverPress}>
-        <Typography.B18 color={'rgba(39, 77, 137, 1)'}>
+      <StyledPressable onPress={onAddNewDriverPress} color={theme.buttonColor}>
+        <Typography.B18 color={theme.buttonColor}>
           {t('osago.statementScreen.addDriver')}
         </Typography.B18>
       </StyledPressable>
@@ -481,13 +481,14 @@ const StyledPressable = styled(Pressable).attrs(() => ({
     borderless: false,
     color: Colors.ripple,
   },
-}))({
+}))<{color: string}>(({color}) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 1,
-  borderColor: 'rgba(39, 77, 137, 1)',
+  borderColor: color,
   borderRadius: 10,
-  paddingVertical: 16,
+  height: 56,
   marginBottom: 16,
-});
+  backgroundColor: Colors.white,
+}));
