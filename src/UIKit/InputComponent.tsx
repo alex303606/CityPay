@@ -58,8 +58,10 @@ export const InputComponent: React.FC<Props> = ({
 const StyledInput = styled(TextInput)<{color: string}>(({color}) => ({
   borderRadius: 10,
   overflow: 'hidden',
+  borderColor: '#AAAAAA',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
-  paddingHorizontal: 10,
+  borderWidth: 1,
+  paddingHorizontal: 8,
   fontSize: 18,
   color,
 }));

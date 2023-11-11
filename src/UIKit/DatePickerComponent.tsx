@@ -43,7 +43,9 @@ export const DatePickerComponent: React.FC<Props> = ({
 };
 
 const StyledRow = styled(Row)({
+  borderColor: '#AAAAAA',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  borderWidth: 1,
   height: 50,
   borderRadius: 10,
   paddingHorizontal: 10,

@@ -60,6 +60,8 @@ const StyledPicker = styled(Picker)<{color: string}>(({color}) => ({
 const StyledRow = styled(Row)({
   borderRadius: 10,
   overflow: 'hidden',
+  borderColor: '#AAAAAA',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
+  borderWidth: 1,
   paddingHorizontal: 5,
 });
