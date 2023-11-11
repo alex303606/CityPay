@@ -7,16 +7,11 @@ import {
   DateTimePickerAndroid,
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
+import {IDriver} from '../screens/Osago/types';
 
 type Props = {
   index: number;
-  surname: string;
-  name: string;
-  secondName: string;
-  date: Date;
-  driverLicenseDate: Date;
-  pin: string;
-  driverClass: string;
+  driver: IDriver;
   onSurnameChangeHandler: (value: string, index: number) => void;
   onNameChangeHandler: (value: string, index: number) => void;
   onSecondNameChangeHandler: (value: string, index: number) => void;
@@ -28,13 +23,7 @@ type Props = {
 
 export const Driver: React.FC<Props> = ({
   index,
-  name,
-  date,
-  driverLicenseDate,
-  driverClass,
-  secondName,
-  surname,
-  pin,
+  driver,
   onSurnameChangeHandler,
   onNameChangeHandler,
   onSecondNameChangeHandler,
@@ -43,6 +32,16 @@ export const Driver: React.FC<Props> = ({
   onChangeDriverLicenseDate,
   onClassChangeHandler,
 }) => {
+  const {
+    name,
+    date,
+    driverLicenseDate,
+    class: driverClass,
+    secondName,
+    surname,
+    pin,
+  } = driver;
+
   const {t} = useTranslation();
 
   const onChangeDriverLicenseDateHandler = useCallback(
@@ -77,27 +76,27 @@ export const Driver: React.FC<Props> = ({
 
   const onSurnameChange = useCallback(
     (value: string) => onSurnameChangeHandler(value, index),
-    [],
+    [index],
   );
 
   const onNameChange = useCallback(
     (value: string) => onNameChangeHandler(value, index),
-    [],
+    [index],
   );
 
   const onSecondName = useCallback(
     (value: string) => onSecondNameChangeHandler(value, index),
-    [],
+    [index],
   );
 
   const onPinChange = useCallback(
     (value: string) => onPinChangeHandler(value, index),
-    [],
+    [index],
   );
 
   const onClassChang = useCallback(
     (value: string) => onClassChangeHandler(value, index),
-    [],
+    [index],
   );
 
   return (
