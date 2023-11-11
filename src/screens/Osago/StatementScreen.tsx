@@ -218,13 +218,7 @@ export const StatementScreen = () => {
         <Driver
           key={index}
           index={index}
-          name={item.name}
-          date={item.date}
-          driverClass={item.class}
-          driverLicenseDate={item.driverLicenseDate}
-          pin={item.pin}
-          secondName={item.secondName}
-          surname={item.surname}
+          driver={item}
           onChangeDate={onChangeDate}
           onChangeDriverLicenseDate={onChangeDriverLicenseDate}
           onClassChangeHandler={onClassChangeHandler}
