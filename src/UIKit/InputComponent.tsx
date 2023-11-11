@@ -1,11 +1,14 @@
 import React from 'react';
-import {Block} from './helpers';
+import {Block, Row} from './helpers';
 import {
+  Image,
+  ImageSourcePropType,
   KeyboardTypeOptions,
+  Pressable,
   TextInput,
   TextInputAndroidProps,
 } from 'react-native';
-import {Typography} from './constants';
+import {Colors, Typography} from './constants';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
 
@@ -19,6 +22,8 @@ type Props = {
   autoComplete?: TextInputAndroidProps['autoComplete'];
   disabled?: boolean;
   maxLength?: number;
+  icon?: ImageSourcePropType;
+  onIconPress?: () => void;
 };
 export const InputComponent: React.FC<Props> = ({
   marginBottom,
@@ -30,16 +35,27 @@ export const InputComponent: React.FC<Props> = ({
   autoComplete,
   disabled,
   maxLength,
+  icon,
+  onIconPress,
 }) => {
   const {theme} = useTheme();
 
   return (
     <Block marginBottom={marginBottom}>
-      {!!title ? (
-        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
-          {title}
-        </Typography.RF16>
-      ) : null}
+      <Row alignItems="center">
+        {!!title ? (
+          <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+            {title}
+          </Typography.RF16>
+        ) : null}
+        {!!icon ? (
+          <StyledImageWrapper>
+            <StyledPressable onPress={onIconPress}>
+              <StyledImage source={icon} />
+            </StyledPressable>
+          </StyledImageWrapper>
+        ) : null}
+      </Row>
       <StyledInput
         color={theme.textColor}
         placeholderTextColor={theme.textColor}
@@ -65,3 +81,26 @@ const StyledInput = styled(TextInput)<{color: string}>(({color}) => ({
   fontSize: 18,
   color,
 }));
+
+const StyledImage = styled(Image)({
+  width: 13,
+  height: 13,
+});
+
+const StyledPressable = styled(Pressable).attrs(() => ({
+  android_ripple: {
+    borderless: false,
+    color: Colors.ripple,
+  },
+}))({
+  width: 13,
+  height: 13,
+});
+
+const StyledImageWrapper = styled(Block)({
+  width: 13,
+  height: 13,
+  borderRadius: 3,
+  overflow: 'hidden',
+  marginLeft: 8,
+});

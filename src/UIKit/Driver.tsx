@@ -8,6 +8,8 @@ import {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import {IDriver} from '../screens/Osago/types';
+import {Alert} from 'react-native';
+const questionIcon = require('@assets/images/question.webp');
 
 type Props = {
   index: number;
@@ -99,6 +101,8 @@ export const Driver: React.FC<Props> = ({
     [onClassChangeHandler],
   );
 
+  const onIconPress = useCallback(() => Alert.alert('question'), []);
+
   return (
     <>
       <BlueTitle
@@ -155,6 +159,8 @@ export const Driver: React.FC<Props> = ({
         marginBottom={16}
         keyboardType={'numeric'}
         maxLength={14}
+        icon={questionIcon}
+        onIconPress={onIconPress}
       />
     </>
   );
