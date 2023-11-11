@@ -41,6 +41,8 @@ export const InputComponent: React.FC<Props> = ({
         </Typography.RF16>
       ) : null}
       <StyledInput
+        color={theme.textColor}
+        placeholderTextColor={theme.textColor}
         editable={!disabled}
         onChangeText={onChangeValue}
         value={value}
@@ -53,10 +55,11 @@ export const InputComponent: React.FC<Props> = ({
   );
 };
 
-const StyledInput = styled(TextInput)({
+const StyledInput = styled(TextInput)<{color: string}>(({color}) => ({
   borderRadius: 10,
   overflow: 'hidden',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
   paddingHorizontal: 10,
   fontSize: 18,
-});
+  color,
+}));

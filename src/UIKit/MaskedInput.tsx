@@ -35,6 +35,7 @@ export const MaskedInput: React.FC<Props> = ({
         </Typography.RF16>
       ) : null}
       <StyledTextInputMask
+        color={theme.textColor}
         placeholder={placeholder}
         keyboardType={keyboardType}
         underlineColorAndroid="transparent"
@@ -48,10 +49,13 @@ export const MaskedInput: React.FC<Props> = ({
   );
 };
 
-const StyledTextInputMask = styled(TextInputMask)({
-  borderRadius: 10,
-  overflow: 'hidden',
-  fontSize: 20,
-  backgroundColor: 'rgba(18, 18, 29, 0.05)',
-  paddingHorizontal: 10,
-});
+const StyledTextInputMask = styled(TextInputMask)<{color: string}>(
+  ({color}) => ({
+    borderRadius: 10,
+    overflow: 'hidden',
+    fontSize: 20,
+    backgroundColor: 'rgba(18, 18, 29, 0.05)',
+    paddingHorizontal: 10,
+    color,
+  }),
+);
