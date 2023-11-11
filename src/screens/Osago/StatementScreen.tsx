@@ -214,7 +214,6 @@ export const StatementScreen = () => {
 
   const renderDriver = useCallback(
     (item: IDriver, index: number) => {
-      console.log(index + 1, driversState.length);
       return (
         <Driver
           key={index}
