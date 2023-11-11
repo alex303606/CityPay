@@ -54,7 +54,6 @@ export const PickerComponent: React.FC<Props> = ({
 const StyledPicker = styled(Picker)<{color: string}>(({color}) => ({
   flex: 1,
   color,
-  tintColor: 'red',
 }));
 
 const StyledRow = styled(Row)({
