@@ -57,5 +57,5 @@ const StyledRow = styled(Row)({
   borderRadius: 10,
   overflow: 'hidden',
   backgroundColor: 'rgba(18, 18, 29, 0.05)',
-  paddingHorizontal: 10,
+  paddingHorizontal: 5,
 });

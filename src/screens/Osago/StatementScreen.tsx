@@ -1,34 +1,52 @@
 import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
+  Block,
   BlueTitle,
+  Button,
   CheckBoxField,
   Colors,
   Driver,
   InputComponent,
   MaskedInput,
   PickerComponent,
+  Row,
   ScreenContainer,
   Typography,
 } from '@UIKit';
-import {useAppSelector} from '@hooks';
+import {useAppSelector, useTheme} from '@hooks';
 import {getUserState} from '@store';
 import styled from 'styled-components';
-import {Pressable} from 'react-native';
+import {Alert, Pressable} from 'react-native';
 import {MASK, NUMBER_OF_DRIVERS, VALIDITY} from './constans';
 import {IDriver, MyDataState} from './types';
+import CheckBox from '@react-native-community/checkbox';
 
 export const StatementScreen = () => {
   const {t} = useTranslation();
+  const {theme} = useTheme();
   const {phone} = useAppSelector(getUserState);
   const [state, setMyData] = useState<MyDataState>({
     iAmTheOwner: false,
     iHaveCard: false,
     carRegisteredInKr: false,
+    IAmAgree: false,
+    needDelivery: false,
     numberOfDrivers: '',
     validity: '1 год',
     email: '',
     phone: phone,
+    carModel: '',
+    model: '',
+    yearOfIssue: '',
+    carType: '',
+    numberOfSeats: '',
+    engineCapacity: '',
+    motorPower: '',
+    loadCapacity: '',
+    engineNumber: '',
+    whereToDeliver: '',
+    whereToPick: '',
   });
 
   const [driversState, setDrivers] = useState<IDriver[]>([
@@ -52,6 +70,24 @@ export const StatementScreen = () => {
     [state],
   );
 
+  const onChangeNeedDelivery = useCallback(
+    (value: boolean) =>
+      setMyData({
+        ...state,
+        needDelivery: value,
+      }),
+    [state],
+  );
+
+  const onChangeIAmAgree = useCallback(
+    (value: boolean) =>
+      setMyData({
+        ...state,
+        IAmAgree: value,
+      }),
+    [state],
+  );
+
   const onChangeValueIHaveCard = useCallback(
     (value: boolean) => {
       setMyData({...state, iHaveCard: value});
@@ -66,6 +102,60 @@ export const StatementScreen = () => {
 
   const onNumberOfDriversChangeHandler = useCallback(
     (value: string) => setMyData({...state, numberOfDrivers: value}),
+    [state],
+  );
+
+  const onCarModelChangeHandler = useCallback(
+    (value: string) => setMyData({...state, carModel: value}),
+    [state],
+  );
+
+  const onModelChangeHandler = useCallback(
+    (value: string) => setMyData({...state, model: value}),
+    [state],
+  );
+
+  const onYearOfIssueChangeHandler = useCallback(
+    (value: string) => setMyData({...state, yearOfIssue: value}),
+    [state],
+  );
+
+  const onCarTypeChangeHandler = useCallback(
+    (value: string) => setMyData({...state, carType: value}),
+    [state],
+  );
+
+  const onNumberOfSeatsChangeHandler = useCallback(
+    (value: string) => setMyData({...state, numberOfSeats: value}),
+    [state],
+  );
+
+  const onEngineCapacityChangeHandler = useCallback(
+    (value: string) => setMyData({...state, engineCapacity: value}),
+    [state],
+  );
+
+  const onLoadCapacityChangeHandler = useCallback(
+    (value: string) => setMyData({...state, loadCapacity: value}),
+    [state],
+  );
+  const onWhereToPickChangeHandler = useCallback(
+    (value: string) => setMyData({...state, whereToPick: value}),
+    [state],
+  );
+
+  const onEngineNumberHandler = useCallback(
+    (value: string) => setMyData({...state, engineNumber: value}),
+    [state],
+  );
+
+  const onWhereToDeliverHandler = useCallback(
+    (value: string) => setMyData({...state, whereToDeliver: value}),
+    [state],
+  );
+
+  const onMotorPowerChangeHandler = useCallback(
+    (value: string) => setMyData({...state, motorPower: value}),
     [state],
   );
 
@@ -162,6 +252,10 @@ export const StatementScreen = () => {
     setDrivers(newDriversState);
   }, [driversState]);
 
+  const onPressRules = useCallback(() => Alert.alert('Rules'), []);
+  const onPressConditions = useCallback(() => Alert.alert('Conditions'), []);
+  const onPressLoadDoc = useCallback(() => Alert.alert('Documents'), []);
+
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
       <BlueTitle
@@ -237,6 +331,147 @@ export const StatementScreen = () => {
           {t('osago.statementScreen.addDriver')}
         </Typography.B18>
       </StyledPressable>
+      <BlueTitle
+        marginBottom={16}
+        title={t('osago.statementScreen.infoAboutCar')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onCarModelChangeHandler}
+        selectedValue={state.carModel}
+        title={t('osago.statementScreen.carModel')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onModelChangeHandler}
+        selectedValue={state.model}
+        title={t('osago.statementScreen.model')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onYearOfIssueChangeHandler}
+        selectedValue={state.yearOfIssue}
+        title={t('osago.statementScreen.yearOfIssue')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onCarTypeChangeHandler}
+        selectedValue={state.carType}
+        title={t('osago.statementScreen.carType')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onNumberOfSeatsChangeHandler}
+        selectedValue={state.numberOfSeats}
+        title={t('osago.statementScreen.numberOfSeats')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onEngineCapacityChangeHandler}
+        selectedValue={state.engineCapacity}
+        title={t('osago.statementScreen.engineCapacity')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onMotorPowerChangeHandler}
+        selectedValue={state.motorPower}
+        title={t('osago.statementScreen.motorPower')}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onLoadCapacityChangeHandler}
+        selectedValue={state.loadCapacity}
+        title={t('osago.statementScreen.loadCapacity')}
+      />
+      <InputComponent
+        value={state.engineNumber}
+        onChangeValue={onEngineNumberHandler}
+        title={t('osago.statementScreen.engineNumber')}
+        marginBottom={16}
+      />
+      <BlueTitle
+        marginBottom={16}
+        title={t('osago.statementScreen.policeInformation')}
+      />
+      <CheckBoxField
+        marginBottom={16}
+        onChangeValue={onChangeNeedDelivery}
+        value={Boolean(state?.needDelivery)}
+        title={t('osago.statementScreen.doYouNeedDelivery')}
+        subTitle={t('osago.statementScreen.doYouNeedDeliverySubtitle')}
+      />
+      <Typography.B16 color={theme.textColor}>
+        {t('osago.statementScreen.deliveryPaid')}
+      </Typography.B16>
+      <InputComponent
+        value={state.whereToDeliver}
+        onChangeValue={onWhereToDeliverHandler}
+        title={t('osago.statementScreen.whereToDeliver')}
+        marginBottom={16}
+      />
+      <PickerComponent
+        marginBottom={16}
+        items={NUMBER_OF_DRIVERS}
+        onValueChange={onWhereToPickChangeHandler}
+        selectedValue={state.whereToPick}
+        title={t('osago.statementScreen.whereToPick')}
+      />
+      <Row alignItems={'center'} marginBottom={16}>
+        <Block flex={1} marginRight={24}>
+          <Typography.R16 color={theme.textColor}>
+            {t('osago.statementScreen.IRead')}
+          </Typography.R16>
+
+          <Typography.R16 color={theme.textColor}>
+            <Typography.B16
+              color={theme.textColor}
+              style={{
+                textDecorationLine: 'underline',
+              }}
+              onPress={onPressRules}>
+              {t('osago.statementScreen.rules')}
+            </Typography.B16>
+
+            <Typography.R16 color={theme.textColor}>
+              {t('osago.statementScreen.and')}
+            </Typography.R16>
+
+            <Typography.B16
+              color={theme.textColor}
+              style={{
+                textDecorationLine: 'underline',
+              }}
+              onPress={onPressConditions}>
+              {t('osago.statementScreen.conditions')}
+            </Typography.B16>
+          </Typography.R16>
+
+          <Typography.R16 color={theme.textColor}>
+            {t('osago.statementScreen.registration')}
+          </Typography.R16>
+        </Block>
+        <CheckBox
+          value={state.IAmAgree}
+          onValueChange={onChangeIAmAgree}
+          tintColors={{
+            true: 'rgba(25, 135, 84, 1)',
+            false: 'rgba(25, 135, 84, 1)',
+          }}
+        />
+      </Row>
+      <Button
+        marginVertical={8}
+        title={t('osago.statementScreen.loadDoc')}
+        onPress={onPressLoadDoc}
+      />
     </ScreenContainer>
   );
 };
@@ -254,4 +489,5 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   borderColor: 'rgba(39, 77, 137, 1)',
   borderRadius: 10,
   paddingVertical: 16,
+  marginBottom: 16,
 });
