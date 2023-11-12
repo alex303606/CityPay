@@ -21,8 +21,15 @@ import {Alert, Pressable} from 'react-native';
 import {MASK, NUMBER_OF_DRIVERS, VALIDITY} from './constans';
 import {IDriver, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {EScreens, OsagoStackParamList} from '@navigators';
 
-export const StatementScreen = () => {
+type Props = NativeStackScreenProps<
+  OsagoStackParamList,
+  EScreens.NEW_STATEMENT_SCREEN
+>;
+
+export const StatementScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
   const {phone} = useAppSelector(getUserState);
@@ -254,7 +261,9 @@ export const StatementScreen = () => {
 
   const onPressRules = useCallback(() => Alert.alert('Rules'), []);
   const onPressConditions = useCallback(() => Alert.alert('Conditions'), []);
-  const onPressLoadDoc = useCallback(() => Alert.alert('Documents'), []);
+  const onPressLoadDoc = useCallback(() => {
+    navigation.navigate(EScreens.DOCUMENTS_SCREEN);
+  }, []);
 
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>

@@ -27,3 +27,4 @@ export {PremiumScreen} from './PremiumScreen/PremiumScreen';
 export {OsagoScreen} from './Osago/OsagoScreen';
 export {SelectCityScreen} from './Osago';
 export {StatementScreen} from './Osago';
+export {DocumentsScreen} from './Osago';

@@ -2,7 +2,12 @@ import React from 'react';
 import {EScreens} from './types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {OsagoStackParamList, OsagoStackProps} from './navigationTypes';
-import {OsagoScreen, SelectCityScreen, StatementScreen} from '@screens';
+import {
+  DocumentsScreen,
+  OsagoScreen,
+  SelectCityScreen,
+  StatementScreen,
+} from '@screens';
 
 const Stack = createNativeStackNavigator<OsagoStackParamList>();
 
@@ -26,6 +31,13 @@ export const OsagoStack: React.FC<OsagoStackProps> = () => {
       <Stack.Screen
         name={EScreens.NEW_STATEMENT_SCREEN}
         component={StatementScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.DOCUMENTS_SCREEN}
+        component={DocumentsScreen}
         options={{
           headerShown: false,
         }}

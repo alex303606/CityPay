@@ -37,4 +37,5 @@ export enum EScreens {
   OSAGO_SCREEN = 'OsagoScreen',
   SELECT_CITY_SCREEN = 'SelectCityScreen',
   NEW_STATEMENT_SCREEN = 'NewStatementScreen',
+  DOCUMENTS_SCREEN = 'DocumentsScreen',
 }
