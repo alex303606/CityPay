@@ -101,7 +101,14 @@ export const Driver: React.FC<Props> = ({
     [onClassChangeHandler],
   );
 
-  const onIconPress = useCallback(() => Alert.alert('question'), []);
+  const onIconPress = useCallback(
+    () =>
+      Alert.alert(
+        t('osago.statementScreen.questionTitle'),
+        t('osago.statementScreen.questionText'),
+      ),
+    [],
+  );
 
   return (
     <>
