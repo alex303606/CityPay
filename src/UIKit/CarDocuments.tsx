@@ -64,7 +64,7 @@ export const CarDocuments: React.FC<Props> = ({
         <Row>
           {carPhotos.registration.map((photo, index) => {
             return (
-              <WrapperImage key={index}>
+              <WrapperImage marginRight={8} key={index}>
                 <StyledImage
                   key={index}
                   resizeMode="cover"
@@ -94,7 +94,7 @@ export const CarDocuments: React.FC<Props> = ({
         <Row>
           {carPhotos.registrationCard.map((photo, index) => {
             return (
-              <WrapperImage key={index}>
+              <WrapperImage marginRight={8} key={index}>
                 <StyledImage
                   key={index}
                   resizeMode="cover"
