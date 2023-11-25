@@ -36,3 +36,8 @@ export type DriverPhotos = {
   driverLicense: string[];
   powerAttorney: string[];
 };
+
+export type ICarDocuments = {
+  registration: string[];
+  registrationCard: string[];
+};

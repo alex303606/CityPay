@@ -1,12 +1,18 @@
 import React, {useCallback, useState} from 'react';
-import {DriverDocumentsItem, Row, ScreenContainer, Typography} from '@UIKit';
+import {
+  CarDocuments,
+  DriverDocumentsItem,
+  Row,
+  ScreenContainer,
+  Typography,
+} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
 import {Image} from 'react-native';
-import {DriverPhotos} from './types';
+import {DriverPhotos, ICarDocuments} from './types';
 const checkIcon = require('@assets/images/checkIcon.webp');
 
 type Props = NativeStackScreenProps<
@@ -26,6 +32,11 @@ export const DocumentsScreen: React.FC<Props> = ({route}) => {
       powerAttorney: [],
     })),
   );
+
+  const [carPhotos, setCarPhoto] = useState<ICarDocuments>({
+    registration: [],
+    registrationCard: [],
+  });
 
   const handleSavePhotoIdCard = useCallback(
     (photo: string, driverIndex: number) => {
@@ -90,6 +101,28 @@ export const DocumentsScreen: React.FC<Props> = ({route}) => {
     [driversPhotos],
   );
 
+  const handleSetCarPhotoRegistration = useCallback(
+    (photo: string) => {
+      const newCarPhotos = {
+        ...carPhotos,
+      };
+      newCarPhotos.registration.push(photo);
+      setCarPhoto(newCarPhotos);
+    },
+    [carPhotos],
+  );
+
+  const handleSetCarPhotoRegistrationCard = useCallback(
+    (photo: string) => {
+      const newCarPhotos = {
+        ...carPhotos,
+      };
+      newCarPhotos.registrationCard.push(photo);
+      setCarPhoto(newCarPhotos);
+    },
+    [carPhotos],
+  );
+
   return (
     <ScreenContainer title={t('osago.documentsScreen.title')}>
       <Row marginBottom={16}>
@@ -113,6 +146,11 @@ export const DocumentsScreen: React.FC<Props> = ({route}) => {
           />
         );
       })}
+      <CarDocuments
+        onSavePhotoRegistration={handleSetCarPhotoRegistration}
+        onSavePhotoRegistrationCard={handleSetCarPhotoRegistrationCard}
+        carPhotos={carPhotos}
+      />
     </ScreenContainer>
   );
 };
