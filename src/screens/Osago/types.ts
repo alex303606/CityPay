@@ -30,3 +30,9 @@ export type IDriver = {
   secondName: string;
   class: string;
 };
+
+export type DriverPhotos = {
+  idCard: string[];
+  driverLicense: string[];
+  powerAttorney: string[];
+};

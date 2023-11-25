@@ -262,8 +262,10 @@ export const StatementScreen: React.FC<Props> = ({navigation}) => {
   const onPressRules = useCallback(() => Alert.alert('Rules'), []);
   const onPressConditions = useCallback(() => Alert.alert('Conditions'), []);
   const onPressLoadDoc = useCallback(() => {
-    navigation.navigate(EScreens.DOCUMENTS_SCREEN);
-  }, []);
+    navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
+      numberOfDrivers: driversState.length,
+    });
+  }, [driversState]);
 
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
