@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {
+  Button,
   CarDocuments,
   DriverDocumentsItem,
   Row,
@@ -122,6 +123,27 @@ export const DocumentsScreen: React.FC<Props> = ({route}) => {
     },
     [carPhotos],
   );
+  const handleDeleteCarPhotoRegistration = useCallback(
+    (photoIndex: number) => {
+      const newCarPhotos = {...carPhotos};
+      newCarPhotos.registration.splice(photoIndex, 1);
+      setCarPhoto(newCarPhotos);
+    },
+    [carPhotos],
+  );
+
+  const handleDeleteCarPhotoRegistrationCard = useCallback(
+    (photoIndex: number) => {
+      const newCarPhotos = {...carPhotos};
+      newCarPhotos.registrationCard.splice(photoIndex, 1);
+      setCarPhoto(newCarPhotos);
+    },
+    [carPhotos],
+  );
+
+  const onPressDrawUp = useCallback(() => {
+    return;
+  }, []);
 
   return (
     <ScreenContainer title={t('osago.documentsScreen.title')}>
@@ -148,8 +170,15 @@ export const DocumentsScreen: React.FC<Props> = ({route}) => {
       })}
       <CarDocuments
         onSavePhotoRegistration={handleSetCarPhotoRegistration}
+        onDeletePhotoRegistration={handleDeleteCarPhotoRegistration}
         onSavePhotoRegistrationCard={handleSetCarPhotoRegistrationCard}
+        onDeletePhotoRegistrationCard={handleDeleteCarPhotoRegistrationCard}
         carPhotos={carPhotos}
+      />
+      <Button
+        marginVertical={8}
+        title={t('osago.documentsScreen.drawUp')}
+        onPress={onPressDrawUp}
       />
     </ScreenContainer>
   );

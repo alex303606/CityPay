@@ -25,3 +25,4 @@ export {DocumentsScanItem} from './DocumentsScanItem';
 export {DriverDocumentsItem} from './DriverDocumentsItem';
 export {DocumentPhoto} from './DocumentPhoto';
 export {CarDocuments} from './CarDocuments';
+export {CarDocumentPhoto} from './CarDocumentPhoto';

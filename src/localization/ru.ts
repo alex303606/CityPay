@@ -225,6 +225,7 @@ export const ruTranslation = {
         car: 'Автомобиль',
         registration: 'Техпаспорт с обеих сторон',
         registrationCard: 'Карточка техосмотра с обеих сторон',
+        drawUp: 'Оформить',
       },
     },
   },

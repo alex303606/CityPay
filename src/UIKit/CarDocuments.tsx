@@ -6,20 +6,25 @@ import {Colors, Typography} from './constants';
 import {useTheme} from '@hooks';
 import {Icon, IconNames} from './Icon';
 import styled from 'styled-components';
-import {Image, PermissionsAndroid, Pressable} from 'react-native';
+import {PermissionsAndroid, Pressable} from 'react-native';
 import {ICarDocuments} from '../screens/Osago/types';
 import {launchCamera} from 'react-native-image-picker';
+import {CarDocumentPhoto} from './CarDocumentPhoto';
 
 type Props = {
   carPhotos: ICarDocuments;
   onSavePhotoRegistration: (photo: string) => void;
   onSavePhotoRegistrationCard: (photo: string) => void;
+  onDeletePhotoRegistration: (photoIndex: number) => void;
+  onDeletePhotoRegistrationCard: (photoIndex: number) => void;
 };
 
 export const CarDocuments: React.FC<Props> = ({
   carPhotos,
   onSavePhotoRegistration,
   onSavePhotoRegistrationCard,
+  onDeletePhotoRegistration,
+  onDeletePhotoRegistrationCard,
 }) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
@@ -64,13 +69,12 @@ export const CarDocuments: React.FC<Props> = ({
         <Row>
           {carPhotos.registration.map((photo, index) => {
             return (
-              <WrapperImage marginRight={8} key={index}>
-                <StyledImage
-                  key={index}
-                  resizeMode="cover"
-                  source={{uri: photo}}
-                />
-              </WrapperImage>
+              <CarDocumentPhoto
+                deletePhoto={onDeletePhotoRegistration}
+                key={index}
+                photo={photo}
+                photoIndex={index}
+              />
             );
           })}
           {carPhotos.registration.length < 2 ? (
@@ -94,13 +98,12 @@ export const CarDocuments: React.FC<Props> = ({
         <Row>
           {carPhotos.registrationCard.map((photo, index) => {
             return (
-              <WrapperImage marginRight={8} key={index}>
-                <StyledImage
-                  key={index}
-                  resizeMode="cover"
-                  source={{uri: photo}}
-                />
-              </WrapperImage>
+              <CarDocumentPhoto
+                deletePhoto={onDeletePhotoRegistrationCard}
+                key={index}
+                photo={photo}
+                photoIndex={index}
+              />
             );
           })}
           {carPhotos.registrationCard.length < 2 ? (
@@ -142,20 +145,4 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   width: '100%',
   height: '100%',
   backgroundColor: 'rgb(225,229,232)',
-});
-
-const StyledImage = styled(Image)({
-  width: '100%',
-  height: '100%',
-  borderRadius: 2,
-});
-
-const WrapperImage = styled(Block)({
-  borderRadius: 2,
-  overflow: 'hidden',
-  padding: 8,
-  width: 110,
-  height: 110,
-  borderWidth: 1,
-  borderColor: Colors.grey,
 });
