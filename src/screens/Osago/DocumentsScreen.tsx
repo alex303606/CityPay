@@ -21,7 +21,7 @@ type Props = NativeStackScreenProps<
   EScreens.DOCUMENTS_SCREEN
 >;
 
-export const DocumentsScreen: React.FC<Props> = ({route}) => {
+export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
   const {numberOfDrivers} = route.params;
@@ -142,7 +142,7 @@ export const DocumentsScreen: React.FC<Props> = ({route}) => {
   );
 
   const onPressDrawUp = useCallback(() => {
-    return;
+    navigation.navigate(EScreens.INFO_PAYMENTS_SCREEN);
   }, []);
 
   return (

@@ -38,4 +38,5 @@ export enum EScreens {
   SELECT_CITY_SCREEN = 'SelectCityScreen',
   NEW_STATEMENT_SCREEN = 'NewStatementScreen',
   DOCUMENTS_SCREEN = 'DocumentsScreen',
+  INFO_PAYMENTS_SCREEN = 'InfoPaymentScreen',
 }

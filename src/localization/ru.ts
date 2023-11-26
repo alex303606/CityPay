@@ -227,6 +227,9 @@ export const ruTranslation = {
         registrationCard: 'Карточка техосмотра с обеих сторон',
         drawUp: 'Оформить',
       },
+      infoPaymentScreen: {
+        title: 'Информация',
+      },
     },
   },
 };
