@@ -1,54 +1,41 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Block,
   Colors,
+  Loader,
   PickerComponent,
   Row,
   ScreenContainer,
   Typography,
 } from '@UIKit';
 import {useTranslation} from 'react-i18next';
-import {useTheme} from '@hooks';
+import {useAppSelector, useGetLocationsList, useTheme} from '@hooks';
 import styled from 'styled-components';
 import {FlatList, Image, ListRenderItem, Pressable} from 'react-native';
 import {FlatListType} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
+import {getLocationsListList, getPartnersList, IPartner} from '@store';
 const map = require('@assets/images/map.webp');
-const insuranceCompany = require('@assets/images/Insurance_company.png');
 
 type Props = NativeStackScreenProps<
   OsagoStackParamList,
   EScreens.SELECT_CITY_SCREEN
 >;
 
-const CITES = [
-  {
-    label: '-',
-    value: null,
-  },
-  {
-    label: 'Бишкек',
-    value: 'Бишкек',
-  },
-  {
-    label: 'Ош',
-    value: 'Ош',
-  },
-  {
-    label: 'Баткен',
-    value: 'Баткен',
-  },
-  {
-    label: 'Кант',
-    value: 'Кант',
-  },
-];
-
 export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const {t} = useTranslation();
   const {theme} = useTheme();
+
+  const {getLocationsListHandler, loading} = useGetLocationsList();
+
+  useEffect(() => {
+    getLocationsListHandler();
+  }, [getLocationsListHandler]);
+
+  const locationsList = useAppSelector(getLocationsListList);
+  const partnersList = useAppSelector(getPartnersList);
 
   const onValueChangeHandler = useCallback(
     (city: string) => {
@@ -61,15 +48,39 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
     return navigation.navigate(EScreens.NEW_STATEMENT_SCREEN);
   }, []);
 
-  const renderInsurance: ListRenderItem<number> = useCallback(() => {
+  const renderInsurance: ListRenderItem<IPartner> = useCallback(({item}) => {
     return (
-      <Row marginVertical={10}>
+      <StyledRow marginVertical={10} backgroundColor={Colors.white}>
         <StyledPressable onPress={insurancePressHandler}>
-          <Image source={insuranceCompany} />
+          <StyledInsuranceImage
+            source={{uri: item.logoUrl}}
+            resizeMode={'cover'}
+          />
         </StyledPressable>
-      </Row>
+      </StyledRow>
     );
   }, []);
+
+  const cities = useMemo(() => {
+    return [
+      {
+        label: '-',
+        value: null,
+      },
+      ...locationsList.map(city => ({
+        label: city.title,
+        value: city.id,
+      })),
+    ];
+  }, [locationsList]);
+
+  const partners = useMemo(() => {
+    const selectedLoc = locationsList.find(loc => loc.id === selectedCity);
+    if (selectedLoc) {
+      return partnersList.filter(p => selectedLoc.partnersId.includes(p.id));
+    }
+    return [];
+  }, [partnersList, selectedCity]);
 
   return (
     <ScreenContainer scroll={false} title={t('osago.title')}>
@@ -78,12 +89,12 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
           {t('osago.subTitle')}
         </Typography.R16>
         <PickerComponent
-          items={CITES}
+          items={cities}
           onValueChange={onValueChangeHandler}
           selectedValue={selectedCity}
           title={t('osago.selectCity')}
         />
-        {selectedCity !== null ? (
+        {selectedCity !== null && !!partners.length ? (
           <Typography.B16 marginVertical={16} color={theme.textColor}>
             Только курьерская доставка (+500 сом)
           </Typography.B16>
@@ -93,13 +104,14 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
             <StyledImage source={map} resizeMode={'contain'} />
           </Block>
         ) : null}
-        {selectedCity !== null ? (
+        {selectedCity !== null && !!partners.length ? (
           <List
-            data={Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9])}
+            data={partners}
             renderItem={renderInsurance}
             showsVerticalScrollIndicator={false}
           />
         ) : null}
+        {loading && <Loader />}
       </Block>
     </ScreenContainer>
   );
@@ -124,4 +136,15 @@ const StyledPressable = styled(Pressable).attrs(() => ({
 }))({
   flexDirection: 'row',
   flex: 1,
+  padding: 8,
+});
+
+const StyledInsuranceImage = styled(Image)({
+  width: 180,
+  height: 60,
+});
+
+const StyledRow = styled(Row)({
+  borderRadius: 10,
+  overflow: 'hidden',
 });

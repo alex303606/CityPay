@@ -72,6 +72,7 @@ axios.interceptors.request.use(
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
+
 notifee.onBackgroundEvent(async ({type, detail}) => {
   const {notification, pressAction} = detail;
   // Check if the user pressed the "Mark as read" action
