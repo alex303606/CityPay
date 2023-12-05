@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {EmptyOsagoScreen} from './components/EmptyOsagoScreen';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
-import {Button, ScreenContainer} from '@UIKit';
+import {ApplicationItem, Block, Button, ScreenContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
@@ -27,8 +27,8 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
 
   const {t} = useTranslation();
 
-  const renderItem: ListRenderItem<IApplication> = useCallback(() => {
-    return null;
+  const renderItem: ListRenderItem<IApplication> = useCallback(({item}) => {
+    return <ApplicationItem item={item} />;
   }, []);
 
   return (
@@ -45,10 +45,12 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
           />
         }
       />
-      <Button
-        title={t('osago.applyOsago')}
-        onPress={navigateToSelectCityScreen}
-      />
+      <Block paddingTop={16}>
+        <Button
+          title={t('osago.applyOsago')}
+          onPress={navigateToSelectCityScreen}
+        />
+      </Block>
     </ScreenContainer>
   );
 };

@@ -230,6 +230,11 @@ export const ruTranslation = {
       infoPaymentScreen: {
         title: 'Информация',
       },
+      osagoListScreen: {
+        application: 'Заявка №СP-{{number}}',
+        policy: 'Полис №{{number}}',
+        applicationDate: 'Дата заявки {{date}}',
+      },
     },
   },
 };
