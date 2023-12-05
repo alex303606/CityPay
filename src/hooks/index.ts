@@ -9,3 +9,4 @@ export {useGetFinesByAllCarsNumberAndPin} from './useGetFinesByAllCarsNumberAndP
 export {useGetPaymentsList} from './useGetPaymentsList';
 export {useGetPaymentByPaymentNumber} from './useGetPaymentByPaymentNumber';
 export {useGetLocationsList} from './useGetLocationsList';
+export {useGetApplicationsList} from './useGetApplicationsList';

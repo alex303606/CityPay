@@ -1,24 +1,29 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ILocation, ILocationsList, IPartner} from './handlers';
+import {IApplication, ILocation, ILocationsList, IPartner} from './handlers';
 import {RootState} from '@store';
 
 export interface IOsagoState {
   partnersList: IPartner[];
   locationsList: ILocation[];
+  applicationsList: IApplication[];
 }
 
 const initialState: IOsagoState = {
   partnersList: [],
   locationsList: [],
+  applicationsList: [],
 };
 
 const osagoSlice = createSlice({
   name: 'fines',
   initialState: initialState,
   reducers: {
-    getLocationsListSuccess(state, action: PayloadAction<ILocationsList>) {
+    setLocationsListSuccess(state, action: PayloadAction<ILocationsList>) {
       state.locationsList = action.payload.locationsList;
       state.partnersList = action.payload.partnersList;
+    },
+    setApplicationsList(state, action: PayloadAction<IApplication[]>) {
+      state.applicationsList = action.payload;
     },
   },
 });
@@ -28,4 +33,8 @@ export const getPartnersList = (state: RootState) => state.osago.partnersList;
 export const getLocationsListList = (state: RootState) =>
   state.osago.locationsList;
 
-export const {getLocationsListSuccess} = osagoSlice.actions;
+export const getApplications = (state: RootState) =>
+  state.osago.applicationsList;
+
+export const {setLocationsListSuccess, setApplicationsList} =
+  osagoSlice.actions;
