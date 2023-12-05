@@ -9,6 +9,7 @@ import {
   StatementScreen,
   InfoPaymentScreen,
 } from '@screens';
+import {ApplicationScreen} from '../screens/Osago';
 
 const Stack = createNativeStackNavigator<OsagoStackParamList>();
 
@@ -46,6 +47,13 @@ export const OsagoStack: React.FC<OsagoStackProps> = () => {
       <Stack.Screen
         name={EScreens.INFO_PAYMENTS_SCREEN}
         component={InfoPaymentScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.APPLICATION_SCREEN}
+        component={ApplicationScreen}
         options={{
           headerShown: false,
         }}

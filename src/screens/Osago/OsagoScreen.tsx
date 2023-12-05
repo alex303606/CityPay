@@ -27,8 +27,15 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
 
   const {t} = useTranslation();
 
+  const onPressApplicationItem = useCallback(
+    (id: string) => {
+      navigation.navigate(EScreens.APPLICATION_SCREEN, {id});
+    },
+    [navigation],
+  );
+
   const renderItem: ListRenderItem<IApplication> = useCallback(({item}) => {
-    return <ApplicationItem item={item} />;
+    return <ApplicationItem onPress={onPressApplicationItem} item={item} />;
   }, []);
 
   return (

@@ -76,6 +76,7 @@ export type OsagoStackParamList = {
   [EScreens.NEW_STATEMENT_SCREEN]: undefined;
   [EScreens.INFO_PAYMENTS_SCREEN]: undefined;
   [EScreens.DOCUMENTS_SCREEN]: {numberOfDrivers: number};
+  [EScreens.APPLICATION_SCREEN]: {id: string};
 };
 
 export type SettingsStackProps = StackScreenProps<

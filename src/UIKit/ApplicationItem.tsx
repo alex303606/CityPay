@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {IApplication} from '@store';
 import {Block, Row} from './helpers';
 import styled from 'styled-components';
@@ -8,9 +8,10 @@ import {useTranslation} from 'react-i18next';
 
 type Props = {
   item: IApplication;
+  onPress: (id: string) => void;
 };
 
-export const ApplicationItem: React.FC<Props> = ({item}) => {
+export const ApplicationItem: React.FC<Props> = ({item, onPress}) => {
   const {t} = useTranslation();
 
   const bgColor = useMemo(() => {
@@ -33,9 +34,13 @@ export const ApplicationItem: React.FC<Props> = ({item}) => {
     return 'rgba(25, 135, 84, 1)';
   }, []);
 
+  const onPressHandler = useCallback(() => {
+    onPress(item.id);
+  }, [item.id]);
+
   return (
     <Wrapper marginVertical={8} backgroundColor={'rgba(18, 18, 29, 0.1)'}>
-      <StyledPressable>
+      <StyledPressable onPress={onPressHandler}>
         <Row justifyContent={'space-between'}>
           <Block>
             <Typography.B16 marginBottom={5} numberOfLines={1}>
