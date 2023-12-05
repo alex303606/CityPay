@@ -32,9 +32,9 @@ export const osagoReducer = osagoSlice.reducer;
 export const getPartnersList = (state: RootState) => state.osago.partnersList;
 export const getLocationsListList = (state: RootState) =>
   state.osago.locationsList;
-
 export const getApplications = (state: RootState) =>
   state.osago.applicationsList;
-
+export const getApplicationById = (id: string) => (state: RootState) =>
+  state.osago.applicationsList.find(app => app.id === id);
 export const {setLocationsListSuccess, setApplicationsList} =
   osagoSlice.actions;
