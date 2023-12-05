@@ -52,10 +52,12 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
     return (
       <StyledRow marginVertical={10} backgroundColor={Colors.white}>
         <StyledPressable onPress={insurancePressHandler}>
-          <StyledInsuranceImage
-            source={{uri: item.logoUrl}}
-            resizeMode={'cover'}
-          />
+          <ImageWrapper>
+            <StyledInsuranceImage
+              source={{uri: item.logoUrl}}
+              resizeMode={'cover'}
+            />
+          </ImageWrapper>
         </StyledPressable>
       </StyledRow>
     );
@@ -125,6 +127,7 @@ const StyledImage = styled(Image)({
 const List: FlatListType = styled(FlatList).attrs(() => ({
   contentContainerStyle: {
     flexGrow: 1,
+    padding: 4,
   },
 }))({});
 
@@ -145,6 +148,12 @@ const StyledInsuranceImage = styled(Image)({
 });
 
 const StyledRow = styled(Row)({
+  borderRadius: 10,
+  overflow: 'hidden',
+  elevation: 5,
+});
+
+const ImageWrapper = styled(Row)({
   borderRadius: 10,
   overflow: 'hidden',
 });
