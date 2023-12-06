@@ -32,13 +32,6 @@ export type IApplication = {
   createInformation: null;
   date: '24.11.2023';
   deliveryAddress: string | null;
-  driver1Bithday: string;
-  driver1Class: string;
-  driver1DriveLicenseDate: null;
-  driver1Firstname: string;
-  driver1Lastname: string;
-  driver1Pin: string;
-  driver1Surname: string;
   endDate: null;
   id: string;
   insurancePolicyNumber: null;

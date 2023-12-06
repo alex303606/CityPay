@@ -26,7 +26,6 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
   }, [getApplicationsListHandler]);
 
   const applicationsList = useAppSelector(getApplications);
-  console.log(applicationsList);
 
   const {t} = useTranslation();
 

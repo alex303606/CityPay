@@ -229,6 +229,8 @@ export const ruTranslation = {
       },
       infoPaymentScreen: {
         title: 'Информация',
+        policyholder: 'Водитель/страхователь',
+        driver: 'Водитель {{number}}',
       },
       osagoListScreen: {
         application: 'Заявка №СP-{{number}}',
