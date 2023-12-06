@@ -25,7 +25,11 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
       {index === 0 ? (
         <InfoLIneRow
           title={'Заявитель является собственником:'}
-          value={driver.isOwner ? 'Да' : 'Нет'}
+          value={
+            driver.isOwner
+              ? t('osago.infoPaymentScreen.yes')
+              : t('osago.infoPaymentScreen.no')
+          }
         />
       ) : null}
       <InfoLIneRow title={'Фамилия:'} value={driver.surname} />
@@ -36,7 +40,7 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
       {!!driver.driveLicenseDate ? (
         <InfoLIneRow title={'Стаж с:'} value={driver.driveLicenseDate} />
       ) : null}
-      <InfoLIneRow title={'Номер ВУ:'} value={'Номер ВУ'} />
+      <InfoLIneRow title={'Номер ВУ:'} value={'________'} />
       <InfoLIneRow title={'Класс водителя:'} value={driver.class} />
     </Block>
   );

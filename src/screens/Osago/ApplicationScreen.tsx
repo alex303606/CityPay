@@ -93,7 +93,7 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
         Общие данные
       </Typography.B18>
-      <InfoLIneRow title={'Вид страхования:'} value={'ОСАГО'} />
+      <InfoLIneRow title={'Вид страхования:'} value={'________'} />
       <InfoLIneRow
         title={'Количество водителей:'}
         value={application.anotherDriversCount + 1}
@@ -118,20 +118,24 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
         title={'Объем двигателя:'}
         value={application.carTypeSelectedParameterTitle}
       />
-      <InfoLIneRow title={'Мощность электродвигателя:'} value={'Да'} />
-      <InfoLIneRow title={'Грузоподъемность:'} value={'Да'} />
-      <InfoLIneRow title={'Номер двигателя:'} value={'Да'} />
+      <InfoLIneRow title={'Мощность электродвигателя:'} value={'________'} />
+      <InfoLIneRow title={'Грузоподъемность:'} value={'________'} />
+      <InfoLIneRow title={'Номер двигателя:'} value={'______'} />
       <InfoLIneRow
         title={'Страна регистрации:'}
-        value={application.isKGRegistrations ? 'Кыргыстан' : 'Нет'}
+        value={application.isKGRegistrations ? '________' : '________'}
       />
-      <InfoLIneRow title={'Техосмотр:'} value={'Да'} />
+      <InfoLIneRow title={'Техосмотр:'} value={'___________'} />
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
         Информация о полисе
       </Typography.B18>
       <InfoLIneRow
         title={'Доставка:'}
-        value={application.isNeedDelivery ? 'Yes' : 'No'}
+        value={
+          application.isNeedDelivery
+            ? t('osago.infoPaymentScreen.yes')
+            : t('osago.infoPaymentScreen.no')
+        }
       />
       {!!application.deliveryAddress ? (
         <InfoLIneRow
@@ -141,7 +145,7 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       ) : null}
       <InfoLIneRow
         title={'Место получения полиса:'}
-        value={'Главный офис, г.Ош, ул. М. Горького 100А. 996700332211'}
+        value={'________Главный офис, г.Ош, ул. М. Горького 100А. 996700332211'}
       />
     </ScreenContainer>
   );
