@@ -6,11 +6,13 @@ import {ApplicationItem, Block, Button, ScreenContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {FlatListType} from '../types';
 import styled from 'styled-components';
-import {FlatList, ListRenderItem, RefreshControl} from 'react-native';
+import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
 import {useAppSelector, useGetApplicationsList} from '@hooks';
 import {getApplications, IApplication} from '@store';
 
 type Props = NativeStackScreenProps<OsagoStackParamList, EScreens.OSAGO_SCREEN>;
+
+const keyExtractor = (item: IApplication) => item.id;
 
 export const OsagoScreen: React.FC<Props> = ({navigation}) => {
   const navigateToSelectCityScreen = useCallback(() => {
@@ -24,6 +26,7 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
   }, [getApplicationsListHandler]);
 
   const applicationsList = useAppSelector(getApplications);
+  console.log(applicationsList);
 
   const {t} = useTranslation();
 
@@ -40,24 +43,26 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer scroll={false} title={t('osago.title')}>
-      <List
-        data={applicationsList}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={EmptyOsagoScreen}
-        refreshControl={
-          <RefreshControl
-            refreshing={loading}
-            onRefresh={getApplicationsListHandler}
-          />
-        }
-      />
-      <Block paddingTop={16}>
-        <Button
-          title={t('osago.applyOsago')}
-          onPress={navigateToSelectCityScreen}
+      <Block flex={1} marginBottom={16}>
+        <List
+          data={applicationsList}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={EmptyOsagoScreen}
+          ItemSeparatorComponent={Separator}
+          keyExtractor={keyExtractor}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={getApplicationsListHandler}
+            />
+          }
         />
       </Block>
+      <Button
+        title={t('osago.applyOsago')}
+        onPress={navigateToSelectCityScreen}
+      />
     </ScreenContainer>
   );
 };
@@ -67,3 +72,5 @@ const List: FlatListType = styled(FlatList).attrs(() => ({
     flexGrow: 1,
   },
 }))({});
+
+const Separator = styled(View)({height: 8});

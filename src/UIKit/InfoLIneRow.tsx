@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row} from './helpers';
+import {Block, Row} from './helpers';
 import {Typography} from './constants';
 import {useTheme} from '@hooks';
 
@@ -12,11 +12,13 @@ export const InfoLIneRow: React.FC<Props> = ({title, value}) => {
   const {theme} = useTheme();
 
   return (
-    <Row alignItems={'center'} marginBottom={8}>
-      <Typography.B16 marginRight={8} color={theme.textColor}>
+    <Row alignItems={'center'} marginBottom={8} flex={1}>
+      <Typography.B14 marginRight={8} color={theme.textColor}>
         {title}
-      </Typography.B16>
-      <Typography.R18 color={theme.secondTextColor}>{value}</Typography.R18>
+      </Typography.B14>
+      <Block flex={1}>
+        <Typography.R14 color={theme.secondTextColor}>{value}</Typography.R14>
+      </Block>
     </Row>
   );
 };

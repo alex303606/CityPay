@@ -39,7 +39,7 @@ export const ApplicationItem: React.FC<Props> = ({item, onPress}) => {
   }, [item.id]);
 
   return (
-    <Wrapper marginVertical={8} backgroundColor={'rgba(18, 18, 29, 0.1)'}>
+    <Wrapper backgroundColor={'rgba(18, 18, 29, 0.1)'}>
       <StyledPressable onPress={onPressHandler}>
         <Row justifyContent={'space-between'}>
           <Block>
@@ -88,7 +88,6 @@ const StyledPressable = styled(Pressable).attrs(() => ({
     color: Colors.ripple,
   },
 }))({
-  flex: 1,
   paddingHorizontal: 16,
   paddingVertical: 10,
 });
