@@ -28,7 +28,6 @@ export const CarDocuments: React.FC<Props> = ({
 }) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
-  console.log('carPhotos', carPhotos);
   const handleCameraRegistrationCard = useCallback(async () => {
     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
     const result = await launchCamera(
