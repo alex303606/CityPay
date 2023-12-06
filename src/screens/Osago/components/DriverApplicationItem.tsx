@@ -24,7 +24,7 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
       )}
       {index === 0 ? (
         <InfoLIneRow
-          title={'Заявитель является собственником:'}
+          title={t('osago.infoPaymentScreen.isOwner')}
           value={
             driver.isOwner
               ? t('osago.infoPaymentScreen.yes')

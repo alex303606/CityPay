@@ -233,6 +233,7 @@ export const ruTranslation = {
         driver: 'Водитель {{number}}',
         yes: 'Да',
         no: 'Нет',
+        isOwner: 'Заявитель является собственником:',
       },
       osagoListScreen: {
         application: 'Заявка №СP-{{number}}',
