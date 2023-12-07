@@ -32,16 +32,40 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
           }
         />
       ) : null}
-      <InfoLIneRow title={'Фамилия:'} value={driver.surname} />
-      <InfoLIneRow title={'Имя:'} value={driver.firstName} />
-      <InfoLIneRow title={'Отчество:'} value={driver.lastName} />
-      <InfoLIneRow title={'Дата рождения:'} value={driver.bithday} />
-      <InfoLIneRow title={'ПИН / ИНН:'} value={driver.pin} />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.surname')}
+        value={driver.surname}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.firstName')}
+        value={driver.firstName}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.lastName')}
+        value={driver.lastName}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.bithday')}
+        value={driver.bithday}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.pin')}
+        value={driver.pin}
+      />
       {!!driver.driveLicenseDate ? (
-        <InfoLIneRow title={'Стаж с:'} value={driver.driveLicenseDate} />
+        <InfoLIneRow
+          title={t('osago.infoPaymentScreen.driveLicenseDate')}
+          value={driver.driveLicenseDate}
+        />
       ) : null}
-      <InfoLIneRow title={'Номер ВУ:'} value={'________'} />
-      <InfoLIneRow title={'Класс водителя:'} value={driver.class} />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.driverLicenseNumber')}
+        value={'________'}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.driverClass')}
+        value={driver.class}
+      />
     </Block>
   );
 };
