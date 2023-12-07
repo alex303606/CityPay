@@ -80,57 +80,87 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
         <StyledImage source={{uri: application.selectedPartner.logoUrl}} />
         <Block alignItems={'flex-end'}>
           <Typography.R18 color={theme.textColor} marginBottom={4}>
-            Сумма страховки:
+            {t('osago.infoPaymentScreen.amountInsurance')}
           </Typography.R18>
           <Typography.R24 marginBottom={4} color={'rgba(47, 128, 237, 1)'}>
             {application.paymentSum} сом
           </Typography.R24>
           <Typography.B16 onPress={onPressAbout} color={'rgba(235, 87, 87, 1)'}>
-            Подробнее
+            {t('osago.infoPaymentScreen.more')}
           </Typography.B16>
         </Block>
       </Row>
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
-        Общие данные
+        {t('osago.infoPaymentScreen.totalInformation')}
       </Typography.B18>
-      <InfoLIneRow title={'Вид страхования:'} value={'________'} />
       <InfoLIneRow
-        title={'Количество водителей:'}
+        title={t('osago.infoPaymentScreen.insuranceType')}
+        value={'________'}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.numberDrivers')}
         value={application.anotherDriversCount + 1}
       />
       <InfoLIneRow
-        title={'Период страхования:'}
+        title={t('osago.infoPaymentScreen.insurancePeriod')}
         value={application.period.title}
       />
       <InfoLIneRow title={'Email:'} value={application.contactEmail} />
-      <InfoLIneRow title={'Номер телефона:'} value={application.contactPhone} />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.phoneNumber')}
+        value={application.contactPhone}
+      />
       {drivers.map((driver, index) => (
         <DriverApplicationItem driver={driver} key={index} index={index} />
       ))}
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
-        Данные об автомобиле
+        {t('osago.infoPaymentScreen.carData')}
       </Typography.B18>
-      <InfoLIneRow title={'Марка авто:'} value={application.carVendor} />
-      <InfoLIneRow title={'Модель:'} value={application.carModel} />
-      <InfoLIneRow title={'Год выпуска:'} value={application.carYear} />
-      <InfoLIneRow title={'Тип авто:'} value={application.carTypeTitle} />
       <InfoLIneRow
-        title={'Объем двигателя:'}
+        title={t('osago.infoPaymentScreen.carModel')}
+        value={application.carVendor}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.model')}
+        value={application.carModel}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.yearOfIssue')}
+        value={application.carYear}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.carType')}
+        value={application.carTypeTitle}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.engineCapacity')}
         value={application.carTypeSelectedParameterTitle}
       />
-      <InfoLIneRow title={'Мощность электродвигателя:'} value={'________'} />
-      <InfoLIneRow title={'Грузоподъемность:'} value={'________'} />
-      <InfoLIneRow title={'Номер двигателя:'} value={'______'} />
       <InfoLIneRow
-        title={'Страна регистрации:'}
+        title={t('osago.infoPaymentScreen.motorPower')}
+        value={'________'}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.loadCapacity')}
+        value={'________'}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.engineNumber')}
+        value={'______'}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.countryRegistration')}
         value={application.isKGRegistrations ? '________' : '________'}
       />
-      <InfoLIneRow title={'Техосмотр:'} value={'___________'} />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.technicalInspection')}
+        value={'___________'}
+      />
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
-        Информация о полисе
+        {t('osago.infoPaymentScreen.policyInfo')}
       </Typography.B18>
       <InfoLIneRow
-        title={'Доставка:'}
+        title={t('osago.infoPaymentScreen.delivery')}
         value={
           application.isNeedDelivery
             ? t('osago.infoPaymentScreen.yes')
@@ -139,12 +169,12 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       />
       {!!application.deliveryAddress ? (
         <InfoLIneRow
-          title={'Адрес доставки:'}
+          title={t('osago.infoPaymentScreen.deliveryAddress')}
           value={application.deliveryAddress}
         />
       ) : null}
       <InfoLIneRow
-        title={'Место получения полиса:'}
+        title={t('osago.infoPaymentScreen.placeReceipt')}
         value={'________Главный офис, г.Ош, ул. М. Горького 100А. 996700332211'}
       />
     </ScreenContainer>
