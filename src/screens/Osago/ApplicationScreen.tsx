@@ -56,8 +56,6 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
   const application = useAppSelector(getApplicationById(id));
   const {theme} = useTheme();
 
-  console.log(application);
-
   const onPressAbout = useCallback(() => {
     Alert.alert('about');
   }, []);

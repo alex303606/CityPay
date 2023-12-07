@@ -48,7 +48,7 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
     return navigation.navigate(EScreens.NEW_STATEMENT_SCREEN);
   }, []);
 
-  const renderInsurance: ListRenderItem<IPartner> = useCallback(({item}) => {
+  const renderInsurance = useCallback((item: IPartner) => {
     return (
       <StyledRow marginVertical={10} backgroundColor={Colors.white}>
         <StyledPressable onPress={insurancePressHandler}>
@@ -76,7 +76,7 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
     ];
   }, [locationsList]);
 
-  const partners = useMemo(() => {
+  const partnersAvailableInRegion = useMemo(() => {
     const selectedLoc = locationsList.find(loc => loc.id === selectedCity);
     if (selectedLoc) {
       return partnersList.filter(p => selectedLoc.partnersId.includes(p.id));
@@ -84,8 +84,16 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
     return [];
   }, [partnersList, selectedCity]);
 
+  const partnersNotAvailableInRegion = useMemo(() => {
+    const selectedLoc = locationsList.find(loc => loc.id === selectedCity);
+    if (selectedLoc) {
+      return partnersList.filter(p => !selectedLoc.partnersId.includes(p.id));
+    }
+    return [];
+  }, [partnersList, selectedCity]);
+
   return (
-    <ScreenContainer scroll={false} title={t('osago.title')}>
+    <ScreenContainer title={t('osago.title')}>
       <Block flex={1}>
         <Typography.R16 marginBottom={4} color={theme.textColor}>
           {t('osago.subTitle')}
@@ -96,33 +104,27 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
           selectedValue={selectedCity}
           title={t('osago.selectCity')}
         />
-        {selectedCity !== null && !!partners.length ? (
-          <Typography.B16 marginTop={16} color={theme.textColor}>
-            Есть филиалы в выбранном регионе
-          </Typography.B16>
-        ) : null}
         {selectedCity === null ? (
           <Block flex={1} alignItems={'center'} justifyContent={'center'}>
             <StyledImage source={map} resizeMode={'contain'} />
           </Block>
         ) : null}
-        {selectedCity !== null && !!partners.length
-          ? partners.map(() => {
-              return;
-            })
-          : null}
-        {selectedCity !== null && !!partners.length ? (
+        {selectedCity !== null && !!partnersAvailableInRegion.length ? (
           <Typography.B16 marginTop={16} color={theme.textColor}>
-            Доступна только курьерская доставка
+            {t('osago.hasBranches')}
           </Typography.B16>
         ) : null}
-        {selectedCity !== null && !!partners.length ? (
-          <List
-            data={partners}
-            renderItem={renderInsurance}
-            showsVerticalScrollIndicator={false}
-          />
+        {selectedCity !== null && !!partnersAvailableInRegion.length
+          ? partnersAvailableInRegion.map(renderInsurance)
+          : null}
+        {selectedCity !== null && !!partnersAvailableInRegion.length ? (
+          <Typography.B16 marginTop={16} color={theme.textColor}>
+            {t('osago.hasNotBranches')}
+          </Typography.B16>
         ) : null}
+        {selectedCity !== null && !!partnersNotAvailableInRegion.length
+          ? partnersNotAvailableInRegion.map(renderInsurance)
+          : null}
         {loading && <Loader />}
       </Block>
     </ScreenContainer>
