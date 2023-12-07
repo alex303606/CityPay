@@ -33,16 +33,16 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
         />
       ) : null}
       <InfoLIneRow
-        title={t('osago.infoPaymentScreen.surname')}
-        value={driver.surname}
+        title={t('osago.infoPaymentScreen.lastName')}
+        value={driver.lastName}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.firstName')}
         value={driver.firstName}
       />
       <InfoLIneRow
-        title={t('osago.infoPaymentScreen.lastName')}
-        value={driver.lastName}
+        title={t('osago.infoPaymentScreen.surname')}
+        value={driver.surname}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.bithday')}
@@ -58,10 +58,6 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
           value={driver.driveLicenseDate}
         />
       ) : null}
-      <InfoLIneRow
-        title={t('osago.infoPaymentScreen.driverLicenseNumber')}
-        value={'________'}
-      />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.driverClass')}
         value={driver.class}

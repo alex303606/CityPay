@@ -46,20 +46,26 @@ export const ApplicationItem: React.FC<Props> = ({item, onPress}) => {
             <Typography.B16 marginBottom={5} numberOfLines={1}>
               {item.status === 'Готов'
                 ? t('osago.osagoListScreen.policy', {
-                    number: item.paymentRecieptNumber,
+                    number: item.title,
                   })
                 : t('osago.osagoListScreen.application', {
                     number: item.title,
                   })}
             </Typography.B16>
-            <Typography.R16 numberOfLines={1}>{item.carVendor}</Typography.R16>
+            <Typography.R16 numberOfLines={1}>
+              {`${item.carVendor} ${item.carModel}`}
+            </Typography.R16>
             <Typography.R16 marginBottom={4} numberOfLines={1}>
               {item.carNumber}
             </Typography.R16>
             <Typography.R16 numberOfLines={1}>
-              {t('osago.osagoListScreen.applicationDate', {
-                date: item.date,
-              })}
+              {item.status === 'Готов'
+                ? t('osago.osagoListScreen.validDate', {
+                    date: item.date,
+                  })
+                : t('osago.osagoListScreen.applicationDate', {
+                    date: item.date,
+                  })}
             </Typography.R16>
           </Block>
           <Block alignItems={'flex-end'} justifyContent={'space-between'}>

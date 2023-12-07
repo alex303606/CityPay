@@ -79,15 +79,19 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       <Row marginBottom={16} justifyContent={'space-between'}>
         <StyledImage source={{uri: application.selectedPartner.logoUrl}} />
         <Block alignItems={'flex-end'}>
-          <Typography.R18 color={theme.textColor} marginBottom={4}>
+          <Typography.R18 color={theme.textColor}>
             {t('osago.infoPaymentScreen.amountInsurance')}
           </Typography.R18>
           <Typography.R24 marginBottom={4} color={'rgba(47, 128, 237, 1)'}>
             {application.paymentSum} сом
           </Typography.R24>
-          <Typography.B16 onPress={onPressAbout} color={'rgba(235, 87, 87, 1)'}>
-            {t('osago.infoPaymentScreen.more')}
-          </Typography.B16>
+          {application.status === 'Готов' ? (
+            <Typography.B16
+              onPress={onPressAbout}
+              color={'rgba(235, 87, 87, 1)'}>
+              {t('osago.infoPaymentScreen.more')}
+            </Typography.B16>
+          ) : null}
         </Block>
       </Row>
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
@@ -95,7 +99,7 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       </Typography.B18>
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.insuranceType')}
-        value={'________'}
+        value={'ОСАГО'}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.numberDrivers')}
@@ -136,25 +140,33 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
         title={t('osago.infoPaymentScreen.engineCapacity')}
         value={application.carTypeSelectedParameterTitle}
       />
-      <InfoLIneRow
-        title={t('osago.infoPaymentScreen.motorPower')}
-        value={'________'}
-      />
-      <InfoLIneRow
-        title={t('osago.infoPaymentScreen.loadCapacity')}
-        value={'________'}
-      />
+      {/*<InfoLIneRow*/}
+      {/*  title={t('osago.infoPaymentScreen.motorPower')}*/}
+      {/*  value={'________'}*/}
+      {/*/>*/}
+      {/*<InfoLIneRow*/}
+      {/*  title={t('osago.infoPaymentScreen.loadCapacity')}*/}
+      {/*  value={'________'}*/}
+      {/*/>*/}
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.engineNumber')}
-        value={'______'}
+        value={application.carVIN}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.countryRegistration')}
-        value={application.isKGRegistrations ? '________' : '________'}
+        value={
+          application.isKGRegistrations
+            ? t('osago.infoPaymentScreen.yes')
+            : t('osago.infoPaymentScreen.no')
+        }
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.technicalInspection')}
-        value={'___________'}
+        value={
+          application.isHasTOCard
+            ? t('osago.infoPaymentScreen.yes')
+            : t('osago.infoPaymentScreen.no')
+        }
       />
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
         {t('osago.infoPaymentScreen.policyInfo')}
@@ -173,10 +185,12 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
           value={application.deliveryAddress}
         />
       ) : null}
-      <InfoLIneRow
-        title={t('osago.infoPaymentScreen.placeReceipt')}
-        value={'________Главный офис, г.Ош, ул. М. Горького 100А. 996700332211'}
-      />
+      {application.pickupBranch ? (
+        <InfoLIneRow
+          title={t('osago.infoPaymentScreen.placeReceipt')}
+          value={`${application.pickupBranch.title}\n${application.pickupBranch.address}\n${application.pickupBranch.phone}`}
+        />
+      ) : null}
     </ScreenContainer>
   );
 };

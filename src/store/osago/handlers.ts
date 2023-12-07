@@ -47,7 +47,7 @@ export type IApplication = {
     ratio: number;
     title: string;
   };
-  pickupBranch: {
+  pickupBranch?: {
     address: string;
     id: string;
     phone: string;
