@@ -61,7 +61,7 @@ export const ApplicationItem: React.FC<Props> = ({item, onPress}) => {
             <Typography.R16 numberOfLines={1}>
               {item.status === 'Готов'
                 ? t('osago.osagoListScreen.validDate', {
-                    date: item.date,
+                    date: item.endDate,
                   })
                 : t('osago.osagoListScreen.applicationDate', {
                     date: item.date,
