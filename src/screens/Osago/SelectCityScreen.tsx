@@ -97,14 +97,24 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
           title={t('osago.selectCity')}
         />
         {selectedCity !== null && !!partners.length ? (
-          <Typography.B16 marginVertical={16} color={theme.textColor}>
-            Только курьерская доставка (+500 сом)
+          <Typography.B16 marginTop={16} color={theme.textColor}>
+            Есть филиалы в выбранном регионе
           </Typography.B16>
         ) : null}
         {selectedCity === null ? (
           <Block flex={1} alignItems={'center'} justifyContent={'center'}>
             <StyledImage source={map} resizeMode={'contain'} />
           </Block>
+        ) : null}
+        {selectedCity !== null && !!partners.length
+          ? partners.map(() => {
+              return;
+            })
+          : null}
+        {selectedCity !== null && !!partners.length ? (
+          <Typography.B16 marginTop={16} color={theme.textColor}>
+            Доступна только курьерская доставка
+          </Typography.B16>
         ) : null}
         {selectedCity !== null && !!partners.length ? (
           <List
