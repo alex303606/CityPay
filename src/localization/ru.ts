@@ -1,3 +1,5 @@
+import {PolicyScreen} from '../screens/Osago';
+
 export const ruTranslation = {
   translation: {
     version: 'Версия программы',
@@ -272,6 +274,9 @@ export const ruTranslation = {
         policy: 'Полис № {{number}}',
         applicationDate: 'Дата заявки: {{date}}',
         validDate: 'Действителе до: {{date}}',
+      },
+      policyScreen: {
+        title: 'Полис',
       },
     },
   },

@@ -50,15 +50,15 @@ const getDrivers = (
   });
 };
 
-export const ApplicationScreen: React.FC<Props> = ({route}) => {
+export const ApplicationScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {id} = route.params;
   const application = useAppSelector(getApplicationById(id));
   const {theme} = useTheme();
 
   const onPressAbout = useCallback(() => {
-    Alert.alert('about');
-  }, []);
+    navigation.navigate(EScreens.POLICY_SCREEN);
+  }, [navigation]);
 
   const drivers = useMemo(() => {
     if (application && application?.anotherDriversCount >= 0) {

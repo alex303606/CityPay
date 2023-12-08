@@ -75,6 +75,7 @@ export type OsagoStackParamList = {
   [EScreens.SELECT_CITY_SCREEN]: undefined;
   [EScreens.NEW_STATEMENT_SCREEN]: undefined;
   [EScreens.INFO_PAYMENTS_SCREEN]: undefined;
+  [EScreens.POLICY_SCREEN]: undefined;
   [EScreens.DOCUMENTS_SCREEN]: {numberOfDrivers: number};
   [EScreens.APPLICATION_SCREEN]: {id: string};
 };

@@ -9,7 +9,7 @@ import {
   StatementScreen,
   InfoPaymentScreen,
 } from '@screens';
-import {ApplicationScreen} from '../screens/Osago';
+import {ApplicationScreen, PolicyScreen} from '../screens/Osago';
 
 const Stack = createNativeStackNavigator<OsagoStackParamList>();
 
@@ -54,6 +54,13 @@ export const OsagoStack: React.FC<OsagoStackProps> = () => {
       <Stack.Screen
         name={EScreens.APPLICATION_SCREEN}
         component={ApplicationScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.POLICY_SCREEN}
+        component={PolicyScreen}
         options={{
           headerShown: false,
         }}

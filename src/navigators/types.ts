@@ -1,4 +1,4 @@
-import {ApplicationScreen} from '../screens/Osago';
+import {ApplicationScreen, PolicyScreen} from '../screens/Osago';
 
 export enum EScreens {
   ROOT_TABS = 'RootTabs',
@@ -42,4 +42,5 @@ export enum EScreens {
   DOCUMENTS_SCREEN = 'DocumentsScreen',
   INFO_PAYMENTS_SCREEN = 'InfoPaymentScreen',
   APPLICATION_SCREEN = 'ApplicationScreen',
+  POLICY_SCREEN = 'PolicyScreen',
 }
