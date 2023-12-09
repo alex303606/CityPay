@@ -58,6 +58,16 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const productsList = useAppSelector(getProductsList);
   const urlsList = useAppSelector(getUrlsList);
 
+  const periodListSelector = periodList.map(period => ({
+    label: period.title,
+    value: period.id,
+  }));
+
+  const productsListSelector = productsList.map(product => ({
+    label: product.title,
+    value: product.id,
+  }));
+
   useEffect(() => {
     getDataFromPartnerForNewApplicationHandler();
   }, [getDataFromPartnerForNewApplicationHandler]);
@@ -68,8 +78,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carRegisteredInKr: false,
     IAmAgree: false,
     needDelivery: false,
-    numberOfDrivers: productsList[0].value,
-    validity: periodList[0].value,
+    numberOfDrivers: productsListSelector[0].value,
+    validity: periodListSelector[0].value,
     email: '',
     phone: phone,
     carModel: '',
@@ -326,14 +336,14 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       />
       <PickerComponent
         marginBottom={16}
-        items={productsList}
+        items={productsListSelector}
         onValueChange={onNumberOfDriversChangeHandler}
         selectedValue={state.numberOfDrivers}
         title={t('osago.statementScreen.product')}
       />
       <PickerComponent
         marginBottom={16}
-        items={periodList}
+        items={periodListSelector}
         onValueChange={onValidityChangeHandler}
         selectedValue={state.validity}
         title={t('osago.statementScreen.validity')}
