@@ -70,8 +70,17 @@ export const getDeliveryList = (state: RootState) => state.osago.delivery;
 export const getInsuranceTypeList = (state: RootState) =>
   state.osago.insuranceType;
 export const getOfficesList = (state: RootState) => state.osago.offices;
-export const getPeriodList = (state: RootState) => state.osago.periodList;
-export const getProductsList = (state: RootState) => state.osago.productsList;
+export const getPeriodList = (state: RootState) =>
+  state.osago.periodList.map(period => ({
+    label: period.title,
+    value: period.id,
+  }));
+
+export const getProductsList = (state: RootState) =>
+  state.osago.productsList.map(product => ({
+    label: product.title,
+    value: product.id,
+  }));
 export const getUrlsList = (state: RootState) => state.osago.urls;
 export const getLocationsListList = (state: RootState) =>
   state.osago.locationsList;

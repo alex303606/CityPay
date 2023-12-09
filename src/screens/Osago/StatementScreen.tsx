@@ -31,7 +31,7 @@ import {
 } from '@store';
 import styled from 'styled-components';
 import {Alert, Image, Pressable} from 'react-native';
-import {MASK, NUMBER_OF_DRIVERS, VALIDITY} from './constans';
+import {MASK, NUMBER_OF_DRIVERS} from './constans';
 import {IDriver, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -68,8 +68,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carRegisteredInKr: false,
     IAmAgree: false,
     needDelivery: false,
-    numberOfDrivers: '',
-    validity: '1 год',
+    numberOfDrivers: productsList[0].value,
+    validity: periodList[0].value,
     email: '',
     phone: phone,
     carModel: '',
@@ -326,14 +326,14 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       />
       <PickerComponent
         marginBottom={16}
-        items={NUMBER_OF_DRIVERS}
+        items={productsList}
         onValueChange={onNumberOfDriversChangeHandler}
         selectedValue={state.numberOfDrivers}
         title={t('osago.statementScreen.product')}
       />
       <PickerComponent
         marginBottom={16}
-        items={VALIDITY}
+        items={periodList}
         onValueChange={onValidityChangeHandler}
         selectedValue={state.validity}
         title={t('osago.statementScreen.validity')}
