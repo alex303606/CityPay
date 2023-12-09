@@ -69,6 +69,61 @@ export type IApplication = {
   title: string;
 };
 
+export type ISelectParams = {
+  id: string;
+  ratio: number;
+  title: string;
+};
+
+export type ICarType = {
+  id: string;
+  paramTitle: string;
+  selectParams: ISelectParams[];
+  title: string;
+};
+
+export type IDelivery = {
+  id: string;
+  isDelivery: boolean;
+  price: string;
+  title: string;
+};
+
+export type IInsuranceType = {
+  id: string;
+  title: string;
+};
+
+export type IOffices = {
+  address: string;
+  id: string;
+  phone: string;
+  title: string;
+};
+
+export type IPeriodList = {
+  id: string;
+  ratio: number;
+  title: string;
+};
+
+export type IProduct = {
+  basePrice: string;
+  id: string;
+  maxDriversCount: number;
+  title: string;
+};
+
+export type INewApplication = {
+  carTypesList: ICarType[];
+  delivery: IDelivery[];
+  insuranceType: IInsuranceType[];
+  offices: IOffices[];
+  periodList: IPeriodList[];
+  productsList: IProduct[];
+  urls: string[];
+};
+
 export const getLocationsList = () => {
   return axios
     .post('https://crm.citypay.kg/api/', {
@@ -124,7 +179,7 @@ export const getDataFromPartnerForNewApplication = (partnerId: string) => {
     .then(
       (response: {
         data: {
-          data: any;
+          data: INewApplication;
           result: boolean;
           message: string;
         };

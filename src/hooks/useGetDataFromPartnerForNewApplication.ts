@@ -2,7 +2,7 @@ import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
 import {useAppDispatch} from './store';
-import {getDataFromPartnerForNewApplication} from '@store';
+import {getDataFromPartnerForNewApplication, setNewApplication} from '@store';
 import {useCallback} from 'react';
 
 export const useGetDataFromPartnerForNewApplication = (partnerId: string) => {
@@ -26,7 +26,7 @@ export const useGetDataFromPartnerForNewApplication = (partnerId: string) => {
     }
 
     if (response.data) {
-      // dispatch(setApplicationsList(response.data));
+      dispatch(setNewApplication(response.data));
     }
   }, [dispatch, hideLoader, showLoader, showNotification, t]);
   return {

@@ -19,7 +19,16 @@ import {
   useGetDataFromPartnerForNewApplication,
   useTheme,
 } from '@hooks';
-import {getUserState} from '@store';
+import {
+  getCarTypesList,
+  getDeliveryList,
+  getInsuranceTypeList,
+  getOfficesList,
+  getPeriodList,
+  getProductsList,
+  getUrlsList,
+  getUserState,
+} from '@store';
 import styled from 'styled-components';
 import {Alert, Image, Pressable} from 'react-native';
 import {MASK, NUMBER_OF_DRIVERS, VALIDITY} from './constans';
@@ -40,6 +49,14 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const {partner} = route.params;
   const {getDataFromPartnerForNewApplicationHandler} =
     useGetDataFromPartnerForNewApplication(partner.id);
+
+  const carTypesList = useAppSelector(getCarTypesList);
+  const deliveryList = useAppSelector(getDeliveryList);
+  const insuranceTypeList = useAppSelector(getInsuranceTypeList);
+  const officesList = useAppSelector(getOfficesList);
+  const periodList = useAppSelector(getPeriodList);
+  const productsList = useAppSelector(getProductsList);
+  const urlsList = useAppSelector(getUrlsList);
 
   useEffect(() => {
     getDataFromPartnerForNewApplicationHandler();
