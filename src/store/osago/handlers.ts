@@ -113,3 +113,26 @@ export const getApplicationsList = (phone: string) => {
     )
     .catch(error => console.warn(error));
 };
+
+export const getDataFromPartnerForNewApplication = (partnerId: string) => {
+  return axios
+    .post('https://crm.citypay.kg/api/', {
+      TYPE: 'get_data_from_partner_for_new_application',
+      API_KEY: '28HimH4QhcEd4muqSktp',
+      PARTNER_ID: partnerId,
+    })
+    .then(
+      (response: {
+        data: {
+          data: any;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};

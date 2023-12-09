@@ -76,7 +76,7 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
   if (!application) {
     return null;
   }
-  console.log(application);
+
   return (
     <ScreenContainer title={t('osago.infoPaymentScreen.title')}>
       <Row marginBottom={16} justifyContent={'space-between'}>

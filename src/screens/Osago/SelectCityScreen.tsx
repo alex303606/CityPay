@@ -44,14 +44,14 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
     [setSelectedCity],
   );
 
-  const insurancePressHandler = useCallback(() => {
-    return navigation.navigate(EScreens.NEW_STATEMENT_SCREEN);
+  const insurancePressHandler = useCallback((partner: IPartner) => {
+    return navigation.navigate(EScreens.NEW_STATEMENT_SCREEN, {partner});
   }, []);
 
   const renderInsurance = useCallback((item: IPartner) => {
     return (
       <StyledRow marginVertical={10} backgroundColor={Colors.white}>
-        <StyledPressable onPress={insurancePressHandler}>
+        <StyledPressable onPress={() => insurancePressHandler(item)}>
           <ImageWrapper>
             <StyledInsuranceImage
               source={{uri: item.logoUrl}}

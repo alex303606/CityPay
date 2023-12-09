@@ -10,3 +10,4 @@ export {useGetPaymentsList} from './useGetPaymentsList';
 export {useGetPaymentByPaymentNumber} from './useGetPaymentByPaymentNumber';
 export {useGetLocationsList} from './useGetLocationsList';
 export {useGetApplicationsList} from './useGetApplicationsList';
+export {useGetDataFromPartnerForNewApplication} from './useGetDataFromPartnerForNewApplication';

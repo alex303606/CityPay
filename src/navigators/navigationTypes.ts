@@ -1,7 +1,7 @@
 import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ICar, IFine, IFinesType} from '@store';
+import {ICar, IFine, IFinesType, IPartner} from '@store';
 import {ICard} from 'src/screens/MyCardsScreen/MyCardsScreen';
 
 export type AuthStackParamList = {
@@ -73,7 +73,7 @@ export type PaymentsStackParamList = {
 export type OsagoStackParamList = {
   [EScreens.OSAGO_SCREEN]: undefined;
   [EScreens.SELECT_CITY_SCREEN]: undefined;
-  [EScreens.NEW_STATEMENT_SCREEN]: undefined;
+  [EScreens.NEW_STATEMENT_SCREEN]: {partner: IPartner};
   [EScreens.INFO_PAYMENTS_SCREEN]: undefined;
   [EScreens.POLICY_SCREEN]: {url: string};
   [EScreens.DOCUMENTS_SCREEN]: {numberOfDrivers: number};

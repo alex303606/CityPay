@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Block,
@@ -14,10 +14,14 @@ import {
   ScreenContainer,
   Typography,
 } from '@UIKit';
-import {useAppSelector, useTheme} from '@hooks';
+import {
+  useAppSelector,
+  useGetDataFromPartnerForNewApplication,
+  useTheme,
+} from '@hooks';
 import {getUserState} from '@store';
 import styled from 'styled-components';
-import {Alert, Pressable} from 'react-native';
+import {Alert, Image, Pressable} from 'react-native';
 import {MASK, NUMBER_OF_DRIVERS, VALIDITY} from './constans';
 import {IDriver, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
@@ -29,10 +33,18 @@ type Props = NativeStackScreenProps<
   EScreens.NEW_STATEMENT_SCREEN
 >;
 
-export const StatementScreen: React.FC<Props> = ({navigation}) => {
+export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
   const {phone} = useAppSelector(getUserState);
+  const {partner} = route.params;
+  const {getDataFromPartnerForNewApplicationHandler} =
+    useGetDataFromPartnerForNewApplication(partner.id);
+
+  useEffect(() => {
+    getDataFromPartnerForNewApplicationHandler();
+  }, [getDataFromPartnerForNewApplicationHandler]);
+
   const [state, setMyData] = useState<MyDataState>({
     iAmTheOwner: false,
     iHaveCard: false,
@@ -269,10 +281,13 @@ export const StatementScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
-      <BlueTitle
+      <Row
         marginBottom={16}
-        title={t('osago.statementScreen.totalInformation')}
-      />
+        justifyContent={'space-between'}
+        alignItems={'center'}>
+        <BlueTitle title={t('osago.statementScreen.totalInformation')} />
+        <StyledImage source={{uri: partner.logoUrl}} />
+      </Row>
       <CheckBoxField
         marginBottom={16}
         onChangeValue={onChangeValueIAmTheOwner}
@@ -503,3 +518,8 @@ const StyledPressable = styled(Pressable).attrs(() => ({
   marginBottom: 16,
   backgroundColor: Colors.white,
 }));
+
+const StyledImage = styled(Image)({
+  width: 150,
+  height: 50,
+});
