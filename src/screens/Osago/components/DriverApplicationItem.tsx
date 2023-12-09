@@ -14,11 +14,11 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
   return (
     <Block>
       {index === 0 ? (
-        <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
+        <Typography.B18 marginBottom={8} color={'#2F80ED'}>
           {t('osago.infoPaymentScreen.policyholder')}
         </Typography.B18>
       ) : (
-        <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
+        <Typography.B18 marginBottom={8} color={'#2F80ED'}>
           {t('osago.infoPaymentScreen.driver', {number: index + 1})}
         </Typography.B18>
       )}

@@ -248,6 +248,7 @@ export const ruTranslation = {
         driveLicenseDate: 'Стаж с:',
         amountInsurance: 'Сумма страховки:',
         more: 'Подробнее',
+        status: 'Статус:',
         totalInformation: 'Общие данные',
         insuranceType: 'Вид страхования:',
         numberDrivers: 'Количество водителей:',
@@ -268,6 +269,8 @@ export const ruTranslation = {
         deliveryAddress: 'Адрес доставки:',
         placeReceipt: 'Место получения полиса:',
         engineCapacity: 'Объем двигателя',
+        cancelInformationDescription:
+          'Средства будут возвращены в течении 5-7 дней',
       },
       osagoListScreen: {
         application: 'Заявка № {{number}}',

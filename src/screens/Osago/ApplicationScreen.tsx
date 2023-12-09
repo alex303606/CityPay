@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Block, InfoLIneRow, Row, ScreenContainer, Typography} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -6,7 +6,7 @@ import {EScreens, OsagoStackParamList} from '@navigators';
 import {useAppSelector, useTheme} from '@hooks';
 import {getApplicationById, IApplication} from '@store';
 import styled from 'styled-components';
-import {Image} from 'react-native';
+import {Alert, Image} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
 
 type Props = NativeStackScreenProps<
@@ -56,6 +56,15 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
   const application = useAppSelector(getApplicationById(id));
   const {theme} = useTheme();
 
+  useEffect(() => {
+    if (application?.status === 'Отклонена') {
+      Alert.alert(
+        application.cancelInformation,
+        t('osago.infoPaymentScreen.cancelInformationDescription'),
+      );
+    }
+  }, [application?.status]);
+
   const drivers = useMemo(() => {
     if (application && application?.anotherDriversCount >= 0) {
       return getDrivers(application, application?.anotherDriversCount);
@@ -67,28 +76,28 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
   if (!application) {
     return null;
   }
-
+  console.log(application);
   return (
     <ScreenContainer title={t('osago.infoPaymentScreen.title')}>
       <Row marginBottom={16} justifyContent={'space-between'}>
         <StyledImage source={{uri: application.selectedPartner.logoUrl}} />
         <Block alignItems={'flex-end'}>
+          <Typography.B16 color={theme.textColor}>
+            {t('osago.infoPaymentScreen.status')}
+          </Typography.B16>
+          <Typography.B16
+            color={application.status === 'Отклонена' ? '#EB5757' : '#219653'}>
+            {application.status}
+          </Typography.B16>
           <Typography.R18 color={theme.textColor}>
             {t('osago.infoPaymentScreen.amountInsurance')}
           </Typography.R18>
-          <Typography.R24 marginBottom={4} color={'rgba(47, 128, 237, 1)'}>
+          <Typography.R24 marginBottom={4} color={'#2F80ED'}>
             {application.paymentSum} сом
           </Typography.R24>
-          {/*{application.status === 'Выдан' ? (*/}
-          {/*  <Typography.B16*/}
-          {/*    onPress={onPressAbout}*/}
-          {/*    color={'rgba(235, 87, 87, 1)'}>*/}
-          {/*    {t('osago.infoPaymentScreen.more')}*/}
-          {/*  </Typography.B16>*/}
-          {/*) : null}*/}
         </Block>
       </Row>
-      <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
+      <Typography.B18 marginBottom={8} color={'#2F80ED'}>
         {t('osago.infoPaymentScreen.totalInformation')}
       </Typography.B18>
       <InfoLIneRow
@@ -111,7 +120,7 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       {drivers.map((driver, index) => (
         <DriverApplicationItem driver={driver} key={index} index={index} />
       ))}
-      <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
+      <Typography.B18 marginBottom={8} color={'#2F80ED'}>
         {t('osago.infoPaymentScreen.carData')}
       </Typography.B18>
       <InfoLIneRow
