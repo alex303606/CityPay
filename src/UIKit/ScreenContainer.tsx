@@ -14,6 +14,7 @@ type Props = {
   onPressButton?: () => void;
   reload?: () => Promise<void>;
   scroll?: boolean;
+  disablePaddings?: boolean;
   iconName?: IconNames;
   color?: string;
 };
@@ -27,6 +28,7 @@ export const ScreenContainer: React.FC<Props> = ({
   scroll = true,
   iconName = IconNames.settings,
   color,
+  disablePaddings,
 }) => {
   const {theme} = useTheme();
   const ScrollComponent = scroll ? ScrollContainer : Block;
@@ -59,7 +61,10 @@ export const ScreenContainer: React.FC<Props> = ({
         flex={1}
         reload={reload}
         backgroundColor={theme.backgroundColor}>
-        <Block flex={1} paddingBottom={16} paddingHorizontal={16}>
+        <Block
+          flex={1}
+          paddingBottom={16}
+          paddingHorizontal={disablePaddings ? 0 : 16}>
           {children}
         </Block>
       </ScrollComponent>

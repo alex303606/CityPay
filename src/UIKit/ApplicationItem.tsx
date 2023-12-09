@@ -9,9 +9,14 @@ import {useTranslation} from 'react-i18next';
 type Props = {
   item: IApplication;
   onPress: (id: string) => void;
+  onOpenPolicy: (url: string) => void;
 };
 
-export const ApplicationItem: React.FC<Props> = ({item, onPress}) => {
+export const ApplicationItem: React.FC<Props> = ({
+  item,
+  onPress,
+  onOpenPolicy,
+}) => {
   const {t} = useTranslation();
 
   const bgColor = useMemo(() => {
@@ -35,6 +40,9 @@ export const ApplicationItem: React.FC<Props> = ({item, onPress}) => {
   }, []);
 
   const onPressHandler = useCallback(() => {
+    if (item.status === 'Выдан' && !!item.insurancePolicyUrl[0]) {
+      return onOpenPolicy(item.insurancePolicyUrl[0]);
+    }
     onPress(item.id);
   }, [item.id]);
 

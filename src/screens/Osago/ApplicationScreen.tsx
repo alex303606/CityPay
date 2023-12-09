@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {Block, InfoLIneRow, Row, ScreenContainer, Typography} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -6,7 +6,7 @@ import {EScreens, OsagoStackParamList} from '@navigators';
 import {useAppSelector, useTheme} from '@hooks';
 import {getApplicationById, IApplication} from '@store';
 import styled from 'styled-components';
-import {Alert, Image} from 'react-native';
+import {Image} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
 
 type Props = NativeStackScreenProps<
@@ -50,15 +50,11 @@ const getDrivers = (
   });
 };
 
-export const ApplicationScreen: React.FC<Props> = ({route, navigation}) => {
+export const ApplicationScreen: React.FC<Props> = ({route}) => {
   const {t} = useTranslation();
   const {id} = route.params;
   const application = useAppSelector(getApplicationById(id));
   const {theme} = useTheme();
-
-  const onPressAbout = useCallback(() => {
-    navigation.navigate(EScreens.POLICY_SCREEN);
-  }, [navigation]);
 
   const drivers = useMemo(() => {
     if (application && application?.anotherDriversCount >= 0) {
@@ -83,13 +79,13 @@ export const ApplicationScreen: React.FC<Props> = ({route, navigation}) => {
           <Typography.R24 marginBottom={4} color={'rgba(47, 128, 237, 1)'}>
             {application.paymentSum} сом
           </Typography.R24>
-          {application.status === 'Готов' ? (
-            <Typography.B16
-              onPress={onPressAbout}
-              color={'rgba(235, 87, 87, 1)'}>
-              {t('osago.infoPaymentScreen.more')}
-            </Typography.B16>
-          ) : null}
+          {/*{application.status === 'Выдан' ? (*/}
+          {/*  <Typography.B16*/}
+          {/*    onPress={onPressAbout}*/}
+          {/*    color={'rgba(235, 87, 87, 1)'}>*/}
+          {/*    {t('osago.infoPaymentScreen.more')}*/}
+          {/*  </Typography.B16>*/}
+          {/*) : null}*/}
         </Block>
       </Row>
       <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>

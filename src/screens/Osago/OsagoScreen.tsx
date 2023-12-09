@@ -36,8 +36,21 @@ export const OsagoScreen: React.FC<Props> = ({navigation}) => {
     [navigation],
   );
 
+  const onOpenPolicy = useCallback(
+    (url: string) => {
+      navigation.navigate(EScreens.POLICY_SCREEN, {url});
+    },
+    [navigation],
+  );
+
   const renderItem: ListRenderItem<IApplication> = useCallback(({item}) => {
-    return <ApplicationItem onPress={onPressApplicationItem} item={item} />;
+    return (
+      <ApplicationItem
+        onOpenPolicy={onOpenPolicy}
+        onPress={onPressApplicationItem}
+        item={item}
+      />
+    );
   }, []);
 
   return (

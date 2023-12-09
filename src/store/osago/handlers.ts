@@ -35,7 +35,7 @@ export type IApplication = {
   endDate: null;
   id: string;
   insurancePolicyNumber: null;
-  insurancePolicyUrl: [];
+  insurancePolicyUrl: string[];
   isHasTOCard: true;
   isKGRegistrations: true;
   isNeedDelivery: false;
