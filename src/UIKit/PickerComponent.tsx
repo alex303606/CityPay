@@ -16,6 +16,7 @@ type Props = {
   onValueChange: (itemValue: any) => void;
   title: string;
   marginBottom?: number;
+  numberOfLines?: number;
 };
 
 export const PickerComponent: React.FC<Props> = ({
@@ -24,6 +25,7 @@ export const PickerComponent: React.FC<Props> = ({
   onValueChange,
   title,
   marginBottom,
+  numberOfLines,
 }) => {
   const {theme} = useTheme();
 
@@ -43,6 +45,7 @@ export const PickerComponent: React.FC<Props> = ({
           color={theme.textColor}
           dropdownIconColor={theme.textColor}
           selectedValue={selectedValue}
+          numberOfLines={numberOfLines}
           onValueChange={onValueChange}>
           {items.map(renderItem)}
         </StyledPicker>

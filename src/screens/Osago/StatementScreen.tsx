@@ -68,6 +68,11 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     value: product.id,
   }));
 
+  const officesListSelector = officesList.map(office => ({
+    label: `${office.title}\n${office.address}\n${office.phone}`,
+    value: office.id,
+  }));
+
   useEffect(() => {
     getDataFromPartnerForNewApplicationHandler();
   }, [getDataFromPartnerForNewApplicationHandler]);
@@ -472,9 +477,10 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       />
       <PickerComponent
         marginBottom={16}
-        items={NUMBER_OF_DRIVERS}
+        items={officesListSelector}
         onValueChange={onWhereToPickChangeHandler}
         selectedValue={state.whereToPick}
+        numberOfLines={3}
         title={t('osago.statementScreen.whereToPick')}
       />
       <Row alignItems={'center'} marginBottom={16}>
