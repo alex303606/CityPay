@@ -490,19 +490,23 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       <CheckBoxField
         marginBottom={16}
         onChangeValue={onChangeNeedDelivery}
-        value={Boolean(state?.needDelivery)}
+        value={state.needDelivery}
         title={t('osago.statementScreen.doYouNeedDelivery')}
         subTitle={t('osago.statementScreen.doYouNeedDeliverySubtitle')}
       />
-      <Typography.B16 color={theme.textColor}>
-        {t('osago.statementScreen.deliveryPaid')}
-      </Typography.B16>
-      <InputComponent
-        value={state.whereToDeliver}
-        onChangeValue={onWhereToDeliverHandler}
-        title={t('osago.statementScreen.whereToDeliver')}
-        marginBottom={16}
-      />
+      {state.needDelivery ? (
+        <>
+          <Typography.B16 color={theme.textColor}>
+            {t('osago.statementScreen.deliveryPaid')}
+          </Typography.B16>
+          <InputComponent
+            value={state.whereToDeliver}
+            onChangeValue={onWhereToDeliverHandler}
+            title={t('osago.statementScreen.whereToDeliver')}
+            marginBottom={16}
+          />
+        </>
+      ) : null}
       <PickerComponent
         marginBottom={16}
         items={officesListSelector}
