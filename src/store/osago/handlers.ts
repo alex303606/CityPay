@@ -191,3 +191,42 @@ export const getDataFromPartnerForNewApplication = (partnerId: string) => {
     )
     .catch(error => console.warn(error));
 };
+
+export const getTotalSum = ({
+  partnerId,
+  isHasToCard,
+  isKgRegistrations,
+  productId,
+  selectedPeriodId,
+}: {
+  partnerId: string;
+  isHasToCard: boolean;
+  isKgRegistrations: boolean;
+  productId: string;
+  selectedPeriodId: string;
+}) => {
+  return axios
+    .post('https://crm.citypay.kg/api/', {
+      TYPE: 'get_total_sum',
+      API_KEY: '28HimH4QhcEd4muqSktp',
+      PARTNER_ID: partnerId,
+      IS_HAS_TO_CARD: isHasToCard,
+      IS_KG_REGISTRATION: isKgRegistrations,
+      PRODUCT_ID: productId,
+      SELECTED_PERIOD_ID: selectedPeriodId,
+    })
+    .then(
+      (response: {
+        data: {
+          data: any;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
