@@ -24,7 +24,7 @@ type Props = NativeStackScreenProps<
 export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
-  const {numberOfDrivers} = route.params;
+  const {numberOfDrivers, driversState, state} = route.params;
 
   const [driversPhotos, setDriversPhoto] = useState<DriverPhotos[]>(
     [...Array(numberOfDrivers)].map(() => ({

@@ -148,7 +148,6 @@ export const Driver: React.FC<Props> = ({
         value={pin}
         onChangeValue={onPinChange}
         title={t('osago.statementScreen.pin')}
-        placeholder={'12345678901234'}
         marginBottom={16}
         keyboardType={'numeric'}
         maxLength={14}

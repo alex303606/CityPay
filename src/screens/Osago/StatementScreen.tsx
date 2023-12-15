@@ -31,11 +31,12 @@ import {
 } from '@store';
 import styled from 'styled-components';
 import {Alert, Image, Pressable} from 'react-native';
-import {MASK, NUMBER_OF_DRIVERS} from './constans';
 import {IDriver, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
+
+const MASK = '+996 999 99-99-99';
 
 type Props = NativeStackScreenProps<
   OsagoStackParamList,
@@ -61,6 +62,11 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const periodListSelector = periodList.map(period => ({
     label: period.title,
     value: period.id,
+  }));
+
+  const carTypesListSelector = carTypesList.map(type => ({
+    label: type.title,
+    value: type.id,
   }));
 
   const productsListSelector = productsList.map(product => ({
@@ -327,6 +333,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const onPressLoadDoc = useCallback(() => {
     navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
       numberOfDrivers: driversState.length,
+      state,
+      driversState,
     });
   }, [driversState]);
 
@@ -444,7 +452,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       />
       <PickerComponent
         marginBottom={16}
-        items={NUMBER_OF_DRIVERS}
+        items={carTypesListSelector}
         onValueChange={onCarTypeChangeHandler}
         selectedValue={state.carType}
         title={t('osago.statementScreen.carType')}
