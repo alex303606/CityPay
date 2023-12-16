@@ -10,7 +10,12 @@ import {
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
-import {useAppSelector, useGetTotalSum, useTheme} from '@hooks';
+import {
+  useAppSelector,
+  useGetSupportUrls,
+  useGetTotalSum,
+  useTheme,
+} from '@hooks';
 import {getCarTypesList, getOfficesList, getPeriodList, ITotal} from '@store';
 import styled from 'styled-components';
 import {Alert, Image} from 'react-native';
@@ -81,19 +86,21 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
 
   const [iAmAgree, setIAmAgree] = useState<boolean>(false);
 
+  const {insuranceTerms, insuranceConditions} = useGetSupportUrls();
+
   const onPressRules = useCallback(() => {
     navigation.navigate(EScreens.WEBVIEW_SCREEN, {
-      uri: `https://citysoft.kido.kg/docs/license.php`,
+      uri: insuranceTerms,
       title: t('osago.statementScreen.rulesTitle'),
     });
-  }, []);
+  }, [insuranceTerms]);
 
   const onPressConditions = useCallback(() => {
     navigation.navigate(EScreens.WEBVIEW_SCREEN, {
-      uri: `https://crm.citypay.kg/docs/terms_ru.php`,
+      uri: insuranceConditions,
       title: t('osago.statementScreen.conditionsTitle'),
     });
-  }, []);
+  }, [insuranceConditions]);
 
   const onPressPay = useCallback(() => Alert.alert('PAY'), []);
 

@@ -17,6 +17,7 @@ import {
 import {
   useAppSelector,
   useGetDataFromPartnerForNewApplication,
+  useGetSupportUrls,
   useTheme,
 } from '@hooks';
 import {
@@ -27,7 +28,7 @@ import {
   getUserState,
 } from '@store';
 import styled from 'styled-components';
-import {Alert, Image, Pressable} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import {IDriver, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -322,8 +323,22 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     setDrivers(newDriversState);
   }, [driversState]);
 
-  const onPressRules = useCallback(() => Alert.alert('Rules'), []);
-  const onPressConditions = useCallback(() => Alert.alert('Conditions'), []);
+  const {insuranceTerms, insuranceConditions} = useGetSupportUrls();
+
+  const onPressRules = useCallback(() => {
+    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
+      uri: insuranceTerms,
+      title: t('osago.statementScreen.rulesTitle'),
+    });
+  }, [insuranceTerms]);
+
+  const onPressConditions = useCallback(() => {
+    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
+      uri: insuranceConditions,
+      title: t('osago.statementScreen.conditionsTitle'),
+    });
+  }, [insuranceConditions]);
+
   const onPressLoadDoc = useCallback(() => {
     navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
       numberOfDrivers: driversState.length,

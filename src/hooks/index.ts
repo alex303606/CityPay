@@ -12,3 +12,4 @@ export {useGetLocationsList} from './useGetLocationsList';
 export {useGetApplicationsList} from './useGetApplicationsList';
 export {useGetDataFromPartnerForNewApplication} from './useGetDataFromPartnerForNewApplication';
 export {useGetTotalSum} from './useGetTotalSum';
+export {useGetSupportUrls} from './useGetSupportUrls';
