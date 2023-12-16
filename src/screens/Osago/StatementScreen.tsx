@@ -84,13 +84,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     )
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
 
-  const motoEngineCapacity = carTypesList
-    .find(
-      type =>
-        type.paramTitle === 'Объем двигателя' && type.title === 'Мототехника',
-    )
-    ?.selectParams?.map(s => ({label: s.title, value: s.id}));
-
   const motorPower = carTypesList
     .find(type => type.paramTitle === 'Мощность двигателя')
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
