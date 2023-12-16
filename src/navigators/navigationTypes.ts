@@ -1,7 +1,7 @@
 import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ICar, IFine, IFinesType, IPartner} from '@store';
+import {ICar, IFine, IFinesType, IPartner, ITotal} from '@store';
 import {ICard} from 'src/screens/MyCardsScreen/MyCardsScreen';
 import {IDriver, MyDataState} from 'src/screens/Osago/types';
 
@@ -74,6 +74,7 @@ export type PaymentsStackParamList = {
 export type OsagoStackParamList = {
   [EScreens.OSAGO_SCREEN]: undefined;
   [EScreens.SELECT_CITY_SCREEN]: undefined;
+  [EScreens.CALCULATION_COST_SCREEN]: {total: ITotal};
   [EScreens.NEW_STATEMENT_SCREEN]: {partner: IPartner};
   [EScreens.INFO_PAYMENTS_SCREEN]: {
     state: MyDataState;
@@ -88,6 +89,7 @@ export type OsagoStackParamList = {
     partner: IPartner;
   };
   [EScreens.APPLICATION_SCREEN]: {id: string};
+  [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
 };
 
 export type SettingsStackProps = StackScreenProps<

@@ -23,7 +23,7 @@ type Props = NativeStackScreenProps<
   EScreens.INFO_PAYMENTS_SCREEN
 >;
 
-export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
+export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {driversState, state, partner} = route.params;
   const {theme} = useTheme();
@@ -43,7 +43,6 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
     return officesList.find(office => office.id === state.whereToPick);
   }, []);
 
-  console.log('STATE', state);
   const {getTotalSumHandler} = useGetTotalSum({
     isHasToCard: state.iHaveCard,
     isKgRegistrations: state.carRegisteredInKr,
@@ -82,14 +81,32 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
 
   const [iAmAgree, setIAmAgree] = useState<boolean>(false);
 
-  const onPressRules = useCallback(() => Alert.alert('Rules'), []);
-  const onPressConditions = useCallback(() => Alert.alert('Conditions'), []);
+  const onPressRules = useCallback(() => {
+    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
+      uri: `https://citysoft.kido.kg/docs/license.php`,
+      title: t('osago.statementScreen.rulesTitle'),
+    });
+  }, []);
+
+  const onPressConditions = useCallback(() => {
+    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
+      uri: `https://crm.citypay.kg/docs/terms_ru.php`,
+      title: t('osago.statementScreen.conditionsTitle'),
+    });
+  }, []);
+
   const onPressPay = useCallback(() => Alert.alert('PAY'), []);
 
   const onChangeIAmAgree = useCallback(
     (value: boolean) => setIAmAgree(value),
     [iAmAgree],
   );
+
+  const onPressMore = useCallback(() => {
+    if (total) {
+      navigation.navigate(EScreens.CALCULATION_COST_SCREEN, {total});
+    }
+  }, [total]);
 
   if (!total) {
     return null;
@@ -100,15 +117,18 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
       <Row marginBottom={16} justifyContent={'space-between'}>
         <StyledImage source={{uri: partner.logoUrl}} />
         <Block alignItems={'flex-end'}>
-          <Typography.B16 color={theme.textColor}>
-            {t('osago.infoPaymentScreen.status')}
-          </Typography.B16>
           <Typography.R18 color={theme.textColor}>
             {t('osago.infoPaymentScreen.amountInsurance')}
           </Typography.R18>
           <Typography.R24 marginBottom={4} color={'#2F80ED'}>
-            {total.totalSum} сом
+            {total.totalSum}
           </Typography.R24>
+          <Typography.B16
+            marginBottom={4}
+            onPress={onPressMore}
+            color={'s#EB5757'}>
+            {t('osago.infoPaymentScreen.more')}
+          </Typography.B16>
         </Block>
       </Row>
       <Typography.B18 marginBottom={8} color={'#2F80ED'}>

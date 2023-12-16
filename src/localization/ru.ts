@@ -208,6 +208,8 @@ export const ruTranslation = {
         whereToPick: 'Где вам удобно будет забрать полис?',
         IRead: 'Я прочитал(а) и соглашаюсь со всеми ',
         rules: 'правилами',
+        rulesTitle: 'Правила',
+        conditionsTitle: 'Условия страхования',
         and: ' и ',
         conditions: 'условиями',
         registration: 'оформления полиса',
@@ -280,6 +282,9 @@ export const ruTranslation = {
       },
       policyScreen: {
         title: 'Полис',
+      },
+      calculationCostScreen: {
+        title: 'Расчет стоимости полиса',
       },
     },
   },

@@ -8,8 +8,13 @@ import {
   SelectCityScreen,
   StatementScreen,
   InfoPaymentScreen,
+  WebViewScreen,
 } from '@screens';
-import {ApplicationScreen, PolicyScreen} from '../screens/Osago';
+import {
+  ApplicationScreen,
+  CalculationCostScreen,
+  PolicyScreen,
+} from '../screens/Osago';
 
 const Stack = createNativeStackNavigator<OsagoStackParamList>();
 
@@ -64,6 +69,20 @@ export const OsagoStack: React.FC<OsagoStackProps> = () => {
         options={{
           headerShown: false,
         }}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name={EScreens.WEBVIEW_SCREEN}
+        component={WebViewScreen}
+      />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name={EScreens.CALCULATION_COST_SCREEN}
+        component={CalculationCostScreen}
       />
     </Stack.Navigator>
   );

@@ -11,7 +11,6 @@ import {
   PremiumScreen,
   ProfileScreen,
   ProfileSettingsScreen,
-  SettingsScreen,
   WebViewScreen,
 } from '@screens';
 import {createStackNavigator} from '@react-navigation/stack';
