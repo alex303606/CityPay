@@ -24,7 +24,7 @@ type Props = NativeStackScreenProps<
 export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
-  const {numberOfDrivers, driversState, state} = route.params;
+  const {numberOfDrivers, driversState, state, partner} = route.params;
 
   const [driversPhotos, setDriversPhoto] = useState<DriverPhotos[]>(
     [...Array(numberOfDrivers)].map(() => ({
@@ -142,8 +142,12 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const onPressDrawUp = useCallback(() => {
-    navigation.navigate(EScreens.INFO_PAYMENTS_SCREEN);
-  }, []);
+    navigation.navigate(EScreens.INFO_PAYMENTS_SCREEN, {
+      state,
+      driversState,
+      partner,
+    });
+  }, [state, driversState, partner]);
 
   return (
     <ScreenContainer title={t('osago.documentsScreen.title')}>

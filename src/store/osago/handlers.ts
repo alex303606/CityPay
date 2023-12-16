@@ -124,6 +124,19 @@ export type INewApplication = {
   urls: string[];
 };
 
+export type ITotal = {
+  bankPercent: string;
+  baseSum: string;
+  calcList: {
+    description: string;
+    param: number;
+    title: string;
+  }[];
+  deliveryPrice: string;
+  nsp: string;
+  totalSum: string;
+};
+
 export const getLocationsList = () => {
   return axios
     .post('https://crm.citypay.kg/api/', {
@@ -218,7 +231,7 @@ export const getTotalSum = ({
     .then(
       (response: {
         data: {
-          data: any;
+          data: ITotal;
           result: boolean;
           message: string;
         };

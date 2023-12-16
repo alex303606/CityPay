@@ -335,8 +335,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       numberOfDrivers: driversState.length,
       state,
       driversState,
+      partner,
     });
-  }, [driversState]);
+  }, [driversState, state, partner]);
 
   const showAddDriverButton = useMemo(() => {
     return (

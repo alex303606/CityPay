@@ -48,12 +48,10 @@ export const useGetTotalSum = ({
     }
 
     if (response.data) {
-      // dispatch(
-      //   getPaymentsSuccess({
-      //     payments: response.data,
-      //   }),
-      // );
+      return response.data;
     }
+
+    return null;
   }, [dispatch, hideLoader, showLoader, showNotification, t]);
   return {
     getTotalSumHandler,
