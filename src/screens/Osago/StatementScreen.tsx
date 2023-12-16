@@ -90,6 +90,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     )
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
 
+  const motoEngineCapacity = carTypesList
+    .find(
+      type =>
+        type.paramTitle === 'Объем двигателя' && type.title === 'Мототехника',
+    )
+    ?.selectParams?.map(s => ({label: s.title, value: s.id}));
+
   const motorPower = carTypesList
     .find(type => type.paramTitle === 'Мощность двигателя')
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
@@ -115,14 +122,14 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carModel: '',
     model: '',
     yearOfIssue: '',
-    carType: '',
+    carType: carTypesListSelector[0].value,
     numberOfSeats: numberOfSeats ? numberOfSeats[0].value : '',
     engineCapacity: carEngineCapacity ? carEngineCapacity[0].value : '',
     motorPower: motorPower ? motorPower[0].value : '',
     loadCapacity: loadCapacity ? loadCapacity[0].value : '',
     engineNumber: '',
     whereToDeliver: '',
-    whereToPick: '',
+    whereToPick: officesListSelector[0].value,
   });
 
   const [driversState, setDrivers] = useState<IDriver[]>([
@@ -346,6 +353,11 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     );
   }, [state.numberOfDrivers]);
 
+  const showMotorPower = useMemo(() => {
+    const type = carTypesListSelector.find(t => t.value === state.carType);
+    return !!(type && type.label === 'Электромобиль');
+  }, [carTypesListSelector, state.carType]);
+
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
       <Row
@@ -472,13 +484,15 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         selectedValue={state.engineCapacity}
         title={t('osago.statementScreen.engineCapacity')}
       />
-      <PickerComponent
-        marginBottom={16}
-        items={motorPower || []}
-        onValueChange={onMotorPowerChangeHandler}
-        selectedValue={state.motorPower}
-        title={t('osago.statementScreen.motorPower')}
-      />
+      {showMotorPower ? (
+        <PickerComponent
+          marginBottom={16}
+          items={motorPower || []}
+          onValueChange={onMotorPowerChangeHandler}
+          selectedValue={state.motorPower}
+          title={t('osago.statementScreen.motorPower')}
+        />
+      ) : null}
       <PickerComponent
         marginBottom={16}
         items={loadCapacity || []}
@@ -529,7 +543,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           <Typography.R16 color={theme.textColor}>
             {t('osago.statementScreen.IRead')}
           </Typography.R16>
-
           <Typography.R16 color={theme.textColor}>
             <Typography.B16
               color={theme.textColor}

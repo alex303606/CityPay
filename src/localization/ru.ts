@@ -1,5 +1,3 @@
-import {PolicyScreen} from '../screens/Osago';
-
 export const ruTranslation = {
   translation: {
     version: 'Версия программы',
@@ -265,10 +263,12 @@ export const ruTranslation = {
         countryRegistration: 'Авто зарегестрировано в КР:',
         technicalInspection: 'Техосмотр:',
         policyInfo: 'Информация о полисе:',
+        receiptinfo: 'Информация о получении:',
         delivery: 'Доставка:',
         deliveryAddress: 'Адрес доставки:',
         placeReceipt: 'Место получения полиса:',
         engineCapacity: 'Объем двигателя',
+        pay: 'Оплатить',
         cancelInformationDescription:
           'Средства будут возвращены в течении 5-7 дней',
       },

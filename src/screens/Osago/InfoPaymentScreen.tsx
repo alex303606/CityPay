@@ -1,14 +1,22 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Block, InfoLIneRow, Row, ScreenContainer, Typography} from '@UIKit';
+import {
+  Block,
+  Button,
+  InfoLIneRow,
+  Row,
+  ScreenContainer,
+  Typography,
+} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
 import {useAppSelector, useGetTotalSum, useTheme} from '@hooks';
-import {getPeriodList, ITotal} from '@store';
+import {getCarTypesList, getOfficesList, getPeriodList, ITotal} from '@store';
 import styled from 'styled-components';
-import {Image} from 'react-native';
+import {Alert, Image} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
 import {IDriverApplicationItem} from './ApplicationScreen';
+import CheckBox from '@react-native-community/checkbox';
 
 type Props = NativeStackScreenProps<
   OsagoStackParamList,
@@ -20,9 +28,20 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
   const {driversState, state, partner} = route.params;
   const {theme} = useTheme();
   const periodList = useAppSelector(getPeriodList);
+  const carTypesList = useAppSelector(getCarTypesList);
+  const officesList = useAppSelector(getOfficesList);
+
   const period = useMemo(() => {
     return periodList.find(p => p.id === state.validity);
   }, [periodList, state.validity]);
+
+  const carTypeTitle = useMemo(() => {
+    return carTypesList.find(type => type.id === state.carType);
+  }, [carTypesList, state.carType]);
+
+  const office = useMemo(() => {
+    return officesList.find(office => office.id === state.whereToPick);
+  }, []);
 
   console.log('STATE', state);
   const {getTotalSumHandler} = useGetTotalSum({
@@ -60,6 +79,17 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
       };
     });
   }, [driversState]);
+
+  const [iAmAgree, setIAmAgree] = useState<boolean>(false);
+
+  const onPressRules = useCallback(() => Alert.alert('Rules'), []);
+  const onPressConditions = useCallback(() => Alert.alert('Conditions'), []);
+  const onPressPay = useCallback(() => Alert.alert('PAY'), []);
+
+  const onChangeIAmAgree = useCallback(
+    (value: boolean) => setIAmAgree(value),
+    [iAmAgree],
+  );
 
   if (!total) {
     return null;
@@ -104,72 +134,119 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
       {drivers.map((driver, index) => (
         <DriverApplicationItem driver={driver} key={index} index={index} />
       ))}
-      {/*<Typography.B18 marginBottom={8} color={'#2F80ED'}>*/}
-      {/*  {t('osago.infoPaymentScreen.carData')}*/}
-      {/*</Typography.B18>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.carModel')}*/}
-      {/*  value={application.carVendor}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.model')}*/}
-      {/*  value={application.carModel}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.yearOfIssue')}*/}
-      {/*  value={application.carYear}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.carType')}*/}
-      {/*  value={application.carTypeTitle}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.engineCapacity')}*/}
-      {/*  value={application.carTypeSelectedParameterTitle}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.engineNumber')}*/}
-      {/*  value={application.carVIN}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.countryRegistration')}*/}
-      {/*  value={*/}
-      {/*    application.isKGRegistrations*/}
-      {/*      ? t('osago.infoPaymentScreen.yes')*/}
-      {/*      : t('osago.infoPaymentScreen.no')*/}
-      {/*  }*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.technicalInspection')}*/}
-      {/*  value={*/}
-      {/*    application.isHasTOCard*/}
-      {/*      ? t('osago.infoPaymentScreen.yes')*/}
-      {/*      : t('osago.infoPaymentScreen.no')*/}
-      {/*  }*/}
-      {/*/>*/}
-      {/*<Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>*/}
-      {/*  {t('osago.infoPaymentScreen.policyInfo')}*/}
-      {/*</Typography.B18>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.delivery')}*/}
-      {/*  value={*/}
-      {/*    application.isNeedDelivery*/}
-      {/*      ? t('osago.infoPaymentScreen.yes')*/}
-      {/*      : t('osago.infoPaymentScreen.no')*/}
-      {/*  }*/}
-      {/*/>*/}
-      {/*{!!application.deliveryAddress ? (*/}
-      {/*  <InfoLIneRow*/}
-      {/*    title={t('osago.infoPaymentScreen.deliveryAddress')}*/}
-      {/*    value={application.deliveryAddress}*/}
-      {/*  />*/}
-      {/*) : null}*/}
-      {/*{application.pickupBranch ? (*/}
-      {/*  <InfoLIneRow*/}
-      {/*    title={t('osago.infoPaymentScreen.placeReceipt')}*/}
-      {/*    value={`${application.pickupBranch.title}\n${application.pickupBranch.address}\n${application.pickupBranch.phone}`}*/}
-      {/*  />*/}
-      {/*) : null}*/}
+      <Typography.B18 marginBottom={8} color={'#2F80ED'}>
+        {t('osago.infoPaymentScreen.carData')}
+      </Typography.B18>
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.carModel')}
+        value={state.carModel}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.model')}
+        value={state.model}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.yearOfIssue')}
+        value={state.yearOfIssue}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.carType')}
+        value={carTypeTitle?.title || ''}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.engineCapacity')}
+        value={state.engineCapacity}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.engineNumber')}
+        value={state.engineNumber}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.countryRegistration')}
+        value={
+          state.carRegisteredInKr
+            ? t('osago.infoPaymentScreen.yes')
+            : t('osago.infoPaymentScreen.no')
+        }
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.technicalInspection')}
+        value={
+          state.iHaveCard
+            ? t('osago.infoPaymentScreen.yes')
+            : t('osago.infoPaymentScreen.no')
+        }
+      />
+      <Typography.B18 marginBottom={8} color={'rgba(47, 128, 237, 1)'}>
+        {t('osago.infoPaymentScreen.receiptinfo')}
+      </Typography.B18>
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.delivery')}
+        value={
+          state.needDelivery
+            ? t('osago.infoPaymentScreen.yes')
+            : t('osago.infoPaymentScreen.no')
+        }
+      />
+      {!!state.whereToDeliver && state.needDelivery ? (
+        <InfoLIneRow
+          title={t('osago.infoPaymentScreen.deliveryAddress')}
+          value={state.whereToDeliver}
+        />
+      ) : null}
+      {office && !state.needDelivery ? (
+        <InfoLIneRow
+          title={t('osago.infoPaymentScreen.placeReceipt')}
+          value={`${office.title}\n${office.address}\n${office.phone}`}
+        />
+      ) : null}
+      <Row alignItems={'center'} marginBottom={16}>
+        <Block flex={1} marginRight={24}>
+          <Typography.R16 color={theme.textColor}>
+            {t('osago.statementScreen.IRead')}
+          </Typography.R16>
+          <Typography.R16 color={theme.textColor}>
+            <Typography.B16
+              color={theme.textColor}
+              style={{
+                textDecorationLine: 'underline',
+              }}
+              onPress={onPressRules}>
+              {t('osago.statementScreen.rules')}
+            </Typography.B16>
+
+            <Typography.R16 color={theme.textColor}>
+              {t('osago.statementScreen.and')}
+            </Typography.R16>
+
+            <Typography.B16
+              color={theme.textColor}
+              style={{
+                textDecorationLine: 'underline',
+              }}
+              onPress={onPressConditions}>
+              {t('osago.statementScreen.conditions')}
+            </Typography.B16>
+          </Typography.R16>
+
+          <Typography.R16 color={theme.textColor}>
+            {t('osago.statementScreen.registration')}
+          </Typography.R16>
+        </Block>
+        <CheckBox
+          value={iAmAgree}
+          onValueChange={onChangeIAmAgree}
+          tintColors={{
+            true: 'rgba(25, 135, 84, 1)',
+            false: 'rgba(25, 135, 84, 1)',
+          }}
+        />
+      </Row>
+      <Button
+        marginVertical={8}
+        title={t('osago.infoPaymentScreen.pay')}
+        onPress={onPressPay}
+      />
     </ScreenContainer>
   );
 };
