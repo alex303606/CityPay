@@ -14,7 +14,7 @@ type Props = NativeStackScreenProps<
   EScreens.APPLICATION_SCREEN
 >;
 
-export type IDriver = {
+export type IDriverApplicationItem = {
   firstName: string;
   surname: string;
   lastName: string;
@@ -28,26 +28,28 @@ export type IDriver = {
 const getDrivers = (
   item: IApplication,
   anotherDriversCount: number,
-): IDriver[] => {
-  return [...Array(anotherDriversCount + 1)].map((_, index): IDriver => {
-    return {
-      // @ts-ignore
-      firstName: item[`driver${index + 1}Firstname`],
-      // @ts-ignore
-      surname: item[`driver${index + 1}Surname`],
-      // @ts-ignore
-      lastName: item[`driver${index + 1}Lastname`],
-      // @ts-ignore
-      pin: item[`driver${index + 1}Pin`],
-      // @ts-ignore
-      driveLicenseDate: item[`driver${index + 1}DriveLicenseDate`],
-      // @ts-ignore
-      class: item[`driver${index + 1}Class`],
-      // @ts-ignore
-      bithday: item[`driver${index + 1}Bithday`],
-      isOwner: item.isOwner,
-    } as IDriver;
-  });
+): IDriverApplicationItem[] => {
+  return [...Array(anotherDriversCount + 1)].map(
+    (_, index): IDriverApplicationItem => {
+      return {
+        // @ts-ignore
+        firstName: item[`driver${index + 1}Firstname`],
+        // @ts-ignore
+        surname: item[`driver${index + 1}Surname`],
+        // @ts-ignore
+        lastName: item[`driver${index + 1}Lastname`],
+        // @ts-ignore
+        pin: item[`driver${index + 1}Pin`],
+        // @ts-ignore
+        driveLicenseDate: item[`driver${index + 1}DriveLicenseDate`],
+        // @ts-ignore
+        class: item[`driver${index + 1}Class`],
+        // @ts-ignore
+        bithday: item[`driver${index + 1}Bithday`],
+        isOwner: item.isOwner,
+      } as IDriverApplicationItem;
+    },
+  );
 };
 
 export const ApplicationScreen: React.FC<Props> = ({route}) => {

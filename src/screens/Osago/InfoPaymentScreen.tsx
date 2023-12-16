@@ -8,7 +8,7 @@ import {getPeriodList, ITotal} from '@store';
 import styled from 'styled-components';
 import {Image} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
-import {IDriver} from './ApplicationScreen';
+import {IDriverApplicationItem} from './ApplicationScreen';
 
 type Props = NativeStackScreenProps<
   OsagoStackParamList,
@@ -46,7 +46,20 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
     getTotal();
   }, [getTotal]);
 
-  console.log('total:', total);
+  const drivers: IDriverApplicationItem[] = useMemo(() => {
+    return driversState.map(driver => {
+      return {
+        firstName: driver.name,
+        surname: driver.secondName,
+        lastName: driver.surname,
+        pin: driver.pin,
+        driveLicenseDate: driver.driverLicenseDate.toLocaleDateString(),
+        class: driver.class,
+        bithday: driver.date.toLocaleDateString(),
+        isOwner: state.iAmTheOwner,
+      };
+    });
+  }, [driversState]);
 
   if (!total) {
     return null;
@@ -88,7 +101,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route}) => {
         title={t('osago.infoPaymentScreen.phoneNumber')}
         value={state.phone}
       />
-      {driversState.map((driver, index) => (
+      {drivers.map((driver, index) => (
         <DriverApplicationItem driver={driver} key={index} index={index} />
       ))}
       {/*<Typography.B18 marginBottom={8} color={'#2F80ED'}>*/}

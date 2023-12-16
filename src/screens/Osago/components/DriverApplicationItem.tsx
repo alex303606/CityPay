@@ -1,11 +1,11 @@
 import {Block, InfoLIneRow, Typography} from '@UIKit';
 import React from 'react';
-import {IDriver} from '../ApplicationScreen';
 import {useTranslation} from 'react-i18next';
+import {IDriverApplicationItem} from '../ApplicationScreen';
 
 type Props = {
   index: number;
-  driver: IDriver;
+  driver: IDriverApplicationItem;
 };
 
 export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
