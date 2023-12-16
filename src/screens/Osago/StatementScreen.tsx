@@ -21,12 +21,9 @@ import {
 } from '@hooks';
 import {
   getCarTypesList,
-  getDeliveryList,
-  getInsuranceTypeList,
   getOfficesList,
   getPeriodList,
   getProductsList,
-  getUrlsList,
   getUserState,
 } from '@store';
 import styled from 'styled-components';
@@ -52,12 +49,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     useGetDataFromPartnerForNewApplication(partner.id);
 
   const carTypesList = useAppSelector(getCarTypesList);
-  const deliveryList = useAppSelector(getDeliveryList);
-  const insuranceTypeList = useAppSelector(getInsuranceTypeList);
   const officesList = useAppSelector(getOfficesList);
   const periodList = useAppSelector(getPeriodList);
   const productsList = useAppSelector(getProductsList);
-  const urlsList = useAppSelector(getUrlsList);
 
   const periodListSelector = periodList.map(period => ({
     label: period.title,
