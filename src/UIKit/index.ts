@@ -28,3 +28,4 @@ export {CarDocuments} from './CarDocuments';
 export {CarDocumentPhoto} from './CarDocumentPhoto';
 export {ApplicationItem} from './ApplicationItem';
 export {InfoLIneRow} from './InfoLIneRow';
+export {CalculationCostItem} from './CalculationCostItem';

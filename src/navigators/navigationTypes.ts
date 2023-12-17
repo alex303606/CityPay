@@ -74,7 +74,7 @@ export type PaymentsStackParamList = {
 export type OsagoStackParamList = {
   [EScreens.OSAGO_SCREEN]: undefined;
   [EScreens.SELECT_CITY_SCREEN]: undefined;
-  [EScreens.CALCULATION_COST_SCREEN]: {total: ITotal};
+  [EScreens.CALCULATION_COST_SCREEN]: {total: ITotal; partner: IPartner};
   [EScreens.NEW_STATEMENT_SCREEN]: {partner: IPartner};
   [EScreens.INFO_PAYMENTS_SCREEN]: {
     state: MyDataState;

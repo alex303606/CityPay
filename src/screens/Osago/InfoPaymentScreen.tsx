@@ -111,7 +111,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
 
   const onPressMore = useCallback(() => {
     if (total) {
-      navigation.navigate(EScreens.CALCULATION_COST_SCREEN, {total});
+      navigation.navigate(EScreens.CALCULATION_COST_SCREEN, {total, partner});
     }
   }, [total]);
 
