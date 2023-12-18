@@ -61,10 +61,10 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     //Необходимо заменить тестовый secretKey и merchantId на свой
     private final String secretKey = "6yzvHbcFliUlIdnu";
     private final String secretKeyMBank = "65JGemXjCb97xnGa";
-    private final String secretKeyMBankSecond = "65JGemXjCb97xnGa";
+    private final String secretKeyMBankSecond = "COX3q7a4btGZCNhO";
     private final int merchantId = 544793;
     private final int merchantIdMBank = 548528;
-    private final int merchantIdMBankSecond = 548528;
+    private final int merchantIdMBankSecond = 553177;
 
     @Override
     public void onCreate() {
