@@ -47,7 +47,7 @@ export const PickerComponent: React.FC<Props> = ({
           selectedValue={selectedValue}
           numberOfLines={numberOfLines}
           onValueChange={onValueChange}>
-          {items.map(renderItem)}
+          {items?.map(renderItem)}
         </StyledPicker>
       </StyledRow>
     </Block>

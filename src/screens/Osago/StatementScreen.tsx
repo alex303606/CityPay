@@ -54,43 +54,43 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const periodList = useAppSelector(getPeriodList);
   const productsList = useAppSelector(getProductsList);
 
-  const periodListSelector = periodList.map(period => ({
+  const periodListSelector = periodList?.map(period => ({
     label: period.title,
     value: period.id,
   }));
 
-  const carTypesListSelector = carTypesList.map(type => ({
+  const carTypesListSelector = carTypesList?.map(type => ({
     label: type.title,
     value: type.id,
   }));
 
-  const productsListSelector = productsList.map(product => ({
+  const productsListSelector = productsList?.map(product => ({
     label: product.title,
     value: product.id,
   }));
 
-  const officesListSelector = officesList.map(office => ({
+  const officesListSelector = officesList?.map(office => ({
     label: `${office.title}\n${office.address}\n${office.phone}`,
     value: office.id,
   }));
 
   const numberOfSeats = carTypesList
-    .find(type => type.paramTitle === 'Количество мест')
+    ?.find(type => type.paramTitle === 'Количество мест')
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
 
   const carEngineCapacity = carTypesList
-    .find(
+    ?.find(
       type =>
         type.paramTitle === 'Объем двигателя' && type.title === 'Легковое авто',
     )
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
 
   const motorPower = carTypesList
-    .find(type => type.paramTitle === 'Мощность двигателя')
+    ?.find(type => type.paramTitle === 'Мощность двигателя')
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
 
   const loadCapacity = carTypesList
-    .find(type => type.paramTitle === 'Грузоподъемность')
+    ?.find(type => type.paramTitle === 'Грузоподъемность')
     ?.selectParams?.map(s => ({label: s.title, value: s.id}));
 
   useEffect(() => {
@@ -103,21 +103,21 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carRegisteredInKr: false,
     IAmAgree: false,
     needDelivery: false,
-    numberOfDrivers: productsListSelector[0].value,
-    validity: periodListSelector[0].value,
+    numberOfDrivers: productsListSelector ? productsListSelector[0].value : '',
+    validity: periodListSelector ? periodListSelector[0].value : '',
     email: '',
     phone: phone,
     carModel: '',
     model: '',
     yearOfIssue: '',
-    carType: carTypesListSelector[0].value,
+    carType: carTypesListSelector ? carTypesListSelector[0].value : '',
     numberOfSeats: numberOfSeats ? numberOfSeats[0].value : '',
     engineCapacity: carEngineCapacity ? carEngineCapacity[0].value : '',
     motorPower: motorPower ? motorPower[0].value : '',
     loadCapacity: loadCapacity ? loadCapacity[0].value : '',
     engineNumber: '',
     whereToDeliver: '',
-    whereToPick: officesListSelector[0].value,
+    whereToPick: officesListSelector ? officesListSelector[0].value : '',
   });
 
   const [driversState, setDrivers] = useState<IDriver[]>([
@@ -350,13 +350,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const showAddDriverButton = useMemo(() => {
     return (
-      productsList.find(p => state.numberOfDrivers === p.id)
+      productsList?.find(p => state.numberOfDrivers === p.id)
         ?.maxDriversCount !== 1
     );
   }, [state.numberOfDrivers]);
 
   const showMotorPower = useMemo(() => {
-    const type = carTypesListSelector.find(t => t.value === state.carType);
+    const type = carTypesListSelector?.find(t => t.value === state.carType);
     return !!(type && type.label === 'Электромобиль');
   }, [carTypesListSelector, state.carType]);
 
