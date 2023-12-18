@@ -103,21 +103,29 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carRegisteredInKr: false,
     IAmAgree: false,
     needDelivery: false,
-    numberOfDrivers: productsListSelector ? productsListSelector[0].value : '',
-    validity: periodListSelector ? periodListSelector[0].value : '',
+    numberOfDrivers: !!productsListSelector?.length
+      ? productsListSelector[0].value
+      : '',
+    validity: !!periodListSelector?.length ? periodListSelector[0].value : '',
     email: '',
     phone: phone,
     carModel: '',
     model: '',
     yearOfIssue: '',
-    carType: carTypesListSelector ? carTypesListSelector[0].value : '',
-    numberOfSeats: numberOfSeats ? numberOfSeats[0].value : '',
-    engineCapacity: carEngineCapacity ? carEngineCapacity[0].value : '',
-    motorPower: motorPower ? motorPower[0].value : '',
-    loadCapacity: loadCapacity ? loadCapacity[0].value : '',
+    carType: !!carTypesListSelector?.length
+      ? carTypesListSelector[0].value
+      : '',
+    numberOfSeats: !!numberOfSeats?.length ? numberOfSeats[0].value : '',
+    engineCapacity: !!carEngineCapacity?.length
+      ? carEngineCapacity[0].value
+      : '',
+    motorPower: !!motorPower?.length ? motorPower[0].value : '',
+    loadCapacity: !!loadCapacity?.length ? loadCapacity[0].value : '',
     engineNumber: '',
     whereToDeliver: '',
-    whereToPick: officesListSelector ? officesListSelector[0].value : '',
+    whereToPick: !!officesListSelector?.length
+      ? officesListSelector[0].value
+      : '',
   });
 
   const [driversState, setDrivers] = useState<IDriver[]>([
