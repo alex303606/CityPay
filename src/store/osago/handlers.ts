@@ -243,3 +243,42 @@ export const getTotalSum = ({
     )
     .catch(error => console.warn(error));
 };
+
+export const createNewApplication = ({
+  phone,
+  insuranceTypeId,
+  selectedPartnerId,
+  isOwner,
+  isHasToCard,
+}: {
+  phone: string;
+  insuranceTypeId: string;
+  selectedPartnerId: string;
+  isOwner: boolean;
+  isHasToCard: boolean;
+}) => {
+  return axios
+    .post('https://crm.citypay.kg/api/', {
+      TYPE: 'create_new_application',
+      API_KEY: '28HimH4QhcEd4muqSktp',
+      CLIENT_PHONE: phone,
+      INSURANCE_TYPE_ID: insuranceTypeId,
+      SELECTED_PARTNER_ID: selectedPartnerId,
+      IS_OWNER: isOwner,
+      IS_HAS_TO_CARD: isHasToCard,
+    })
+    .then(
+      (response: {
+        data: {
+          data: any;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
