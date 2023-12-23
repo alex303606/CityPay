@@ -267,6 +267,34 @@ export const createNewApplication = ({
   isPickup,
   pickupOfficeId,
   images,
+  driver1firstname,
+  driver1Lastname,
+  driver1surname,
+  driver1birthday,
+  driver1pin,
+  driver1driverLicenseDate,
+  driver1class,
+  driver2firstname,
+  driver2Lastname,
+  driver2surname,
+  driver2birthday,
+  driver2pin,
+  driver2driverLicenseDate,
+  driver2class,
+  driver3firstname,
+  driver3Lastname,
+  driver3surname,
+  driver3birthday,
+  driver3pin,
+  driver3driverLicenseDate,
+  driver3class,
+  driver4firstname,
+  driver4Lastname,
+  driver4surname,
+  driver4birthday,
+  driver4pin,
+  driver4driverLicenseDate,
+  driver4class,
 }: {
   phone: string;
   contactPhone: string;
@@ -290,6 +318,34 @@ export const createNewApplication = ({
   deliveryAddress: string;
   pickupOfficeId: string;
   images: string[];
+  driver1firstname: string;
+  driver1Lastname: string;
+  driver1surname: string;
+  driver1birthday: string;
+  driver1pin: string;
+  driver1driverLicenseDate: string;
+  driver1class: string;
+  driver2firstname?: string;
+  driver2Lastname?: string;
+  driver2surname?: string;
+  driver2birthday?: string;
+  driver2pin?: string;
+  driver2driverLicenseDate?: string;
+  driver2class?: string;
+  driver3firstname?: string;
+  driver3Lastname?: string;
+  driver3surname?: string;
+  driver3birthday?: string;
+  driver3pin?: string;
+  driver3driverLicenseDate?: string;
+  driver3class?: string;
+  driver4firstname?: string;
+  driver4Lastname?: string;
+  driver4surname?: string;
+  driver4birthday?: string;
+  driver4pin?: string;
+  driver4driverLicenseDate?: string;
+  driver4class?: string;
 }) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
@@ -317,6 +373,34 @@ export const createNewApplication = ({
       IS_PICKUP: isPickup,
       PICKUP_OFFICE_ID: pickupOfficeId,
       IMAGES: images,
+      DRIVER_1_FIRSTNAME: driver1firstname,
+      DRIVER_1_LASTNAME: driver1Lastname,
+      DRIVER_1_SURNAME: driver1surname,
+      DRIVER_1_BIRTHDAY: driver1birthday,
+      DRIVER_1_PIN: driver1pin,
+      DRIVER_1_DRIVER_LICENSE_DATE: driver1driverLicenseDate,
+      DRIVER_1_CLASS: driver1class,
+      DRIVER_2_FIRSTNAME: driver2firstname,
+      DRIVER_2_LASTNAME: driver2Lastname,
+      DRIVER_2_SURNAME: driver2surname,
+      DRIVER_2_BIRTHDAY: driver2birthday,
+      DRIVER_2_PIN: driver2pin,
+      DRIVER_2_DRIVER_LICENSE_DATE: driver2driverLicenseDate,
+      DRIVER_2_CLASS: driver2class,
+      DRIVER_3_FIRSTNAME: driver3firstname,
+      DRIVER_3_LASTNAME: driver3Lastname,
+      DRIVER_3_SURNAME: driver3surname,
+      DRIVER_3_BIRTHDAY: driver3birthday,
+      DRIVER_3_PIN: driver3pin,
+      DRIVER_3_DRIVER_LICENSE_DATE: driver3driverLicenseDate,
+      DRIVER_3_CLASS: driver3class,
+      DRIVER_4_FIRSTNAME: driver4firstname,
+      DRIVER_4_LASTNAME: driver4Lastname,
+      DRIVER_4_SURNAME: driver4surname,
+      DRIVER_4_BIRTHDAY: driver4birthday,
+      DRIVER_4_PIN: driver4pin,
+      DRIVER_4_DRIVER_LICENSE_DATE: driver4driverLicenseDate,
+      DRIVER_4_CLASS: driver4class,
     })
     .then(
       (response: {

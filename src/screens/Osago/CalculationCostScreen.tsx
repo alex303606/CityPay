@@ -18,7 +18,7 @@ export const CalculationCostScreen: React.FC<Props> = ({route}) => {
     partner,
     total: {bankPercent, totalSum, baseSum, calcList, deliveryPrice},
   } = route.params;
-  console.log(route.params.total);
+
   return (
     <ScreenContainer title={t('osago.calculationCostScreen.title')}>
       <StyledImage source={{uri: partner.logoUrl}} />
@@ -34,17 +34,20 @@ export const CalculationCostScreen: React.FC<Props> = ({route}) => {
         })}
         {!!deliveryPrice ? (
           <CalculationCostItem
-            title={'Стоимость доставки:'}
+            title={t('osago.calculationCostScreen.deliveryCost')}
             value={deliveryPrice}
           />
         ) : null}
-        <CalculationCostItem title={'Базовая стоимость:'} value={baseSum} />
         <CalculationCostItem
-          title={'Комиссия за эквайринг:'}
+          title={t('osago.calculationCostScreen.baseCost')}
+          value={baseSum}
+        />
+        <CalculationCostItem
+          title={t('osago.calculationCostScreen.commission')}
           value={bankPercent}
         />
         <CalculationCostItem
-          title={'Итоговая стоимость полиса:'}
+          title={t('osago.calculationCostScreen.totalCost')}
           value={totalSum}
         />
       </Block>

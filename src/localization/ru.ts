@@ -285,6 +285,10 @@ export const ruTranslation = {
       },
       calculationCostScreen: {
         title: 'Расчет стоимости полиса',
+        deliveryCost: 'Стоимость доставки:',
+        baseCost: 'Базовая стоимость:',
+        commission: 'Комиссия за эквайринг:',
+        totalCost: 'Итоговая стоимость полиса:',
       },
     },
   },
