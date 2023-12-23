@@ -250,12 +250,46 @@ export const createNewApplication = ({
   selectedPartnerId,
   isOwner,
   isHasToCard,
+  isKgRegistration,
+  selectedProductId,
+  selectedPeriodId,
+  contactPhone,
+  email,
+  carTypeId,
+  carTypeParamId,
+  carNumber,
+  carVendor,
+  carModel,
+  carYear,
+  carVin,
+  deliveryId,
+  deliveryAddress,
+  isPickup,
+  pickupOfficeId,
+  images,
 }: {
   phone: string;
+  contactPhone: string;
   insuranceTypeId: string;
   selectedPartnerId: string;
   isOwner: boolean;
   isHasToCard: boolean;
+  isKgRegistration: boolean;
+  selectedProductId: string;
+  selectedPeriodId: string;
+  carTypeId: string;
+  email: string;
+  carTypeParamId: string;
+  carNumber: string;
+  carVendor: string;
+  carModel: string;
+  carYear: string;
+  carVin: string;
+  deliveryId: boolean;
+  isPickup: boolean;
+  deliveryAddress: string;
+  pickupOfficeId: string;
+  images: string[];
 }) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
@@ -266,6 +300,23 @@ export const createNewApplication = ({
       SELECTED_PARTNER_ID: selectedPartnerId,
       IS_OWNER: isOwner,
       IS_HAS_TO_CARD: isHasToCard,
+      IS_KG_REGISTRATION: isKgRegistration,
+      SELECTED_PRODUCT_ID: selectedProductId,
+      SELECTED_PERIOD_ID: selectedPeriodId,
+      CONTACT_PHONE: contactPhone,
+      CONTACT_EMAIL: email,
+      CAR_TYPE_ID: carTypeId,
+      CAR_TYPE_PARAM_ID: carTypeParamId,
+      CAR_NUMBER: carNumber,
+      CAR_VENDOR: carVendor,
+      CAR_MODEL: carModel,
+      CAR_YEAR: carYear,
+      CAR_VIN: carVin,
+      DELIVERY_ID: deliveryId,
+      DELIVERY_ADDRESS: deliveryAddress,
+      IS_PICKUP: isPickup,
+      PICKUP_OFFICE_ID: pickupOfficeId,
+      IMAGES: images,
     })
     .then(
       (response: {
