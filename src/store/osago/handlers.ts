@@ -244,6 +244,59 @@ export const getTotalSum = ({
     .catch(error => console.warn(error));
 };
 
+export type ICreateNewApplicationParams = {
+  phone: string;
+  contactPhone: string;
+  insuranceTypeId: string;
+  selectedPartnerId: string;
+  isOwner: boolean;
+  isHasToCard: boolean;
+  isKgRegistration: boolean;
+  selectedProductId: string;
+  selectedPeriodId: string;
+  carTypeId: string;
+  email: string;
+  carTypeParamId: string;
+  carNumber: string;
+  carVendor: string;
+  carModel: string;
+  carYear: string;
+  carVin: string;
+  deliveryId: boolean;
+  isPickup: boolean;
+  deliveryAddress: string;
+  pickupOfficeId: string;
+  images: string[];
+  driver1firstname: string;
+  driver1Lastname: string;
+  driver1surname: string;
+  driver1birthday: string;
+  driver1pin: string;
+  driver1driverLicenseDate: string;
+  driver1class: string;
+  driver2firstname?: string;
+  driver2Lastname?: string;
+  driver2surname?: string;
+  driver2birthday?: string;
+  driver2pin?: string;
+  driver2driverLicenseDate?: string;
+  driver2class?: string;
+  driver3firstname?: string;
+  driver3Lastname?: string;
+  driver3surname?: string;
+  driver3birthday?: string;
+  driver3pin?: string;
+  driver3driverLicenseDate?: string;
+  driver3class?: string;
+  driver4firstname?: string;
+  driver4Lastname?: string;
+  driver4surname?: string;
+  driver4birthday?: string;
+  driver4pin?: string;
+  driver4driverLicenseDate?: string;
+  driver4class?: string;
+};
+
 export const createNewApplication = ({
   phone,
   insuranceTypeId,
@@ -295,58 +348,7 @@ export const createNewApplication = ({
   driver4pin,
   driver4driverLicenseDate,
   driver4class,
-}: {
-  phone: string;
-  contactPhone: string;
-  insuranceTypeId: string;
-  selectedPartnerId: string;
-  isOwner: boolean;
-  isHasToCard: boolean;
-  isKgRegistration: boolean;
-  selectedProductId: string;
-  selectedPeriodId: string;
-  carTypeId: string;
-  email: string;
-  carTypeParamId: string;
-  carNumber: string;
-  carVendor: string;
-  carModel: string;
-  carYear: string;
-  carVin: string;
-  deliveryId: boolean;
-  isPickup: boolean;
-  deliveryAddress: string;
-  pickupOfficeId: string;
-  images: string[];
-  driver1firstname: string;
-  driver1Lastname: string;
-  driver1surname: string;
-  driver1birthday: string;
-  driver1pin: string;
-  driver1driverLicenseDate: string;
-  driver1class: string;
-  driver2firstname?: string;
-  driver2Lastname?: string;
-  driver2surname?: string;
-  driver2birthday?: string;
-  driver2pin?: string;
-  driver2driverLicenseDate?: string;
-  driver2class?: string;
-  driver3firstname?: string;
-  driver3Lastname?: string;
-  driver3surname?: string;
-  driver3birthday?: string;
-  driver3pin?: string;
-  driver3driverLicenseDate?: string;
-  driver3class?: string;
-  driver4firstname?: string;
-  driver4Lastname?: string;
-  driver4surname?: string;
-  driver4birthday?: string;
-  driver4pin?: string;
-  driver4driverLicenseDate?: string;
-  driver4class?: string;
-}) => {
+}: ICreateNewApplicationParams) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
       TYPE: 'create_new_application',

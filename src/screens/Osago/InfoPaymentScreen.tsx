@@ -12,39 +12,17 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
 import {
   useAppSelector,
+  useCreateNewApplication,
   useGetSupportUrls,
   useGetTotalSum,
   useTheme,
 } from '@hooks';
 import {getCarTypesList, getOfficesList, getPeriodList, ITotal} from '@store';
 import styled from 'styled-components';
-import {Image, NativeModules} from 'react-native';
+import {Image} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
 import {IDriverApplicationItem} from './ApplicationScreen';
 import CheckBox from '@react-native-community/checkbox';
-
-const {MbankSecondModule} = NativeModules;
-
-const MbankSecondModuleInitPayment = ({
-  payUserId,
-  payAmount,
-  phone,
-  orderId,
-  resultUrl,
-}: {
-  payUserId: string | null;
-  orderId: string | null;
-  payAmount: number;
-  phone: string;
-  resultUrl: string;
-}) =>
-  MbankSecondModule.initPayment(
-    orderId,
-    payUserId,
-    payAmount,
-    phone,
-    resultUrl,
-  );
 
 type Props = NativeStackScreenProps<
   OsagoStackParamList,
@@ -53,7 +31,7 @@ type Props = NativeStackScreenProps<
 
 export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
-  const {driversState, state, partner} = route.params;
+  const {driversState, state, partner, driversPhotos} = route.params;
   const {theme} = useTheme();
   const periodList = useAppSelector(getPeriodList);
   const carTypesList = useAppSelector(getCarTypesList);
@@ -125,16 +103,16 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
     });
   }, [insuranceConditions]);
 
+  const {createNewApplicationHandler, loading} = useCreateNewApplication({
+    driversState,
+    state,
+    partner,
+    driversPhotos,
+  });
+
   const onHandlePressPayByMBank = useCallback(() => {
-    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=999?paymentCode=000?amount=1000?isMbank=1`;
-    MbankSecondModuleInitPayment({
-      orderId: '0',
-      payAmount: 1000,
-      phone: '999',
-      payUserId: 'userId',
-      resultUrl,
-    });
-  }, []);
+    createNewApplicationHandler();
+  }, [createNewApplicationHandler]);
 
   const onChangeIAmAgree = useCallback(
     (value: boolean) => setIAmAgree(value),
