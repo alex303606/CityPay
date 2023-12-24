@@ -1,8 +1,12 @@
 import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
-import {useAppDispatch} from './store';
-import {getDataFromPartnerForNewApplication, setNewApplication} from '@store';
+import {useAppDispatch, useAppSelector} from './store';
+import {
+  getDataFromPartnerForNewApplication,
+  getUserState,
+  setNewApplication,
+} from '@store';
 import {useCallback} from 'react';
 
 export const useGetDataFromPartnerForNewApplication = (partnerId: string) => {
@@ -10,10 +14,14 @@ export const useGetDataFromPartnerForNewApplication = (partnerId: string) => {
   const {showNotification} = useSnackbarNotification();
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
+  const {selectedLanguage} = useAppSelector(getUserState);
 
   const getDataFromPartnerForNewApplicationHandler = useCallback(async () => {
     showLoader();
-    const response = await getDataFromPartnerForNewApplication(partnerId);
+    const response = await getDataFromPartnerForNewApplication(
+      partnerId,
+      selectedLanguage,
+    );
     hideLoader();
     if (!response?.result) {
       if (response?.message) {

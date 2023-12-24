@@ -1,8 +1,8 @@
 import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
-import {useAppDispatch} from './store';
-import {getPaymentsSuccess, getTotalSum} from '@store';
+import {useAppDispatch, useAppSelector} from './store';
+import {getPaymentsSuccess, getTotalSum, getUserState} from '@store';
 import {useCallback} from 'react';
 
 export const useGetTotalSum = ({
@@ -22,6 +22,8 @@ export const useGetTotalSum = ({
   const {showNotification} = useSnackbarNotification();
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
+  const {selectedLanguage} = useAppSelector(getUserState);
+
   const getTotalSumHandler = useCallback(async () => {
     showLoader();
     const response = await getTotalSum({
@@ -30,6 +32,7 @@ export const useGetTotalSum = ({
       partnerId,
       productId,
       selectedPeriodId,
+      lang: selectedLanguage,
     });
 
     hideLoader();

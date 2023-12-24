@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ILanguages} from '../profile';
 
 export type IPartner = {
   id: string;
@@ -137,11 +138,12 @@ export type ITotal = {
   totalSum: string;
 };
 
-export const getLocationsList = () => {
+export const getLocationsList = (lang: ILanguages) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
       TYPE: 'get_locations_list',
       API_KEY: '28HimH4QhcEd4muqSktp',
+      LANG: lang,
     })
     .then(
       (response: {
@@ -159,12 +161,13 @@ export const getLocationsList = () => {
     .catch(error => console.warn(error));
 };
 
-export const getApplicationsList = (phone: string) => {
+export const getApplicationsList = (phone: string, lang: ILanguages) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
       TYPE: 'get_applications_list',
       API_KEY: '28HimH4QhcEd4muqSktp',
       CLIENT_PHONE: phone,
+      LANG: lang,
     })
     .then(
       (response: {
@@ -182,12 +185,16 @@ export const getApplicationsList = (phone: string) => {
     .catch(error => console.warn(error));
 };
 
-export const getDataFromPartnerForNewApplication = (partnerId: string) => {
+export const getDataFromPartnerForNewApplication = (
+  partnerId: string,
+  lang: ILanguages,
+) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
       TYPE: 'get_data_from_partner_for_new_application',
       API_KEY: '28HimH4QhcEd4muqSktp',
       PARTNER_ID: partnerId,
+      LANG: lang,
     })
     .then(
       (response: {
@@ -211,12 +218,14 @@ export const getTotalSum = ({
   isKgRegistrations,
   productId,
   selectedPeriodId,
+  lang,
 }: {
   partnerId: string;
   isHasToCard: boolean;
   isKgRegistrations: boolean;
   productId: string;
   selectedPeriodId: string;
+  lang: ILanguages;
 }) => {
   return axios
     .post('https://crm.citypay.kg/api/', {
@@ -227,6 +236,7 @@ export const getTotalSum = ({
       IS_KG_REGISTRATION: isKgRegistrations,
       PRODUCT_ID: productId,
       SELECTED_PERIOD_ID: selectedPeriodId,
+      LANG: lang,
     })
     .then(
       (response: {

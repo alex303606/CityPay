@@ -11,10 +11,10 @@ export const useGetApplicationsList = () => {
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
   const {phone} = useAppSelector(getUserState);
-
+  const {selectedLanguage} = useAppSelector(getUserState);
   const getApplicationsListHandler = useCallback(async () => {
     showLoader();
-    const response = await getApplicationsList(phone);
+    const response = await getApplicationsList(phone, selectedLanguage);
     hideLoader();
     if (!response?.result) {
       if (response?.message) {
