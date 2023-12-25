@@ -65,6 +65,9 @@ export const useCreateNewApplication = ({
     const response = await createNewApplicationData({
       driversPhotos,
       carPhotos,
+      driversState,
+      state,
+      partner,
     });
 
     hideLoader();

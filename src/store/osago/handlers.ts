@@ -1,6 +1,11 @@
 import axios from 'axios';
 import {ILanguages} from '../profile';
-import {DriverPhotos, ICarDocuments, IDriver} from '../../screens/Osago/types';
+import {
+  DriverPhotos,
+  ICarDocuments,
+  IDriver,
+  MyDataState,
+} from '../../screens/Osago/types';
 
 export type IPartner = {
   id: string;
@@ -434,9 +439,15 @@ export const createNewApplication = ({
 export const createNewApplicationData = ({
   driversPhotos,
   carPhotos,
+  driversState,
+  state,
+  partner,
 }: {
   driversPhotos: DriverPhotos[];
   carPhotos: ICarDocuments;
+  driversState: IDriver[];
+  state: MyDataState;
+  partner: IPartner;
 }) => {
   let data = new FormData();
   const photosArr = driversPhotos.reduce(
