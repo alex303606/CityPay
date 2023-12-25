@@ -147,6 +147,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
       driversState,
       partner,
       driversPhotos,
+      carPhotos,
     });
   }, [state, driversState, partner]);
 

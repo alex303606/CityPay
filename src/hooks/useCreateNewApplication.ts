@@ -5,11 +5,17 @@ import {useLoading} from './useLoading';
 import {useAppDispatch, useAppSelector} from './store';
 import {
   createNewApplication,
+  createNewApplicationData,
   getUserState,
   ICreateNewApplicationParams,
   IPartner,
 } from '@store';
-import {DriverPhotos, IDriver, MyDataState} from '../screens/Osago/types';
+import {
+  DriverPhotos,
+  ICarDocuments,
+  IDriver,
+  MyDataState,
+} from '../screens/Osago/types';
 import {NativeModules} from 'react-native';
 
 const {MbankSecondModule} = NativeModules;
@@ -40,51 +46,27 @@ export const useCreateNewApplication = ({
   state,
   partner,
   driversPhotos,
+  carPhotos,
 }: {
   driversState: IDriver[];
   state: MyDataState;
   partner: IPartner;
   driversPhotos: DriverPhotos[];
+  carPhotos: ICarDocuments;
 }) => {
-  console.log(driversPhotos);
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
   const {phone, userId} = useAppSelector(getUserState);
 
-  let params: ICreateNewApplicationParams;
-
-  // driversState.forEach((driver, index) => {
-  //   params.driver1firstname = driver.name;
-  // });
-
   const createNewApplicationHandler = useCallback(async () => {
     showLoader();
-    const response = await createNewApplication({
-      phone: phone,
-      images: driversPhotos,
-      insuranceTypeId: '',
-      selectedPartnerId: '',
-      isOwner: true,
-      isHasToCard: true,
-      isKgRegistration: state.carRegisteredInKr,
-      selectedProductId: '',
-      selectedPeriodId: '',
-      contactPhone: phone,
-      email: state.email,
-      carTypeId: '',
-      carTypeParamId: '',
-      carNumber: '',
-      carVendor: '',
-      carModel: state.carModel,
-      carYear: state.yearOfIssue,
-      carVin: '',
-      deliveryId: true,
-      deliveryAddress: state.whereToDeliver,
-      isPickup: state.needDelivery,
-      pickupOfficeId: '',
+    const response = await createNewApplicationData({
+      driversPhotos,
+      carPhotos,
     });
+
     hideLoader();
     if (!response?.result) {
       if (response?.message) {

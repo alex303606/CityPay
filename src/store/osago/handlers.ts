@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ILanguages} from '../profile';
+import {DriverPhotos, ICarDocuments, IDriver} from '../../screens/Osago/types';
 
 export type IPartner = {
   id: string;
@@ -414,6 +415,88 @@ export const createNewApplication = ({
       DRIVER_4_DRIVER_LICENSE_DATE: driver4driverLicenseDate,
       DRIVER_4_CLASS: driver4class,
     })
+    .then(
+      (response: {
+        data: {
+          data: any;
+          result: boolean;
+          message: string;
+        };
+      }) => {
+        if (response && response.data) {
+          return response.data;
+        }
+      },
+    )
+    .catch(error => console.warn(error));
+};
+
+export const createNewApplicationData = ({
+  driversPhotos,
+  carPhotos,
+}: {
+  driversPhotos: DriverPhotos[];
+  carPhotos: ICarDocuments;
+}) => {
+  let data = new FormData();
+  const photosArr = driversPhotos.reduce(
+    (acc, photos, currentIndex) => {
+      photos.idCard.forEach((image, index) => {
+        acc.push({
+          uri: image,
+          name: `idCard${currentIndex + index}.jpg`,
+          type: 'image/jpg',
+        });
+      });
+
+      photos.powerAttorney.forEach((image, index) => {
+        acc.push({
+          uri: image,
+          name: `powerAttorney${currentIndex + index}.jpg`,
+          type: 'image/jpg',
+        });
+      });
+
+      photos.driverLicense.forEach((image, index) => {
+        acc.push({
+          uri: image,
+          name: `driverLicense${currentIndex + index}.jpg`,
+          type: 'image/jpg',
+        });
+      });
+
+      return acc;
+    },
+    [] as {
+      uri: string;
+      name: string;
+      type: string;
+    }[],
+  );
+
+  carPhotos.registrationCard.forEach((image, index) => {
+    photosArr.push({
+      uri: image,
+      name: `registrationCard${index}.jpg`,
+      type: 'image/jpg',
+    });
+  });
+
+  carPhotos.registration.forEach((image, index) => {
+    photosArr.push({
+      uri: image,
+      name: `registration${index}.jpg`,
+      type: 'image/jpg',
+    });
+  });
+
+  data.append('IMAGES', photosArr);
+  data.append('TYPE', 'create_new_application');
+
+  console.log('data', data);
+
+  return axios
+    .post('https://crm.citypay.kg/api/1', data)
     .then(
       (response: {
         data: {

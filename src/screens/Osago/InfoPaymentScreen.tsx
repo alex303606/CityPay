@@ -31,7 +31,7 @@ type Props = NativeStackScreenProps<
 
 export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
-  const {driversState, state, partner, driversPhotos} = route.params;
+  const {driversState, state, partner, driversPhotos, carPhotos} = route.params;
   const {theme} = useTheme();
   const periodList = useAppSelector(getPeriodList);
   const carTypesList = useAppSelector(getCarTypesList);
@@ -108,6 +108,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
     state,
     partner,
     driversPhotos,
+    carPhotos,
   });
 
   const onHandlePressPayByMBank = useCallback(() => {
@@ -143,7 +144,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
           <Typography.B16
             marginBottom={4}
             onPress={onPressMore}
-            color={'s#EB5757'}>
+            color={'#EB5757'}>
             {t('osago.infoPaymentScreen.more')}
           </Typography.B16>
         </Block>

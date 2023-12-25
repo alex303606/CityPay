@@ -3,7 +3,12 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ICar, IFine, IFinesType, IPartner, ITotal} from '@store';
 import {ICard} from 'src/screens/MyCardsScreen/MyCardsScreen';
-import {DriverPhotos, IDriver, MyDataState} from 'src/screens/Osago/types';
+import {
+  DriverPhotos,
+  ICarDocuments,
+  IDriver,
+  MyDataState,
+} from 'src/screens/Osago/types';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -81,6 +86,7 @@ export type OsagoStackParamList = {
     driversState: IDriver[];
     partner: IPartner;
     driversPhotos: DriverPhotos[];
+    carPhotos: ICarDocuments;
   };
   [EScreens.POLICY_SCREEN]: {url: string};
   [EScreens.DOCUMENTS_SCREEN]: {
