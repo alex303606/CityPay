@@ -31,13 +31,20 @@ export type IDriver = {
   class: string;
 };
 
+export type IPhoto = {
+  base64: string;
+  fileName: string;
+  type: string;
+  uri: string;
+};
+
 export type DriverPhotos = {
-  idCard: string[];
-  driverLicense: string[];
-  powerAttorney: string[];
+  idCard: IPhoto[];
+  driverLicense: IPhoto[];
+  powerAttorney: IPhoto[];
 };
 
 export type ICarDocuments = {
-  registration: string[];
-  registrationCard: string[];
+  registration: IPhoto[];
+  registrationCard: IPhoto[];
 };

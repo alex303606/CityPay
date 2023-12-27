@@ -13,7 +13,7 @@ import {EScreens, OsagoStackParamList} from '@navigators';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
 import {Image} from 'react-native';
-import {DriverPhotos, ICarDocuments} from './types';
+import {DriverPhotos, ICarDocuments, IPhoto} from './types';
 const checkIcon = require('@assets/images/checkIcon.webp');
 
 type Props = NativeStackScreenProps<
@@ -40,7 +40,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   });
 
   const handleSavePhotoIdCard = useCallback(
-    (photo: string, driverIndex: number) => {
+    (photo: IPhoto, driverIndex: number) => {
       const newDriversPhotos = [...driversPhotos];
       newDriversPhotos[driverIndex].idCard = [
         ...newDriversPhotos[driverIndex].idCard,
@@ -52,7 +52,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const handleSavePhotoDriverLicense = useCallback(
-    (photo: string, driverIndex: number) => {
+    (photo: IPhoto, driverIndex: number) => {
       const newDriversPhotos = [...driversPhotos];
       newDriversPhotos[driverIndex].driverLicense = [
         ...newDriversPhotos[driverIndex].driverLicense,
@@ -64,7 +64,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const handleSavePhotoPowerAttorney = useCallback(
-    (photo: string, driverIndex: number) => {
+    (photo: IPhoto, driverIndex: number) => {
       const newDriversPhotos = [...driversPhotos];
       newDriversPhotos[driverIndex].powerAttorney = [
         ...newDriversPhotos[driverIndex].powerAttorney,
@@ -103,7 +103,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const handleSetCarPhotoRegistration = useCallback(
-    (photo: string) => {
+    (photo: IPhoto) => {
       const newCarPhotos = {
         ...carPhotos,
       };
@@ -114,7 +114,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const handleSetCarPhotoRegistrationCard = useCallback(
-    (photo: string) => {
+    (photo: IPhoto) => {
       const newCarPhotos = {
         ...carPhotos,
       };

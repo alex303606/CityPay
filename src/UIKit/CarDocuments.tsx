@@ -7,14 +7,14 @@ import {useTheme} from '@hooks';
 import {Icon, IconNames} from './Icon';
 import styled from 'styled-components';
 import {PermissionsAndroid, Pressable} from 'react-native';
-import {ICarDocuments} from '../screens/Osago/types';
+import {ICarDocuments, IPhoto} from '../screens/Osago/types';
 import {launchCamera} from 'react-native-image-picker';
 import {CarDocumentPhoto} from './CarDocumentPhoto';
 
 type Props = {
   carPhotos: ICarDocuments;
-  onSavePhotoRegistration: (photo: string) => void;
-  onSavePhotoRegistrationCard: (photo: string) => void;
+  onSavePhotoRegistration: (photo: IPhoto) => void;
+  onSavePhotoRegistrationCard: (photo: IPhoto) => void;
   onDeletePhotoRegistration: (photoIndex: number) => void;
   onDeletePhotoRegistrationCard: (photoIndex: number) => void;
 };
@@ -34,12 +34,25 @@ export const CarDocuments: React.FC<Props> = ({
       {
         saveToPhotos: false,
         mediaType: 'photo',
+        includeBase64: true,
       },
       () => null,
     );
 
-    if (result?.assets && result.assets.length && result.assets[0].uri) {
-      return onSavePhotoRegistrationCard(result.assets[0].uri);
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].base64 &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      return onSavePhotoRegistrationCard({
+        base64: result.assets[0].base64,
+        fileName: result.assets[0].fileName,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+      });
     }
   }, []);
 
@@ -53,8 +66,20 @@ export const CarDocuments: React.FC<Props> = ({
       () => null,
     );
 
-    if (result?.assets && result.assets.length && result.assets[0].uri) {
-      return onSavePhotoRegistration(result.assets[0].uri);
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].base64 &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      return onSavePhotoRegistration({
+        base64: result.assets[0].base64,
+        fileName: result.assets[0].fileName,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+      });
     }
   }, []);
 
@@ -71,7 +96,7 @@ export const CarDocuments: React.FC<Props> = ({
               <CarDocumentPhoto
                 deletePhoto={onDeletePhotoRegistration}
                 key={index}
-                photo={photo}
+                photo={photo.uri}
                 photoIndex={index}
               />
             );
@@ -100,7 +125,7 @@ export const CarDocuments: React.FC<Props> = ({
               <CarDocumentPhoto
                 deletePhoto={onDeletePhotoRegistrationCard}
                 key={index}
-                photo={photo}
+                photo={photo.uri}
                 photoIndex={index}
               />
             );

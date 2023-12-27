@@ -2,15 +2,15 @@ import React, {useCallback} from 'react';
 import {Block} from './helpers';
 import {DocumentsScanItem} from './DocumentsScanItem';
 import {useTranslation} from 'react-i18next';
-import {DriverPhotos} from '../screens/Osago/types';
+import {DriverPhotos, IPhoto} from '../screens/Osago/types';
 import {BlueTitle} from './BlueTitle';
 
 type Props = {
   driver: DriverPhotos;
   driverIndex: number;
-  saveIdCard: (photo: string, index: number) => void;
-  savePhotoDriverLicense: (photo: string, index: number) => void;
-  savePhotoPowerAttorney: (photo: string, index: number) => void;
+  saveIdCard: (photo: IPhoto, index: number) => void;
+  savePhotoDriverLicense: (photo: IPhoto, index: number) => void;
+  savePhotoPowerAttorney: (photo: IPhoto, index: number) => void;
   handleDeletePhotoIdCard: (driverIndex: number, photoIndex: number) => void;
   handleDeletePhotoPowerAttorney: (
     driverIndex: number,

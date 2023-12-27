@@ -8,11 +8,12 @@ import {PermissionsAndroid, Pressable} from 'react-native';
 import {launchCamera} from 'react-native-image-picker';
 import {Icon, IconNames} from './Icon';
 import {DocumentPhoto} from './DocumentPhoto';
+import {IPhoto} from '../screens/Osago/types';
 
 type Props = {
   title: string;
-  photos: string[];
-  savePhoto: (photo: string, index: number) => void;
+  photos: IPhoto[];
+  savePhoto: (photo: IPhoto, index: number) => void;
   driverIndex: number;
   deletePhoto: (photoIndex: number) => void;
 };
@@ -37,12 +38,28 @@ export const DocumentsScanItem: React.FC<Props> = ({
       {
         saveToPhotos: false,
         mediaType: 'photo',
+        includeBase64: true,
       },
       () => null,
     );
 
-    if (result?.assets && result.assets.length && result.assets[0].uri) {
-      savePhoto(result.assets[0].uri, driverIndex);
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].base64 &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      savePhoto(
+        {
+          base64: result.assets[0].base64,
+          fileName: result.assets[0].fileName,
+          type: result.assets[0].type,
+          uri: result.assets[0].uri,
+        },
+        driverIndex,
+      );
     }
   }, [driverIndex]);
 
@@ -57,7 +74,7 @@ export const DocumentsScanItem: React.FC<Props> = ({
             <DocumentPhoto
               deletePhoto={onDeletePhoto}
               photoIndex={index}
-              photo={photo}
+              photo={photo.uri}
             />
           );
         })}

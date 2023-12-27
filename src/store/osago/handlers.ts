@@ -451,28 +451,31 @@ export const createNewApplicationData = ({
 }) => {
   let data = new FormData();
   const photosArr = driversPhotos.reduce(
-    (acc, photos, currentIndex) => {
-      photos.idCard.forEach((image, index) => {
+    (acc, photos) => {
+      photos.idCard.forEach(image => {
         acc.push({
-          uri: image,
-          name: `idCard${currentIndex + index}.jpg`,
-          type: 'image/jpg',
+          uri: image.uri,
+          name: image.fileName,
+          type: image.type,
+          base64: image.base64,
         });
       });
 
-      photos.powerAttorney.forEach((image, index) => {
+      photos.powerAttorney.forEach(image => {
         acc.push({
-          uri: image,
-          name: `powerAttorney${currentIndex + index}.jpg`,
-          type: 'image/jpg',
+          uri: image.uri,
+          name: image.fileName,
+          type: image.type,
+          base64: image.base64,
         });
       });
 
-      photos.driverLicense.forEach((image, index) => {
+      photos.driverLicense.forEach(image => {
         acc.push({
-          uri: image,
-          name: `driverLicense${currentIndex + index}.jpg`,
-          type: 'image/jpg',
+          uri: image.uri,
+          name: image.fileName,
+          type: image.type,
+          base64: image.base64,
         });
       });
 
@@ -482,22 +485,25 @@ export const createNewApplicationData = ({
       uri: string;
       name: string;
       type: string;
+      base64: string;
     }[],
   );
 
-  carPhotos.registrationCard.forEach((image, index) => {
+  carPhotos.registrationCard.forEach(image => {
     photosArr.push({
-      uri: image,
-      name: `registrationCard${index}.jpg`,
-      type: 'image/jpg',
+      uri: image.uri,
+      name: image.fileName,
+      type: image.type,
+      base64: image.base64,
     });
   });
 
-  carPhotos.registration.forEach((image, index) => {
+  carPhotos.registration.forEach(image => {
     photosArr.push({
-      uri: image,
-      name: `registration${index}.jpg`,
-      type: 'image/jpg',
+      uri: image.uri,
+      name: image.fileName,
+      type: image.type,
+      base64: image.base64,
     });
   });
 
