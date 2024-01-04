@@ -520,6 +520,24 @@ export const createNewApplicationData = ({
   data.append('SELECTED_PERIOD_ID', state.validity);
   data.append('CONTACT_PHONE', state.phone);
   data.append('CONTACT_EMAIL', state.email);
+  data.append('CAR_TYPE_ID', CAR_TYPE_ID);
+  data.append('CAR_TYPE_PARAM_ID', CAR_TYPE_PARAM_ID);
+  data.append('CAR_NUMBER', CAR_NUMBER);
+  data.append('CAR_VENDOR', state.carModel);
+  data.append('CAR_MODEL', state.model);
+  data.append('CAR_YEAR', state.yearOfIssue);
+  data.append('CAR_VIN', state.engineNumber);
+  data.append('DELIVERY_ID', DELIVERY_ID);
+  data.append('DELIVERY_ADDRESS', DELIVERY_ADDRESS);
+  data.append('IS_PICKUP', IS_PICKUP);
+  data.append('PICKUP_OFFICE_ID', PICKUP_OFFICE_ID);
+  data.append('DRIVER_1_FIRSTNAME', DRIVER_1_FIRSTNAME);
+  data.append('DRIVER_1_LASTNAME', DRIVER_1_LASTNAME);
+  data.append('DRIVER_1_SURNAME', DRIVER_1_SURNAME);
+  data.append('DRIVER_1_BIRTHDAY', DRIVER_1_BIRTHDAY);
+  data.append('DRIVER_1_PIN', DRIVER_1_PIN);
+  data.append('DRIVER_1_DRIVER_LICENSE_DATE', DRIVER_1_DRIVER_LICENSE_DATE);
+  data.append('DRIVER_1_CLASS', DRIVER_1_CLASS);
 
   console.log('data', data);
 
