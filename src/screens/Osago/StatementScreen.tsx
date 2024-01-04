@@ -22,6 +22,7 @@ import {
 } from '@hooks';
 import {
   getCarTypesList,
+  getInsuranceTypeList,
   getOfficesList,
   getPeriodList,
   getProductsList,
@@ -53,6 +54,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const officesList = useAppSelector(getOfficesList);
   const periodList = useAppSelector(getPeriodList);
   const productsList = useAppSelector(getProductsList);
+  const insuranceTypeList = useAppSelector(getInsuranceTypeList);
 
   const periodListSelector = periodList?.map(period => ({
     label: period.title,
@@ -126,6 +128,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     whereToPick: !!officesListSelector?.length
       ? officesListSelector[0].value
       : '',
+    insuranceTypeId: !!insuranceTypeList.length ? insuranceTypeList[0].id : '',
   });
 
   const [driversState, setDrivers] = useState<IDriver[]>([

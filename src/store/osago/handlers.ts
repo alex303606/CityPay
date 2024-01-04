@@ -507,13 +507,24 @@ export const createNewApplicationData = ({
     });
   });
 
-  data.append('IMAGES', photosArr);
   data.append('TYPE', 'create_new_application');
+  data.append('API_KEY', '28HimH4QhcEd4muqSktp');
+  data.append('IMAGES', photosArr);
+  data.append('CLIENT_PHONE', state.phone);
+  data.append('INSURANCE_TYPE_ID', state.insuranceTypeId);
+  data.append('SELECTED_PARTNER_ID', partner.id);
+  data.append('IS_OWNER', state.iAmTheOwner);
+  data.append('IS_HAS_TO_CARD', state.iHaveCard);
+  data.append('IS_KG_REGISTRATION', state.carRegisteredInKr);
+  data.append('SELECTED_PRODUCT_ID', state.numberOfDrivers);
+  data.append('SELECTED_PERIOD_ID', state.validity);
+  data.append('CONTACT_PHONE', state.phone);
+  data.append('CONTACT_EMAIL', state.email);
 
   console.log('data', data);
 
   return axios
-    .post('https://crm.citypay.kg/api/1', data)
+    .post('https://crm.citypay.kg/api/', data)
     .then(
       (response: {
         data: {

@@ -19,6 +19,7 @@ export type MyDataState = {
   engineNumber: string;
   whereToDeliver: string;
   whereToPick: string;
+  insuranceTypeId: string;
 };
 
 export type IDriver = {
