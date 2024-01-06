@@ -3,13 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
 import {useAppDispatch, useAppSelector} from './store';
-import {
-  createNewApplication,
-  createNewApplicationData,
-  getUserState,
-  ICreateNewApplicationParams,
-  IPartner,
-} from '@store';
+import {createNewApplicationData, getUserState, IPartner} from '@store';
 import {
   DriverPhotos,
   ICarDocuments,
