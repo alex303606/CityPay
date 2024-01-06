@@ -53,7 +53,7 @@ axios.defaults.baseURL = 'https://citysoft.kido.kg/api/';
 
 axios.interceptors.request.use(
   conf => {
-    // Do something before request is sent
+    // Do something before request is send
     conf.data = {
       params: {
         API_KEY: 'tMN0qaol5ePptxEPJ4c1CK',

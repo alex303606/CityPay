@@ -6,6 +6,7 @@ import {
   IDriver,
   MyDataState,
 } from '../../screens/Osago/types';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export type IPartner = {
   id: string;
@@ -449,7 +450,7 @@ export const createNewApplicationData = ({
   state: MyDataState;
   partner: IPartner;
 }) => {
-  let data = new FormData();
+  let formData = new FormData();
   const photosArr = driversPhotos.reduce(
     (acc, photos) => {
       photos.idCard.forEach(image => {
@@ -457,7 +458,6 @@ export const createNewApplicationData = ({
           uri: image.uri,
           name: image.fileName,
           type: image.type,
-          base64: image.base64,
         });
       });
 
@@ -466,7 +466,6 @@ export const createNewApplicationData = ({
           uri: image.uri,
           name: image.fileName,
           type: image.type,
-          base64: image.base64,
         });
       });
 
@@ -475,7 +474,6 @@ export const createNewApplicationData = ({
           uri: image.uri,
           name: image.fileName,
           type: image.type,
-          base64: image.base64,
         });
       });
 
@@ -485,7 +483,6 @@ export const createNewApplicationData = ({
       uri: string;
       name: string;
       type: string;
-      base64: string;
     }[],
   );
 
@@ -494,7 +491,6 @@ export const createNewApplicationData = ({
       uri: image.uri,
       name: image.fileName,
       type: image.type,
-      base64: image.base64,
     });
   });
 
@@ -503,58 +499,77 @@ export const createNewApplicationData = ({
       uri: image.uri,
       name: image.fileName,
       type: image.type,
-      base64: image.base64,
     });
   });
 
-  data.append('TYPE', 'create_new_application');
-  data.append('API_KEY', '28HimH4QhcEd4muqSktp');
-  data.append('IMAGES', photosArr);
-  data.append('CLIENT_PHONE', state.phone);
-  data.append('INSURANCE_TYPE_ID', state.insuranceTypeId);
-  data.append('SELECTED_PARTNER_ID', partner.id);
-  data.append('IS_OWNER', state.iAmTheOwner);
-  data.append('IS_HAS_TO_CARD', state.iHaveCard);
-  data.append('IS_KG_REGISTRATION', state.carRegisteredInKr);
-  data.append('SELECTED_PRODUCT_ID', state.numberOfDrivers);
-  data.append('SELECTED_PERIOD_ID', state.validity);
-  data.append('CONTACT_PHONE', state.phone);
-  data.append('CONTACT_EMAIL', state.email);
-  data.append('CAR_TYPE_ID', CAR_TYPE_ID);
-  data.append('CAR_TYPE_PARAM_ID', CAR_TYPE_PARAM_ID);
-  data.append('CAR_NUMBER', CAR_NUMBER);
-  data.append('CAR_VENDOR', state.carModel);
-  data.append('CAR_MODEL', state.model);
-  data.append('CAR_YEAR', state.yearOfIssue);
-  data.append('CAR_VIN', state.engineNumber);
-  data.append('DELIVERY_ID', DELIVERY_ID);
-  data.append('DELIVERY_ADDRESS', DELIVERY_ADDRESS);
-  data.append('IS_PICKUP', IS_PICKUP);
-  data.append('PICKUP_OFFICE_ID', PICKUP_OFFICE_ID);
-  data.append('DRIVER_1_FIRSTNAME', DRIVER_1_FIRSTNAME);
-  data.append('DRIVER_1_LASTNAME', DRIVER_1_LASTNAME);
-  data.append('DRIVER_1_SURNAME', DRIVER_1_SURNAME);
-  data.append('DRIVER_1_BIRTHDAY', DRIVER_1_BIRTHDAY);
-  data.append('DRIVER_1_PIN', DRIVER_1_PIN);
-  data.append('DRIVER_1_DRIVER_LICENSE_DATE', DRIVER_1_DRIVER_LICENSE_DATE);
-  data.append('DRIVER_1_CLASS', DRIVER_1_CLASS);
+  formData.append('API_KEY', '28HimH4QhcEd4muqSktp');
+  formData.append('CLIENT_PHONE', state.phone);
+  formData.append('TYPE', 'create_new_application');
+  formData.append('IMAGES', photosArr);
+  formData.append('INSURANCE_TYPE_ID', state.insuranceTypeId);
+  formData.append('SELECTED_PARTNER_ID', partner.id);
+  formData.append('IS_OWNER', state.iAmTheOwner);
+  formData.append('IS_HAS_TO_CARD', state.iHaveCard);
+  formData.append('IS_KG_REGISTRATION', state.carRegisteredInKr);
+  formData.append('SELECTED_PRODUCT_ID', state.numberOfDrivers);
+  formData.append('SELECTED_PERIOD_ID', state.validity);
+  formData.append('CONTACT_PHONE', state.phone);
+  formData.append('CONTACT_EMAIL', state.email);
+  formData.append('CAR_TYPE_ID', 'CAR_TYPE_ID');
+  formData.append('CAR_TYPE_PARAM_ID', 'CAR_TYPE_PARAM_ID');
+  formData.append('CAR_NUMBER', 'CAR_NUMBER');
+  formData.append('CAR_VENDOR', state.carModel);
+  formData.append('CAR_MODEL', state.model);
+  formData.append('CAR_YEAR', state.yearOfIssue);
+  formData.append('CAR_VIN', state.engineNumber);
+  formData.append('DELIVERY_ID', 'DELIVERY_ID');
+  formData.append('DELIVERY_ADDRESS', 'DELIVERY_ADDRESS');
+  formData.append('IS_PICKUP', 'IS_PICKUP');
+  formData.append('PICKUP_OFFICE_ID', 'PICKUP_OFFICE_ID');
+  formData.append('DRIVER_1_FIRSTNAME', 'DRIVER_1_FIRSTNAME');
+  formData.append('DRIVER_1_LASTNAME', 'DRIVER_1_LASTNAME');
+  formData.append('DRIVER_1_SURNAME', 'DRIVER_1_SURNAME');
+  formData.append('DRIVER_1_BIRTHDAY', 'DRIVER_1_BIRTHDAY');
+  formData.append('DRIVER_1_PIN', 'DRIVER_1_PIN');
+  formData.append(
+    'DRIVER_1_DRIVER_LICENSE_DATE',
+    'DRIVER_1_DRIVER_LICENSE_DATE',
+  );
+  formData.append('DRIVER_1_CLASS', 'DRIVER_1_CLASS');
 
-  console.log('data', data);
+  const params = [
+    {name: 'API_KEY', data: '28HimH4QhcEd4muqSktp'},
+    {name: 'TYPE', data: 'create_new_application'},
+    {name: 'CLIENT_PHONE', data: state.phone},
+  ];
 
-  return axios
-    .post('https://crm.citypay.kg/api/', data)
-    .then(
-      (response: {
-        data: {
-          data: any;
-          result: boolean;
-          message: string;
-        };
-      }) => {
-        if (response && response.data) {
-          return response.data;
-        }
+  photosArr.forEach((photo, index) => {
+    params.push({
+      name: `IMAGES[${index}]`,
+      type: 'image.jpg',
+      filename: photo.name,
+      data: RNFetchBlob.wrap(photo.uri),
+    });
+  });
+
+  return RNFetchBlob.config({
+    trusty: true,
+  })
+    .fetch(
+      'POST',
+      'https://orig.citypay.kg/api/',
+      {
+        'Content-Type': 'multipart/form-data',
       },
+      params,
     )
-    .catch(error => console.warn(error));
+    .then(response => {
+      if (response.data) {
+        const data = JSON.parse(response.data);
+        console.log('Successful', data);
+      }
+    })
+    .catch(error => {
+      console.log('Error', error);
+    });
 };
