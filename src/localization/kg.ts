@@ -241,7 +241,6 @@ export const kgTranslation = {
         bithday: 'Дата рождения:',
         pin: 'ПИН / ИНН:',
         driverClass: 'Класс водителя:',
-        driverLicenseNumber: 'Номер ВУ:',
         driveLicenseDate: 'Стаж с:',
         amountInsurance: 'Сумма страховки:',
         more: 'Подробнее',
