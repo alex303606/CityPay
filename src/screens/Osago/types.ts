@@ -1,11 +1,11 @@
 export type MyDataState = {
-  iAmTheOwner: boolean;
-  iHaveCard: boolean;
-  carRegisteredInKr: boolean;
+  isOwner: boolean;
+  isHasToCard: boolean;
+  isKgRegistration: boolean;
   needDelivery: boolean;
   IAmAgree: boolean;
   numberOfDrivers: string;
-  validity: string;
+  selectedPeriodId: string;
   email: string;
   phone: string;
   carModel: string;

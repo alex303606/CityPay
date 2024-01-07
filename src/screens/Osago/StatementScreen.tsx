@@ -100,15 +100,17 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   }, [getDataFromPartnerForNewApplicationHandler]);
 
   const [state, setMyData] = useState<MyDataState>({
-    iAmTheOwner: false,
-    iHaveCard: false,
-    carRegisteredInKr: false,
+    isOwner: false,
+    isHasToCard: false,
+    isKgRegistration: false,
     IAmAgree: false,
     needDelivery: false,
     numberOfDrivers: !!productsListSelector?.length
       ? productsListSelector[0].value
       : '',
-    validity: !!periodListSelector?.length ? periodListSelector[0].value : '',
+    selectedPeriodId: !!periodListSelector?.length
+      ? periodListSelector[0].value
+      : '',
     email: '',
     phone: phone,
     carModel: '',
@@ -147,7 +149,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     (value: boolean) =>
       setMyData({
         ...state,
-        iAmTheOwner: value,
+        isOwner: value,
       }),
     [state],
   );
@@ -172,13 +174,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const onChangeValueIHaveCard = useCallback(
     (value: boolean) => {
-      setMyData({...state, iHaveCard: value});
+      setMyData({...state, isHasToCard: value});
     },
     [state],
   );
 
   const onChangeValueCarRegisteredInKr = useCallback(
-    (value: boolean) => setMyData({...state, carRegisteredInKr: value}),
+    (value: boolean) => setMyData({...state, isKgRegistration: value}),
     [state],
   );
 
@@ -241,8 +243,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onValidityChangeHandler = useCallback(
-    (value: string) => setMyData({...state, validity: value}),
+  const onSelectedPeriodChangeHandler = useCallback(
+    (value: string) => setMyData({...state, selectedPeriodId: value}),
     [state],
   );
 
@@ -383,20 +385,20 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       <CheckBoxField
         marginBottom={16}
         onChangeValue={onChangeValueIAmTheOwner}
-        value={Boolean(state?.iAmTheOwner)}
+        value={Boolean(state?.isOwner)}
         title={t('osago.statementScreen.iAmTheOwner')}
         subTitle={t('osago.statementScreen.iAmTheOwnerSubtitle')}
       />
       <CheckBoxField
         marginBottom={16}
         onChangeValue={onChangeValueIHaveCard}
-        value={Boolean(state?.iHaveCard)}
+        value={Boolean(state?.isHasToCard)}
         title={t('osago.statementScreen.iHaveCard')}
       />
       <CheckBoxField
         marginBottom={16}
         onChangeValue={onChangeValueCarRegisteredInKr}
-        value={Boolean(state?.carRegisteredInKr)}
+        value={Boolean(state?.isKgRegistration)}
         title={t('osago.statementScreen.carRegisteredInKr')}
       />
       <PickerComponent
@@ -409,9 +411,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       <PickerComponent
         marginBottom={16}
         items={periodListSelector}
-        onValueChange={onValidityChangeHandler}
-        selectedValue={state.validity}
-        title={t('osago.statementScreen.validity')}
+        onValueChange={onSelectedPeriodChangeHandler}
+        selectedValue={state.selectedPeriodId}
+        title={t('osago.statementScreen.selectedPeriod')}
       />
       <InputComponent
         value={state.email}

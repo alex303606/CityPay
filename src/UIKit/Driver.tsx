@@ -164,7 +164,7 @@ export const Driver: React.FC<Props> = ({
         title={t('osago.statementScreen.class')}
         marginBottom={16}
         keyboardType={'numeric'}
-        maxLength={14}
+        maxLength={1}
         icon={questionIcon}
         onIconPress={onIconPress}
       />

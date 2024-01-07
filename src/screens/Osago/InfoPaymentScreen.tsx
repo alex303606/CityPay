@@ -38,8 +38,8 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const officesList = useAppSelector(getOfficesList);
 
   const period = useMemo(() => {
-    return periodList.find(p => p.id === state.validity);
-  }, [periodList, state.validity]);
+    return periodList.find(p => p.id === state.selectedPeriodId);
+  }, [periodList, state.selectedPeriodId]);
 
   const carTypeTitle = useMemo(() => {
     return carTypesList.find(type => type.id === state.carType);
@@ -50,11 +50,11 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   }, []);
 
   const {getTotalSumHandler} = useGetTotalSum({
-    isHasToCard: state.iHaveCard,
-    isKgRegistrations: state.carRegisteredInKr,
+    isHasToCard: state.isHasToCard,
+    isKgRegistrations: state.isKgRegistration,
     partnerId: partner.id,
     productId: state.numberOfDrivers,
-    selectedPeriodId: state.validity,
+    selectedPeriodId: state.selectedPeriodId,
   });
 
   const [total, setTotal] = useState<ITotal | null>(null);
@@ -80,7 +80,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         driveLicenseDate: driver.driverLicenseDate.toLocaleDateString(),
         class: driver.class,
         bithday: driver.date.toLocaleDateString(),
-        isOwner: state.iAmTheOwner,
+        isOwner: state.isOwner,
       };
     });
   }, [driversState]);
@@ -202,7 +202,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.countryRegistration')}
         value={
-          state.carRegisteredInKr
+          state.isKgRegistration
             ? t('osago.infoPaymentScreen.yes')
             : t('osago.infoPaymentScreen.no')
         }
@@ -210,7 +210,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.technicalInspection')}
         value={
-          state.iHaveCard
+          state.isHasToCard
             ? t('osago.infoPaymentScreen.yes')
             : t('osago.infoPaymentScreen.no')
         }
