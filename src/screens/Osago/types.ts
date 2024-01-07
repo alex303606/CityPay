@@ -33,7 +33,6 @@ export type IDriver = {
 };
 
 export type IPhoto = {
-  base64: string;
   fileName: string;
   type: string;
   uri: string;

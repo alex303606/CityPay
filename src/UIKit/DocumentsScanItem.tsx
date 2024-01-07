@@ -38,7 +38,6 @@ export const DocumentsScanItem: React.FC<Props> = ({
       {
         saveToPhotos: false,
         mediaType: 'photo',
-        includeBase64: true,
       },
       () => null,
     );
@@ -47,13 +46,11 @@ export const DocumentsScanItem: React.FC<Props> = ({
       result?.assets &&
       result.assets.length &&
       result.assets[0].uri &&
-      result.assets[0].base64 &&
       result.assets[0].type &&
       result.assets[0].fileName
     ) {
       savePhoto(
         {
-          base64: result.assets[0].base64,
           fileName: result.assets[0].fileName,
           type: result.assets[0].type,
           uri: result.assets[0].uri,
@@ -72,6 +69,7 @@ export const DocumentsScanItem: React.FC<Props> = ({
         {photos.map((photo, index) => {
           return (
             <DocumentPhoto
+              key={index.toString()}
               deletePhoto={onDeletePhoto}
               photoIndex={index}
               photo={photo.uri}

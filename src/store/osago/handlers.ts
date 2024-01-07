@@ -261,182 +261,6 @@ export const getTotalSum = ({
     .catch(error => console.warn(error));
 };
 
-export type ICreateNewApplicationParams = {
-  phone: string;
-  contactPhone: string;
-  insuranceTypeId: string;
-  selectedPartnerId: string;
-  isOwner: boolean;
-  isHasToCard: boolean;
-  isKgRegistration: boolean;
-  selectedProductId: string;
-  selectedPeriodId: string;
-  carTypeId: string;
-  email: string;
-  carTypeParamId: string;
-  carNumber: string;
-  carVendor: string;
-  carModel: string;
-  carYear: string;
-  carVin: string;
-  deliveryId: boolean;
-  isPickup: boolean;
-  deliveryAddress: string;
-  pickupOfficeId: string;
-  images: string[];
-  driver1firstname: string;
-  driver1Lastname: string;
-  driver1surname: string;
-  driver1birthday: string;
-  driver1pin: string;
-  driver1driverLicenseDate: string;
-  driver1class: string;
-  driver2firstname?: string;
-  driver2Lastname?: string;
-  driver2surname?: string;
-  driver2birthday?: string;
-  driver2pin?: string;
-  driver2driverLicenseDate?: string;
-  driver2class?: string;
-  driver3firstname?: string;
-  driver3Lastname?: string;
-  driver3surname?: string;
-  driver3birthday?: string;
-  driver3pin?: string;
-  driver3driverLicenseDate?: string;
-  driver3class?: string;
-  driver4firstname?: string;
-  driver4Lastname?: string;
-  driver4surname?: string;
-  driver4birthday?: string;
-  driver4pin?: string;
-  driver4driverLicenseDate?: string;
-  driver4class?: string;
-};
-
-export const createNewApplication = ({
-  phone,
-  insuranceTypeId,
-  selectedPartnerId,
-  isOwner,
-  isHasToCard,
-  isKgRegistration,
-  selectedProductId,
-  selectedPeriodId,
-  contactPhone,
-  email,
-  carTypeId,
-  carTypeParamId,
-  carNumber,
-  carVendor,
-  carModel,
-  carYear,
-  carVin,
-  deliveryId,
-  deliveryAddress,
-  isPickup,
-  pickupOfficeId,
-  images,
-  driver1firstname,
-  driver1Lastname,
-  driver1surname,
-  driver1birthday,
-  driver1pin,
-  driver1driverLicenseDate,
-  driver1class,
-  driver2firstname,
-  driver2Lastname,
-  driver2surname,
-  driver2birthday,
-  driver2pin,
-  driver2driverLicenseDate,
-  driver2class,
-  driver3firstname,
-  driver3Lastname,
-  driver3surname,
-  driver3birthday,
-  driver3pin,
-  driver3driverLicenseDate,
-  driver3class,
-  driver4firstname,
-  driver4Lastname,
-  driver4surname,
-  driver4birthday,
-  driver4pin,
-  driver4driverLicenseDate,
-  driver4class,
-}: ICreateNewApplicationParams) => {
-  return axios
-    .post('https://crm.citypay.kg/api/', {
-      TYPE: 'create_new_application',
-      API_KEY: '28HimH4QhcEd4muqSktp',
-      CLIENT_PHONE: phone,
-      INSURANCE_TYPE_ID: insuranceTypeId,
-      SELECTED_PARTNER_ID: selectedPartnerId,
-      IS_OWNER: isOwner,
-      IS_HAS_TO_CARD: isHasToCard,
-      IS_KG_REGISTRATION: isKgRegistration,
-      SELECTED_PRODUCT_ID: selectedProductId,
-      SELECTED_PERIOD_ID: selectedPeriodId,
-      CONTACT_PHONE: contactPhone,
-      CONTACT_EMAIL: email,
-      CAR_TYPE_ID: carTypeId,
-      CAR_TYPE_PARAM_ID: carTypeParamId,
-      CAR_NUMBER: carNumber,
-      CAR_VENDOR: carVendor,
-      CAR_MODEL: carModel,
-      CAR_YEAR: carYear,
-      CAR_VIN: carVin,
-      DELIVERY_ID: deliveryId,
-      DELIVERY_ADDRESS: deliveryAddress,
-      IS_PICKUP: isPickup,
-      PICKUP_OFFICE_ID: pickupOfficeId,
-      IMAGES: images,
-      DRIVER_1_FIRSTNAME: driver1firstname,
-      DRIVER_1_LASTNAME: driver1Lastname,
-      DRIVER_1_SURNAME: driver1surname,
-      DRIVER_1_BIRTHDAY: driver1birthday,
-      DRIVER_1_PIN: driver1pin,
-      DRIVER_1_DRIVER_LICENSE_DATE: driver1driverLicenseDate,
-      DRIVER_1_CLASS: driver1class,
-      DRIVER_2_FIRSTNAME: driver2firstname,
-      DRIVER_2_LASTNAME: driver2Lastname,
-      DRIVER_2_SURNAME: driver2surname,
-      DRIVER_2_BIRTHDAY: driver2birthday,
-      DRIVER_2_PIN: driver2pin,
-      DRIVER_2_DRIVER_LICENSE_DATE: driver2driverLicenseDate,
-      DRIVER_2_CLASS: driver2class,
-      DRIVER_3_FIRSTNAME: driver3firstname,
-      DRIVER_3_LASTNAME: driver3Lastname,
-      DRIVER_3_SURNAME: driver3surname,
-      DRIVER_3_BIRTHDAY: driver3birthday,
-      DRIVER_3_PIN: driver3pin,
-      DRIVER_3_DRIVER_LICENSE_DATE: driver3driverLicenseDate,
-      DRIVER_3_CLASS: driver3class,
-      DRIVER_4_FIRSTNAME: driver4firstname,
-      DRIVER_4_LASTNAME: driver4Lastname,
-      DRIVER_4_SURNAME: driver4surname,
-      DRIVER_4_BIRTHDAY: driver4birthday,
-      DRIVER_4_PIN: driver4pin,
-      DRIVER_4_DRIVER_LICENSE_DATE: driver4driverLicenseDate,
-      DRIVER_4_CLASS: driver4class,
-    })
-    .then(
-      (response: {
-        data: {
-          data: any;
-          result: boolean;
-          message: string;
-        };
-      }) => {
-        if (response && response.data) {
-          return response.data;
-        }
-      },
-    )
-    .catch(error => console.warn(error));
-};
-
 export const createNewApplicationData = ({
   driversPhotos,
   carPhotos,
@@ -450,7 +274,6 @@ export const createNewApplicationData = ({
   state: MyDataState;
   partner: IPartner;
 }) => {
-  let formData = new FormData();
   const photosArr = driversPhotos.reduce(
     (acc, photos) => {
       photos.idCard.forEach(image => {
@@ -502,55 +325,75 @@ export const createNewApplicationData = ({
     });
   });
 
-  formData.append('API_KEY', '28HimH4QhcEd4muqSktp');
-  formData.append('CLIENT_PHONE', state.phone);
-  formData.append('TYPE', 'create_new_application');
-  formData.append('IMAGES', photosArr);
-  formData.append('INSURANCE_TYPE_ID', state.insuranceTypeId);
-  formData.append('SELECTED_PARTNER_ID', partner.id);
-  formData.append('IS_OWNER', state.iAmTheOwner);
-  formData.append('IS_HAS_TO_CARD', state.iHaveCard);
-  formData.append('IS_KG_REGISTRATION', state.carRegisteredInKr);
-  formData.append('SELECTED_PRODUCT_ID', state.numberOfDrivers);
-  formData.append('SELECTED_PERIOD_ID', state.validity);
-  formData.append('CONTACT_PHONE', state.phone);
-  formData.append('CONTACT_EMAIL', state.email);
-  formData.append('CAR_TYPE_ID', 'CAR_TYPE_ID');
-  formData.append('CAR_TYPE_PARAM_ID', 'CAR_TYPE_PARAM_ID');
-  formData.append('CAR_NUMBER', 'CAR_NUMBER');
-  formData.append('CAR_VENDOR', state.carModel);
-  formData.append('CAR_MODEL', state.model);
-  formData.append('CAR_YEAR', state.yearOfIssue);
-  formData.append('CAR_VIN', state.engineNumber);
-  formData.append('DELIVERY_ID', 'DELIVERY_ID');
-  formData.append('DELIVERY_ADDRESS', 'DELIVERY_ADDRESS');
-  formData.append('IS_PICKUP', 'IS_PICKUP');
-  formData.append('PICKUP_OFFICE_ID', 'PICKUP_OFFICE_ID');
-  formData.append('DRIVER_1_FIRSTNAME', 'DRIVER_1_FIRSTNAME');
-  formData.append('DRIVER_1_LASTNAME', 'DRIVER_1_LASTNAME');
-  formData.append('DRIVER_1_SURNAME', 'DRIVER_1_SURNAME');
-  formData.append('DRIVER_1_BIRTHDAY', 'DRIVER_1_BIRTHDAY');
-  formData.append('DRIVER_1_PIN', 'DRIVER_1_PIN');
-  formData.append(
-    'DRIVER_1_DRIVER_LICENSE_DATE',
-    'DRIVER_1_DRIVER_LICENSE_DATE',
-  );
-  formData.append('DRIVER_1_CLASS', 'DRIVER_1_CLASS');
-
   const params = [
     {name: 'API_KEY', data: '28HimH4QhcEd4muqSktp'},
     {name: 'TYPE', data: 'create_new_application'},
     {name: 'CLIENT_PHONE', data: state.phone},
+    {name: 'INSURANCE_TYPE_ID', data: state.insuranceTypeId},
+    {name: 'SELECTED_PARTNER_ID', data: partner.id},
+    {name: 'IS_OWNER', data: state.iAmTheOwner},
+    {name: 'IS_HAS_TO_CARD', data: state.iHaveCard},
+    {name: 'IS_KG_REGISTRATION', data: state.carRegisteredInKr},
+    {name: 'SELECTED_PRODUCT_ID', data: state.numberOfDrivers},
+    {name: 'SELECTED_PERIOD_ID', data: state.validity},
+    {name: 'CONTACT_PHONE', data: state.phone},
+    {name: 'CONTACT_EMAIL', data: state.email},
+    {name: 'CAR_TYPE_ID', data: 'CAR_TYPE_ID'},
+    {name: 'CAR_TYPE_PARAM_ID', data: 'CAR_TYPE_PARAM_ID'},
+    {name: 'CAR_NUMBER', data: 'CAR_NUMBER'},
+    {name: 'CAR_VENDOR', data: state.carModel},
+    {name: 'CAR_MODEL', data: state.model},
+    {name: 'CAR_YEAR', data: state.yearOfIssue},
+    {name: 'CAR_VIN', data: state.engineNumber},
+    {name: 'DELIVERY_ID', data: 'DELIVERY_ID'},
+    {name: 'DELIVERY_ADDRESS', data: 'DELIVERY_ADDRESS'},
+    {name: 'IS_PICKUP', data: 'IS_PICKUP'},
+    {name: 'PICKUP_OFFICE_ID', data: 'PICKUP_OFFICE_ID'},
   ];
 
   photosArr.forEach((photo, index) => {
     params.push({
       name: `IMAGES[${index}]`,
+      // @ts-ignore
       type: 'image.jpg',
       filename: photo.name,
       data: RNFetchBlob.wrap(photo.uri),
     });
   });
+
+  driversState.forEach((driver, index) => {
+    const currentIndex = index + 1;
+    params.push({
+      name: `DRIVER_[${currentIndex}]_FIRSTNAME`,
+      data: driver.name,
+    });
+    params.push({
+      name: `DRIVER_[${currentIndex}]_LASTNAME`,
+      data: driver.secondName,
+    });
+    params.push({
+      name: `DRIVER_[${currentIndex}]_SURNAME`,
+      data: driver.surname,
+    });
+    params.push({
+      name: `DRIVER_[${currentIndex}]_BIRTHDAY`,
+      data: driver.date.toLocaleDateString(),
+    });
+    params.push({
+      name: `DRIVER_[${currentIndex}]_PIN`,
+      data: driver.pin,
+    });
+    params.push({
+      name: `DRIVER_[${currentIndex}]_CLASS`,
+      data: driver.class,
+    });
+    params.push({
+      name: `DRIVER_[${currentIndex}]_LICENSE_DATE`,
+      data: driver.driverLicenseDate.toLocaleDateString(),
+    });
+  });
+
+  console.log(params);
 
   return RNFetchBlob.config({
     trusty: true,
@@ -567,9 +410,10 @@ export const createNewApplicationData = ({
       if (response.data) {
         const data = JSON.parse(response.data);
         console.log('Successful', data);
+        return response.data;
       }
     })
     .catch(error => {
-      console.log('Error', error);
+      console.warn(error);
     });
 };
