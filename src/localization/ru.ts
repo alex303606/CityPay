@@ -199,12 +199,12 @@ export const ruTranslation = {
         loadCapacity: 'Грузоподъемность',
         carVin: 'VIN, если праворульное авто - номер кузова',
         policeInformation: 'Информация о полисе',
-        doYouNeedDelivery: 'Нужна ли вам доставка полиса?',
+        isPickUp: 'Нужна ли вам доставка полиса?',
         deliveryPaid: 'Доставка оплачивается отдельно!',
-        doYouNeedDeliverySubtitle:
+        isPickUpSubtitle:
           'Поставьте галочку если вы хотите чтобы мы доставили полис к вам.',
         whereToDeliver: 'Куда доставить полис',
-        whereToPick: 'Где вам удобно будет забрать полис?',
+        pickUpOffice: 'Где вам удобно будет забрать полис?',
         IRead: 'Я прочитал(а) и соглашаюсь со всеми ',
         rules: 'правилами',
         rulesTitle: 'Правила',

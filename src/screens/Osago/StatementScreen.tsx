@@ -104,7 +104,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     isHasToCard: false,
     isKgRegistration: false,
     IAmAgree: false,
-    needDelivery: false,
+    isPickUp: true,
     numberOfDrivers: !!productsListSelector?.length
       ? productsListSelector[0].value
       : '',
@@ -127,7 +127,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     loadCapacity: !!loadCapacity?.length ? loadCapacity[0].value : '',
     carVin: '',
     whereToDeliver: '',
-    whereToPick: !!officesListSelector?.length
+    pickUpOffice: !!officesListSelector?.length
       ? officesListSelector[0].value
       : '',
     insuranceTypeId: !!insuranceTypeList.length ? insuranceTypeList[0].id : '',
@@ -154,11 +154,11 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onChangeNeedDelivery = useCallback(
+  const onChangeIsPickUp = useCallback(
     (value: boolean) =>
       setMyData({
         ...state,
-        needDelivery: value,
+        isPickUp: !value,
       }),
     [state],
   );
@@ -223,8 +223,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     (value: string) => setMyData({...state, loadCapacity: value}),
     [state],
   );
-  const onWhereToPickChangeHandler = useCallback(
-    (value: string) => setMyData({...state, whereToPick: value}),
+  const onPickUpOfficeChangeHandler = useCallback(
+    (value: string) => setMyData({...state, pickUpOffice: value}),
     [state],
   );
 
@@ -527,12 +527,12 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       />
       <CheckBoxField
         marginBottom={16}
-        onChangeValue={onChangeNeedDelivery}
-        value={state.needDelivery}
-        title={t('osago.statementScreen.doYouNeedDelivery')}
-        subTitle={t('osago.statementScreen.doYouNeedDeliverySubtitle')}
+        onChangeValue={onChangeIsPickUp}
+        value={!state.isPickUp}
+        title={t('osago.statementScreen.isPickUp')}
+        subTitle={t('osago.statementScreen.isPickUpSubtitle')}
       />
-      {state.needDelivery ? (
+      {!state.isPickUp ? (
         <>
           <Typography.B16 color={theme.textColor}>
             {t('osago.statementScreen.deliveryPaid')}
@@ -545,14 +545,17 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           />
         </>
       ) : null}
-      <PickerComponent
-        marginBottom={16}
-        items={officesListSelector}
-        onValueChange={onWhereToPickChangeHandler}
-        selectedValue={state.whereToPick}
-        numberOfLines={3}
-        title={t('osago.statementScreen.whereToPick')}
-      />
+      {state.isPickUp ? (
+        <PickerComponent
+          marginBottom={16}
+          items={officesListSelector}
+          onValueChange={onPickUpOfficeChangeHandler}
+          selectedValue={state.pickUpOffice}
+          numberOfLines={3}
+          title={t('osago.statementScreen.pickUpOffice')}
+        />
+      ) : null}
+
       <Row alignItems={'center'} marginBottom={16}>
         <Block flex={1} marginRight={24}>
           <Typography.R16 color={theme.textColor}>

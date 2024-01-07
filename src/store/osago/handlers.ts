@@ -349,8 +349,8 @@ export const createNewApplicationData = ({
     {name: 'CAR_VIN', data: state.carVin},
     {name: 'DELIVERY_ID', data: 'DELIVERY_ID'},
     {name: 'DELIVERY_ADDRESS', data: state.whereToDeliver},
-    {name: 'IS_PICKUP', data: !state.needDelivery},
-    {name: 'PICKUP_OFFICE_ID', data: state.whereToPick},
+    {name: 'IS_PICKUP', data: state.isPickUp},
+    {name: 'PICKUP_OFFICE_ID', data: state.pickUpOffice},
   ];
 
   photosArr.forEach((photo, index) => {

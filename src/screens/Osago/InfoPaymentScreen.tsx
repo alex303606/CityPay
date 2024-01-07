@@ -46,7 +46,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   }, [carTypesList, state.carType]);
 
   const office = useMemo(() => {
-    return officesList.find(office => office.id === state.whereToPick);
+    return officesList.find(office => office.id === state.pickUpOffice);
   }, []);
 
   const {getTotalSumHandler} = useGetTotalSum({
@@ -221,18 +221,18 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.delivery')}
         value={
-          state.needDelivery
+          !state.isPickUp
             ? t('osago.infoPaymentScreen.yes')
             : t('osago.infoPaymentScreen.no')
         }
       />
-      {!!state.whereToDeliver && state.needDelivery ? (
+      {!!state.whereToDeliver && !state.isPickUp ? (
         <InfoLIneRow
           title={t('osago.infoPaymentScreen.deliveryAddress')}
           value={state.whereToDeliver}
         />
       ) : null}
-      {office && !state.needDelivery ? (
+      {office && state.isPickUp ? (
         <InfoLIneRow
           title={t('osago.infoPaymentScreen.placeReceipt')}
           value={`${office.title}\n${office.address}\n${office.phone}`}

@@ -197,9 +197,9 @@ export const kgTranslation = {
         loadCapacity: 'Грузоподъемность',
         carVin: 'Номер двигателя',
         policeInformation: 'Информация о полисе',
-        doYouNeedDelivery: 'Нужна ли вам доставка полиса?',
+        isPickUp: 'Нужна ли вам доставка полиса?',
         deliveryPaid: 'Доставка оплачивается отдельно!',
-        doYouNeedDeliverySubtitle:
+        isPickUpSubtitle:
           'Поставьте галочку если вы хотите чтобы мы доставили полис к вам.',
         whereToDeliver: 'Куда доставить полис',
         whereToPick: 'Где вам удобно будет забрать полис?',
