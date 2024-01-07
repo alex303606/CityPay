@@ -22,6 +22,7 @@ import {
 } from '@hooks';
 import {
   getCarTypesList,
+  getDeliveryList,
   getInsuranceTypeList,
   getOfficesList,
   getPeriodList,
@@ -45,6 +46,7 @@ type Props = NativeStackScreenProps<
 export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const {t} = useTranslation();
   const [iAmAgree, setIAmAgree] = useState<boolean>(false);
+  const [isDelivery, setIsDelivery] = useState<boolean>(false);
 
   const {theme} = useTheme();
   const {phone} = useAppSelector(getUserState);
@@ -57,6 +59,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const periodList = useAppSelector(getPeriodList);
   const productsList = useAppSelector(getProductsList);
   const insuranceTypeList = useAppSelector(getInsuranceTypeList);
+  const deliveryList = useAppSelector(getDeliveryList);
 
   const periodListSelector = periodList?.map(period => ({
     label: period.title,
@@ -105,7 +108,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     isOwner: false,
     isHasToCard: false,
     isKgRegistration: false,
-    isPickUp: true,
+    deliveryId: !!deliveryList?.length ? deliveryList[0].id : '',
     numberOfDrivers: !!productsListSelector?.length
       ? productsListSelector[0].value
       : '',
@@ -157,13 +160,20 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onChangeIsPickUp = useCallback(
-    (value: boolean) =>
-      setMyData({
-        ...state,
-        isPickUp: !value,
-      }),
-    [state],
+  const onChangeIsDelivery = useCallback(
+    (value: boolean) => {
+      setIsDelivery(value);
+      const delivery = deliveryList.find(
+        delivery => delivery.isDelivery === value,
+      );
+      if (delivery) {
+        setMyData({
+          ...state,
+          deliveryId: delivery.id,
+        });
+      }
+    },
+    [isDelivery, state],
   );
 
   const onChangeIAmAgree = useCallback(
@@ -532,12 +542,12 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       />
       <CheckBoxField
         marginBottom={16}
-        onChangeValue={onChangeIsPickUp}
-        value={!state.isPickUp}
+        onChangeValue={onChangeIsDelivery}
+        value={isDelivery}
         title={t('osago.statementScreen.isPickUp')}
         subTitle={t('osago.statementScreen.isPickUpSubtitle')}
       />
-      {!state.isPickUp ? (
+      {isDelivery ? (
         <>
           <Typography.B16 color={theme.textColor}>
             {t('osago.statementScreen.deliveryPaid')}
@@ -550,7 +560,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           />
         </>
       ) : null}
-      {state.isPickUp ? (
+      {!isDelivery ? (
         <PickerComponent
           marginBottom={16}
           items={officesListSelector}

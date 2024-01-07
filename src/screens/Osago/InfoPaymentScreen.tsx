@@ -19,6 +19,7 @@ import {
 } from '@hooks';
 import {
   getCarTypesList,
+  getDeliveryList,
   getInsuranceTypeList,
   getOfficesList,
   getPeriodList,
@@ -43,6 +44,14 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const carTypesList = useAppSelector(getCarTypesList);
   const officesList = useAppSelector(getOfficesList);
   const insuranceTypeList = useAppSelector(getInsuranceTypeList);
+  const deliveryList = useAppSelector(getDeliveryList);
+
+  const isDelivery = useMemo(() => {
+    const delivery = deliveryList.find(
+      delivery => delivery.id === state.deliveryId,
+    );
+    return !!delivery?.isDelivery;
+  }, []);
 
   const period = useMemo(() => {
     return periodList.find(p => p.id === state.selectedPeriodId);
@@ -238,18 +247,18 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.delivery')}
         value={
-          !state.isPickUp
+          isDelivery
             ? t('osago.infoPaymentScreen.yes')
             : t('osago.infoPaymentScreen.no')
         }
       />
-      {!!state.deliveryAddress && !state.isPickUp ? (
+      {!!state.deliveryAddress && isDelivery ? (
         <InfoLIneRow
           title={t('osago.infoPaymentScreen.deliveryAddress')}
           value={state.deliveryAddress}
         />
       ) : null}
-      {office && state.isPickUp ? (
+      {office && !isDelivery ? (
         <InfoLIneRow
           title={t('osago.infoPaymentScreen.placeReceipt')}
           value={`${office.title}\n${office.address}\n${office.phone}`}
