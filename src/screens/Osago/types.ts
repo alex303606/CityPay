@@ -8,9 +8,9 @@ export type MyDataState = {
   selectedPeriodId: string;
   email: string;
   phone: string;
+  carVendor: string;
   carModel: string;
-  model: string;
-  yearOfIssue: string;
+  carYear: string;
   carType: string;
   numberOfSeats: string;
   engineCapacity: string;

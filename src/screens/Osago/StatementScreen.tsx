@@ -113,9 +113,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       : '',
     email: '',
     phone: phone,
+    carVendor: '',
     carModel: '',
-    model: '',
-    yearOfIssue: '',
+    carYear: '',
     carType: !!carTypesListSelector?.length
       ? carTypesListSelector[0].value
       : '',
@@ -189,18 +189,18 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onCarModelChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carModel: value}),
+  const onCarVendorChangeHandler = useCallback(
+    (value: string) => setMyData({...state, carVendor: value}),
     [state],
   );
 
   const onModelChangeHandler = useCallback(
-    (value: string) => setMyData({...state, model: value}),
+    (value: string) => setMyData({...state, carModel: value}),
     [state],
   );
 
   const onYearOfIssueChangeHandler = useCallback(
-    (value: string) => setMyData({...state, yearOfIssue: value}),
+    (value: string) => setMyData({...state, carYear: value}),
     [state],
   );
 
@@ -459,19 +459,19 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         title={t('osago.statementScreen.infoAboutCar')}
       />
       <InputComponent
-        value={state.carModel}
-        onChangeValue={onCarModelChangeHandler}
+        value={state.carVendor}
+        onChangeValue={onCarVendorChangeHandler}
         title={t('osago.statementScreen.carModel')}
         marginBottom={16}
       />
       <InputComponent
-        value={state.model}
+        value={state.carModel}
         onChangeValue={onModelChangeHandler}
         title={t('osago.statementScreen.model')}
         marginBottom={16}
       />
       <InputComponent
-        value={state.yearOfIssue}
+        value={state.carYear}
         onChangeValue={onYearOfIssueChangeHandler}
         title={t('osago.statementScreen.yearOfIssue')}
         keyboardType={'numeric'}

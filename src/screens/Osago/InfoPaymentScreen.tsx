@@ -177,15 +177,15 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       </Typography.B18>
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.carModel')}
-        value={state.carModel}
+        value={state.carVendor}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.model')}
-        value={state.model}
+        value={state.carModel}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.yearOfIssue')}
-        value={state.yearOfIssue}
+        value={state.carYear}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.carType')}
