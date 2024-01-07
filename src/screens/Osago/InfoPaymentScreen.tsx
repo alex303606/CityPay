@@ -133,7 +133,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   return (
     <ScreenContainer title={t('osago.infoPaymentScreen.title')}>
       <Row marginBottom={16} justifyContent={'space-between'}>
-        <StyledImage source={{uri: partner.logoUrl}} />
+        <StyledImage resizeMode={'contain'} source={{uri: partner.logoUrl}} />
         <Block alignItems={'flex-end'}>
           <Typography.R18 color={theme.textColor}>
             {t('osago.infoPaymentScreen.amountInsurance')}

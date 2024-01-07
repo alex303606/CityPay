@@ -378,7 +378,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         justifyContent={'space-between'}
         alignItems={'center'}>
         <BlueTitle title={t('osago.statementScreen.totalInformation')} />
-        <StyledImage source={{uri: partner.logoUrl}} />
+        <StyledImage resizeMode={'contain'} source={{uri: partner.logoUrl}} />
       </Row>
       <CheckBoxField
         marginBottom={16}
