@@ -281,6 +281,8 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         />
       </Row>
       <Button
+        loading={loading}
+        disabled={!iAmAgree}
         marginVertical={8}
         title={t('osago.infoPaymentScreen.pay')}
         onPress={onHandlePressPayByMBank}

@@ -26,6 +26,7 @@ export const CalculationCostScreen: React.FC<Props> = ({route}) => {
         {calcList.map(c => {
           return (
             <CalculationCostItem
+              key={c.title}
               subTitle={c.description}
               title={c.title}
               value={c.param}

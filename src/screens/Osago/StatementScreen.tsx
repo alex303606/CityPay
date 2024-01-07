@@ -594,6 +594,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         />
       </Row>
       <Button
+        disabled={!state.IAmAgree}
         marginVertical={8}
         title={t('osago.statementScreen.loadDoc')}
         onPress={onPressLoadDoc}
