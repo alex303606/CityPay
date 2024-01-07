@@ -342,14 +342,13 @@ export const createNewApplicationData = ({
     {name: 'CONTACT_EMAIL', data: state.email},
     {name: 'CAR_TYPE_ID', data: state.carType},
     {name: 'CAR_TYPE_PARAM_ID', data: 'CAR_TYPE_PARAM_ID'},
-    {name: 'CAR_NUMBER', data: 'CAR_NUMBER'},
+    {name: 'CAR_NUMBER', data: state.carNumber},
     {name: 'CAR_VENDOR', data: state.carVendor},
     {name: 'CAR_MODEL', data: state.carModel},
     {name: 'CAR_YEAR', data: state.carYear},
     {name: 'CAR_VIN', data: state.carVin},
     {name: 'DELIVERY_ID', data: 'DELIVERY_ID'},
-    {name: 'DELIVERY_ADDRESS', data: state.whereToDeliver},
-    {name: 'IS_PICKUP', data: state.isPickUp},
+    {name: 'DELIVERY_ADDRESS', data: state.deliveryAddress},
     {name: 'PICKUP_OFFICE_ID', data: state.pickUpOffice},
   ];
 

@@ -8,8 +8,6 @@ import {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import {IDriver} from '../screens/Osago/types';
-import {Alert} from 'react-native';
-const questionIcon = require('@assets/images/question.webp');
 
 type Props = {
   index: number;
@@ -101,15 +99,6 @@ export const Driver: React.FC<Props> = ({
     [onClassChangeHandler],
   );
 
-  const onIconPress = useCallback(
-    () =>
-      Alert.alert(
-        t('osago.statementScreen.questionTitle'),
-        t('osago.statementScreen.questionText'),
-      ),
-    [],
-  );
-
   return (
     <>
       <BlueTitle
@@ -159,14 +148,13 @@ export const Driver: React.FC<Props> = ({
         onPress={showDriverLicenseDatepicker}
       />
       <InputComponent
+        disabled
         value={driverClass}
         onChangeValue={onClassChang}
         title={t('osago.statementScreen.class')}
         marginBottom={16}
         keyboardType={'numeric'}
         maxLength={1}
-        icon={questionIcon}
-        onIconPress={onIconPress}
       />
     </>
   );

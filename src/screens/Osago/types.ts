@@ -3,12 +3,13 @@ export type MyDataState = {
   isHasToCard: boolean;
   isKgRegistration: boolean;
   isPickUp: boolean;
-  IAmAgree: boolean;
   numberOfDrivers: string;
   selectedPeriodId: string;
   email: string;
   phone: string;
+  contactPhone: string;
   carVendor: string;
+  carNumber: string;
   carModel: string;
   carYear: string;
   carType: string;
@@ -17,7 +18,7 @@ export type MyDataState = {
   motorPower: string;
   loadCapacity: string;
   carVin: string;
-  whereToDeliver: string;
+  deliveryAddress: string;
   pickUpOffice: string;
   insuranceTypeId: string;
 };

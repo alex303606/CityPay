@@ -44,6 +44,8 @@ type Props = NativeStackScreenProps<
 
 export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const {t} = useTranslation();
+  const [iAmAgree, setIAmAgree] = useState<boolean>(false);
+
   const {theme} = useTheme();
   const {phone} = useAppSelector(getUserState);
   const {partner} = route.params;
@@ -103,7 +105,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     isOwner: false,
     isHasToCard: false,
     isKgRegistration: false,
-    IAmAgree: false,
     isPickUp: true,
     numberOfDrivers: !!productsListSelector?.length
       ? productsListSelector[0].value
@@ -112,7 +113,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       ? periodListSelector[0].value
       : '',
     email: '',
+    contactPhone: phone,
     phone: phone,
+    carNumber: '',
     carVendor: '',
     carModel: '',
     carYear: '',
@@ -126,7 +129,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     motorPower: !!motorPower?.length ? motorPower[0].value : '',
     loadCapacity: !!loadCapacity?.length ? loadCapacity[0].value : '',
     carVin: '',
-    whereToDeliver: '',
+    deliveryAddress: '',
     pickUpOffice: !!officesListSelector?.length
       ? officesListSelector[0].value
       : '',
@@ -141,7 +144,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       surname: '',
       name: '',
       secondName: '',
-      class: '',
+      class: '3',
     },
   ]);
 
@@ -164,12 +167,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   );
 
   const onChangeIAmAgree = useCallback(
-    (value: boolean) =>
-      setMyData({
-        ...state,
-        IAmAgree: value,
-      }),
-    [state],
+    (value: boolean) => setIAmAgree(value),
+    [iAmAgree],
   );
 
   const onChangeValueIHaveCard = useCallback(
@@ -191,6 +190,11 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const onCarVendorChangeHandler = useCallback(
     (value: string) => setMyData({...state, carVendor: value}),
+    [state],
+  );
+
+  const onCarNumberChangeHandler = useCallback(
+    (value: string) => setMyData({...state, carNumber: value}),
     [state],
   );
 
@@ -233,8 +237,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onWhereToDeliverHandler = useCallback(
-    (value: string) => setMyData({...state, whereToDeliver: value}),
+  const onDeliveryAddressChangeHandler = useCallback(
+    (value: string) => setMyData({...state, deliveryAddress: value}),
     [state],
   );
 
@@ -253,8 +257,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const changePhoneHandler = useCallback(
-    (value: string) => setMyData({...state, phone: value}),
+  const changeContactPhoneHandler = useCallback(
+    (value: string) => setMyData({...state, contactPhone: value}),
     [state],
   );
 
@@ -294,14 +298,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [driversState],
   );
 
-  const onClassChangeHandler = useCallback(
-    (value: string, index: number) => {
-      const newDriversState = [...driversState];
-      newDriversState[index].class = value;
-      setDrivers(newDriversState);
-    },
-    [driversState],
-  );
+  const onClassChangeHandler = useCallback(() => {
+    return null;
+  }, [driversState]);
 
   const onChangeDate = (index: number, date?: Date) => {
     if (date) {
@@ -329,7 +328,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         surname: '',
         name: '',
         secondName: '',
-        class: '',
+        class: '3',
       },
     ];
 
@@ -428,7 +427,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         placeholder={MASK}
         keyboardType="phone-pad"
         mask={MASK}
-        changeValueHandler={changePhoneHandler}
+        changeValueHandler={changeContactPhoneHandler}
         value={state.phone}
       />
       {driversState.map((driver, index) => (
@@ -464,6 +463,12 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         onValueChange={onCarTypeChangeHandler}
         selectedValue={state.carType}
         title={t('osago.statementScreen.carType')}
+      />
+      <InputComponent
+        value={state.carNumber}
+        onChangeValue={onCarNumberChangeHandler}
+        title={t('osago.statementScreen.carNumber')}
+        marginBottom={16}
       />
       <InputComponent
         value={state.carVendor}
@@ -538,8 +543,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             {t('osago.statementScreen.deliveryPaid')}
           </Typography.B16>
           <InputComponent
-            value={state.whereToDeliver}
-            onChangeValue={onWhereToDeliverHandler}
+            value={state.deliveryAddress}
+            onChangeValue={onDeliveryAddressChangeHandler}
             title={t('osago.statementScreen.whereToDeliver')}
             marginBottom={16}
           />
@@ -590,7 +595,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           </Typography.R16>
         </Block>
         <CheckBox
-          value={state.IAmAgree}
+          value={iAmAgree}
           onValueChange={onChangeIAmAgree}
           tintColors={{
             true: 'rgba(25, 135, 84, 1)',
@@ -599,7 +604,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         />
       </Row>
       <Button
-        disabled={!state.IAmAgree}
+        disabled={!iAmAgree}
         marginVertical={8}
         title={t('osago.statementScreen.loadDoc')}
         onPress={onPressLoadDoc}

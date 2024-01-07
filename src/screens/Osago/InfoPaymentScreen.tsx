@@ -17,7 +17,13 @@ import {
   useGetTotalSum,
   useTheme,
 } from '@hooks';
-import {getCarTypesList, getOfficesList, getPeriodList, ITotal} from '@store';
+import {
+  getCarTypesList,
+  getInsuranceTypeList,
+  getOfficesList,
+  getPeriodList,
+  ITotal,
+} from '@store';
 import styled from 'styled-components';
 import {Image} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
@@ -36,6 +42,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const periodList = useAppSelector(getPeriodList);
   const carTypesList = useAppSelector(getCarTypesList);
   const officesList = useAppSelector(getOfficesList);
+  const insuranceTypeList = useAppSelector(getInsuranceTypeList);
 
   const period = useMemo(() => {
     return periodList.find(p => p.id === state.selectedPeriodId);
@@ -47,6 +54,12 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
 
   const office = useMemo(() => {
     return officesList.find(office => office.id === state.pickUpOffice);
+  }, []);
+
+  const insuranceType = useMemo(() => {
+    return insuranceTypeList.find(
+      insurance => insurance.id === state.insuranceTypeId,
+    );
   }, []);
 
   const {getTotalSumHandler} = useGetTotalSum({
@@ -154,7 +167,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       </Typography.B18>
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.insuranceType')}
-        value={'ОСАГО'}
+        value={insuranceType?.title || ''}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.numberDrivers')}
@@ -167,7 +180,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       <InfoLIneRow title={'Email:'} value={state.email} />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.phoneNumber')}
-        value={state.phone}
+        value={state.contactPhone}
       />
       {drivers.map((driver, index) => (
         <DriverApplicationItem driver={driver} key={index} index={index} />
@@ -182,6 +195,10 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.model')}
         value={state.carModel}
+      />
+      <InfoLIneRow
+        title={t('osago.infoPaymentScreen.carNumber')}
+        value={state.carNumber}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.yearOfIssue')}
@@ -200,7 +217,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         value={state.carVin}
       />
       <InfoLIneRow
-        title={t('osago.infoPaymentScreen.countryRegistration')}
+        title={t('osago.infoPaymentScreen.carRegisteredInKr')}
         value={
           state.isKgRegistration
             ? t('osago.infoPaymentScreen.yes')
@@ -226,10 +243,10 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
             : t('osago.infoPaymentScreen.no')
         }
       />
-      {!!state.whereToDeliver && !state.isPickUp ? (
+      {!!state.deliveryAddress && !state.isPickUp ? (
         <InfoLIneRow
           title={t('osago.infoPaymentScreen.deliveryAddress')}
-          value={state.whereToDeliver}
+          value={state.deliveryAddress}
         />
       ) : null}
       {office && state.isPickUp ? (

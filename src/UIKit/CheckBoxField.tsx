@@ -23,7 +23,7 @@ export const CheckBoxField: React.FC<Props> = ({
 
   return (
     <Row alignItems={'center'} marginBottom={marginBottom}>
-      <Block flex={1} marginRight={24}>
+      <Block flex={1} marginRight={8}>
         <Typography.B16 color={theme.textColor} marginBottom={5}>
           {title}
         </Typography.B16>
