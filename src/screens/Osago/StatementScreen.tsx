@@ -81,25 +81,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     value: office.id,
   }));
 
-  const numberOfSeats = carTypesList
-    ?.find(type => type.paramTitle === 'Количество мест')
-    ?.selectParams?.map(s => ({label: s.title, value: s.id}));
-
-  const carEngineCapacity = carTypesList
-    ?.find(
-      type =>
-        type.paramTitle === 'Объем двигателя' && type.title === 'Легковое авто',
-    )
-    ?.selectParams?.map(s => ({label: s.title, value: s.id}));
-
-  const motorPower = carTypesList
-    ?.find(type => type.paramTitle === 'Мощность двигателя')
-    ?.selectParams?.map(s => ({label: s.title, value: s.id}));
-
-  const loadCapacity = carTypesList
-    ?.find(type => type.paramTitle === 'Грузоподъемность')
-    ?.selectParams?.map(s => ({label: s.title, value: s.id}));
-
   useEffect(() => {
     getDataFromPartnerForNewApplicationHandler();
   }, [getDataFromPartnerForNewApplicationHandler]);
@@ -109,7 +90,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     isHasToCard: false,
     isKgRegistration: false,
     deliveryId: !!deliveryList?.length ? deliveryList[0].id : '',
-    numberOfDrivers: !!productsListSelector?.length
+    product: !!productsListSelector?.length
       ? productsListSelector[0].value
       : '',
     selectedPeriodId: !!periodListSelector?.length
@@ -125,12 +106,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carType: !!carTypesListSelector?.length
       ? carTypesListSelector[0].value
       : '',
-    numberOfSeats: !!numberOfSeats?.length ? numberOfSeats[0].value : '',
-    engineCapacity: !!carEngineCapacity?.length
-      ? carEngineCapacity[0].value
-      : '',
-    motorPower: !!motorPower?.length ? motorPower[0].value : '',
-    loadCapacity: !!loadCapacity?.length ? loadCapacity[0].value : '',
+    carTypeParamId: '',
     carVin: '',
     deliveryAddress: '',
     pickUpOffice: !!officesListSelector?.length
@@ -138,6 +114,21 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       : '',
     insuranceTypeId: !!insuranceTypeList.length ? insuranceTypeList[0].id : '',
   });
+
+  const carTypesParams = useMemo(() => {
+    const carTypesParams = carTypesList.find(type => type.id === state.carType);
+    if (!carTypesParams) {
+      return undefined;
+    }
+
+    return {
+      title: carTypesParams.paramTitle,
+      params: carTypesParams.selectParams.map(t => ({
+        label: t.title,
+        value: t.id,
+      })),
+    };
+  }, [state.carType]);
 
   const [driversState, setDrivers] = useState<IDriver[]>([
     {
@@ -194,7 +185,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   );
 
   const onNumberOfDriversChangeHandler = useCallback(
-    (value: string) => setMyData({...state, numberOfDrivers: value}),
+    (value: string) => setMyData({...state, product: value}),
     [state],
   );
 
@@ -223,20 +214,11 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onNumberOfSeatsChangeHandler = useCallback(
-    (value: string) => setMyData({...state, numberOfSeats: value}),
+  const onCarTypeParamIdChangeHandler = useCallback(
+    (value: string) => setMyData({...state, carTypeParamId: value}),
     [state],
   );
 
-  const onEngineCapacityChangeHandler = useCallback(
-    (value: string) => setMyData({...state, engineCapacity: value}),
-    [state],
-  );
-
-  const onLoadCapacityChangeHandler = useCallback(
-    (value: string) => setMyData({...state, loadCapacity: value}),
-    [state],
-  );
   const onPickUpOfficeChangeHandler = useCallback(
     (value: string) => setMyData({...state, pickUpOffice: value}),
     [state],
@@ -249,11 +231,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const onDeliveryAddressChangeHandler = useCallback(
     (value: string) => setMyData({...state, deliveryAddress: value}),
-    [state],
-  );
-
-  const onMotorPowerChangeHandler = useCallback(
-    (value: string) => setMyData({...state, motorPower: value}),
     [state],
   );
 
@@ -372,15 +349,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const showAddDriverButton = useMemo(() => {
     return (
-      productsList?.find(p => state.numberOfDrivers === p.id)
-        ?.maxDriversCount !== 1
+      productsList?.find(p => state.product === p.id)?.maxDriversCount !== 1
     );
-  }, [state.numberOfDrivers]);
-
-  const showMotorPower = useMemo(() => {
-    const type = carTypesListSelector?.find(t => t.value === state.carType);
-    return !!(type && type.label === 'Электромобиль');
-  }, [carTypesListSelector, state.carType]);
+  }, [state.product]);
 
   return (
     <ScreenContainer title={t('osago.statementScreen.title')}>
@@ -414,7 +385,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         marginBottom={16}
         items={productsListSelector}
         onValueChange={onNumberOfDriversChangeHandler}
-        selectedValue={state.numberOfDrivers}
+        selectedValue={state.product}
         title={t('osago.statementScreen.product')}
       />
       <PickerComponent
@@ -474,6 +445,16 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         selectedValue={state.carType}
         title={t('osago.statementScreen.carType')}
       />
+      {carTypesParams ? (
+        <PickerComponent
+          marginBottom={16}
+          items={carTypesParams.params}
+          onValueChange={onCarTypeParamIdChangeHandler}
+          selectedValue={state.carType}
+          title={carTypesParams.title}
+        />
+      ) : null}
+
       <InputComponent
         value={state.carNumber}
         onChangeValue={onCarNumberChangeHandler}
@@ -499,36 +480,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         keyboardType={'numeric'}
         maxLength={4}
         marginBottom={16}
-      />
-      <PickerComponent
-        marginBottom={16}
-        items={numberOfSeats || []}
-        onValueChange={onNumberOfSeatsChangeHandler}
-        selectedValue={state.numberOfSeats}
-        title={t('osago.statementScreen.numberOfSeats')}
-      />
-      <PickerComponent
-        marginBottom={16}
-        items={carEngineCapacity || []}
-        onValueChange={onEngineCapacityChangeHandler}
-        selectedValue={state.engineCapacity}
-        title={t('osago.statementScreen.engineCapacity')}
-      />
-      {showMotorPower ? (
-        <PickerComponent
-          marginBottom={16}
-          items={motorPower || []}
-          onValueChange={onMotorPowerChangeHandler}
-          selectedValue={state.motorPower}
-          title={t('osago.statementScreen.motorPower')}
-        />
-      ) : null}
-      <PickerComponent
-        marginBottom={16}
-        items={loadCapacity || []}
-        onValueChange={onLoadCapacityChangeHandler}
-        selectedValue={state.loadCapacity}
-        title={t('osago.statementScreen.loadCapacity')}
       />
       <InputComponent
         value={state.carVin}

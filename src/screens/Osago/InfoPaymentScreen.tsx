@@ -75,7 +75,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
     isHasToCard: state.isHasToCard,
     isKgRegistrations: state.isKgRegistration,
     partnerId: partner.id,
-    productId: state.numberOfDrivers,
+    productId: state.product,
     selectedPeriodId: state.selectedPeriodId,
   });
 
@@ -148,6 +148,25 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
     }
   }, [total]);
 
+  const carTypeParam = useMemo(() => {
+    const carType = carTypesList.find(type => type.id === state.carType);
+    if (carType) {
+      const selectParam = carType.selectParams.find(
+        param => param.id === state.carTypeParamId,
+      );
+
+      if (!selectParam) {
+        return undefined;
+      }
+
+      return {
+        title: carType.paramTitle,
+        valueTitle: selectParam.title,
+      };
+    }
+    return undefined;
+  }, [state.carTypeParamId, state.carType]);
+
   if (!total) {
     return null;
   }
@@ -217,10 +236,13 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         title={t('osago.infoPaymentScreen.carType')}
         value={carTypeTitle?.title || ''}
       />
-      <InfoLIneRow
-        title={t('osago.infoPaymentScreen.engineCapacity')}
-        value={state.engineCapacity}
-      />
+      {carTypeParam ? (
+        <InfoLIneRow
+          title={carTypeParam.title}
+          value={carTypeParam.valueTitle}
+        />
+      ) : null}
+
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.carVin')}
         value={state.carVin}

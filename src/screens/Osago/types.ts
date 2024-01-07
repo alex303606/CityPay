@@ -2,7 +2,7 @@ export type MyDataState = {
   isOwner: boolean;
   isHasToCard: boolean;
   isKgRegistration: boolean;
-  numberOfDrivers: string;
+  product: string;
   selectedPeriodId: string;
   email: string;
   phone: string;
@@ -12,10 +12,7 @@ export type MyDataState = {
   carModel: string;
   carYear: string;
   carType: string;
-  numberOfSeats: string;
-  engineCapacity: string;
-  motorPower: string;
-  loadCapacity: string;
+  carTypeParamId: string;
   carVin: string;
   deliveryAddress: string;
   pickUpOffice: string;
