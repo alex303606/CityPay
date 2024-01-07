@@ -11,8 +11,7 @@ import {
 import {useTranslation} from 'react-i18next';
 import {useAppSelector, useGetLocationsList, useTheme} from '@hooks';
 import styled from 'styled-components';
-import {FlatList, Image, ListRenderItem, Pressable} from 'react-native';
-import {FlatListType} from '../types';
+import {Image, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
 import {getLocationsListList, getPartnersList, IPartner} from '@store';
@@ -55,7 +54,7 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
           <ImageWrapper>
             <StyledInsuranceImage
               source={{uri: item.logoUrl}}
-              resizeMode={'cover'}
+              resizeMode={'contain'}
             />
           </ImageWrapper>
         </StyledPressable>
@@ -117,7 +116,7 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
         {selectedCity !== null && !!partnersAvailableInRegion.length
           ? partnersAvailableInRegion.map(renderInsurance)
           : null}
-        {selectedCity !== null && !!partnersAvailableInRegion.length ? (
+        {selectedCity !== null && !!partnersNotAvailableInRegion.length ? (
           <Typography.B16 marginTop={16} color={theme.textColor}>
             {t('osago.hasNotBranches')}
           </Typography.B16>
@@ -135,13 +134,6 @@ const StyledImage = styled(Image)({
   width: 334,
   height: 165,
 });
-
-const List: FlatListType = styled(FlatList).attrs(() => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    padding: 4,
-  },
-}))({});
 
 const StyledPressable = styled(Pressable).attrs(() => ({
   android_ripple: {

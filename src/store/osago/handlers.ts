@@ -325,6 +325,8 @@ export const createNewApplicationData = ({
     });
   });
 
+  console.log(state);
+
   const params = [
     {name: 'API_KEY', data: '28HimH4QhcEd4muqSktp'},
     {name: 'TYPE', data: 'create_new_application'},
@@ -338,7 +340,7 @@ export const createNewApplicationData = ({
     {name: 'SELECTED_PERIOD_ID', data: state.validity},
     {name: 'CONTACT_PHONE', data: state.phone},
     {name: 'CONTACT_EMAIL', data: state.email},
-    {name: 'CAR_TYPE_ID', data: 'CAR_TYPE_ID'},
+    {name: 'CAR_TYPE_ID', data: state.carType},
     {name: 'CAR_TYPE_PARAM_ID', data: 'CAR_TYPE_PARAM_ID'},
     {name: 'CAR_NUMBER', data: 'CAR_NUMBER'},
     {name: 'CAR_VENDOR', data: state.carModel},
@@ -346,9 +348,9 @@ export const createNewApplicationData = ({
     {name: 'CAR_YEAR', data: state.yearOfIssue},
     {name: 'CAR_VIN', data: state.engineNumber},
     {name: 'DELIVERY_ID', data: 'DELIVERY_ID'},
-    {name: 'DELIVERY_ADDRESS', data: 'DELIVERY_ADDRESS'},
-    {name: 'IS_PICKUP', data: 'IS_PICKUP'},
-    {name: 'PICKUP_OFFICE_ID', data: 'PICKUP_OFFICE_ID'},
+    {name: 'DELIVERY_ADDRESS', data: state.whereToDeliver},
+    {name: 'IS_PICKUP', data: !state.needDelivery},
+    {name: 'PICKUP_OFFICE_ID', data: state.whereToPick},
   ];
 
   photosArr.forEach((photo, index) => {
