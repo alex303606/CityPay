@@ -112,7 +112,6 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
         try {
           const eventName = Object.keys(event)[0];
           const message = Object.values(event)[0];
-          console.log(eventName, message);
           switch (eventName) {
             case 'onPaymentPaid':
               showNotification(t('Операция прошла успешно'));

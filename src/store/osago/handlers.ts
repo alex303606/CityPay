@@ -325,7 +325,7 @@ export const createNewApplicationData = ({
     });
   });
 
-  console.log(state);
+  console.log('stateHandlers', state);
 
   const params = [
     {name: 'API_KEY', data: '28HimH4QhcEd4muqSktp'},

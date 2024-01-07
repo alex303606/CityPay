@@ -55,7 +55,6 @@ export const MyCardsScreen: React.FC<Props> = ({navigation}) => {
         try {
           const eventName = Object.keys(event)[0];
           const message = Object.values(event)[0];
-          console.log(eventName, message);
           switch (eventName) {
             case 'cardsList':
               const cardsList = JSON.parse(message);
