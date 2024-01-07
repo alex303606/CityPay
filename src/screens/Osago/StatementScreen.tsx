@@ -125,7 +125,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       : '',
     motorPower: !!motorPower?.length ? motorPower[0].value : '',
     loadCapacity: !!loadCapacity?.length ? loadCapacity[0].value : '',
-    engineNumber: '',
+    carVin: '',
     whereToDeliver: '',
     whereToPick: !!officesListSelector?.length
       ? officesListSelector[0].value
@@ -228,8 +228,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     [state],
   );
 
-  const onEngineNumberHandler = useCallback(
-    (value: string) => setMyData({...state, engineNumber: value}),
+  const onCarVinChangeHandler = useCallback(
+    (value: string) => setMyData({...state, carVin: value}),
     [state],
   );
 
@@ -458,6 +458,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         marginBottom={16}
         title={t('osago.statementScreen.infoAboutCar')}
       />
+      <PickerComponent
+        marginBottom={16}
+        items={carTypesListSelector}
+        onValueChange={onCarTypeChangeHandler}
+        selectedValue={state.carType}
+        title={t('osago.statementScreen.carType')}
+      />
       <InputComponent
         value={state.carVendor}
         onChangeValue={onCarVendorChangeHandler}
@@ -477,13 +484,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         keyboardType={'numeric'}
         maxLength={4}
         marginBottom={16}
-      />
-      <PickerComponent
-        marginBottom={16}
-        items={carTypesListSelector}
-        onValueChange={onCarTypeChangeHandler}
-        selectedValue={state.carType}
-        title={t('osago.statementScreen.carType')}
       />
       <PickerComponent
         marginBottom={16}
@@ -516,9 +516,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         title={t('osago.statementScreen.loadCapacity')}
       />
       <InputComponent
-        value={state.engineNumber}
-        onChangeValue={onEngineNumberHandler}
-        title={t('osago.statementScreen.engineNumber')}
+        value={state.carVin}
+        onChangeValue={onCarVinChangeHandler}
+        title={t('osago.statementScreen.carVin')}
         marginBottom={16}
       />
       <BlueTitle

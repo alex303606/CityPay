@@ -154,7 +154,7 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
       {/*  value={'________'}*/}
       {/*/>*/}
       <InfoLIneRow
-        title={t('osago.infoPaymentScreen.engineNumber')}
+        title={t('osago.infoPaymentScreen.carVin')}
         value={application.carVIN}
       />
       <InfoLIneRow

@@ -196,8 +196,8 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         value={state.engineCapacity}
       />
       <InfoLIneRow
-        title={t('osago.infoPaymentScreen.engineNumber')}
-        value={state.engineNumber}
+        title={t('osago.infoPaymentScreen.carVin')}
+        value={state.carVin}
       />
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.countryRegistration')}

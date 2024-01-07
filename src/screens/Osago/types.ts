@@ -16,7 +16,7 @@ export type MyDataState = {
   engineCapacity: string;
   motorPower: string;
   loadCapacity: string;
-  engineNumber: string;
+  carVin: string;
   whereToDeliver: string;
   whereToPick: string;
   insuranceTypeId: string;

@@ -346,7 +346,7 @@ export const createNewApplicationData = ({
     {name: 'CAR_VENDOR', data: state.carVendor},
     {name: 'CAR_MODEL', data: state.carModel},
     {name: 'CAR_YEAR', data: state.carYear},
-    {name: 'CAR_VIN', data: state.engineNumber},
+    {name: 'CAR_VIN', data: state.carVin},
     {name: 'DELIVERY_ID', data: 'DELIVERY_ID'},
     {name: 'DELIVERY_ADDRESS', data: state.whereToDeliver},
     {name: 'IS_PICKUP', data: !state.needDelivery},
