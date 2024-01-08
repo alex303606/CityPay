@@ -337,12 +337,16 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const scrollViewRef = useRef<ScrollView>(null);
 
-  const onPressLoadDoc = useCallback(() => {
-    validate();
+  const scrollToTop = useCallback(() => {
     scrollViewRef.current?.scrollTo({
       y: 0,
       animated: true,
     });
+  }, []);
+
+  const onPressLoadDoc = useCallback(() => {
+    validate();
+    scrollToTop();
     // navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
     //   numberOfDrivers: driversState.length,
     //   state,
