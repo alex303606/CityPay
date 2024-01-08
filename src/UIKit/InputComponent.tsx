@@ -24,6 +24,7 @@ type Props = {
   maxLength?: number;
   icon?: ImageSourcePropType;
   onIconPress?: () => void;
+  error?: boolean;
 };
 export const InputComponent: React.FC<Props> = ({
   marginBottom,
@@ -37,6 +38,7 @@ export const InputComponent: React.FC<Props> = ({
   maxLength,
   icon,
   onIconPress,
+  error,
 }) => {
   const {theme} = useTheme();
 
@@ -44,7 +46,9 @@ export const InputComponent: React.FC<Props> = ({
     <Block marginBottom={marginBottom}>
       <Row alignItems="center">
         {!!title ? (
-          <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+          <Typography.RF16
+            marginBottom={4}
+            color={error ? theme.red : theme.tabInactiveColor}>
             {title}
           </Typography.RF16>
         ) : null}

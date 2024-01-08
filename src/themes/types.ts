@@ -12,6 +12,7 @@ export type ITheme = {
   filterColor: string;
   QRColor: string;
   blueTitle: string;
+  red: string;
 };
 
 export enum Themes {

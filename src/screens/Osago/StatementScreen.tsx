@@ -32,10 +32,11 @@ import {
 } from '@store';
 import styled from 'styled-components';
 import {Image, Pressable, ScrollView} from 'react-native';
-import {IDriver, MyDataState} from './types';
+import {IDriver, IErrorFieldsState, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
+import {validateEmail} from '../../utils';
 
 const MASK = '+996 999 99-99-99';
 
@@ -333,7 +334,10 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     });
   }, [insuranceConditions]);
 
-  const [errorField, setErrorField] = useState<string | null>(null);
+  const [errorFieldsState, setErrorFieldsState] = useState<IErrorFieldsState>({
+    email: false,
+    carVendor: false,
+  });
 
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -344,18 +348,21 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     });
   }, []);
 
-  const {validate} = useValidationFields(
-    state,
-    navigation,
-    driversState,
-    partner,
-    scrollToTop,
-  );
+  const validate = useCallback(() => {
+    let newErrorFieldsState = {...errorFieldsState};
+
+    newErrorFieldsState = {
+      ...newErrorFieldsState,
+      email: !validateEmail(state.email),
+      carVendor: !state.carVendor,
+    };
+
+    setErrorFieldsState(newErrorFieldsState);
+  }, [errorFieldsState, state]);
 
   const onPressLoadDoc = useCallback(() => {
     validate();
-    scrollToTop();
-  }, [driversState, state, partner]);
+  }, [state, errorFieldsState]);
 
   const showAddDriverButton = useMemo(() => {
     return (
@@ -422,6 +429,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             title={t('osago.statementScreen.selectedPeriod')}
           />
           <InputComponent
+            error={errorFieldsState.email}
             value={state.email}
             onChangeValue={onEmailChangeHandler}
             title={t('osago.statementScreen.email')}
@@ -487,6 +495,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             marginBottom={16}
           />
           <InputComponent
+            error={errorFieldsState.carVendor}
             value={state.carVendor}
             onChangeValue={onCarVendorChangeHandler}
             title={t('osago.statementScreen.carModel')}

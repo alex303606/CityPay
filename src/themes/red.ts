@@ -15,4 +15,5 @@ export const redTheme: ITheme = {
   paidColor: Colors.white,
   QRColor: Colors.white,
   blueTitle: '#ffffff',
+  red: '#ff0000',
 };

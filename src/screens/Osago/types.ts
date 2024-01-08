@@ -46,3 +46,8 @@ export type ICarDocuments = {
   registration: IPhoto[];
   registrationCard: IPhoto[];
 };
+
+export type IErrorFieldsState = {
+  email: boolean;
+  carVendor: boolean;
+};
