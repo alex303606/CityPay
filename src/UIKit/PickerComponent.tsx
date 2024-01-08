@@ -4,6 +4,7 @@ import {Typography} from './constants';
 import {Picker} from '@react-native-picker/picker';
 import styled from 'styled-components';
 import {useTheme} from '@hooks';
+import {useTranslation} from 'react-i18next';
 
 type Item = {
   label: string;
@@ -12,7 +13,7 @@ type Item = {
 
 type Props = {
   items: Item[];
-  selectedValue: string | null | number;
+  selectedValue: string | null | number | undefined;
   onValueChange: (itemValue: any) => void;
   title: string;
   marginBottom?: number;
@@ -28,6 +29,7 @@ export const PickerComponent: React.FC<Props> = ({
   numberOfLines,
 }) => {
   const {theme} = useTheme();
+  const {t} = useTranslation();
 
   const renderItem = useCallback((item: Item) => {
     return (
@@ -47,6 +49,11 @@ export const PickerComponent: React.FC<Props> = ({
           selectedValue={selectedValue}
           numberOfLines={numberOfLines}
           onValueChange={onValueChange}>
+          <Picker.Item
+            key={'selectItemFromList'}
+            label={t('osago.statementScreen.selectItemFromList')}
+            value={selectedValue}
+          />
           {items?.map(renderItem)}
         </StyledPicker>
       </StyledRow>

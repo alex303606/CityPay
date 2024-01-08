@@ -3,6 +3,7 @@ import {
   Block,
   Button,
   InfoLIneRow,
+  Loader,
   Row,
   ScreenContainer,
   Typography,
@@ -71,12 +72,12 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
     );
   }, []);
 
-  const {getTotalSumHandler} = useGetTotalSum({
+  const {getTotalSumHandler, loading: totalSumLoading} = useGetTotalSum({
     isHasToCard: state.isHasToCard,
     isKgRegistrations: state.isKgRegistration,
     partnerId: partner.id,
-    productId: state.product,
-    selectedPeriodId: state.selectedPeriodId,
+    productId: state.product || '',
+    selectedPeriodId: state.selectedPeriodId || '',
   });
 
   const [total, setTotal] = useState<ITotal | null>(null);
@@ -335,6 +336,7 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         title={t('osago.infoPaymentScreen.pay')}
         onPress={onHandlePressPayByMBank}
       />
+      {totalSumLoading && <Loader />}
     </ScreenContainer>
   );
 };

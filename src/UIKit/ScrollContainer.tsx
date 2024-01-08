@@ -19,9 +19,14 @@ const StyledScrollView = styled(ScrollView).attrs<StyledScrollViewProps>(
 type Props = {
   children: ReactNode;
   reload?: () => Promise<void>;
+  scrollViewRef?: React.RefObject<ScrollView>;
 };
 
-export const ScrollContainer: React.FC<Props> = ({children, reload}) => {
+export const ScrollContainer: React.FC<Props> = ({
+  children,
+  reload,
+  scrollViewRef,
+}) => {
   const {theme} = useTheme();
   const {loading, hideLoader, showLoader} = useLoading();
 
@@ -35,6 +40,7 @@ export const ScrollContainer: React.FC<Props> = ({children, reload}) => {
 
   return (
     <StyledScrollView
+      ref={scrollViewRef}
       refreshControl={
         reload ? (
           <RefreshControl refreshing={loading} onRefresh={handleReload} />

@@ -2,8 +2,8 @@ export type MyDataState = {
   isOwner: boolean;
   isHasToCard: boolean;
   isKgRegistration: boolean;
-  product: string;
-  selectedPeriodId: string;
+  product: string | undefined;
+  selectedPeriodId: string | undefined;
   email: string;
   phone: string;
   contactPhone: string;
@@ -11,13 +11,13 @@ export type MyDataState = {
   carNumber: string;
   carModel: string;
   carYear: string;
-  carType: string;
-  carTypeParamId: string;
+  carType: string | undefined;
+  carTypeParamId: string | undefined;
   carVin: string;
   deliveryAddress: string;
-  pickUpOffice: string;
-  insuranceTypeId: string;
-  deliveryId: string;
+  pickUpOffice: string | undefined;
+  insuranceTypeId: string | undefined;
+  deliveryId: string | undefined;
 };
 
 export type IDriver = {

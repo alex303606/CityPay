@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Block,
@@ -11,7 +11,7 @@ import {
   MaskedInput,
   PickerComponent,
   Row,
-  ScreenContainer,
+  ScrollContainer,
   Typography,
 } from '@UIKit';
 import {
@@ -19,6 +19,7 @@ import {
   useGetDataFromPartnerForNewApplication,
   useGetSupportUrls,
   useTheme,
+  useValidationFields,
 } from '@hooks';
 import {
   getCarTypesList,
@@ -30,7 +31,7 @@ import {
   getUserState,
 } from '@store';
 import styled from 'styled-components';
-import {Image, Pressable} from 'react-native';
+import {Image, Pressable, ScrollView} from 'react-native';
 import {IDriver, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -89,13 +90,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     isOwner: false,
     isHasToCard: false,
     isKgRegistration: false,
-    deliveryId: !!deliveryList?.length ? deliveryList[0].id : '',
-    product: !!productsListSelector?.length
-      ? productsListSelector[0].value
-      : '',
-    selectedPeriodId: !!periodListSelector?.length
-      ? periodListSelector[0].value
-      : '',
+    deliveryId: undefined,
+    product: undefined,
+    selectedPeriodId: undefined,
     email: '',
     contactPhone: phone,
     phone: phone,
@@ -103,16 +100,14 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carVendor: '',
     carModel: '',
     carYear: '',
-    carType: !!carTypesListSelector?.length
-      ? carTypesListSelector[0].value
-      : '',
-    carTypeParamId: '',
+    carType: undefined,
+    carTypeParamId: undefined,
     carVin: '',
     deliveryAddress: '',
-    pickUpOffice: !!officesListSelector?.length
-      ? officesListSelector[0].value
-      : '',
-    insuranceTypeId: !!insuranceTypeList.length ? insuranceTypeList[0].id : '',
+    pickUpOffice: undefined,
+    insuranceTypeId: !!insuranceTypeList.length
+      ? insuranceTypeList[0].id
+      : undefined,
   });
 
   const carTypesParams = useMemo(() => {
@@ -338,13 +333,22 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     });
   }, [insuranceConditions]);
 
+  const {validate} = useValidationFields(state);
+
+  const scrollViewRef = useRef<ScrollView>(null);
+
   const onPressLoadDoc = useCallback(() => {
-    navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
-      numberOfDrivers: driversState.length,
-      state,
-      driversState,
-      partner,
+    validate();
+    scrollViewRef.current?.scrollTo({
+      y: 0,
+      animated: true,
     });
+    // navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
+    //   numberOfDrivers: driversState.length,
+    //   state,
+    //   driversState,
+    //   partner,
+    // });
   }, [driversState, state, partner]);
 
   const showAddDriverButton = useMemo(() => {
@@ -354,223 +358,240 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   }, [state.product]);
 
   return (
-    <ScreenContainer title={t('osago.statementScreen.title')}>
+    <Block flex={1}>
       <Row
-        marginBottom={16}
+        paddingHorizontal={16}
+        paddingBottom={16}
+        paddingTop={32}
+        backgroundColor={theme.backgroundColor}
         justifyContent={'space-between'}
         alignItems={'center'}>
-        <BlueTitle title={t('osago.statementScreen.totalInformation')} />
-        <StyledImage resizeMode={'contain'} source={{uri: partner.logoUrl}} />
+        <Typography.B28 numberOfLines={2} color={theme.textColor}>
+          {t('osago.statementScreen.title')}
+        </Typography.B28>
       </Row>
-      <CheckBoxField
-        marginBottom={16}
-        onChangeValue={onChangeValueIAmTheOwner}
-        value={Boolean(state?.isOwner)}
-        title={t('osago.statementScreen.iAmTheOwner')}
-        subTitle={t('osago.statementScreen.iAmTheOwnerSubtitle')}
-      />
-      <CheckBoxField
-        marginBottom={16}
-        onChangeValue={onChangeValueIHaveCard}
-        value={Boolean(state?.isHasToCard)}
-        title={t('osago.statementScreen.iHaveCard')}
-      />
-      <CheckBoxField
-        marginBottom={16}
-        onChangeValue={onChangeValueCarRegisteredInKr}
-        value={Boolean(state?.isKgRegistration)}
-        title={t('osago.statementScreen.carRegisteredInKr')}
-      />
-      <PickerComponent
-        marginBottom={16}
-        items={productsListSelector}
-        onValueChange={onNumberOfDriversChangeHandler}
-        selectedValue={state.product}
-        title={t('osago.statementScreen.product')}
-      />
-      <PickerComponent
-        marginBottom={16}
-        items={periodListSelector}
-        onValueChange={onSelectedPeriodChangeHandler}
-        selectedValue={state.selectedPeriodId}
-        title={t('osago.statementScreen.selectedPeriod')}
-      />
-      <InputComponent
-        value={state.email}
-        onChangeValue={onEmailChangeHandler}
-        title={t('osago.statementScreen.email')}
-        autoComplete={'email'}
-        marginBottom={16}
-      />
-      <MaskedInput
-        marginBottom={16}
-        title={t('osago.statementScreen.phone')}
-        placeholder={MASK}
-        keyboardType="phone-pad"
-        mask={MASK}
-        changeValueHandler={changeContactPhoneHandler}
-        value={state.phone}
-      />
-      {driversState.map((driver, index) => (
-        <Driver
-          key={index}
-          index={index}
-          driver={driver}
-          onChangeDate={onChangeDate}
-          onChangeDriverLicenseDate={onChangeDriverLicenseDate}
-          onClassChangeHandler={onClassChangeHandler}
-          onNameChangeHandler={onNameChangeHandler}
-          onPinChangeHandler={onPinChangeHandler}
-          onSecondNameChangeHandler={onSecondNameChangeHandler}
-          onSurnameChangeHandler={onSurnameChangeHandler}
-        />
-      ))}
-      {showAddDriverButton ? (
-        <StyledPressable
-          onPress={onAddNewDriverPress}
-          color={theme.buttonColor}>
-          <Typography.B18 color={theme.buttonColor}>
-            {t('osago.statementScreen.addDriver')}
-          </Typography.B18>
-        </StyledPressable>
-      ) : null}
-      <BlueTitle
-        marginBottom={16}
-        title={t('osago.statementScreen.infoAboutCar')}
-      />
-      <PickerComponent
-        marginBottom={16}
-        items={carTypesListSelector}
-        onValueChange={onCarTypeChangeHandler}
-        selectedValue={state.carType}
-        title={t('osago.statementScreen.carType')}
-      />
-      {carTypesParams ? (
-        <PickerComponent
-          marginBottom={16}
-          items={carTypesParams.params}
-          onValueChange={onCarTypeParamIdChangeHandler}
-          selectedValue={state.carType}
-          title={carTypesParams.title}
-        />
-      ) : null}
-
-      <InputComponent
-        value={state.carNumber}
-        onChangeValue={onCarNumberChangeHandler}
-        title={t('osago.statementScreen.carNumber')}
-        marginBottom={16}
-      />
-      <InputComponent
-        value={state.carVendor}
-        onChangeValue={onCarVendorChangeHandler}
-        title={t('osago.statementScreen.carModel')}
-        marginBottom={16}
-      />
-      <InputComponent
-        value={state.carModel}
-        onChangeValue={onModelChangeHandler}
-        title={t('osago.statementScreen.model')}
-        marginBottom={16}
-      />
-      <InputComponent
-        value={state.carYear}
-        onChangeValue={onYearOfIssueChangeHandler}
-        title={t('osago.statementScreen.yearOfIssue')}
-        keyboardType={'numeric'}
-        maxLength={4}
-        marginBottom={16}
-      />
-      <InputComponent
-        value={state.carVin}
-        onChangeValue={onCarVinChangeHandler}
-        title={t('osago.statementScreen.carVin')}
-        marginBottom={16}
-      />
-      <BlueTitle
-        marginBottom={16}
-        title={t('osago.statementScreen.policeInformation')}
-      />
-      <CheckBoxField
-        marginBottom={16}
-        onChangeValue={onChangeIsDelivery}
-        value={isDelivery}
-        title={t('osago.statementScreen.isPickUp')}
-        subTitle={t('osago.statementScreen.isPickUpSubtitle')}
-      />
-      {isDelivery ? (
-        <>
-          <Typography.B16 color={theme.textColor}>
-            {t('osago.statementScreen.deliveryPaid')}
-          </Typography.B16>
+      <ScrollContainer scrollViewRef={scrollViewRef}>
+        <Block flex={1} paddingBottom={16} paddingHorizontal={16}>
+          <Row
+            marginBottom={16}
+            justifyContent={'space-between'}
+            alignItems={'center'}>
+            <BlueTitle title={t('osago.statementScreen.totalInformation')} />
+            <StyledImage
+              resizeMode={'contain'}
+              source={{uri: partner.logoUrl}}
+            />
+          </Row>
+          <CheckBoxField
+            marginBottom={16}
+            onChangeValue={onChangeValueIAmTheOwner}
+            value={Boolean(state?.isOwner)}
+            title={t('osago.statementScreen.iAmTheOwner')}
+            subTitle={t('osago.statementScreen.iAmTheOwnerSubtitle')}
+          />
+          <CheckBoxField
+            marginBottom={16}
+            onChangeValue={onChangeValueIHaveCard}
+            value={Boolean(state?.isHasToCard)}
+            title={t('osago.statementScreen.iHaveCard')}
+          />
+          <CheckBoxField
+            marginBottom={16}
+            onChangeValue={onChangeValueCarRegisteredInKr}
+            value={Boolean(state?.isKgRegistration)}
+            title={t('osago.statementScreen.carRegisteredInKr')}
+          />
+          <PickerComponent
+            marginBottom={16}
+            items={productsListSelector}
+            onValueChange={onNumberOfDriversChangeHandler}
+            selectedValue={state.product}
+            title={t('osago.statementScreen.product')}
+          />
+          <PickerComponent
+            marginBottom={16}
+            items={periodListSelector}
+            onValueChange={onSelectedPeriodChangeHandler}
+            selectedValue={state.selectedPeriodId}
+            title={t('osago.statementScreen.selectedPeriod')}
+          />
           <InputComponent
-            value={state.deliveryAddress}
-            onChangeValue={onDeliveryAddressChangeHandler}
-            title={t('osago.statementScreen.whereToDeliver')}
+            value={state.email}
+            onChangeValue={onEmailChangeHandler}
+            title={t('osago.statementScreen.email')}
+            autoComplete={'email'}
             marginBottom={16}
           />
-        </>
-      ) : null}
-      {!isDelivery ? (
-        <PickerComponent
-          marginBottom={16}
-          items={officesListSelector}
-          onValueChange={onPickUpOfficeChangeHandler}
-          selectedValue={state.pickUpOffice}
-          numberOfLines={3}
-          title={t('osago.statementScreen.pickUpOffice')}
-        />
-      ) : null}
+          <MaskedInput
+            marginBottom={16}
+            title={t('osago.statementScreen.phone')}
+            placeholder={MASK}
+            keyboardType="phone-pad"
+            mask={MASK}
+            changeValueHandler={changeContactPhoneHandler}
+            value={state.phone}
+          />
+          {driversState.map((driver, index) => (
+            <Driver
+              key={index}
+              index={index}
+              driver={driver}
+              onChangeDate={onChangeDate}
+              onChangeDriverLicenseDate={onChangeDriverLicenseDate}
+              onClassChangeHandler={onClassChangeHandler}
+              onNameChangeHandler={onNameChangeHandler}
+              onPinChangeHandler={onPinChangeHandler}
+              onSecondNameChangeHandler={onSecondNameChangeHandler}
+              onSurnameChangeHandler={onSurnameChangeHandler}
+            />
+          ))}
+          {showAddDriverButton ? (
+            <StyledPressable
+              onPress={onAddNewDriverPress}
+              color={theme.buttonColor}>
+              <Typography.B18 color={theme.buttonColor}>
+                {t('osago.statementScreen.addDriver')}
+              </Typography.B18>
+            </StyledPressable>
+          ) : null}
+          <BlueTitle
+            marginBottom={16}
+            title={t('osago.statementScreen.infoAboutCar')}
+          />
+          <PickerComponent
+            marginBottom={16}
+            items={carTypesListSelector}
+            onValueChange={onCarTypeChangeHandler}
+            selectedValue={state.carType}
+            title={t('osago.statementScreen.carType')}
+          />
+          {carTypesParams ? (
+            <PickerComponent
+              marginBottom={16}
+              items={carTypesParams.params}
+              onValueChange={onCarTypeParamIdChangeHandler}
+              selectedValue={state.carType}
+              title={carTypesParams.title}
+            />
+          ) : null}
+          <InputComponent
+            value={state.carNumber}
+            onChangeValue={onCarNumberChangeHandler}
+            title={t('osago.statementScreen.carNumber')}
+            marginBottom={16}
+          />
+          <InputComponent
+            value={state.carVendor}
+            onChangeValue={onCarVendorChangeHandler}
+            title={t('osago.statementScreen.carModel')}
+            marginBottom={16}
+          />
+          <InputComponent
+            value={state.carModel}
+            onChangeValue={onModelChangeHandler}
+            title={t('osago.statementScreen.model')}
+            marginBottom={16}
+          />
+          <InputComponent
+            value={state.carYear}
+            onChangeValue={onYearOfIssueChangeHandler}
+            title={t('osago.statementScreen.yearOfIssue')}
+            keyboardType={'numeric'}
+            maxLength={4}
+            marginBottom={16}
+          />
+          <InputComponent
+            value={state.carVin}
+            onChangeValue={onCarVinChangeHandler}
+            title={t('osago.statementScreen.carVin')}
+            marginBottom={16}
+          />
+          <BlueTitle
+            marginBottom={16}
+            title={t('osago.statementScreen.policeInformation')}
+          />
+          <CheckBoxField
+            marginBottom={16}
+            onChangeValue={onChangeIsDelivery}
+            value={isDelivery}
+            title={t('osago.statementScreen.isPickUp')}
+            subTitle={t('osago.statementScreen.isPickUpSubtitle')}
+          />
+          {isDelivery ? (
+            <>
+              <Typography.B16 color={theme.textColor}>
+                {t('osago.statementScreen.deliveryPaid')}
+              </Typography.B16>
+              <InputComponent
+                value={state.deliveryAddress}
+                onChangeValue={onDeliveryAddressChangeHandler}
+                title={t('osago.statementScreen.whereToDeliver')}
+                marginBottom={16}
+              />
+            </>
+          ) : null}
+          {!isDelivery ? (
+            <PickerComponent
+              marginBottom={16}
+              items={officesListSelector}
+              onValueChange={onPickUpOfficeChangeHandler}
+              selectedValue={state.pickUpOffice}
+              numberOfLines={3}
+              title={t('osago.statementScreen.pickUpOffice')}
+            />
+          ) : null}
 
-      <Row alignItems={'center'} marginBottom={16}>
-        <Block flex={1} marginRight={24}>
-          <Typography.R16 color={theme.textColor}>
-            {t('osago.statementScreen.IRead')}
-          </Typography.R16>
-          <Typography.R16 color={theme.textColor}>
-            <Typography.B16
-              color={theme.textColor}
-              style={{
-                textDecorationLine: 'underline',
+          <Row alignItems={'center'} marginBottom={16}>
+            <Block flex={1} marginRight={24}>
+              <Typography.R16 color={theme.textColor}>
+                {t('osago.statementScreen.IRead')}
+              </Typography.R16>
+              <Typography.R16 color={theme.textColor}>
+                <Typography.B16
+                  color={theme.textColor}
+                  style={{
+                    textDecorationLine: 'underline',
+                  }}
+                  onPress={onPressRules}>
+                  {t('osago.statementScreen.rules')}
+                </Typography.B16>
+
+                <Typography.R16 color={theme.textColor}>
+                  {t('osago.statementScreen.and')}
+                </Typography.R16>
+
+                <Typography.B16
+                  color={theme.textColor}
+                  style={{
+                    textDecorationLine: 'underline',
+                  }}
+                  onPress={onPressConditions}>
+                  {t('osago.statementScreen.conditions')}
+                </Typography.B16>
+              </Typography.R16>
+
+              <Typography.R16 color={theme.textColor}>
+                {t('osago.statementScreen.registration')}
+              </Typography.R16>
+            </Block>
+            <CheckBox
+              value={iAmAgree}
+              onValueChange={onChangeIAmAgree}
+              tintColors={{
+                true: 'rgba(25, 135, 84, 1)',
+                false: 'rgba(25, 135, 84, 1)',
               }}
-              onPress={onPressRules}>
-              {t('osago.statementScreen.rules')}
-            </Typography.B16>
-
-            <Typography.R16 color={theme.textColor}>
-              {t('osago.statementScreen.and')}
-            </Typography.R16>
-
-            <Typography.B16
-              color={theme.textColor}
-              style={{
-                textDecorationLine: 'underline',
-              }}
-              onPress={onPressConditions}>
-              {t('osago.statementScreen.conditions')}
-            </Typography.B16>
-          </Typography.R16>
-
-          <Typography.R16 color={theme.textColor}>
-            {t('osago.statementScreen.registration')}
-          </Typography.R16>
+            />
+          </Row>
+          <Button
+            disabled={!iAmAgree}
+            marginVertical={8}
+            title={t('osago.statementScreen.loadDoc')}
+            onPress={onPressLoadDoc}
+          />
         </Block>
-        <CheckBox
-          value={iAmAgree}
-          onValueChange={onChangeIAmAgree}
-          tintColors={{
-            true: 'rgba(25, 135, 84, 1)',
-            false: 'rgba(25, 135, 84, 1)',
-          }}
-        />
-      </Row>
-      <Button
-        disabled={!iAmAgree}
-        marginVertical={8}
-        title={t('osago.statementScreen.loadDoc')}
-        onPress={onPressLoadDoc}
-      />
-    </ScreenContainer>
+      </ScrollContainer>
+    </Block>
   );
 };
 
