@@ -333,7 +333,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     });
   }, [insuranceConditions]);
 
-  const {validate} = useValidationFields(state);
+  const [errorField, setErrorField] = useState<string | null>(null);
 
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -344,15 +344,17 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     });
   }, []);
 
+  const {validate} = useValidationFields(
+    state,
+    navigation,
+    driversState,
+    partner,
+    scrollToTop,
+  );
+
   const onPressLoadDoc = useCallback(() => {
     validate();
     scrollToTop();
-    // navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
-    //   numberOfDrivers: driversState.length,
-    //   state,
-    //   driversState,
-    //   partner,
-    // });
   }, [driversState, state, partner]);
 
   const showAddDriverButton = useMemo(() => {
