@@ -1,35 +1,51 @@
 import {IDriver, IErrorFieldsState, MyDataState} from '../screens/Osago/types';
 import {useCallback} from 'react';
-import {EScreens, OsagoStackParamList} from '@navigators';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {IPartner} from '@store';
+import {validateEmail} from '../utils';
+import {Alert} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {EScreens, OsagoStackParamList} from '@navigators';
+import {IPartner} from '@store';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export const useValidationFields = (
   state: MyDataState,
+  setErrorFieldsState: (errorFieldsState: IErrorFieldsState) => void,
+  errorFieldsState: IErrorFieldsState,
+  scrollToTop: () => void,
   navigation: NativeStackNavigationProp<
     OsagoStackParamList,
     EScreens.NEW_STATEMENT_SCREEN
   >,
   driversState: IDriver[],
   partner: IPartner,
-  scrollToTop: () => void,
-  setErrorFieldsState: (errorFieldsState: IErrorFieldsState) => void,
-  errorFieldsState: IErrorFieldsState,
 ) => {
   const {t} = useTranslation();
 
   const validate = useCallback(() => {
-    const newErrorFieldsState = {...errorFieldsState};
-    newErrorFieldsState.email = true;
-    newErrorFieldsState.carVendor = !state.carVendor;
+    let newErrorFieldsState = {...errorFieldsState};
+    const emailIsValid = validateEmail(state.email);
+
+    newErrorFieldsState = {
+      ...newErrorFieldsState,
+      email: !emailIsValid,
+      carVendor: !state.carVendor,
+    };
 
     setErrorFieldsState(newErrorFieldsState);
-  }, [errorFieldsState, state]);
 
-  // Alert.alert(t('osago.statementScreen.error'), undefined, [
-  //   {text: 'OK', onPress: scrollToTop},
-  // ]);
+    if (Object.values(newErrorFieldsState).some(value => value)) {
+      return Alert.alert(t('osago.statementScreen.error'), undefined, [
+        {text: 'OK', onPress: scrollToTop},
+      ]);
+    }
+
+    return navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
+      numberOfDrivers: driversState.length,
+      state,
+      driversState,
+      partner,
+    });
+  }, [errorFieldsState, state]);
 
   return {
     validate,

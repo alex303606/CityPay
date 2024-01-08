@@ -36,7 +36,6 @@ import {IDriver, IErrorFieldsState, MyDataState} from './types';
 import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
-import {validateEmail} from '../../utils';
 
 const MASK = '+996 999 99-99-99';
 
@@ -138,6 +137,30 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     },
   ]);
 
+  const [errorFieldsState, setErrorFieldsState] = useState<IErrorFieldsState>({
+    email: false,
+    carVendor: false,
+  });
+
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const scrollToTop = useCallback(() => {
+    scrollViewRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  }, []);
+
+  const {validate} = useValidationFields(
+    state,
+    setErrorFieldsState,
+    errorFieldsState,
+    scrollToTop,
+    navigation,
+    driversState,
+    partner,
+  );
+
   const onChangeValueIAmTheOwner = useCallback(
     (value: boolean) =>
       setMyData({
@@ -186,7 +209,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   );
 
   const onCarVendorChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carVendor: value}),
+    (value: string) => {
+      setMyData({...state, carVendor: value});
+    },
     [state],
   );
 
@@ -236,7 +261,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   );
 
   const onEmailChangeHandler = useCallback(
-    (value: string) => setMyData({...state, email: value}),
+    (value: string) => {
+      setMyData({...state, email: value});
+    },
     [state],
   );
 
@@ -334,34 +361,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     });
   }, [insuranceConditions]);
 
-  const [errorFieldsState, setErrorFieldsState] = useState<IErrorFieldsState>({
-    email: false,
-    carVendor: false,
-  });
-
-  const scrollViewRef = useRef<ScrollView>(null);
-
-  const scrollToTop = useCallback(() => {
-    scrollViewRef.current?.scrollTo({
-      y: 0,
-      animated: true,
-    });
-  }, []);
-
-  const validate = useCallback(() => {
-    let newErrorFieldsState = {...errorFieldsState};
-
-    newErrorFieldsState = {
-      ...newErrorFieldsState,
-      email: !validateEmail(state.email),
-      carVendor: !state.carVendor,
-    };
-
-    setErrorFieldsState(newErrorFieldsState);
-  }, [errorFieldsState, state]);
-
-  const onPressLoadDoc = useCallback(() => {
+  const onLoadDoc = useCallback(() => {
     validate();
+    //onLoadDocSuccess();
   }, [state, errorFieldsState]);
 
   const showAddDriverButton = useMemo(() => {
@@ -602,7 +604,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             disabled={!iAmAgree}
             marginVertical={8}
             title={t('osago.statementScreen.loadDoc')}
-            onPress={onPressLoadDoc}
+            onPress={onLoadDoc}
           />
         </Block>
       </ScrollContainer>
