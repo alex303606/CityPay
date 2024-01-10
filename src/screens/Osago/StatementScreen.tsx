@@ -140,6 +140,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const [errorFieldsState, setErrorFieldsState] = useState<IErrorFieldsState>({
     email: false,
     carVendor: false,
+    carNumber: false,
+    carModel: false,
+    carYear: false,
   });
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -491,6 +494,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             />
           ) : null}
           <InputComponent
+            error={errorFieldsState.carNumber}
             value={state.carNumber}
             onChangeValue={onCarNumberChangeHandler}
             title={t('osago.statementScreen.carNumber')}
@@ -504,12 +508,14 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             marginBottom={16}
           />
           <InputComponent
+            error={errorFieldsState.carModel}
             value={state.carModel}
             onChangeValue={onModelChangeHandler}
             title={t('osago.statementScreen.model')}
             marginBottom={16}
           />
           <InputComponent
+            error={errorFieldsState.carYear}
             value={state.carYear}
             onChangeValue={onYearOfIssueChangeHandler}
             title={t('osago.statementScreen.yearOfIssue')}

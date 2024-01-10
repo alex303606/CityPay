@@ -50,4 +50,7 @@ export type ICarDocuments = {
 export type IErrorFieldsState = {
   email: boolean;
   carVendor: boolean;
+  carNumber: boolean;
+  carModel: boolean;
+  carYear: boolean;
 };

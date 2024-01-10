@@ -29,6 +29,9 @@ export const useValidationFields = (
       ...newErrorFieldsState,
       email: !emailIsValid,
       carVendor: !state.carVendor,
+      carNumber: !state.carNumber,
+      carModel: !state.carModel,
+      carYear: !state.carYear,
     };
 
     setErrorFieldsState(newErrorFieldsState);
