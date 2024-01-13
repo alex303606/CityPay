@@ -18,6 +18,7 @@ type Props = {
   title: string;
   marginBottom?: number;
   numberOfLines?: number;
+  error?: boolean;
 };
 
 export const PickerComponent: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const PickerComponent: React.FC<Props> = ({
   title,
   marginBottom,
   numberOfLines,
+  error,
 }) => {
   const {theme} = useTheme();
   const {t} = useTranslation();
@@ -39,7 +41,9 @@ export const PickerComponent: React.FC<Props> = ({
 
   return (
     <Block marginBottom={marginBottom}>
-      <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+      <Typography.RF16
+        marginBottom={4}
+        color={error ? theme.red : theme.tabInactiveColor}>
         {title}
       </Typography.RF16>
       <StyledRow>
@@ -52,7 +56,7 @@ export const PickerComponent: React.FC<Props> = ({
           <Picker.Item
             key={'selectItemFromList'}
             label={t('osago.statementScreen.selectItemFromList')}
-            value={selectedValue}
+            value={null}
           />
           {items?.map(renderItem)}
         </StyledPicker>

@@ -145,6 +145,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carYear: false,
     carVin: false,
     contactPhone: false,
+    carType: false,
   });
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -480,6 +481,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             title={t('osago.statementScreen.infoAboutCar')}
           />
           <PickerComponent
+            error={errorFieldsState.carType}
             marginBottom={16}
             items={carTypesListSelector}
             onValueChange={onCarTypeChangeHandler}
