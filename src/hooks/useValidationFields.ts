@@ -35,6 +35,8 @@ export const useValidationFields = (
       carVin: !state.carVin,
       contactPhone: !state.contactPhone,
       carType: !state.carType,
+      product: !state.product,
+      selectedPeriodId: !state.selectedPeriodId,
     };
 
     setErrorFieldsState(newErrorFieldsState);

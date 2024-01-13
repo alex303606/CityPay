@@ -146,6 +146,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carVin: false,
     contactPhone: false,
     carType: false,
+    selectedPeriodId: false,
+    product: false,
   });
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -422,6 +424,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             title={t('osago.statementScreen.carRegisteredInKr')}
           />
           <PickerComponent
+            error={errorFieldsState.product}
             marginBottom={16}
             items={productsListSelector}
             onValueChange={onNumberOfDriversChangeHandler}
@@ -429,6 +432,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             title={t('osago.statementScreen.product')}
           />
           <PickerComponent
+            error={errorFieldsState.selectedPeriodId}
             marginBottom={16}
             items={periodListSelector}
             onValueChange={onSelectedPeriodChangeHandler}

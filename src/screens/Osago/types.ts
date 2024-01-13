@@ -56,4 +56,6 @@ export type IErrorFieldsState = {
   carVin: boolean;
   contactPhone: boolean;
   carType: boolean;
+  product: boolean;
+  selectedPeriodId: boolean;
 };
