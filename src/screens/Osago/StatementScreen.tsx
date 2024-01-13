@@ -143,6 +143,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carNumber: false,
     carModel: false,
     carYear: false,
+    carVin: false,
+    contactPhone: false,
   });
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -366,7 +368,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const onLoadDoc = useCallback(() => {
     validate();
-    //onLoadDocSuccess();
   }, [state, errorFieldsState]);
 
   const showAddDriverButton = useMemo(() => {
@@ -442,6 +443,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             marginBottom={16}
           />
           <MaskedInput
+            error={errorFieldsState.contactPhone}
             marginBottom={16}
             title={t('osago.statementScreen.phone')}
             placeholder={MASK}
@@ -524,6 +526,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
             marginBottom={16}
           />
           <InputComponent
+            error={errorFieldsState.carVin}
             value={state.carVin}
             onChangeValue={onCarVinChangeHandler}
             title={t('osago.statementScreen.carVin')}

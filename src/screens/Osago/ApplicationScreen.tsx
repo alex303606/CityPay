@@ -145,14 +145,6 @@ export const ApplicationScreen: React.FC<Props> = ({route}) => {
         title={t('osago.infoPaymentScreen.engineCapacity')}
         value={application.carTypeSelectedParameterTitle}
       />
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.motorPower')}*/}
-      {/*  value={'________'}*/}
-      {/*/>*/}
-      {/*<InfoLIneRow*/}
-      {/*  title={t('osago.infoPaymentScreen.loadCapacity')}*/}
-      {/*  value={'________'}*/}
-      {/*/>*/}
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.carVin')}
         value={application.carVIN}

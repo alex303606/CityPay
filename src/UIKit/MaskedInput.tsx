@@ -14,6 +14,7 @@ type Props = {
   mask: string;
   changeValueHandler: (value: string) => void;
   keyboardType?: KeyboardTypeOptions;
+  error: boolean;
 };
 
 export const MaskedInput: React.FC<Props> = ({
@@ -24,13 +25,16 @@ export const MaskedInput: React.FC<Props> = ({
   changeValueHandler,
   placeholder,
   keyboardType,
+  error,
 }) => {
   const {theme} = useTheme();
 
   return (
     <Block marginBottom={marginBottom} flex={1}>
       {!!title ? (
-        <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+        <Typography.RF16
+          marginBottom={4}
+          color={error ? theme.red : theme.tabInactiveColor}>
           {title}
         </Typography.RF16>
       ) : null}
