@@ -17,6 +17,9 @@ type Props = {
   onSavePhotoRegistrationCard: (photo: IPhoto) => void;
   onDeletePhotoRegistration: (photoIndex: number) => void;
   onDeletePhotoRegistrationCard: (photoIndex: number) => void;
+  onSavePhotoPowerAttorney: (photo: IPhoto) => void;
+  onDeletePowerAttorney: (photoIndex: number) => void;
+  isOwner: boolean;
 };
 
 export const CarDocuments: React.FC<Props> = ({
@@ -25,6 +28,9 @@ export const CarDocuments: React.FC<Props> = ({
   onSavePhotoRegistrationCard,
   onDeletePhotoRegistration,
   onDeletePhotoRegistrationCard,
+  onSavePhotoPowerAttorney,
+  onDeletePowerAttorney,
+  isOwner,
 }) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
@@ -46,6 +52,31 @@ export const CarDocuments: React.FC<Props> = ({
       result.assets[0].fileName
     ) {
       return onSavePhotoRegistrationCard({
+        fileName: result.assets[0].fileName,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+      });
+    }
+  }, []);
+
+  const handleCameraPowerAttorney = useCallback(async () => {
+    await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+    const result = await launchCamera(
+      {
+        saveToPhotos: false,
+        mediaType: 'photo',
+      },
+      () => null,
+    );
+
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      return onSavePhotoPowerAttorney({
         fileName: result.assets[0].fileName,
         type: result.assets[0].type,
         uri: result.assets[0].uri,
@@ -139,6 +170,37 @@ export const CarDocuments: React.FC<Props> = ({
           ) : null}
         </Row>
       </Block>
+      {isOwner ? null : (
+        <Block marginBottom={16}>
+          <Typography.B14 marginBottom={16} color={theme.textColor}>
+            {t('osago.documentsScreen.powerAttorney')}
+          </Typography.B14>
+          <Row>
+            {carPhotos.powerOfAttorney.map((photo, index) => {
+              return (
+                <CarDocumentPhoto
+                  deletePhoto={onDeletePowerAttorney}
+                  key={index}
+                  photo={photo.uri}
+                  photoIndex={index}
+                />
+              );
+            })}
+            {carPhotos.powerOfAttorney.length < 2 ? (
+              <Wrapper>
+                <StyledPressable onPress={handleCameraPowerAttorney}>
+                  <Block alignItems={'center'} justifyContent={'center'}>
+                    <Icon name={IconNames.plus} />
+                    <Typography.B16 color={theme.textColor} marginTop={8}>
+                      {t('osago.documentsScreen.addPhoto')}
+                    </Typography.B16>
+                  </Block>
+                </StyledPressable>
+              </Wrapper>
+            ) : null}
+          </Row>
+        </Block>
+      )}
     </Block>
   );
 };

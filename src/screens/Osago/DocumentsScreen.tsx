@@ -30,13 +30,13 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
     [...Array(numberOfDrivers)].map(() => ({
       idCard: [],
       driverLicense: [],
-      powerAttorney: [],
     })),
   );
 
   const [carPhotos, setCarPhoto] = useState<ICarDocuments>({
     registration: [],
     registrationCard: [],
+    powerOfAttorney: [],
   });
 
   const handleSavePhotoIdCard = useCallback(
@@ -63,31 +63,10 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
     [driversPhotos],
   );
 
-  const handleSavePhotoPowerAttorney = useCallback(
-    (photo: IPhoto, driverIndex: number) => {
-      const newDriversPhotos = [...driversPhotos];
-      newDriversPhotos[driverIndex].powerAttorney = [
-        ...newDriversPhotos[driverIndex].powerAttorney,
-        photo,
-      ];
-      setDriversPhoto(newDriversPhotos);
-    },
-    [driversPhotos],
-  );
-
   const handleDeletePhotoIdCard = useCallback(
     (driverIndex: number, photoIndex: number) => {
       const newDriversPhotos = [...driversPhotos];
       newDriversPhotos[driverIndex].idCard.splice(photoIndex, 1);
-      setDriversPhoto(newDriversPhotos);
-    },
-    [driversPhotos],
-  );
-
-  const handleDeletePhotoPowerAttorney = useCallback(
-    (driverIndex: number, photoIndex: number) => {
-      const newDriversPhotos = [...driversPhotos];
-      newDriversPhotos[driverIndex].powerAttorney.splice(photoIndex, 1);
       setDriversPhoto(newDriversPhotos);
     },
     [driversPhotos],
@@ -123,6 +102,27 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
     },
     [carPhotos],
   );
+
+  const handleSetCarPhotoPowerOfAttorney = useCallback(
+    (photo: IPhoto) => {
+      const newCarPhotos = {
+        ...carPhotos,
+      };
+      newCarPhotos.powerOfAttorney.push(photo);
+      setCarPhoto(newCarPhotos);
+    },
+    [carPhotos],
+  );
+
+  const handleDeleteCarPhotoPowerOfAttorney = useCallback(
+    (photoIndex: number) => {
+      const newCarPhotos = {...carPhotos};
+      newCarPhotos.powerOfAttorney.splice(photoIndex, 1);
+      setCarPhoto(newCarPhotos);
+    },
+    [carPhotos],
+  );
+
   const handleDeleteCarPhotoRegistration = useCallback(
     (photoIndex: number) => {
       const newCarPhotos = {...carPhotos};
@@ -163,12 +163,10 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
         return (
           <DriverDocumentsItem
             handleDeletePhotoIdCard={handleDeletePhotoIdCard}
-            handleDeletePhotoPowerAttorney={handleDeletePhotoPowerAttorney}
             handleDeletePhotoDriveLicense={handleDeletePhotoDriveLicense}
             key={index}
             saveIdCard={handleSavePhotoIdCard}
             savePhotoDriverLicense={handleSavePhotoDriverLicense}
-            savePhotoPowerAttorney={handleSavePhotoPowerAttorney}
             driverIndex={index}
             driver={driver}
           />
@@ -180,6 +178,9 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
         onSavePhotoRegistrationCard={handleSetCarPhotoRegistrationCard}
         onDeletePhotoRegistrationCard={handleDeleteCarPhotoRegistrationCard}
         carPhotos={carPhotos}
+        onDeletePowerAttorney={handleDeleteCarPhotoPowerOfAttorney}
+        onSavePhotoPowerAttorney={handleSetCarPhotoPowerOfAttorney}
+        isOwner={state.isOwner}
       />
       <Button
         marginVertical={8}

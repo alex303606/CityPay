@@ -39,12 +39,12 @@ export type IPhoto = {
 export type DriverPhotos = {
   idCard: IPhoto[];
   driverLicense: IPhoto[];
-  powerAttorney: IPhoto[];
 };
 
 export type ICarDocuments = {
   registration: IPhoto[];
   registrationCard: IPhoto[];
+  powerOfAttorney: IPhoto[];
 };
 
 export type IErrorFieldsState = {

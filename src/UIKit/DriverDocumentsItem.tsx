@@ -10,12 +10,7 @@ type Props = {
   driverIndex: number;
   saveIdCard: (photo: IPhoto, index: number) => void;
   savePhotoDriverLicense: (photo: IPhoto, index: number) => void;
-  savePhotoPowerAttorney: (photo: IPhoto, index: number) => void;
   handleDeletePhotoIdCard: (driverIndex: number, photoIndex: number) => void;
-  handleDeletePhotoPowerAttorney: (
-    driverIndex: number,
-    photoIndex: number,
-  ) => void;
   handleDeletePhotoDriveLicense: (
     driverIndex: number,
     photoIndex: number,
@@ -27,9 +22,7 @@ export const DriverDocumentsItem: React.FC<Props> = ({
   driverIndex,
   saveIdCard,
   savePhotoDriverLicense,
-  savePhotoPowerAttorney,
   handleDeletePhotoIdCard,
-  handleDeletePhotoPowerAttorney,
   handleDeletePhotoDriveLicense,
 }) => {
   const {t} = useTranslation();
@@ -44,13 +37,6 @@ export const DriverDocumentsItem: React.FC<Props> = ({
   const onDeletePhotoDriveLicense = useCallback(
     (photoIndex: number) => {
       handleDeletePhotoDriveLicense(driverIndex, photoIndex);
-    },
-    [driverIndex],
-  );
-
-  const onDeletePhotoPowerAttorney = useCallback(
-    (photoIndex: number) => {
-      handleDeletePhotoPowerAttorney(driverIndex, photoIndex);
     },
     [driverIndex],
   );
@@ -76,13 +62,6 @@ export const DriverDocumentsItem: React.FC<Props> = ({
         title={t('osago.documentsScreen.driverLicense')}
         savePhoto={savePhotoDriverLicense}
         deletePhoto={onDeletePhotoDriveLicense}
-      />
-      <DocumentsScanItem
-        driverIndex={driverIndex}
-        photos={driver.powerAttorney}
-        title={t('osago.documentsScreen.powerAttorney')}
-        savePhoto={savePhotoPowerAttorney}
-        deletePhoto={onDeletePhotoPowerAttorney}
       />
     </Block>
   );

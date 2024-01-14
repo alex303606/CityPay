@@ -284,14 +284,6 @@ export const createNewApplicationData = ({
         });
       });
 
-      photos.powerAttorney.forEach(image => {
-        acc.push({
-          uri: image.uri,
-          name: image.fileName,
-          type: image.type,
-        });
-      });
-
       photos.driverLicense.forEach(image => {
         acc.push({
           uri: image.uri,
@@ -318,6 +310,14 @@ export const createNewApplicationData = ({
   });
 
   carPhotos.registration.forEach(image => {
+    photosArr.push({
+      uri: image.uri,
+      name: image.fileName,
+      type: image.type,
+    });
+  });
+
+  carPhotos.powerOfAttorney.forEach(image => {
     photosArr.push({
       uri: image.uri,
       name: image.fileName,
