@@ -63,6 +63,8 @@ export const Driver: React.FC<Props> = ({
       value: date,
       onChange: onChangeDateHandler,
       mode: 'date',
+      minimumDate: new Date(-2208943260000),
+      maximumDate: new Date(),
     });
   }, [onChangeDateHandler]);
 
@@ -71,6 +73,8 @@ export const Driver: React.FC<Props> = ({
       value: driverLicenseDate,
       onChange: onChangeDriverLicenseDateHandler,
       mode: 'date',
+      minimumDate: new Date(-2208943260000),
+      maximumDate: new Date(),
     });
   }, [onChangeDriverLicenseDateHandler]);
 
