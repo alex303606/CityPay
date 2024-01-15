@@ -20,6 +20,13 @@ export type MyDataState = {
   deliveryId: string | undefined;
 };
 
+export type IDriverErrors = {
+  pin: boolean;
+  surname: boolean;
+  name: boolean;
+  class: boolean;
+};
+
 export type IDriver = {
   date: Date;
   driverLicenseDate: Date;
@@ -28,6 +35,7 @@ export type IDriver = {
   name: string;
   secondName: string;
   class: string;
+  errors: IDriverErrors;
 };
 
 export type IPhoto = {

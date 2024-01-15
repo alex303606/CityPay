@@ -18,6 +18,7 @@ export const useValidationFields = (
   >,
   driversState: IDriver[],
   partner: IPartner,
+  setDrivers: (drivers: IDriver[]) => void,
 ) => {
   const {t} = useTranslation();
 
@@ -38,6 +39,15 @@ export const useValidationFields = (
       product: !state.product,
       selectedPeriodId: !state.selectedPeriodId,
     };
+
+    const newDriversState = [...driversState];
+    newDriversState.forEach(driver => {
+      driver.errors.pin = !driver.pin;
+      driver.errors.name = !driver.name;
+      driver.errors.surname = !driver.surname;
+      driver.errors.class = !driver.class;
+    });
+    setDrivers(newDriversState);
 
     setErrorFieldsState(newErrorFieldsState);
 

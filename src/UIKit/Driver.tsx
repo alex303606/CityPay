@@ -40,6 +40,7 @@ export const Driver: React.FC<Props> = ({
     secondName,
     surname,
     pin,
+    errors,
   } = driver;
 
   const {t} = useTranslation();
@@ -112,6 +113,7 @@ export const Driver: React.FC<Props> = ({
         })}
       />
       <InputComponent
+        error={errors.surname}
         autoComplete={'name-family'}
         value={surname}
         onChangeValue={onSurnameChange}
@@ -119,6 +121,7 @@ export const Driver: React.FC<Props> = ({
         marginBottom={16}
       />
       <InputComponent
+        error={errors.name}
         autoComplete={'name'}
         value={name}
         onChangeValue={onNameChange}
@@ -138,6 +141,7 @@ export const Driver: React.FC<Props> = ({
         onPress={showDatePicker}
       />
       <InputComponent
+        error={errors.pin}
         value={pin}
         onChangeValue={onPinChange}
         title={t('osago.statementScreen.pin')}
@@ -152,6 +156,7 @@ export const Driver: React.FC<Props> = ({
         onPress={showDriverLicenseDatepicker}
       />
       <InputComponent
+        error={errors.class}
         disabled
         value={driverClass}
         onChangeValue={onClassChang}

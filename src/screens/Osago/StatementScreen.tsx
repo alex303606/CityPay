@@ -134,6 +134,12 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       name: '',
       secondName: '',
       class: '3',
+      errors: {
+        pin: false,
+        surname: false,
+        name: false,
+        class: false,
+      },
     },
   ]);
 
@@ -167,6 +173,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     navigation,
     driversState,
     partner,
+    setDrivers,
   );
 
   const onChangeValueIAmTheOwner = useCallback(
@@ -347,6 +354,12 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         name: '',
         secondName: '',
         class: '3',
+        errors: {
+          pin: false,
+          surname: false,
+          name: false,
+          class: false,
+        },
       },
     ];
 
