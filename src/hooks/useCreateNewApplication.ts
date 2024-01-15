@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
@@ -64,6 +64,8 @@ export const useCreateNewApplication = ({
       partner,
     });
 
+    console.log('response', response);
+
     hideLoader();
     if (!response?.result) {
       if (response?.message) {
@@ -76,11 +78,19 @@ export const useCreateNewApplication = ({
       return showNotification(t('errors.somethingWentWrong'));
     }
 
+    const applicationNumber = useMemo(
+      () =>
+        `${response.data.applicationNumber}-${Math.floor(
+          1000 + Math.random() * 9000,
+        )}`,
+      [response.data.applicationNumber],
+    );
+
     if (response.data) {
-      const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=999?paymentCode=000?amount=1000?isMbank=1`;
+      const resultUrl = `https://crm.citypay.kg/api/merchants_paybox.php?user_phone=${phone}?application=${applicationNumber}?amount=${response.data.paymentSum}?isMbank=1`;
       MbankSecondModuleInitPayment({
-        orderId: '0',
-        payAmount: 1000,
+        orderId: response.data.id.toString(),
+        payAmount: Number(response.data.paymentSum),
         phone: phone,
         payUserId: userId,
         resultUrl,

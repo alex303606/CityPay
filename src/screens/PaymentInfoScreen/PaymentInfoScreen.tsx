@@ -146,6 +146,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
 
   const onHandlePressPayByMBank = useCallback(() => {
     const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}?isMbank=1`;
+
     MBankModuleInitPayment({
       orderId,
       payAmount: paymentSum,

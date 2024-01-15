@@ -405,9 +405,16 @@ export const createNewApplicationData = ({
     )
     .then(response => {
       if (response.data) {
-        const data = JSON.parse(response.data);
-        console.log('Successful', data);
-        return response.data;
+        const data: {
+          data: {
+            applicationNumber: string;
+            id: number;
+            paymentSum: string;
+          };
+          message: string;
+          result: boolean;
+        } = JSON.parse(response.data);
+        return data;
       }
     })
     .catch(error => {
