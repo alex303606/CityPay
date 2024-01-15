@@ -16,54 +16,57 @@ export const useValidationFields = (
     OsagoStackParamList,
     EScreens.NEW_STATEMENT_SCREEN
   >,
-  driversState: IDriver[],
   partner: IPartner,
-  setDrivers: (drivers: IDriver[]) => void,
 ) => {
   const {t} = useTranslation();
 
-  const validate = useCallback(() => {
-    let newErrorFieldsState = {...errorFieldsState};
-    const emailIsValid = validateEmail(state.email);
+  const validate = useCallback(
+    (driversState: IDriver[], setDrivers: (drivers: IDriver[]) => void) => {
+      let newErrorFieldsState = {...errorFieldsState};
+      const emailIsValid = validateEmail(state.email);
 
-    newErrorFieldsState = {
-      ...newErrorFieldsState,
-      email: !emailIsValid,
-      carVendor: !state.carVendor,
-      carNumber: !state.carNumber,
-      carModel: !state.carModel,
-      carYear: !state.carYear,
-      carVin: !state.carVin,
-      contactPhone: !state.contactPhone,
-      carType: !state.carType,
-      product: !state.product,
-      selectedPeriodId: !state.selectedPeriodId,
-    };
+      newErrorFieldsState = {
+        ...newErrorFieldsState,
+        email: !emailIsValid,
+        carVendor: !state.carVendor,
+        carNumber: !state.carNumber,
+        carModel: !state.carModel,
+        carYear: !state.carYear,
+        carVin: !state.carVin,
+        contactPhone: !state.contactPhone,
+        carType: !state.carType,
+        product: !state.product,
+        selectedPeriodId: !state.selectedPeriodId,
+      };
 
-    const newDriversState = [...driversState];
-    newDriversState.forEach(driver => {
-      driver.errors.pin = !driver.pin;
-      driver.errors.name = !driver.name;
-      driver.errors.surname = !driver.surname;
-      driver.errors.class = !driver.class;
-    });
-    setDrivers(newDriversState);
+      const newDriversState = [...driversState];
 
-    setErrorFieldsState(newErrorFieldsState);
+      newDriversState.forEach(driver => {
+        driver.errors.pin = !driver.pin;
+        driver.errors.name = !driver.name;
+        driver.errors.surname = !driver.surname;
+        driver.errors.class = !driver.class;
+      });
 
-    if (Object.values(newErrorFieldsState).some(value => value)) {
-      return Alert.alert(t('osago.statementScreen.error'), undefined, [
-        {text: 'OK', onPress: scrollToTop},
-      ]);
-    }
+      setDrivers(newDriversState);
 
-    return navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
-      numberOfDrivers: driversState.length,
-      state,
-      driversState,
-      partner,
-    });
-  }, [errorFieldsState, state]);
+      setErrorFieldsState(newErrorFieldsState);
+
+      if (Object.values(newErrorFieldsState).some(value => value)) {
+        return Alert.alert(t('osago.statementScreen.error'), undefined, [
+          {text: 'OK', onPress: scrollToTop},
+        ]);
+      }
+
+      return navigation.navigate(EScreens.DOCUMENTS_SCREEN, {
+        numberOfDrivers: driversState.length,
+        state,
+        driversState,
+        partner,
+      });
+    },
+    [errorFieldsState, state],
+  );
 
   return {
     validate,

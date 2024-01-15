@@ -171,9 +171,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     errorFieldsState,
     scrollToTop,
     navigation,
-    driversState,
     partner,
-    setDrivers,
   );
 
   const onChangeValueIAmTheOwner = useCallback(
@@ -383,13 +381,16 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   }, [insuranceConditions]);
 
   const onLoadDoc = useCallback(() => {
-    validate();
-  }, [state, errorFieldsState]);
+    validate(driversState, setDrivers);
+  }, [state, errorFieldsState, driversState, setDrivers]);
 
   const showAddDriverButton = useMemo(() => {
-    return (
-      productsList?.find(p => state.product === p.id)?.maxDriversCount !== 1
-    );
+    const showPr = productsList?.find(p => state.product === p.id);
+    if (!showPr) {
+      return false;
+    }
+
+    return showPr?.maxDriversCount !== 1;
   }, [state.product]);
 
   return (
