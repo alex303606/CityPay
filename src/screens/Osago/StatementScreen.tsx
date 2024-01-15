@@ -154,6 +154,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carType: false,
     selectedPeriodId: false,
     product: false,
+    deliveryAddress: false,
+    pickUpOffice: false,
   });
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -569,6 +571,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
                 {t('osago.statementScreen.deliveryPaid')}
               </Typography.B16>
               <InputComponent
+                error={errorFieldsState.deliveryAddress}
                 value={state.deliveryAddress}
                 onChangeValue={onDeliveryAddressChangeHandler}
                 title={t('osago.statementScreen.whereToDeliver')}
@@ -578,6 +581,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           ) : null}
           {!isDelivery ? (
             <PickerComponent
+              error={errorFieldsState.pickUpOffice}
               marginBottom={16}
               items={officesListSelector}
               onValueChange={onPickUpOfficeChangeHandler}
@@ -601,11 +605,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
                   onPress={onPressRules}>
                   {t('osago.statementScreen.rules')}
                 </Typography.B16>
-
                 <Typography.R16 color={theme.textColor}>
                   {t('osago.statementScreen.and')}
                 </Typography.R16>
-
                 <Typography.B16
                   color={theme.textColor}
                   style={{
@@ -615,7 +617,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
                   {t('osago.statementScreen.conditions')}
                 </Typography.B16>
               </Typography.R16>
-
               <Typography.R16 color={theme.textColor}>
                 {t('osago.statementScreen.registration')}
               </Typography.R16>

@@ -4,8 +4,9 @@ import {validateEmail} from '../utils';
 import {Alert} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {EScreens, OsagoStackParamList} from '@navigators';
-import {IPartner} from '@store';
+import {getDeliveryList, IPartner} from '@store';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useAppSelector} from './store';
 
 export const useValidationFields = (
   state: MyDataState,
@@ -19,11 +20,19 @@ export const useValidationFields = (
   partner: IPartner,
 ) => {
   const {t} = useTranslation();
+  const deliveryList = useAppSelector(getDeliveryList);
 
   const validate = useCallback(
     (driversState: IDriver[], setDrivers: (drivers: IDriver[]) => void) => {
       let newErrorFieldsState = {...errorFieldsState};
+
       const emailIsValid = validateEmail(state.email);
+
+      const delivery = deliveryList.find(
+        delivery => delivery.id === state.deliveryId,
+      );
+
+      const isDelivery = !!delivery?.isDelivery;
 
       newErrorFieldsState = {
         ...newErrorFieldsState,
@@ -37,12 +46,14 @@ export const useValidationFields = (
         carType: !state.carType,
         product: !state.product,
         selectedPeriodId: !state.selectedPeriodId,
+        deliveryAddress: isDelivery ? !state.deliveryAddress : false,
+        pickUpOffice: isDelivery ? false : !state.pickUpOffice,
       };
 
       const newDriversState = [...driversState];
 
       newDriversState.forEach(driver => {
-        driver.errors.pin = !driver.pin;
+        driver.errors.pin = !driver.pin || driver.pin.length !== 14;
         driver.errors.name = !driver.name;
         driver.errors.surname = !driver.surname;
         driver.errors.class = !driver.class;

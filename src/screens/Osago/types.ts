@@ -66,4 +66,6 @@ export type IErrorFieldsState = {
   carType: boolean;
   product: boolean;
   selectedPeriodId: boolean;
+  deliveryAddress: boolean;
+  pickUpOffice: boolean;
 };
