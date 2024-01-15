@@ -325,17 +325,15 @@ export const createNewApplicationData = ({
     });
   });
 
-  console.log('stateHandlers', state);
-
   const params = [
     {name: 'API_KEY', data: '28HimH4QhcEd4muqSktp'},
     {name: 'TYPE', data: 'create_new_application'},
     {name: 'CLIENT_PHONE', data: state.phone},
     {name: 'INSURANCE_TYPE_ID', data: state.insuranceTypeId},
     {name: 'SELECTED_PARTNER_ID', data: partner.id},
-    {name: 'IS_OWNER', data: state.isOwner},
-    {name: 'IS_HAS_TO_CARD', data: state.isHasToCard},
-    {name: 'IS_KG_REGISTRATION', data: state.isKgRegistration},
+    {name: 'IS_OWNER', data: state.isOwner.toString()},
+    {name: 'IS_HAS_TO_CARD', data: state.isHasToCard.toString()},
+    {name: 'IS_KG_REGISTRATION', data: state.isKgRegistration.toString()},
     {name: 'SELECTED_PRODUCT_ID', data: state.product},
     {name: 'SELECTED_PERIOD_ID', data: state.selectedPeriodId},
     {name: 'CONTACT_PHONE', data: state.phone},
@@ -365,36 +363,34 @@ export const createNewApplicationData = ({
   driversState.forEach((driver, index) => {
     const currentIndex = index + 1;
     params.push({
-      name: `DRIVER_[${currentIndex}]_FIRSTNAME`,
+      name: `DRIVER_${currentIndex}_FIRSTNAME`,
       data: driver.name,
     });
     params.push({
-      name: `DRIVER_[${currentIndex}]_LASTNAME`,
+      name: `DRIVER_${currentIndex}_LASTNAME`,
       data: driver.secondName,
     });
     params.push({
-      name: `DRIVER_[${currentIndex}]_SURNAME`,
+      name: `DRIVER_${currentIndex}_SURNAME`,
       data: driver.surname,
     });
     params.push({
-      name: `DRIVER_[${currentIndex}]_BIRTHDAY`,
+      name: `DRIVER_${currentIndex}_BIRTHDAY`,
       data: driver.date.toLocaleDateString(),
     });
     params.push({
-      name: `DRIVER_[${currentIndex}]_PIN`,
+      name: `DRIVER_${currentIndex}_PIN`,
       data: driver.pin,
     });
     params.push({
-      name: `DRIVER_[${currentIndex}]_CLASS`,
+      name: `DRIVER_${currentIndex}_CLASS`,
       data: driver.class,
     });
     params.push({
-      name: `DRIVER_[${currentIndex}]_LICENSE_DATE`,
+      name: `DRIVER_${currentIndex}_LICENSE_DATE`,
       data: driver.driverLicenseDate.toLocaleDateString(),
     });
   });
-
-  console.log(params);
 
   return RNFetchBlob.config({
     trusty: true,
