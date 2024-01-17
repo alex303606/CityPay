@@ -513,7 +513,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
               marginBottom={16}
               items={carTypesParams.params}
               onValueChange={onCarTypeParamIdChangeHandler}
-              selectedValue={state.carType}
+              selectedValue={state.carTypeParamId}
               title={carTypesParams.title}
             />
           ) : null}
