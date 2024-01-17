@@ -8,6 +8,9 @@ import {
 } from '../../screens/Osago/types';
 import RNFetchBlob from 'rn-fetch-blob';
 
+// const URL = 'https://orig.citypay.kg/api/';
+const URL = 'https://crm.citypay.kg/api/';
+
 export type IPartner = {
   id: string;
   logoUrl: string;
@@ -147,7 +150,7 @@ export type ITotal = {
 
 export const getLocationsList = (lang: ILanguages) => {
   return axios
-    .post('https://crm.citypay.kg/api/', {
+    .post(URL, {
       TYPE: 'get_locations_list',
       API_KEY: '28HimH4QhcEd4muqSktp',
       LANG: lang,
@@ -170,7 +173,7 @@ export const getLocationsList = (lang: ILanguages) => {
 
 export const getApplicationsList = (phone: string, lang: ILanguages) => {
   return axios
-    .post('https://crm.citypay.kg/api/', {
+    .post(URL, {
       TYPE: 'get_applications_list',
       API_KEY: '28HimH4QhcEd4muqSktp',
       CLIENT_PHONE: phone,
@@ -197,7 +200,7 @@ export const getDataFromPartnerForNewApplication = (
   lang: ILanguages,
 ) => {
   return axios
-    .post('https://crm.citypay.kg/api/', {
+    .post(URL, {
       TYPE: 'get_data_from_partner_for_new_application',
       API_KEY: '28HimH4QhcEd4muqSktp',
       PARTNER_ID: partnerId,
@@ -235,7 +238,7 @@ export const getTotalSum = ({
   lang: ILanguages;
 }) => {
   return axios
-    .post('https://crm.citypay.kg/api/', {
+    .post(URL, {
       TYPE: 'get_total_sum',
       API_KEY: '28HimH4QhcEd4muqSktp',
       PARTNER_ID: partnerId,
@@ -350,11 +353,13 @@ export const createNewApplicationData = ({
     {name: 'PICKUP_OFFICE_ID', data: state.pickUpOffice},
   ];
 
+  console.log(params);
+
   photosArr.forEach((photo, index) => {
     params.push({
       name: `IMAGES[${index}]`,
       // @ts-ignore
-      type: 'image.jpg',
+      type: 'image.png',
       filename: photo.name,
       data: RNFetchBlob.wrap(photo.uri),
     });
@@ -397,7 +402,7 @@ export const createNewApplicationData = ({
   })
     .fetch(
       'POST',
-      'https://orig.citypay.kg/api/',
+      URL,
       {
         'Content-Type': 'multipart/form-data',
       },

@@ -64,8 +64,6 @@ export const useCreateNewApplication = ({
       partner,
     });
 
-    console.log('response', response);
-
     hideLoader();
     if (!response?.result) {
       if (response?.message) {
