@@ -86,6 +86,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     getDataFromPartnerForNewApplicationHandler();
   }, [getDataFromPartnerForNewApplicationHandler]);
 
+  const insuranceTypeListSelector = insuranceTypeList.map(insurance => {
+    return {
+      label: insurance.title,
+      value: insurance.id,
+    };
+  });
+
   const [state, setMyData] = useState<MyDataState>({
     isOwner: false,
     isHasToCard: false,
@@ -105,9 +112,10 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     carVin: '',
     deliveryAddress: '',
     pickUpOffice: undefined,
-    insuranceTypeId: !!insuranceTypeList.length
-      ? insuranceTypeList[0].id
-      : undefined,
+    insuranceTypeId:
+      insuranceTypeListSelector.length && insuranceTypeListSelector[0].value
+        ? insuranceTypeListSelector[0].value
+        : '',
   });
 
   const carTypesParams = useMemo(() => {
