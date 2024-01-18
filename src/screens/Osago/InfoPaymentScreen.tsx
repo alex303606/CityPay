@@ -16,6 +16,7 @@ import {
   useCreateNewApplication,
   useGetSupportUrls,
   useGetTotalSum,
+  useSnackbarNotification,
   useTheme,
 } from '@hooks';
 import {
@@ -27,7 +28,7 @@ import {
   ITotal,
 } from '@store';
 import styled from 'styled-components';
-import {Image} from 'react-native';
+import {Image, NativeEventEmitter, NativeModules} from 'react-native';
 import {DriverApplicationItem} from './components/DriverApplicationItem';
 import {IDriverApplicationItem} from './ApplicationScreen';
 import CheckBox from '@react-native-community/checkbox';
@@ -36,6 +37,8 @@ type Props = NativeStackScreenProps<
   OsagoStackParamList,
   EScreens.INFO_PAYMENTS_SCREEN
 >;
+
+const {PayBoxModule} = NativeModules;
 
 export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
@@ -46,6 +49,37 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
   const officesList = useAppSelector(getOfficesList);
   const insuranceTypeList = useAppSelector(getInsuranceTypeList);
   const deliveryList = useAppSelector(getDeliveryList);
+  const {showNotification} = useSnackbarNotification();
+
+  useEffect(() => {
+    PayBoxModule.registerPbListener();
+    const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
+    const subscription = eventEmitter.addListener(
+      'EventReminder',
+      (event: Object) => {
+        try {
+          const eventName = Object.keys(event)[0];
+          const message = Object.values(event)[0];
+          switch (eventName) {
+            case 'onPaymentPaid':
+              showNotification(t('Операция прошла успешно'));
+              return navigation.navigate(EScreens.OSAGO_SCREEN);
+            case 'onError':
+              showNotification(message);
+              return navigation.navigate(EScreens.OSAGO_SCREEN);
+            default:
+              return;
+          }
+        } catch (e) {
+          return showNotification(t('errors.somethingWentWrong'));
+        }
+      },
+    );
+    return () => {
+      PayBoxModule.removePbListener();
+      subscription.remove();
+    };
+  }, []);
 
   const isDelivery = useMemo(() => {
     const delivery = deliveryList.find(
