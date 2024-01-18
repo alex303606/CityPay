@@ -94,9 +94,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   });
 
   const [state, setMyData] = useState<MyDataState>({
-    isOwner: false,
+    isOwner: true,
     isHasToCard: false,
-    isKgRegistration: false,
+    isKgRegistration: true,
     deliveryId: undefined,
     product: undefined,
     selectedPeriodId: undefined,

@@ -51,7 +51,7 @@ export type IApplication = {
   isKGRegistrations: true;
   isNeedDelivery: false;
   isOwner: true;
-  paymentRecieptNumber: string | null;
+  paymentReceiptNumber: string | null;
   paymentSum: string;
   period: {
     id: string;
