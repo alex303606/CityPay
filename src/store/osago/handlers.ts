@@ -8,8 +8,8 @@ import {
 } from '../../screens/Osago/types';
 import RNFetchBlob from 'rn-fetch-blob';
 
-const URL = 'https://orig.citypay.kg/api/';
-// const URL = 'https://crm.citypay.kg/api/';
+// const URL = 'https://orig.citypay.kg/api/';
+const URL = 'https://crm.citypay.kg/api/';
 
 export type IPartner = {
   id: string;
