@@ -3,10 +3,6 @@ import {BlueTitle} from './BlueTitle';
 import {InputComponent} from './InputComponent';
 import {DatePickerComponent} from './DatePickerComponent';
 import {useTranslation} from 'react-i18next';
-import {
-  DateTimePickerAndroid,
-  DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
 import {IDriver} from '../screens/Osago/types';
 
 type Props = {
@@ -17,8 +13,8 @@ type Props = {
   onSecondNameChangeHandler: (value: string, index: number) => void;
   onPinChangeHandler: (value: string, index: number) => void;
   onClassChangeHandler: (value: string, index: number) => void;
-  onChangeDate: (index: number, date?: Date) => void;
-  onChangeDriverLicenseDate: (index: number, date?: Date) => void;
+  onChangeDate: (index: number, date: string) => void;
+  onChangeDriverLicenseDate: (index: number, date: string) => void;
 };
 
 export const Driver: React.FC<Props> = ({
@@ -27,10 +23,10 @@ export const Driver: React.FC<Props> = ({
   onSurnameChangeHandler,
   onNameChangeHandler,
   onSecondNameChangeHandler,
-  onChangeDate,
   onPinChangeHandler,
-  onChangeDriverLicenseDate,
   onClassChangeHandler,
+  onChangeDriverLicenseDate,
+  onChangeDate,
 }) => {
   const {
     name,
@@ -44,40 +40,6 @@ export const Driver: React.FC<Props> = ({
   } = driver;
 
   const {t} = useTranslation();
-
-  const onChangeDriverLicenseDateHandler = useCallback(
-    (event: DateTimePickerEvent, date?: Date) => {
-      onChangeDriverLicenseDate(index, date);
-    },
-    [onChangeDriverLicenseDate],
-  );
-
-  const onChangeDateHandler = useCallback(
-    (event: DateTimePickerEvent, date?: Date) => {
-      onChangeDate(index, date);
-    },
-    [onChangeDate],
-  );
-
-  const showDatePicker = useCallback(() => {
-    return DateTimePickerAndroid.open({
-      value: date,
-      onChange: onChangeDateHandler,
-      mode: 'date',
-      minimumDate: new Date(-2208943260000),
-      maximumDate: new Date(),
-    });
-  }, [onChangeDateHandler]);
-
-  const showDriverLicenseDatepicker = useCallback(() => {
-    return DateTimePickerAndroid.open({
-      value: driverLicenseDate,
-      onChange: onChangeDriverLicenseDateHandler,
-      mode: 'date',
-      minimumDate: new Date(-2208943260000),
-      maximumDate: new Date(),
-    });
-  }, [onChangeDriverLicenseDateHandler]);
 
   const onSurnameChange = useCallback(
     (value: string) => onSurnameChangeHandler(value, index),
@@ -102,6 +64,20 @@ export const Driver: React.FC<Props> = ({
   const onClassChang = useCallback(
     (value: string) => onClassChangeHandler(value, index),
     [onClassChangeHandler],
+  );
+
+  const onChangeDateHandler = useCallback(
+    (value: string) => {
+      onChangeDate(index, value);
+    },
+    [index],
+  );
+
+  const onChangeDriverLicenseDateHandler = useCallback(
+    (value: string) => {
+      onChangeDriverLicenseDate(index, value);
+    },
+    [index],
   );
 
   return (
@@ -135,10 +111,11 @@ export const Driver: React.FC<Props> = ({
         marginBottom={16}
       />
       <DatePickerComponent
+        error={errors.date}
+        onChangeText={onChangeDateHandler}
         marginBottom={16}
         title={t('osago.statementScreen.date')}
-        value={date.toLocaleDateString()}
-        onPress={showDatePicker}
+        value={date}
       />
       <InputComponent
         error={errors.pin}
@@ -150,10 +127,11 @@ export const Driver: React.FC<Props> = ({
         maxLength={14}
       />
       <DatePickerComponent
+        error={errors.driverLicenseDate}
         marginBottom={16}
         title={t('osago.statementScreen.driverLicenseDate')}
-        value={driverLicenseDate.toLocaleDateString()}
-        onPress={showDriverLicenseDatepicker}
+        value={driverLicenseDate}
+        onChangeText={onChangeDriverLicenseDateHandler}
       />
       <InputComponent
         error={errors.class}

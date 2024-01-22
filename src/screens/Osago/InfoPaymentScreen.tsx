@@ -134,9 +134,9 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
         surname: driver.secondName,
         lastName: driver.surname,
         pin: driver.pin,
-        driveLicenseDate: driver.driverLicenseDate.toLocaleDateString(),
+        driveLicenseDate: driver.driverLicenseDate,
         class: driver.class,
-        bithday: driver.date.toLocaleDateString(),
+        bithday: driver.date,
         isOwner: state.isOwner,
       };
     });

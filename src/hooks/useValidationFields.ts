@@ -7,6 +7,17 @@ import {EScreens, OsagoStackParamList} from '@navigators';
 import {getDeliveryList, IPartner} from '@store';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useAppSelector} from './store';
+import moment from 'moment';
+
+const validateDate = (value: string) => {
+  const date = moment();
+  const today = moment(value, 'DD/MM/YYYY');
+  const diff = Boolean(date.diff(today));
+  if (!diff || !value) {
+    return true;
+  }
+  return date.diff(today) < 0;
+};
 
 export const useValidationFields = (
   state: MyDataState,
@@ -57,6 +68,10 @@ export const useValidationFields = (
         driver.errors.name = !driver.name;
         driver.errors.surname = !driver.surname;
         driver.errors.class = !driver.class;
+        driver.errors.driverLicenseDate = validateDate(
+          driver.driverLicenseDate,
+        );
+        driver.errors.date = validateDate(driver.date);
       });
 
       setDrivers(newDriversState);

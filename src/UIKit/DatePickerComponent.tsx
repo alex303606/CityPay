@@ -1,42 +1,54 @@
 import React from 'react';
 import {Block, Row} from './helpers';
 import {Typography} from './constants';
-import {Pressable} from 'react-native';
 import {Icon, IconNames} from './Icon';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
+import {TextInputMask} from 'react-native-masked-text';
 
 type Props = {
   marginBottom?: number;
   title: string;
-  value: string;
-  onPress: () => void;
+  value: string | undefined;
+  onChangeText: (value: string) => void;
+  error?: boolean;
 };
+
+const MASK = '99.99.9999';
 
 export const DatePickerComponent: React.FC<Props> = ({
   marginBottom,
   title,
   value,
-  onPress,
+  onChangeText,
+  error,
 }) => {
   const {theme} = useTheme();
 
   return (
     <Block marginBottom={marginBottom}>
-      <Typography.RF16 marginBottom={4} color={theme.tabInactiveColor}>
+      <Typography.RF16
+        color={error ? theme.red : theme.tabInactiveColor}
+        marginBottom={4}>
         {title}
       </Typography.RF16>
       <StyledRow justifyContent={'space-between'} alignItems={'center'}>
-        <Typography.RF16 marginBottom={4} color={theme.textColor}>
-          {value}
-        </Typography.RF16>
-        <Pressable onPress={onPress}>
-          <Icon
-            name={IconNames.calendar}
-            size={24}
-            color={theme.tabInactiveColor}
-          />
-        </Pressable>
+        <StyledTextInputMask
+          placeholder={'01.01.2000'}
+          color={theme.textColor}
+          keyboardType={'number-pad'}
+          underlineColorAndroid="transparent"
+          autoCorrect={false}
+          type={'custom'}
+          options={{mask: MASK}}
+          onChangeText={onChangeText}
+          value={value}
+        />
+        <Icon
+          name={IconNames.calendar}
+          size={24}
+          color={theme.tabInactiveColor}
+        />
       </StyledRow>
     </Block>
   );
@@ -50,3 +62,11 @@ const StyledRow = styled(Row)({
   borderRadius: 10,
   paddingHorizontal: 10,
 });
+
+const StyledTextInputMask = styled(TextInputMask)<{color: string}>(
+  ({color}) => ({
+    fontSize: 20,
+    color,
+    flex: 1,
+  }),
+);

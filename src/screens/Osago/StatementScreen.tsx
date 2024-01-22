@@ -135,8 +135,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const [driversState, setDrivers] = useState<IDriver[]>([
     {
-      date: new Date(631144800000),
-      driverLicenseDate: new Date(631144800000),
+      date: '',
+      driverLicenseDate: '',
       pin: '',
       surname: '',
       name: '',
@@ -147,6 +147,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         surname: false,
         name: false,
         class: false,
+        date: false,
+        driverLicenseDate: false,
       },
     },
   ]);
@@ -335,28 +337,30 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     return null;
   }, [driversState]);
 
-  const onChangeDate = (index: number, date?: Date) => {
-    if (date) {
+  const onChangeDate = useCallback(
+    (index: number, date: string) => {
       const newDriversState = [...driversState];
       newDriversState[index].date = date;
       setDrivers(newDriversState);
-    }
-  };
+    },
+    [driversState],
+  );
 
-  const onChangeDriverLicenseDate = (index: number, date?: Date) => {
-    if (date) {
+  const onChangeDriverLicenseDate = useCallback(
+    (index: number, date: string) => {
       const newDriversState = [...driversState];
       newDriversState[index].driverLicenseDate = date;
       setDrivers(newDriversState);
-    }
-  };
+    },
+    [driversState],
+  );
 
   const onAddNewDriverPress = useCallback(() => {
     const newDriversState = [
       ...driversState,
       {
-        date: new Date(631144800000),
-        driverLicenseDate: new Date(631144800000),
+        date: '',
+        driverLicenseDate: '',
         pin: '',
         surname: '',
         name: '',
@@ -367,6 +371,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           surname: false,
           name: false,
           class: false,
+          date: false,
+          driverLicenseDate: false,
         },
       },
     ];

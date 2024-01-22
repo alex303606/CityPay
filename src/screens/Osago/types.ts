@@ -25,11 +25,13 @@ export type IDriverErrors = {
   surname: boolean;
   name: boolean;
   class: boolean;
+  driverLicenseDate: boolean;
+  date: boolean;
 };
 
 export type IDriver = {
-  date: Date;
-  driverLicenseDate: Date;
+  date: string;
+  driverLicenseDate: string;
   pin: string;
   surname: string;
   name: string;

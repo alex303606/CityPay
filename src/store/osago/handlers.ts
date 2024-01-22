@@ -381,7 +381,7 @@ export const createNewApplicationData = ({
     });
     params.push({
       name: `DRIVER_${currentIndex}_BIRTHDAY`,
-      data: driver.date.toLocaleDateString(),
+      data: driver.date,
     });
     params.push({
       name: `DRIVER_${currentIndex}_PIN`,
@@ -393,7 +393,7 @@ export const createNewApplicationData = ({
     });
     params.push({
       name: `DRIVER_${currentIndex}_LICENSE_DATE`,
-      data: driver.driverLicenseDate.toLocaleDateString(),
+      data: driver.driverLicenseDate,
     });
   });
 
