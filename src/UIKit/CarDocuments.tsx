@@ -20,6 +20,7 @@ type Props = {
   onSavePhotoPowerAttorney: (photo: IPhoto) => void;
   onDeletePowerAttorney: (photoIndex: number) => void;
   isOwner: boolean;
+  isHasToCard: boolean;
 };
 
 export const CarDocuments: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const CarDocuments: React.FC<Props> = ({
   onSavePhotoPowerAttorney,
   onDeletePowerAttorney,
   isOwner,
+  isHasToCard,
 }) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
@@ -141,35 +143,37 @@ export const CarDocuments: React.FC<Props> = ({
           ) : null}
         </Row>
       </Block>
-      <Block marginBottom={16}>
-        <Typography.B14 marginBottom={16} color={theme.textColor}>
-          {t('osago.documentsScreen.registrationCard')}
-        </Typography.B14>
-        <Row>
-          {carPhotos.registrationCard.map((photo, index) => {
-            return (
-              <CarDocumentPhoto
-                deletePhoto={onDeletePhotoRegistrationCard}
-                key={index}
-                photo={photo.uri}
-                photoIndex={index}
-              />
-            );
-          })}
-          {carPhotos.registrationCard.length < 2 ? (
-            <Wrapper>
-              <StyledPressable onPress={handleCameraRegistrationCard}>
-                <Block alignItems={'center'} justifyContent={'center'}>
-                  <Icon name={IconNames.plus} />
-                  <Typography.B16 color={theme.textColor} marginTop={8}>
-                    {t('osago.documentsScreen.addPhoto')}
-                  </Typography.B16>
-                </Block>
-              </StyledPressable>
-            </Wrapper>
-          ) : null}
-        </Row>
-      </Block>
+      {isHasToCard ? (
+        <Block marginBottom={16}>
+          <Typography.B14 marginBottom={16} color={theme.textColor}>
+            {t('osago.documentsScreen.registrationCard')}
+          </Typography.B14>
+          <Row>
+            {carPhotos.registrationCard.map((photo, index) => {
+              return (
+                <CarDocumentPhoto
+                  deletePhoto={onDeletePhotoRegistrationCard}
+                  key={index}
+                  photo={photo.uri}
+                  photoIndex={index}
+                />
+              );
+            })}
+            {carPhotos.registrationCard.length < 2 ? (
+              <Wrapper>
+                <StyledPressable onPress={handleCameraRegistrationCard}>
+                  <Block alignItems={'center'} justifyContent={'center'}>
+                    <Icon name={IconNames.plus} />
+                    <Typography.B16 color={theme.textColor} marginTop={8}>
+                      {t('osago.documentsScreen.addPhoto')}
+                    </Typography.B16>
+                  </Block>
+                </StyledPressable>
+              </Wrapper>
+            ) : null}
+          </Row>
+        </Block>
+      ) : null}
       {isOwner ? null : (
         <Block marginBottom={16}>
           <Typography.B14 marginBottom={16} color={theme.textColor}>

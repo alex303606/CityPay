@@ -181,6 +181,7 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
         onDeletePowerAttorney={handleDeleteCarPhotoPowerOfAttorney}
         onSavePhotoPowerAttorney={handleSetCarPhotoPowerOfAttorney}
         isOwner={state.isOwner}
+        isHasToCard={state.isHasToCard}
       />
       <Button
         marginVertical={8}
