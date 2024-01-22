@@ -1,6 +1,5 @@
 import React from 'react';
 import {EScreens} from './types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {OsagoStackParamList, OsagoStackProps} from './navigationTypes';
 import {
   DocumentsScreen,
@@ -15,10 +14,14 @@ import {
   CalculationCostScreen,
   PolicyScreen,
 } from '../screens/Osago';
+import {useModalScreenOptions} from './screenOptions';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator<OsagoStackParamList>();
+const Stack = createStackNavigator<OsagoStackParamList>();
 
 export const OsagoStack: React.FC<OsagoStackProps> = () => {
+  const modalStackScreenOptions = useModalScreenOptions();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -70,13 +73,12 @@ export const OsagoStack: React.FC<OsagoStackProps> = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name={EScreens.WEBVIEW_SCREEN}
-        component={WebViewScreen}
-      />
+      <Stack.Group screenOptions={modalStackScreenOptions}>
+        <Stack.Screen
+          name={EScreens.WEBVIEW_SCREEN}
+          component={WebViewScreen}
+        />
+      </Stack.Group>
       <Stack.Screen
         options={{
           headerShown: false,
