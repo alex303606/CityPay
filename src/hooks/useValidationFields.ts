@@ -64,7 +64,9 @@ export const useValidationFields = (
       const newDriversState = [...driversState];
 
       newDriversState.forEach(driver => {
-        driver.errors.pin = !driver.pin || driver.pin.length !== 14;
+        const pinIsValid = !!driver.pin && driver.pin.length === 14;
+
+        driver.errors.pin = !pinIsValid;
         driver.errors.name = !driver.name;
         driver.errors.surname = !driver.surname;
         driver.errors.class = !driver.class;
