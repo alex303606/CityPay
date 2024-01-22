@@ -17,7 +17,6 @@ import {
 import {
   useAppSelector,
   useGetDataFromPartnerForNewApplication,
-  useGetSupportUrls,
   useTheme,
   useValidationFields,
 } from '@hooks';
@@ -33,7 +32,6 @@ import {
 import styled from 'styled-components';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {IDriver, IErrorFieldsState, MyDataState} from './types';
-import CheckBox from '@react-native-community/checkbox';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
 
@@ -46,7 +44,6 @@ type Props = NativeStackScreenProps<
 
 export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   const {t} = useTranslation();
-  const [iAmAgree, setIAmAgree] = useState<boolean>(false);
   const [isDelivery, setIsDelivery] = useState<boolean>(false);
 
   const {theme} = useTheme();
@@ -209,11 +206,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       }
     },
     [isDelivery, state],
-  );
-
-  const onChangeIAmAgree = useCallback(
-    (value: boolean) => setIAmAgree(value),
-    [iAmAgree],
   );
 
   const onChangeValueIHaveCard = useCallback(
@@ -379,22 +371,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
     setDrivers(newDriversState);
   }, [driversState]);
-
-  const {insuranceTerms, insuranceConditions} = useGetSupportUrls();
-
-  const onPressRules = useCallback(() => {
-    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
-      uri: insuranceTerms,
-      title: t('osago.statementScreen.rulesTitle'),
-    });
-  }, [insuranceTerms]);
-
-  const onPressConditions = useCallback(() => {
-    navigation.navigate(EScreens.WEBVIEW_SCREEN, {
-      uri: insuranceConditions,
-      title: t('osago.statementScreen.conditionsTitle'),
-    });
-  }, [insuranceConditions]);
 
   const onLoadDoc = useCallback(() => {
     validate(driversState, setDrivers);
@@ -604,48 +580,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
               title={t('osago.statementScreen.pickUpOffice')}
             />
           ) : null}
-
-          <Row alignItems={'center'} marginBottom={16}>
-            <Block flex={1} marginRight={24}>
-              <Typography.R16 color={theme.textColor}>
-                {t('osago.statementScreen.IRead')}
-              </Typography.R16>
-              <Typography.R16 color={theme.textColor}>
-                <Typography.B16
-                  color={theme.textColor}
-                  style={{
-                    textDecorationLine: 'underline',
-                  }}
-                  onPress={onPressRules}>
-                  {t('osago.statementScreen.rules')}
-                </Typography.B16>
-                <Typography.R16 color={theme.textColor}>
-                  {t('osago.statementScreen.and')}
-                </Typography.R16>
-                <Typography.B16
-                  color={theme.textColor}
-                  style={{
-                    textDecorationLine: 'underline',
-                  }}
-                  onPress={onPressConditions}>
-                  {t('osago.statementScreen.conditions')}
-                </Typography.B16>
-              </Typography.R16>
-              <Typography.R16 color={theme.textColor}>
-                {t('osago.statementScreen.registration')}
-              </Typography.R16>
-            </Block>
-            <CheckBox
-              value={iAmAgree}
-              onValueChange={onChangeIAmAgree}
-              tintColors={{
-                true: 'rgba(25, 135, 84, 1)',
-                false: 'rgba(25, 135, 84, 1)',
-              }}
-            />
-          </Row>
           <Button
-            disabled={!iAmAgree}
             marginVertical={8}
             title={t('osago.statementScreen.loadDoc')}
             onPress={onLoadDoc}
