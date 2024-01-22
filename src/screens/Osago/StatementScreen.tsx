@@ -372,6 +372,15 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     setDrivers(newDriversState);
   }, [driversState]);
 
+  const deleteDriverHandler = useCallback(
+    (index: number) => {
+      const newDriversState = [...driversState];
+      newDriversState.splice(index, 1);
+      setDrivers(newDriversState);
+    },
+    [driversState],
+  );
+
   const onLoadDoc = useCallback(() => {
     validate(driversState, setDrivers);
   }, [state, errorFieldsState, driversState, setDrivers]);
@@ -465,6 +474,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           />
           {driversState.map((driver, index) => (
             <Driver
+              deleteDriver={deleteDriverHandler}
               key={index}
               index={index}
               driver={driver}

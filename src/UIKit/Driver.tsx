@@ -4,6 +4,12 @@ import {InputComponent} from './InputComponent';
 import {DatePickerComponent} from './DatePickerComponent';
 import {useTranslation} from 'react-i18next';
 import {IDriver} from '../screens/Osago/types';
+import {Icon, IconNames} from './Icon';
+import styled from 'styled-components';
+import {Pressable} from 'react-native';
+import {Colors} from './constants';
+import {useTheme} from '@hooks';
+import {Block, Row} from './helpers';
 
 type Props = {
   index: number;
@@ -15,6 +21,7 @@ type Props = {
   onClassChangeHandler: (value: string, index: number) => void;
   onChangeDate: (index: number, date: string) => void;
   onChangeDriverLicenseDate: (index: number, date: string) => void;
+  deleteDriver: (index: number) => void;
 };
 
 export const Driver: React.FC<Props> = ({
@@ -27,6 +34,7 @@ export const Driver: React.FC<Props> = ({
   onClassChangeHandler,
   onChangeDriverLicenseDate,
   onChangeDate,
+  deleteDriver,
 }) => {
   const {
     name,
@@ -38,6 +46,8 @@ export const Driver: React.FC<Props> = ({
     pin,
     errors,
   } = driver;
+
+  const {theme} = useTheme();
 
   const {t} = useTranslation();
 
@@ -82,12 +92,26 @@ export const Driver: React.FC<Props> = ({
 
   return (
     <>
-      <BlueTitle
+      <Row
+        alignItems={'center'}
         marginBottom={16}
-        title={t('osago.statementScreen.driver', {
-          number: index === 0 ? '' : index + 1,
-        })}
-      />
+        justifyContent={'space-between'}>
+        <BlueTitle
+          title={t('osago.statementScreen.driver', {
+            number: index === 0 ? '' : index + 1,
+          })}
+        />
+        <Wrapper>
+          <StyledPressable onPress={() => null}>
+            <Icon
+              onPress={deleteDriver}
+              color={theme.textColor}
+              name={IconNames.close}
+              size={30}
+            />
+          </StyledPressable>
+        </Wrapper>
+      </Row>
       <InputComponent
         error={errors.surname}
         autoComplete={'name-family'}
@@ -146,3 +170,20 @@ export const Driver: React.FC<Props> = ({
     </>
   );
 };
+
+const StyledPressable = styled(Pressable).attrs(() => ({
+  android_ripple: {
+    borderless: false,
+    color: Colors.ripple,
+  },
+}))({
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 32,
+  height: 32,
+});
+
+const Wrapper = styled(Block)({
+  borderRadius: 16,
+  overflow: 'hidden',
+});
