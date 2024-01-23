@@ -395,13 +395,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   }, [state, errorFieldsState, driversState, setDrivers]);
 
   const showAddDriverButton = useMemo(() => {
-    const showPr = productsList?.find(p => state.product === p.id);
-    if (!showPr) {
+    const product = productsList.find(product => product.id === state.product);
+    if (!product) {
       return false;
     }
 
-    return showPr?.maxDriversCount !== 1;
-  }, [state.product]);
+    return product.maxDriversCount !== driversState.length;
+  }, [state.product, productsList, driversState]);
 
   return (
     <Block flex={1}>
