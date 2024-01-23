@@ -90,6 +90,10 @@ export const Driver: React.FC<Props> = ({
     [index],
   );
 
+  const deleteDriverHandler = useCallback(() => {
+    deleteDriver(index);
+  }, [index, deleteDriver]);
+
   return (
     <>
       <Row
@@ -101,16 +105,18 @@ export const Driver: React.FC<Props> = ({
             number: index === 0 ? '' : index + 1,
           })}
         />
-        <Wrapper>
-          <StyledPressable onPress={() => null}>
-            <Icon
-              onPress={deleteDriver}
-              color={theme.textColor}
-              name={IconNames.close}
-              size={30}
-            />
-          </StyledPressable>
-        </Wrapper>
+        {index === 0 ? null : (
+          <Wrapper>
+            <StyledPressable onPress={() => null}>
+              <Icon
+                onPress={deleteDriverHandler}
+                color={theme.textColor}
+                name={IconNames.close}
+                size={30}
+              />
+            </StyledPressable>
+          </Wrapper>
+        )}
       </Row>
       <InputComponent
         error={errors.surname}

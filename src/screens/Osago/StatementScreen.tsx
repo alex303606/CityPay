@@ -299,8 +299,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const onSurnameChangeHandler = useCallback(
     (value: string, index: number) => {
+      const word = value.replace(/\[{3}[^]]*]{3}/g, '');
       const newDriversState = [...driversState];
-      newDriversState[index].surname = value;
+      newDriversState[index].surname = word;
       setDrivers(newDriversState);
     },
     [driversState],
