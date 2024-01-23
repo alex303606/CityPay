@@ -225,7 +225,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
       const product = productsList.find(product => product.id === value);
       if (product?.maxDriversCount === 1) {
         const newDriversState = [...driversState];
-        newDriversState.splice(1, 1);
+        newDriversState.splice(1, driversState.length);
         setDrivers(newDriversState);
       }
       return setMyData({...state, product: value});
