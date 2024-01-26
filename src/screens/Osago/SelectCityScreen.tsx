@@ -49,10 +49,7 @@ export const SelectCityScreen: React.FC<Props> = ({navigation}) => {
 
   const renderInsurance = useCallback((item: IPartner) => {
     return (
-      <StyledRow
-        marginVertical={10}
-        backgroundColor={Colors.white}
-        key={item.id}>
+      <StyledRow marginVertical={10} key={item.id}>
         <StyledPressable onPress={() => insurancePressHandler(item)}>
           <ImageWrapper>
             <StyledInsuranceImage
@@ -157,7 +154,6 @@ const StyledInsuranceImage = styled(Image)({
 const StyledRow = styled(Row)({
   borderRadius: 10,
   overflow: 'hidden',
-  elevation: 5,
 });
 
 const ImageWrapper = styled(Row)({
