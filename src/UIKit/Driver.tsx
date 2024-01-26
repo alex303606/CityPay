@@ -52,17 +52,21 @@ export const Driver: React.FC<Props> = ({
   const {t} = useTranslation();
 
   const onSurnameChange = useCallback(
-    (value: string) => onSurnameChangeHandler(value, index),
+    (value: string) => {
+      onSurnameChangeHandler(value.replace(/[^a-zA-Zа-яА-Я ]/g, ''), index);
+    },
     [onSurnameChangeHandler],
   );
 
   const onNameChange = useCallback(
-    (value: string) => onNameChangeHandler(value, index),
+    (value: string) =>
+      onNameChangeHandler(value.replace(/[^a-zA-Zа-яА-Я ]/g, ''), index),
     [onNameChangeHandler],
   );
 
   const onSecondName = useCallback(
-    (value: string) => onSecondNameChangeHandler(value, index),
+    (value: string) =>
+      onSecondNameChangeHandler(value.replace(/[^a-zA-Zа-яА-Я ]/g, ''), index),
     [onSecondNameChangeHandler],
   );
 
