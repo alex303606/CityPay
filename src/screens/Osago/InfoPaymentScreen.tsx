@@ -112,6 +112,8 @@ export const InfoPaymentScreen: React.FC<Props> = ({route, navigation}) => {
     partnerId: partner.id,
     productId: state.product || '',
     selectedPeriodId: state.selectedPeriodId || '',
+    carTypeParamId: state.carTypeParamId || '',
+    driversState: driversState,
   });
 
   const [total, setTotal] = useState<ITotal | null>(null);

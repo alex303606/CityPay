@@ -229,6 +229,8 @@ export const getTotalSum = ({
   productId,
   selectedPeriodId,
   lang,
+  carTypeParamId,
+  driversState,
 }: {
   partnerId: string;
   isHasToCard: boolean;
@@ -236,18 +238,33 @@ export const getTotalSum = ({
   productId: string;
   selectedPeriodId: string;
   lang: ILanguages;
+  carTypeParamId: string;
+  driversState: IDriver[];
 }) => {
+  const params = {
+    TYPE: 'get_total_sum',
+    API_KEY: '28HimH4QhcEd4muqSktp',
+    PARTNER_ID: partnerId,
+    IS_HAS_TO_CARD: isHasToCard,
+    IS_KG_REGISTRATION: isKgRegistrations,
+    PRODUCT_ID: productId,
+    SELECTED_PERIOD_ID: selectedPeriodId,
+    LANG: lang,
+    CAR_TYPE_PARAM_ID: carTypeParamId,
+  };
+
+  driversState.forEach((driver, index) => {
+    const currentIndex = index + 1;
+    // @ts-ignore
+    params[`DRIVER_${currentIndex}_BIRTHDAY`] = driver.date;
+    // @ts-ignore
+    params[`DRIVER_${currentIndex}_CLASS`] = driver.class;
+    // @ts-ignore
+    params[`DRIVER_${currentIndex}_LICENSE_DATE`] = driver.driverLicenseDate;
+  });
+
   return axios
-    .post(URL, {
-      TYPE: 'get_total_sum',
-      API_KEY: '28HimH4QhcEd4muqSktp',
-      PARTNER_ID: partnerId,
-      IS_HAS_TO_CARD: isHasToCard,
-      IS_KG_REGISTRATION: isKgRegistrations,
-      PRODUCT_ID: productId,
-      SELECTED_PERIOD_ID: selectedPeriodId,
-      LANG: lang,
-    })
+    .post(URL, params)
     .then(
       (response: {
         data: {

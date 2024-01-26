@@ -4,6 +4,7 @@ import {useLoading} from './useLoading';
 import {useAppDispatch, useAppSelector} from './store';
 import {getPaymentsSuccess, getTotalSum, getUserState} from '@store';
 import {useCallback} from 'react';
+import {IDriver} from '../screens/Osago/types';
 
 export const useGetTotalSum = ({
   isHasToCard,
@@ -11,12 +12,16 @@ export const useGetTotalSum = ({
   partnerId,
   productId,
   selectedPeriodId,
+  carTypeParamId,
+  driversState,
 }: {
   partnerId: string;
   isHasToCard: boolean;
   isKgRegistrations: boolean;
   productId: string;
   selectedPeriodId: string;
+  carTypeParamId: string;
+  driversState: IDriver[];
 }) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
@@ -33,6 +38,8 @@ export const useGetTotalSum = ({
       productId,
       selectedPeriodId,
       lang: selectedLanguage,
+      carTypeParamId,
+      driversState,
     });
 
     hideLoader();
