@@ -51,7 +51,7 @@ export const useValidationFields = (
         carVendor: !state.carVendor,
         carNumber: !state.carNumber,
         carModel: !state.carModel,
-        carYear: !state.carYear,
+        carYear: !state.carYear || Number(state.carYear) > moment().year(),
         carVin: !state.carVin,
         contactPhone: !state.contactPhone,
         carType: !state.carType,
