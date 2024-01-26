@@ -6,9 +6,9 @@ import {Colors, Typography} from './constants';
 import {useTheme} from '@hooks';
 import {Icon, IconNames} from './Icon';
 import styled from 'styled-components';
-import {PermissionsAndroid, Pressable} from 'react-native';
+import {Alert, PermissionsAndroid, Pressable} from 'react-native';
 import {ICarDocuments, IPhoto} from '../screens/Osago/types';
-import {launchCamera} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {CarDocumentPhoto} from './CarDocumentPhoto';
 
 type Props = {
@@ -36,6 +36,30 @@ export const CarDocuments: React.FC<Props> = ({
 }) => {
   const {t} = useTranslation();
   const {theme} = useTheme();
+
+  const handleGalleryRegistrationCard = useCallback(async () => {
+    const result = await launchImageLibrary(
+      {
+        mediaType: 'photo',
+      },
+      () => null,
+    );
+
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      return onSavePhotoRegistrationCard({
+        fileName: result.assets[0].fileName,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+      });
+    }
+  }, []);
+
   const handleCameraRegistrationCard = useCallback(async () => {
     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
     const result = await launchCamera(
@@ -86,6 +110,52 @@ export const CarDocuments: React.FC<Props> = ({
     }
   }, []);
 
+  const handleGalleryPowerAttorney = useCallback(async () => {
+    const result = await launchImageLibrary(
+      {
+        mediaType: 'photo',
+      },
+      () => null,
+    );
+
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      return onSavePhotoPowerAttorney({
+        fileName: result.assets[0].fileName,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+      });
+    }
+  }, []);
+
+  const handleGalleryRegistration = useCallback(async () => {
+    const result = await launchImageLibrary(
+      {
+        mediaType: 'photo',
+      },
+      () => null,
+    );
+
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      return onSavePhotoRegistration({
+        fileName: result.assets[0].fileName,
+        type: result.assets[0].type,
+        uri: result.assets[0].uri,
+      });
+    }
+  }, []);
+
   const handleCameraRegistration = useCallback(async () => {
     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
     const result = await launchCamera(
@@ -111,6 +181,36 @@ export const CarDocuments: React.FC<Props> = ({
     }
   }, []);
 
+  const handleRegistration = useCallback(() => {
+    return Alert.alert(t('profile.selectAvatar'), undefined, [
+      {text: t('profile.fromCamera'), onPress: handleCameraRegistration},
+      {
+        text: t('profile.fromGallery'),
+        onPress: handleGalleryRegistration,
+      },
+    ]);
+  }, []);
+
+  const handlePowerAttorney = useCallback(() => {
+    return Alert.alert(t('profile.selectAvatar'), undefined, [
+      {text: t('profile.fromCamera'), onPress: handleCameraPowerAttorney},
+      {
+        text: t('profile.fromGallery'),
+        onPress: handleGalleryPowerAttorney,
+      },
+    ]);
+  }, []);
+
+  const handleRegistrationCard = useCallback(() => {
+    return Alert.alert(t('profile.selectAvatar'), undefined, [
+      {text: t('profile.fromCamera'), onPress: handleCameraRegistrationCard},
+      {
+        text: t('profile.fromGallery'),
+        onPress: handleGalleryRegistrationCard,
+      },
+    ]);
+  }, []);
+
   return (
     <Block>
       <BlueTitle marginBottom={16} title={t('osago.documentsScreen.car')} />
@@ -131,7 +231,7 @@ export const CarDocuments: React.FC<Props> = ({
           })}
           {carPhotos.registration.length < 2 ? (
             <Wrapper>
-              <StyledPressable onPress={handleCameraRegistration}>
+              <StyledPressable onPress={handleRegistration}>
                 <Block alignItems={'center'} justifyContent={'center'}>
                   <Icon name={IconNames.plus} />
                   <Typography.B16 color={theme.textColor} marginTop={8}>
@@ -161,7 +261,7 @@ export const CarDocuments: React.FC<Props> = ({
             })}
             {carPhotos.registrationCard.length < 2 ? (
               <Wrapper>
-                <StyledPressable onPress={handleCameraRegistrationCard}>
+                <StyledPressable onPress={handleRegistrationCard}>
                   <Block alignItems={'center'} justifyContent={'center'}>
                     <Icon name={IconNames.plus} />
                     <Typography.B16 color={theme.textColor} marginTop={8}>
@@ -192,7 +292,7 @@ export const CarDocuments: React.FC<Props> = ({
             })}
             {carPhotos.powerOfAttorney.length < 2 ? (
               <Wrapper>
-                <StyledPressable onPress={handleCameraPowerAttorney}>
+                <StyledPressable onPress={handlePowerAttorney}>
                   <Block alignItems={'center'} justifyContent={'center'}>
                     <Icon name={IconNames.plus} />
                     <Typography.B16 color={theme.textColor} marginTop={8}>
