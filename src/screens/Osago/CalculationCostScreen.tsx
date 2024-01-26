@@ -16,13 +16,17 @@ export const CalculationCostScreen: React.FC<Props> = ({route}) => {
 
   const {
     partner,
-    total: {bankPercent, totalSum, baseSum, calcList, deliveryPrice},
+    total: {bankPercent, nsp, totalSum, baseSum, calcList, deliveryPrice},
   } = route.params;
 
   return (
     <ScreenContainer title={t('osago.calculationCostScreen.title')}>
       <StyledImage source={{uri: partner.logoUrl}} />
       <Block marginTop={32}>
+        <CalculationCostItem
+          title={t('osago.calculationCostScreen.baseCost')}
+          value={baseSum}
+        />
         {calcList.map(c => {
           return (
             <CalculationCostItem
@@ -40,8 +44,8 @@ export const CalculationCostScreen: React.FC<Props> = ({route}) => {
           />
         ) : null}
         <CalculationCostItem
-          title={t('osago.calculationCostScreen.baseCost')}
-          value={baseSum}
+          title={t('osago.calculationCostScreen.nsp')}
+          value={nsp}
         />
         <CalculationCostItem
           title={t('osago.calculationCostScreen.commission')}

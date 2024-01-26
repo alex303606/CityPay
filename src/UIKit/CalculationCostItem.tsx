@@ -42,4 +42,6 @@ const StyledBlock = styled(Block)({
   borderRadius: 6,
   padding: 4,
   overflow: 'hidden',
+  minWidth: 50,
+  alignItems: 'center',
 });

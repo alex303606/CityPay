@@ -283,6 +283,7 @@ export const kgTranslation = {
         baseCost: 'Базалык наркы:',
         commission: 'Эквайринг үчүн комиссия:',
         totalCost: 'Полистин жалпы наркы:',
+        nsp: 'НсП',
       },
     },
   },

@@ -284,6 +284,7 @@ export const enTranslation = {
         baseCost: 'Base cost:',
         commission: 'Processing fee:',
         totalCost: 'The total cost of the policy:',
+        nsp: 'НсП',
       },
     },
   },

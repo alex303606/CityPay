@@ -284,6 +284,7 @@ export const ruTranslation = {
         baseCost: 'Базовая стоимость:',
         commission: 'Комиссия за эквайринг:',
         totalCost: 'Итоговая стоимость полиса:',
+        nsp: 'НсП',
       },
     },
   },
