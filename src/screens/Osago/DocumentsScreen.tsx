@@ -12,7 +12,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EScreens, OsagoStackParamList} from '@navigators';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
-import {Image} from 'react-native';
+import {Alert, Image} from 'react-native';
 import {DriverPhotos, ICarDocuments, IPhoto} from './types';
 const checkIcon = require('@assets/images/checkIcon.webp');
 
@@ -20,6 +20,8 @@ type Props = NativeStackScreenProps<
   OsagoStackParamList,
   EScreens.DOCUMENTS_SCREEN
 >;
+
+const LIMIT_PHOTOS = 2;
 
 export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   const {t} = useTranslation();
@@ -142,6 +144,30 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
   );
 
   const onPressDrawUp = useCallback(() => {
+    const errorDriverPhotos = driversPhotos.some(
+      driversPhotos =>
+        driversPhotos.driverLicense.length < LIMIT_PHOTOS ||
+        driversPhotos.idCard.length < LIMIT_PHOTOS,
+    );
+
+    const isCarPhotosRegistrationError =
+      carPhotos.registration.length < LIMIT_PHOTOS;
+
+    const isCarPhotosRegistrationCardError =
+      carPhotos.registrationCard.length < LIMIT_PHOTOS && state.isHasToCard;
+
+    const isCarPhotosPowerOfAttorneyError =
+      carPhotos.powerOfAttorney.length < LIMIT_PHOTOS && !state.isOwner;
+
+    if (
+      errorDriverPhotos ||
+      isCarPhotosRegistrationError ||
+      isCarPhotosRegistrationCardError ||
+      isCarPhotosPowerOfAttorneyError
+    ) {
+      return Alert.alert(t('osago.statementScreen.errorDoc'));
+    }
+
     navigation.navigate(EScreens.INFO_PAYMENTS_SCREEN, {
       state,
       driversState,
