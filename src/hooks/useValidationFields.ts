@@ -80,7 +80,17 @@ export const useValidationFields = (
 
       setErrorFieldsState(newErrorFieldsState);
 
-      if (Object.values(newErrorFieldsState).some(value => value)) {
+      const driversErrors = newDriversState.reduce((acc, driver) => {
+        Object.values(driver.errors).forEach(e => {
+          acc.push(e);
+        });
+        return acc;
+      }, [] as boolean[]);
+
+      if (
+        driversErrors.some(error => error) ||
+        Object.values(newErrorFieldsState).some(value => value)
+      ) {
         return Alert.alert(t('osago.statementScreen.error'), undefined, [
           {text: 'OK', onPress: scrollToTop},
         ]);
