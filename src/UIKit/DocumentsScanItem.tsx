@@ -4,8 +4,8 @@ import {Colors, Typography} from './constants';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
-import {PermissionsAndroid, Pressable} from 'react-native';
-import {launchCamera} from 'react-native-image-picker';
+import {Alert, PermissionsAndroid, Pressable} from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Icon, IconNames} from './Icon';
 import {DocumentPhoto} from './DocumentPhoto';
 import {IPhoto} from '../screens/Osago/types';
@@ -30,6 +30,32 @@ export const DocumentsScanItem: React.FC<Props> = ({
 
   const onDeletePhoto = useCallback((photoIndex: number) => {
     deletePhoto(photoIndex);
+  }, []);
+
+  const handleGallery = useCallback(async () => {
+    const result = await launchImageLibrary(
+      {
+        mediaType: 'photo',
+      },
+      () => null,
+    );
+
+    if (
+      result?.assets &&
+      result.assets.length &&
+      result.assets[0].uri &&
+      result.assets[0].type &&
+      result.assets[0].fileName
+    ) {
+      savePhoto(
+        {
+          fileName: result.assets[0].fileName,
+          type: result.assets[0].type,
+          uri: result.assets[0].uri,
+        },
+        driverIndex,
+      );
+    }
   }, []);
 
   const handleCamera = useCallback(async () => {
@@ -60,6 +86,16 @@ export const DocumentsScanItem: React.FC<Props> = ({
     }
   }, [driverIndex]);
 
+  const showModal = useCallback(() => {
+    return Alert.alert(t('profile.selectAvatar'), undefined, [
+      {text: t('profile.fromCamera'), onPress: handleCamera},
+      {
+        text: t('profile.fromGallery'),
+        onPress: handleGallery,
+      },
+    ]);
+  }, []);
+
   return (
     <Block marginBottom={16}>
       <Typography.B14 marginBottom={16} color={theme.textColor}>
@@ -78,7 +114,7 @@ export const DocumentsScanItem: React.FC<Props> = ({
         })}
         {photos.length < 2 ? (
           <Wrapper>
-            <StyledPressable onPress={handleCamera}>
+            <StyledPressable onPress={showModal}>
               <Block alignItems={'center'} justifyContent={'center'}>
                 <Icon name={IconNames.plus} />
                 <Typography.B16 color={theme.textColor} marginTop={8}>
