@@ -40,10 +40,12 @@ export const DriverApplicationItem: React.FC<Props> = ({index, driver}) => {
         title={t('osago.infoPaymentScreen.firstName')}
         value={driver.firstName}
       />
-      <InfoLIneRow
-        title={t('osago.infoPaymentScreen.surname')}
-        value={driver.surname}
-      />
+      {driver.surname ? (
+        <InfoLIneRow
+          title={t('osago.infoPaymentScreen.surname')}
+          value={driver.surname}
+        />
+      ) : null}
       <InfoLIneRow
         title={t('osago.infoPaymentScreen.bithday')}
         value={driver.bithday}
