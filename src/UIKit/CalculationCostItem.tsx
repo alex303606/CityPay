@@ -23,7 +23,7 @@ export const CalculationCostItem: React.FC<Props> = ({
       marginBottom={8}
       flex={1}
       justifyContent={'space-between'}>
-      <Block>
+      <Block flex={1}>
         <Typography.B14 marginRight={8} color={theme.textColor}>
           {`${title} ${subTitle ? ':' : ''} `}
           {!!subTitle ? (
@@ -44,4 +44,5 @@ const StyledBlock = styled(Block)({
   overflow: 'hidden',
   minWidth: 50,
   alignItems: 'center',
+  marginLeft: 16,
 });

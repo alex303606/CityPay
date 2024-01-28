@@ -90,11 +90,13 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     };
   });
 
+  const delivery = deliveryList.find(delivery => !delivery.isDelivery);
+
   const [state, setMyData] = useState<MyDataState>({
     isOwner: true,
     isHasToCard: false,
     isKgRegistration: true,
-    deliveryId: undefined,
+    deliveryId: delivery?.id,
     product: undefined,
     selectedPeriodId: undefined,
     email: '',
