@@ -1,6 +1,6 @@
 import React from 'react';
 import {Block, Row} from './helpers';
-import {Typography} from './constants';
+import {Colors, Typography} from './constants';
 import {Icon, IconNames} from './Icon';
 import {useTheme} from '@hooks';
 import styled from 'styled-components';
@@ -35,7 +35,7 @@ export const DatePickerComponent: React.FC<Props> = ({
       <StyledRow justifyContent={'space-between'} alignItems={'center'}>
         <StyledTextInputMask
           placeholder={'01.01.2000'}
-          placeholderTextColor={theme.textColor}
+          placeholderTextColor={Colors.grey}
           color={theme.textColor}
           keyboardType={'number-pad'}
           underlineColorAndroid="transparent"
