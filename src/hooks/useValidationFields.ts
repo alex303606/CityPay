@@ -30,7 +30,6 @@ export const useValidationFields = (
   partner: IPartner,
 ) => {
   const {t} = useTranslation();
-  // const deliveryList = useAppSelector(getDeliveryList);
 
   const validate = useCallback(
     (
@@ -41,12 +40,6 @@ export const useValidationFields = (
       let newErrorFieldsState = {...errorFieldsState};
 
       const emailIsValid = validateEmail(state.email);
-
-      // const delivery = deliveryList.find(
-      //   delivery => delivery.id === state.deliveryId,
-      // );
-      //
-      // const isDelivery = !!delivery?.isDelivery;
 
       newErrorFieldsState = {
         ...newErrorFieldsState,
