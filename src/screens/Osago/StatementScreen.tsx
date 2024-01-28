@@ -333,9 +333,9 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
 
   const onSurnameChangeHandler = useCallback(
     (value: string, index: number) => {
-      const word = value.replace(/\[{3}[^]]*]{3}/g, '');
       const newDriversState = [...driversState];
-      newDriversState[index].surname = word;
+      newDriversState[index].surname = value;
+      newDriversState[index].errors.surname = false;
       setDrivers(newDriversState);
     },
     [driversState],
@@ -345,6 +345,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     (value: string, index: number) => {
       const newDriversState = [...driversState];
       newDriversState[index].name = value;
+      newDriversState[index].errors.name = false;
       setDrivers(newDriversState);
     },
     [driversState],
@@ -363,6 +364,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     (value: string, index: number) => {
       const newDriversState = [...driversState];
       newDriversState[index].pin = value;
+      newDriversState[index].errors.pin = false;
       setDrivers(newDriversState);
     },
     [driversState],
@@ -376,6 +378,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     (index: number, date: string) => {
       const newDriversState = [...driversState];
       newDriversState[index].date = date;
+      newDriversState[index].errors.date = false;
       setDrivers(newDriversState);
     },
     [driversState],
@@ -385,6 +388,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     (index: number, date: string) => {
       const newDriversState = [...driversState];
       newDriversState[index].driverLicenseDate = date;
+      newDriversState[index].errors.driverLicenseDate = false;
       setDrivers(newDriversState);
     },
     [driversState],
