@@ -35,6 +35,7 @@ export const DatePickerComponent: React.FC<Props> = ({
       <StyledRow justifyContent={'space-between'} alignItems={'center'}>
         <StyledTextInputMask
           placeholder={'01.01.2000'}
+          placeholderTextColor={theme.textColor}
           color={theme.textColor}
           keyboardType={'number-pad'}
           underlineColorAndroid="transparent"
