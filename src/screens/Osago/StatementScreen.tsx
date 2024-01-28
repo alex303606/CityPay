@@ -206,7 +206,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         });
       }
     },
-    [isDelivery, state],
+    [state, deliveryList],
   );
 
   const onChangeValueIHaveCard = useCallback(
@@ -429,8 +429,8 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
   );
 
   const onLoadDoc = useCallback(() => {
-    validate(driversState, setDrivers);
-  }, [state, errorFieldsState, driversState, setDrivers]);
+    validate(isDelivery, driversState, setDrivers);
+  }, [state, errorFieldsState, driversState, setDrivers, isDelivery]);
 
   const showAddDriverButton = useMemo(() => {
     const product = productsList.find(product => product.id === state.product);

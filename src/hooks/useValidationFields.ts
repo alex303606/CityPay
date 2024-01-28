@@ -4,9 +4,8 @@ import {validateEmail} from '../utils';
 import {Alert} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {EScreens, OsagoStackParamList} from '@navigators';
-import {getDeliveryList, IPartner} from '@store';
+import {IPartner} from '@store';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useAppSelector} from './store';
 import moment from 'moment';
 
 const validateDate = (value: string) => {
@@ -31,19 +30,23 @@ export const useValidationFields = (
   partner: IPartner,
 ) => {
   const {t} = useTranslation();
-  const deliveryList = useAppSelector(getDeliveryList);
+  // const deliveryList = useAppSelector(getDeliveryList);
 
   const validate = useCallback(
-    (driversState: IDriver[], setDrivers: (drivers: IDriver[]) => void) => {
+    (
+      isDelivery: boolean,
+      driversState: IDriver[],
+      setDrivers: (drivers: IDriver[]) => void,
+    ) => {
       let newErrorFieldsState = {...errorFieldsState};
 
       const emailIsValid = validateEmail(state.email);
 
-      const delivery = deliveryList.find(
-        delivery => delivery.id === state.deliveryId,
-      );
-
-      const isDelivery = !!delivery?.isDelivery;
+      // const delivery = deliveryList.find(
+      //   delivery => delivery.id === state.deliveryId,
+      // );
+      //
+      // const isDelivery = !!delivery?.isDelivery;
 
       newErrorFieldsState = {
         ...newErrorFieldsState,
