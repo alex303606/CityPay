@@ -14,6 +14,7 @@ export const useGetTotalSum = ({
   selectedPeriodId,
   carTypeParamId,
   driversState,
+  deliveryId,
 }: {
   partnerId: string;
   isHasToCard: boolean;
@@ -21,6 +22,7 @@ export const useGetTotalSum = ({
   productId: string;
   selectedPeriodId: string;
   carTypeParamId: string;
+  deliveryId: string;
   driversState: IDriver[];
 }) => {
   const {t} = useTranslation();
@@ -40,6 +42,7 @@ export const useGetTotalSum = ({
       lang: selectedLanguage,
       carTypeParamId,
       driversState,
+      deliveryId,
     });
 
     hideLoader();

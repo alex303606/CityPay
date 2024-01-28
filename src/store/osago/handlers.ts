@@ -231,6 +231,7 @@ export const getTotalSum = ({
   lang,
   carTypeParamId,
   driversState,
+  deliveryId,
 }: {
   partnerId: string;
   isHasToCard: boolean;
@@ -239,6 +240,7 @@ export const getTotalSum = ({
   selectedPeriodId: string;
   lang: ILanguages;
   carTypeParamId: string;
+  deliveryId: string;
   driversState: IDriver[];
 }) => {
   const params = {
@@ -251,16 +253,18 @@ export const getTotalSum = ({
     SELECTED_PERIOD_ID: selectedPeriodId,
     LANG: lang,
     CAR_TYPE_PARAM_ID: carTypeParamId,
+    DELIVERY_ID: deliveryId,
   };
 
   driversState.forEach((driver, index) => {
     const currentIndex = index + 1;
     // @ts-ignore
-    params[`DRIVER_${currentIndex}_BIRTHDAY`] = driver.date;
+    params[`DRIVER_${currentIndex}_DRIVER_BIRTHDAY`] = driver.date;
     // @ts-ignore
-    params[`DRIVER_${currentIndex}_CLASS`] = driver.class;
+    params[`DRIVER_${currentIndex}_DRIVER_CLASS`] = driver.class;
     // @ts-ignore
-    params[`DRIVER_${currentIndex}_LICENSE_DATE`] = driver.driverLicenseDate;
+    params[`DRIVER_${currentIndex}_DRIVER_LICENSE_DATE`] =
+      driver.driverLicenseDate;
   });
 
   return axios
