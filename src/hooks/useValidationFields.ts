@@ -55,6 +55,7 @@ export const useValidationFields = (
         carVin: !state.carVin,
         contactPhone: !state.contactPhone,
         carType: !state.carType,
+        carTypeParamId: !state.carTypeParamId,
         product: !state.product,
         selectedPeriodId: !state.selectedPeriodId,
         deliveryAddress: isDelivery ? !state.deliveryAddress : false,

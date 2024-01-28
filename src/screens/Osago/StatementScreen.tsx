@@ -163,6 +163,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     product: false,
     deliveryAddress: false,
     pickUpOffice: false,
+    carTypeParamId: false,
   });
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -228,73 +229,106 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
         newDriversState.splice(1, driversState.length);
         setDrivers(newDriversState);
       }
+      setErrorFieldsState({...errorFieldsState, product: false});
       return setMyData({...state, product: value});
     },
-    [state],
+    [state, errorFieldsState],
   );
 
   const onCarVendorChangeHandler = useCallback(
     (value: string) => {
       setMyData({...state, carVendor: value});
+      setErrorFieldsState({...errorFieldsState, carVendor: false});
     },
-    [state],
+    [state, errorFieldsState],
   );
 
   const onCarNumberChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carNumber: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, carNumber: value});
+      setErrorFieldsState({...errorFieldsState, carNumber: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onModelChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carModel: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, carModel: value});
+      setErrorFieldsState({...errorFieldsState, carModel: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onYearOfIssueChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carYear: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, carYear: value});
+      setErrorFieldsState({...errorFieldsState, carYear: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onCarTypeChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carType: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, carType: value});
+      setErrorFieldsState({...errorFieldsState, carType: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onCarTypeParamIdChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carTypeParamId: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, carTypeParamId: value});
+      setErrorFieldsState({...errorFieldsState, carTypeParamId: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onPickUpOfficeChangeHandler = useCallback(
-    (value: string) => setMyData({...state, pickUpOffice: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, pickUpOffice: value});
+      setErrorFieldsState({...errorFieldsState, pickUpOffice: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onCarVinChangeHandler = useCallback(
-    (value: string) => setMyData({...state, carVin: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, carVin: value});
+      setErrorFieldsState({...errorFieldsState, carVin: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onDeliveryAddressChangeHandler = useCallback(
-    (value: string) => setMyData({...state, deliveryAddress: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, deliveryAddress: value});
+      setErrorFieldsState({...errorFieldsState, deliveryAddress: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onSelectedPeriodChangeHandler = useCallback(
-    (value: string) => setMyData({...state, selectedPeriodId: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, selectedPeriodId: value});
+      setErrorFieldsState({...errorFieldsState, selectedPeriodId: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onEmailChangeHandler = useCallback(
     (value: string) => {
       setMyData({...state, email: value});
+      setErrorFieldsState({...errorFieldsState, email: false});
     },
-    [state],
+    [state, errorFieldsState],
   );
 
   const changeContactPhoneHandler = useCallback(
-    (value: string) => setMyData({...state, contactPhone: value}),
-    [state],
+    (value: string) => {
+      setMyData({...state, contactPhone: value});
+      setErrorFieldsState({...errorFieldsState, contactPhone: false});
+    },
+    [state, errorFieldsState],
   );
 
   const onSurnameChangeHandler = useCallback(
@@ -520,6 +554,7 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
           {carTypesParams ? (
             <PickerComponent
               marginBottom={16}
+              error={errorFieldsState.carTypeParamId}
               items={carTypesParams.params}
               onValueChange={onCarTypeParamIdChangeHandler}
               selectedValue={state.carTypeParamId}
