@@ -259,9 +259,9 @@ export const getTotalSum = ({
   driversState.forEach((driver, index) => {
     const currentIndex = index + 1;
     // @ts-ignore
-    params[`DRIVER_${currentIndex}_DRIVER_BIRTHDAY`] = driver.date;
+    params[`DRIVER_${currentIndex}_BIRTHDAY`] = driver.date;
     // @ts-ignore
-    params[`DRIVER_${currentIndex}_DRIVER_CLASS`] = driver.class;
+    params[`DRIVER_${currentIndex}_CLASS`] = driver.class;
     // @ts-ignore
     params[`DRIVER_${currentIndex}_DRIVER_LICENSE_DATE`] =
       driver.driverLicenseDate;
