@@ -22,7 +22,6 @@ export const useValidationFields = (
   state: MyDataState,
   setErrorFieldsState: (errorFieldsState: IErrorFieldsState) => void,
   errorFieldsState: IErrorFieldsState,
-  scrollToTop: () => void,
   navigation: NativeStackNavigationProp<
     OsagoStackParamList,
     EScreens.NEW_STATEMENT_SCREEN
@@ -88,9 +87,7 @@ export const useValidationFields = (
         driversErrors.some(error => error) ||
         Object.values(newErrorFieldsState).some(value => value)
       ) {
-        return Alert.alert(t('osago.statementScreen.error'), undefined, [
-          {text: 'OK', onPress: scrollToTop},
-        ]);
+        return Alert.alert(t('osago.statementScreen.error'));
       }
 
       return navigation.navigate(EScreens.DOCUMENTS_SCREEN, {

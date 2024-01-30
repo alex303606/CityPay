@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {
+  Block,
   Button,
   CarDocuments,
   DriverDocumentsItem,
@@ -181,9 +182,11 @@ export const DocumentsScreen: React.FC<Props> = ({route, navigation}) => {
     <ScreenContainer title={t('osago.documentsScreen.title')}>
       <Row marginBottom={16}>
         <StyledImage source={checkIcon} />
-        <Typography.R16 color={theme.textColor}>
-          {t('osago.documentsScreen.subTitle')}
-        </Typography.R16>
+        <Block flex={1}>
+          <Typography.R16 color={theme.textColor}>
+            {t('osago.documentsScreen.subTitle')}
+          </Typography.R16>
+        </Block>
       </Row>
       {driversPhotos.map((driver, index) => {
         return (

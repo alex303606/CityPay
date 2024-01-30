@@ -181,7 +181,6 @@ export const StatementScreen: React.FC<Props> = ({navigation, route}) => {
     state,
     setErrorFieldsState,
     errorFieldsState,
-    scrollToTop,
     navigation,
     partner,
   );
