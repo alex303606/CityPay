@@ -2,12 +2,12 @@ import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {Block, Colors, Typography, WINDOW_WIDTH} from '@UIKit';
 import {Pressable} from 'react-native';
-import * as Model from 'react-native-adapty/lib/dist/types';
+import * as Model from 'react-native-adapty/dist/types';
 
 type Props = {
   active: boolean;
-  subscription: Model.AdaptyProduct;
-  onPress: (subscription: Model.AdaptyProduct) => void;
+  subscription: Model.AdaptyPaywallProduct;
+  onPress: (subscription: Model.AdaptyPaywallProduct) => void;
 };
 
 export const PremiumItem: React.FC<Props> = ({
@@ -23,22 +23,18 @@ export const PremiumItem: React.FC<Props> = ({
     <Wrapper active={active}>
       <StyledPressable onPress={onPressSubscription}>
         <Typography.RF16
-          numberOfLines={1}
           color={Colors.white}
           marginBottom={8}
           textAlign={'center'}>
-          {subscription.localizedSubscriptionPeriod}
+          {subscription.localizedTitle}
         </Typography.RF16>
         <Typography.RF16
           numberOfLines={1}
           marginBottom={8}
           textAlign={'center'}
           color={Colors.white}>
-          {subscription.localizedPrice}
+          {subscription.price?.localizedString}
         </Typography.RF16>
-        <Typography.RF12 textAlign={'center'} color={Colors.white}>
-          {subscription.localizedTitle.split('(')[0]}
-        </Typography.RF12>
       </StyledPressable>
     </Wrapper>
   );

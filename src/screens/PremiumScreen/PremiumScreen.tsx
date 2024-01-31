@@ -23,7 +23,7 @@ import {
   setUserAccountTypeAndCarsLimit,
 } from '@store';
 import {adapty} from 'react-native-adapty';
-import * as Model from 'react-native-adapty/lib/dist/types';
+import * as Model from 'react-native-adapty/dist/types';
 import Footer from './components/Footer';
 
 const image = require('@assets/images/car.webp');
@@ -41,7 +41,9 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   const {selectedLanguage, phone} = useAppSelector(getUserState);
   const {loading, hideLoader, showLoader} = useLoading();
   const dispatch = useAppDispatch();
-  const [subscriptions, setSubscriptions] = useState<Model.AdaptyProduct[]>([]);
+  const [subscriptions, setSubscriptions] = useState<
+    Model.AdaptyPaywallProduct[]
+  >([]);
 
   const showError = useCallback(() => {
     hideLoader();
@@ -71,7 +73,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   }, []);
 
   const [selectedSubscription, setSelectedSubscription] =
-    useState<Model.AdaptyProduct | null>(null);
+    useState<Model.AdaptyPaywallProduct | null>(null);
 
   const makePurchaseSuccess = useCallback(
     async (profile: Model.AdaptyProfile) => {
@@ -153,7 +155,7 @@ export const PremiumScreen: React.FC<Props> = ({route, navigation}) => {
   }, []);
 
   const onSelectSubscribeItem = useCallback(
-    (subscription: Model.AdaptyProduct) => {
+    (subscription: Model.AdaptyPaywallProduct) => {
       setSelectedSubscription(subscription);
     },
     [setSelectedSubscription],
