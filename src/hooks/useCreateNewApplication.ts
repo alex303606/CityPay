@@ -81,7 +81,7 @@ export const useCreateNewApplication = ({
     )}`;
 
     if (response.data) {
-      const resultUrl = `https://crm.citypay.kg/api/merchants_paybox.php?user_phone=${phone}?application=${applicationNumber}?amount=${response.data.paymentSum}?isMbank=1`;
+      const resultUrl = `https://crm.citypay.kg/api/merchants_paybox.php?user_phone=${phone}&application=${applicationNumber}&amount=${response.data.paymentSum}&isMbank=1&device=android`;
       MbankSecondModuleInitPayment({
         orderId: response.data.id.toString(),
         payAmount: Number(response.data.paymentSum),
