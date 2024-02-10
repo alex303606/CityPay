@@ -3,7 +3,7 @@ import {Block, Button, Colors, ScreenContainer, Typography} from '@UIKit';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '@navigators';
 import {EScreens} from '@navigators';
-import {useAppDispatch, useSnackbarNotification} from '@hooks';
+import {useAppDispatch, useLoading, useSnackbarNotification} from '@hooks';
 import {loginUserSuccess, sendPhone, sendCode} from '@store';
 import {useTranslation} from 'react-i18next';
 import {CodeFieldComponent} from './components/CodeFieldComponent';
@@ -31,9 +31,12 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
   const codeRef = useRef<ICodeFieldComponent>(null);
   const [startTime, setStartTime] = useState(Date.now());
   const {showNotification} = useSnackbarNotification();
+  const {loading, hideLoader, showLoader} = useLoading();
 
   const resendCode = useCallback(async () => {
+    showLoader();
     const response = await sendPhone(phone);
+    hideLoader();
     if (!response?.result) {
       if (response?.message) {
         showNotification(response.message);
@@ -92,6 +95,7 @@ export const SMSConfirmScreen: React.FC<Props> = ({navigation, route}) => {
         <CodeFieldComponent value={code} setValue={setCode} ref={codeRef} />
       </Block>
       <Button
+        loading={loading}
         disabled={code.length !== CELL_COUNT}
         title={t('auth.apply')}
         onPress={sendCodeHandler}

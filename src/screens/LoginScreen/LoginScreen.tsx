@@ -2,7 +2,6 @@ import React, {useCallback, useState} from 'react';
 import {
   Block,
   Button,
-  CheckBoxField,
   Colors,
   FocusAwareStatusBar,
   Row,
@@ -17,7 +16,7 @@ import {TextInputMask} from 'react-native-masked-text';
 import {Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {sendPhone} from '@store';
-import {useSnackbarNotification, useTheme} from '@hooks';
+import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
 import CheckBox from '@react-native-community/checkbox';
 
 const MASK = '999 99-99-99';
@@ -28,8 +27,12 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {showNotification} = useSnackbarNotification();
   const [phone, setPhone] = useState<string>('');
   const {t} = useTranslation();
+  const {loading, hideLoader, showLoader} = useLoading();
+
   const sendPhoneHandler = useCallback(async () => {
+    showLoader();
     const response = await sendPhone(phone);
+    hideLoader();
     if (!response.result) {
       if (response.message) {
         showNotification(response.message);
@@ -108,6 +111,7 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
         </Block>
       </Row>
       <Button
+        loading={loading}
         disabled={phone.length !== PHONE_COUNT || !IAmAgree}
         title={t('auth.getCode')}
         onPress={sendPhoneHandler}

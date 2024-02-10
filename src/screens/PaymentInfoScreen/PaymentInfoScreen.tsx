@@ -134,7 +134,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
   }, []);
 
   const onHandlePressPayByCard = useCallback(() => {
-    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}`;
+    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}&paymentCode=${orderId}&amount=${paymentSum}&device=android`;
     payBoxModuleInitPayment({
       orderId,
       payAmount: paymentSum,
@@ -145,7 +145,7 @@ export const PaymentInfoScreen: React.FC<Props> = ({route, navigation}) => {
   }, [paymentSum, userId]);
 
   const onHandlePressPayByMBank = useCallback(() => {
-    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}?paymentCode=${orderId}?amount=${paymentSum}?isMbank=1`;
+    const resultUrl = `https://citysoft.kido.kg/api/merchants_paybox.php?user_phone=${phone}&paymentCode=${orderId}&amount=${paymentSum}&isMbank=1&device=android`;
 
     MBankModuleInitPayment({
       orderId,
