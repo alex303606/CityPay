@@ -11,10 +11,10 @@ import money.paybox.payboxsdk.Model.RecurringPaid;
 import money.paybox.payboxsdk.Model.Response;
 import money.paybox.payboxsdk.PBHelper;
 
-public class MBankListenerImplSecond implements PBListener {
-    private MbankSecondModule module;
+public class MBankListenerImplOsago implements PBListener {
+    private MbankOsagoModule module;
 
-    MBankListenerImplSecond(MbankSecondModule module) {
+    MBankListenerImplOsago(MbankOsagoModule module) {
         this.module = module;
     }
 

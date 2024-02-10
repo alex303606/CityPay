@@ -32,7 +32,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                     // Packages that cannot be autolinked yet can be added manually here, for example:
                     packages.add(new PayBoxPackage());
                     packages.add(new MBankPackage());
-                    packages.add(new MBankPackageSecond());
+                    packages.add(new MBankPackageOsago());
                     return packages;
                 }
 
@@ -77,10 +77,10 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         }
         ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
         //Вызов инициализации SDK
-        MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
-        MainApplication.instance.initMBankBuilder(secretKeyMBank, merchantIdMBank, null, null);
-        MainApplication.instance.initSecondMBankBuilder(secretKeyMBankSecond, merchantIdMBankSecond, null, null);
-        MainApplication.instance.builder.build();
+         MainApplication.instance.initBuilder(secretKey, merchantId, null, null);
+         MainApplication.instance.initMBankBuilder(secretKeyMBank, merchantIdMBank, null, null);
+         MainApplication.instance.initOsagoMBankBuilder(secretKeyMBankSecond, merchantIdMBankSecond, null, null);
+         MainApplication.instance.builder.build();
     }
 
     public void initBuilder(String secretKey, int merchantId, String email, String phone) {
@@ -118,7 +118,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                 //Время от 300 до 604800 (в секундах) в течение которого платеж должен быть завершен
                 .setPaymentLifeTime(300);
     }
-    public void initSecondMBankBuilder(String secretKey, int merchantId, String email, String phone) {
+    public void initOsagoMBankBuilder(String secretKey, int merchantId, String email, String phone) {
         //Инициализация SDK
         builder = new PBHelper.Builder(this, secretKey, merchantId)
                 //Выбор платежной системы

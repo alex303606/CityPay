@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MBankPackageSecond implements ReactPackage {
+public class MBankPackageOsago implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
@@ -21,7 +21,7 @@ public class MBankPackageSecond implements ReactPackage {
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new MbankSecondModule(reactContext));
+        modules.add(new MbankOsagoModule(reactContext));
 
         return modules;
     }

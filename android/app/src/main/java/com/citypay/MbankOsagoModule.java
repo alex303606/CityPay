@@ -11,11 +11,11 @@ import money.paybox.payboxsdk.Interfaces.PBListener;
 import money.paybox.payboxsdk.PBHelper;
 import money.paybox.payboxsdk.Utils.Constants;
 
-class  MbankSecondModule extends ReactContextBaseJavaModule {
+class  MbankOsagoModule extends ReactContextBaseJavaModule {
     public ReactApplicationContext reactContext;
     private PBListener listener;
 
-    MbankSecondModule(ReactApplicationContext context) {
+    MbankOsagoModule(ReactApplicationContext context) {
         super(context);
         this.reactContext = context;
     }
@@ -29,7 +29,7 @@ class  MbankSecondModule extends ReactContextBaseJavaModule {
     }
 
     public String getName() {
-        return "MbankSecondModule";
+        return "MbankOsagoModule";
     }
 
     @ReactMethod
@@ -71,7 +71,7 @@ class  MbankSecondModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void registerPbListener() {
         sendEvent("registerPbListener = ", "Регистрация текущего активити для просушивания событий");
-        this.listener = new MBankListenerImplSecond(this);
+        this.listener = new MBankListenerImplOsago(this);
         //Регистрация текущего активити для просушивания событий
         PBHelper.getSdk().registerPbListener(this.listener);
     }
