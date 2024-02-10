@@ -29,6 +29,7 @@ export const ruTranslation = {
       changePhone: 'Изменить номер телефона',
       waitingToSendSms: 'Можно повторить СМС через {{count}} сек',
       resendSms: 'Отправить СМС ещё раз',
+      iAmAgree: 'Согласен на обработку персональных данных',
     },
     errors: {
       somethingWentWrong: 'Что-то пошло не так. Попробуйте ещё раз',

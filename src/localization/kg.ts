@@ -29,6 +29,7 @@ export const kgTranslation = {
       changePhone: 'Изменить номер телефона',
       waitingToSendSms: 'СМСти {{count}} кийин кайра жөнөтүү ',
       resendSms: 'СМСти кайра жөнөтүү',
+      iAmAgree: 'Мен жеке маалыматтарды иштетүүгө макулмун',
     },
     errors: {
       somethingWentWrong: 'Что-то пошло не так. Попробуйте ещё раз',

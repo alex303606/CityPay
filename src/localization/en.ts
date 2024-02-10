@@ -30,6 +30,7 @@ export const enTranslation = {
       changePhone: 'Change phone number',
       waitingToSendSms: 'Send SMS again after {{count}} seconds',
       resendSms: 'Send SMS again',
+      iAmAgree: 'I agree to the processing of personal data',
     },
     errors: {
       somethingWentWrong: 'Please try again',
