@@ -37,7 +37,7 @@ class  MbankOsagoModule extends ReactContextBaseJavaModule {
         sendEvent("InitPayment", orderId);
         //Параметр указывающий на рекурентность платежа
         boolean checkIsRecurring = true;
-
+        MainApplication.instance.initOsagoMBankBuilder("COX3q7a4btGZCNhO", 553177, null, null);
         MainApplication.instance.builder.setUserInfo("", phone);
         MainApplication.instance.builder.setFeedBackUrl(null, resultUrl, null, null, Constants.PBREQUEST_METHOD.POST);
 

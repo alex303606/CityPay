@@ -374,8 +374,6 @@ export const createNewApplicationData = ({
     {name: 'PICKUP_OFFICE_ID', data: state.pickUpOffice},
   ];
 
-  console.log(params);
-
   photosArr.forEach((photo, index) => {
     params.push({
       name: `IMAGES[${index}]`,
@@ -431,6 +429,7 @@ export const createNewApplicationData = ({
     )
     .then(response => {
       if (response.data) {
+        console.log(response.data);
         const data: {
           data: {
             applicationNumber: string;

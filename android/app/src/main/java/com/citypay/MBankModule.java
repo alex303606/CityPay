@@ -37,7 +37,7 @@ class MBankModule extends ReactContextBaseJavaModule {
         sendEvent("InitPayment", orderId);
         //Параметр указывающий на рекурентность платежа
         boolean checkIsRecurring = true;
-
+        MainApplication.instance.initMBankBuilder("65JGemXjCb97xnGa", 548528, null, null);
         MainApplication.instance.builder.setUserInfo("", phone);
         MainApplication.instance.builder.setFeedBackUrl(null, resultUrl, null, null, Constants.PBREQUEST_METHOD.POST);
 

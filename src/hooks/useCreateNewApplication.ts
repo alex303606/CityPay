@@ -12,9 +12,9 @@ import {
 } from '../screens/Osago/types';
 import {NativeModules} from 'react-native';
 
-const {MbankSecondModule} = NativeModules;
+const {MbankOsagoModule} = NativeModules;
 
-const MbankSecondModuleInitPayment = ({
+const MbankOsagoModuleInitPayment = ({
   payUserId,
   payAmount,
   phone,
@@ -27,13 +27,7 @@ const MbankSecondModuleInitPayment = ({
   phone: string;
   resultUrl: string;
 }) =>
-  MbankSecondModule.initPayment(
-    orderId,
-    payUserId,
-    payAmount,
-    phone,
-    resultUrl,
-  );
+  MbankOsagoModule.initPayment(orderId, payUserId, payAmount, phone, resultUrl);
 
 export const useCreateNewApplication = ({
   driversState,
@@ -82,7 +76,7 @@ export const useCreateNewApplication = ({
 
     if (response.data) {
       const resultUrl = `https://crm.citypay.kg/api/merchants_paybox.php?user_phone=${phone}&application=${applicationNumber}&amount=${response.data.paymentSum}&isMbank=1&device=android`;
-      MbankSecondModuleInitPayment({
+      MbankOsagoModuleInitPayment({
         orderId: response.data.id.toString(),
         payAmount: Number(response.data.paymentSum),
         phone: phone,
