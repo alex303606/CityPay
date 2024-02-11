@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
@@ -70,14 +70,14 @@ export const useCreateNewApplication = ({
       return showNotification(t('errors.somethingWentWrong'));
     }
 
-    const applicationNumber = `${response.data.applicationNumber}-${Math.floor(
+    const applicationNumber = `${response.data.applicationNumber}_${Math.floor(
       1000 + Math.random() * 9000,
     )}`;
 
     if (response.data) {
       const resultUrl = `https://crm.citypay.kg/api/merchants_paybox.php?user_phone=${phone}&application=${applicationNumber}&amount=${response.data.paymentSum}&isMbank=1&device=android`;
       MbankOsagoModuleInitPayment({
-        orderId: response.data.id.toString(),
+        orderId: applicationNumber,
         payAmount: Number(response.data.paymentSum),
         phone: phone,
         payUserId: userId,
