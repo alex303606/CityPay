@@ -93,7 +93,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                 //Активация автоклиринга
                 .enabledAutoClearing(true)
                 //Запрашивать Frame вместо платежной страницы
-                .setFrameRequired(true) //false по умолчанию
+                .setFrameRequired(false) //false по умолчанию
                 //Для активации режима тестирования
                 .enabledTestMode(false)
                 .setLanguage(Constants.PBLANGUAGE.ru)
