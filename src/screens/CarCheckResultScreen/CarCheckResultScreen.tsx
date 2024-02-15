@@ -56,7 +56,7 @@ export const CarCheckResultScreen: React.FC<Props> = ({route}) => {
   // const advancedSearchHandler = useCallback(() => {
   //   return;
   // }, []);
-  console.log(number);
+
   return (
     <ScreenContainer title={t('carCheck.carCheckResultTitle')}>
       {!!number ? <CarNumberComponent carNumber={number} /> : null}
