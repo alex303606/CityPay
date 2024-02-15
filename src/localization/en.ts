@@ -289,5 +289,9 @@ export const enTranslation = {
         nsp: 'НсП',
       },
     },
+    carCheck: {
+      title: 'Car check',
+      search: 'Search',
+    },
   },
 };

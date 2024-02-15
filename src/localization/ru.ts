@@ -1,3 +1,5 @@
+import {CarCheckScreen} from '@screens';
+
 export const ruTranslation = {
   translation: {
     version: 'Версия программы',
@@ -288,6 +290,11 @@ export const ruTranslation = {
         totalCost: 'Итоговая стоимость полиса:',
         nsp: 'НсП',
       },
+    },
+    carCheck: {
+      title: 'Car check',
+      search: 'Поиск',
+      carNumber: 'Гос. номер:',
     },
   },
 };

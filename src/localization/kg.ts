@@ -288,5 +288,9 @@ export const kgTranslation = {
         nsp: 'НсП',
       },
     },
+    carCheck: {
+      title: 'Car check',
+      search: 'Издөө',
+    },
   },
 };

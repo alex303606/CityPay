@@ -7,6 +7,7 @@ import {
   Pressable,
   TextInput,
   TextInputAndroidProps,
+  TextInputProps,
 } from 'react-native';
 import {Colors, Typography} from './constants';
 import {useTheme} from '@hooks';
@@ -20,6 +21,7 @@ type Props = {
   placeholder?: string;
   title?: string;
   autoComplete?: TextInputAndroidProps['autoComplete'];
+  autoCapitalize?: TextInputProps['autoCapitalize'];
   disabled?: boolean;
   maxLength?: number;
   icon?: ImageSourcePropType;
@@ -39,6 +41,7 @@ export const InputComponent: React.FC<Props> = ({
   icon,
   onIconPress,
   error,
+  autoCapitalize,
 }) => {
   const {theme} = useTheme();
 
@@ -70,6 +73,7 @@ export const InputComponent: React.FC<Props> = ({
         keyboardType={keyboardType}
         autoComplete={autoComplete}
         maxLength={maxLength}
+        autoCapitalize={autoCapitalize}
       />
     </Block>
   );
