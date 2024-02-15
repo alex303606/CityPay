@@ -24,3 +24,8 @@ export {MyCardsScreen} from './MyCardsScreen/MyCardsScreen';
 export {ModalDeleteAccount} from './ModalDeleteAccount/ModalDeleteAccount';
 export {ModalDeleteCard} from './ModalDeleteCard/ModalDeleteCard';
 export {PremiumScreen} from './PremiumScreen/PremiumScreen';
+export {OsagoScreen} from './Osago/OsagoScreen';
+export {SelectCityScreen} from './Osago';
+export {StatementScreen} from './Osago';
+export {DocumentsScreen} from './Osago';
+export {InfoPaymentScreen} from './Osago';

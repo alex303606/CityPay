@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {
+  Block,
   Button,
   Colors,
   FocusAwareStatusBar,
@@ -15,7 +16,8 @@ import {TextInputMask} from 'react-native-masked-text';
 import {Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {sendPhone} from '@store';
-import {useSnackbarNotification} from '@hooks';
+import {useLoading, useSnackbarNotification, useTheme} from '@hooks';
+import CheckBox from '@react-native-community/checkbox';
 
 const MASK = '999 99-99-99';
 const PHONE_COUNT = 12;
@@ -25,8 +27,12 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {showNotification} = useSnackbarNotification();
   const [phone, setPhone] = useState<string>('');
   const {t} = useTranslation();
+  const {loading, hideLoader, showLoader} = useLoading();
+
   const sendPhoneHandler = useCallback(async () => {
+    showLoader();
     const response = await sendPhone(phone);
+    hideLoader();
     if (!response.result) {
       if (response.message) {
         showNotification(response.message);
@@ -50,6 +56,16 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
   const changePhoneHandler = useCallback((value: string) => {
     return setPhone(value);
   }, []);
+
+  const [IAmAgree, setIAmAgree] = useState(false);
+  const {theme} = useTheme();
+
+  const onChangeIAmAgree = useCallback(
+    (value: boolean) => {
+      setIAmAgree(value);
+    },
+    [setIAmAgree],
+  );
 
   return (
     <ScreenContainer title={t('auth.loginRegistration')}>
@@ -79,8 +95,24 @@ export const LoginScreen: React.FC<Props> = ({navigation}) => {
           autoFocus
         />
       </StyledPhoneInput>
+      <Row alignItems={'center'} marginBottom={16}>
+        <CheckBox
+          value={IAmAgree}
+          onValueChange={onChangeIAmAgree}
+          tintColors={{
+            true: 'rgba(25, 135, 84, 1)',
+            false: 'rgba(25, 135, 84, 1)',
+          }}
+        />
+        <Block flex={1} marginHorizontal={8}>
+          <Typography.R16 color={theme.textColor}>
+            {t('auth.iAmAgree')}
+          </Typography.R16>
+        </Block>
+      </Row>
       <Button
-        disabled={phone.length !== PHONE_COUNT}
+        loading={loading}
+        disabled={phone.length !== PHONE_COUNT || !IAmAgree}
         title={t('auth.getCode')}
         onPress={sendPhoneHandler}
       />

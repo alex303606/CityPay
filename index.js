@@ -53,7 +53,7 @@ axios.defaults.baseURL = 'https://citysoft.kido.kg/api/';
 
 axios.interceptors.request.use(
   conf => {
-    // Do something before request is sent
+    // Do something before request is send
     conf.data = {
       params: {
         API_KEY: 'tMN0qaol5ePptxEPJ4c1CK',
@@ -72,6 +72,7 @@ axios.interceptors.request.use(
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log('Message handled in the background!', remoteMessage);
 });
+
 notifee.onBackgroundEvent(async ({type, detail}) => {
   const {notification, pressAction} = detail;
   // Check if the user pressed the "Mark as read" action

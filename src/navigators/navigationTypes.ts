@@ -1,8 +1,14 @@
 import {EScreens} from './types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ICar, IFine, IFinesType} from '@store';
+import {ICar, IFine, IFinesType, IPartner, ITotal} from '@store';
 import {ICard} from 'src/screens/MyCardsScreen/MyCardsScreen';
+import {
+  DriverPhotos,
+  ICarDocuments,
+  IDriver,
+  MyDataState,
+} from 'src/screens/Osago/types';
 
 export type AuthStackParamList = {
   [EScreens.INITIAL_SCREEN]: undefined;
@@ -70,6 +76,34 @@ export type PaymentsStackParamList = {
   [EScreens.FINES_SCREEN]: undefined;
 };
 
+export type OsagoStackParamList = {
+  [EScreens.OSAGO_SCREEN]: undefined;
+  [EScreens.SELECT_CITY_SCREEN]: undefined;
+  [EScreens.CALCULATION_COST_SCREEN]: {total: ITotal; partner: IPartner};
+  [EScreens.NEW_STATEMENT_SCREEN]: {partner: IPartner};
+  [EScreens.INFO_PAYMENTS_SCREEN]: {
+    state: MyDataState;
+    driversState: IDriver[];
+    partner: IPartner;
+    driversPhotos: DriverPhotos[];
+    carPhotos: ICarDocuments;
+  };
+  [EScreens.POLICY_SCREEN]: {url: string};
+  [EScreens.DOCUMENTS_SCREEN]: {
+    numberOfDrivers: number;
+    state: MyDataState;
+    driversState: IDriver[];
+    partner: IPartner;
+  };
+  [EScreens.APPLICATION_SCREEN]: {id: string};
+  [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
+};
+
+export type SettingsStackProps = StackScreenProps<
+  ProfileStackParamList,
+  EScreens.SETTINGS_STACK
+>;
+
 export type FinesStackProps = NativeStackScreenProps<
   RootTabParamList,
   EScreens.FINES_STACK
@@ -80,9 +114,9 @@ export type PaymentsStackProps = NativeStackScreenProps<
   EScreens.PAYMENTS_STACK
 >;
 
-export type SettingsStackProps = StackScreenProps<
+export type OsagoStackProps = StackScreenProps<
   RootTabParamList,
-  EScreens.SETTINGS_STACK
+  EScreens.OSAGO_STACK
 >;
 
 export type SettingsStackParamList = {
@@ -107,6 +141,7 @@ export type ProfileStackParamList = {
   [EScreens.MODAL_BUY_PREMIUM_SCREEN]: {title: string};
   [EScreens.PREMIUM_SCREEN]: {title: string};
   [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
+  [EScreens.SETTINGS_STACK]: undefined;
 };
 
 //TABS
@@ -114,6 +149,6 @@ export type RootTabParamList = {
   [EScreens.CARS_STACK]: undefined;
   [EScreens.FINES_STACK]: undefined;
   [EScreens.PAYMENTS_STACK]: undefined;
-  [EScreens.SETTINGS_STACK]: undefined;
+  [EScreens.OSAGO_STACK]: undefined;
   [EScreens.PROFILE_STACK]: undefined;
 };

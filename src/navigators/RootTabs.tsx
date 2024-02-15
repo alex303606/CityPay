@@ -11,6 +11,7 @@ import {SettingsStack} from './SettingsStack';
 import {ProfileStack} from './ProfileStack';
 import {useTheme} from '@hooks';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {OsagoStack} from './OsagoStack';
 
 type LabelProps = {
   focused: boolean;
@@ -99,14 +100,14 @@ export const RootTabs: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name={EScreens.SETTINGS_STACK}
-        component={SettingsStack}
+        name={EScreens.OSAGO_STACK}
+        component={OsagoStack}
         options={{
           tabBarLabel: ({focused, color}) => (
-            <Label color={color} focused={focused} title={t('tabs.settings')} />
+            <Label color={color} focused={focused} title={t('tabs.osago')} />
           ),
           tabBarIcon: ({color}) => (
-            <Icon size={24} color={color} name={IconNames.settings} />
+            <Icon size={24} color={color} name={IconNames.osago} />
           ),
           headerShown: false,
         }}
