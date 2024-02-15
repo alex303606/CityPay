@@ -70,11 +70,12 @@ export const CarCheckResultScreen: React.FC<Props> = () => {
           ))}
         </Block>
       </Block>
-
-      <Button
-        title={t('carCheck.advancedSearch')}
-        onPress={advancedSearchHandler}
-      />
+      {paidVersionAvalible ? (
+        <Button
+          title={t('carCheck.advancedSearch')}
+          onPress={advancedSearchHandler}
+        />
+      ) : null}
     </ScreenContainer>
   );
 };
