@@ -1,5 +1,5 @@
-import React, {useCallback} from 'react';
-import {Block, Button, Row, ScreenContainer, Typography} from '@UIKit';
+import React from 'react';
+import {Block, Row, ScreenContainer, Typography} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarCheckStackParamList, EScreens} from '@navigators';
@@ -47,18 +47,19 @@ const PeriodLine: React.FC<PeriodProps> = ({dateFrom, dateTo}) => {
   );
 };
 
-export const CarCheckResultScreen: React.FC<Props> = () => {
+export const CarCheckResultScreen: React.FC<Props> = ({route}) => {
+  const {carNumber} = route.params;
   const {t} = useTranslation();
   const {theme} = useTheme();
-  const {car, periods, paidVersionAvalible} = useAppSelector(getCarCheck);
+  const {car, periods} = useAppSelector(getCarCheck);
 
-  const advancedSearchHandler = useCallback(() => {
-    return;
-  }, []);
+  // const advancedSearchHandler = useCallback(() => {
+  //   return;
+  // }, []);
 
   return (
     <ScreenContainer title={t('carCheck.carCheckResultTitle')}>
-      {!!car[0].param ? <CarNumberComponent carNumber={car[0].param} /> : null}
+      <CarNumberComponent carNumber={carNumber} />
       <Block flex={1} marginBottom={32}>
         <Block marginBottom={32}>
           {car.map(({title, param}) => (
@@ -74,12 +75,12 @@ export const CarCheckResultScreen: React.FC<Props> = () => {
           ))}
         </Block>
       </Block>
-      {paidVersionAvalible ? (
-        <Button
-          title={t('carCheck.advancedSearch')}
-          onPress={advancedSearchHandler}
-        />
-      ) : null}
+      {/*{paidVersionAvalible ? (*/}
+      {/*  <Button*/}
+      {/*    title={t('carCheck.advancedSearch')}*/}
+      {/*    onPress={advancedSearchHandler}*/}
+      {/*  />*/}
+      {/*) : null}*/}
     </ScreenContainer>
   );
 };

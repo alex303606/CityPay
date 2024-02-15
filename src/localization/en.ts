@@ -292,11 +292,11 @@ export const enTranslation = {
     },
     carCheck: {
       carCheckTitle: 'Car check',
-      carCheckResultTitle: 'Car check result',
+      carCheckResultTitle: 'Car check',
       search: 'Search',
       carNumber: 'Number plate',
-      advancedSearch: 'Расширенный поиск',
-      holdingPeriod: 'Период владения',
+      advancedSearch: 'Advanced Search',
+      holdingPeriod: 'Holding period',
     },
   },
 };

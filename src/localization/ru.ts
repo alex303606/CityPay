@@ -292,7 +292,7 @@ export const ruTranslation = {
     },
     carCheck: {
       carCheckTitle: 'Car check',
-      carCheckResultTitle: 'Car check result',
+      carCheckResultTitle: 'Car check',
       search: 'Поиск',
       carNumber: 'Гос. номер:',
       advancedSearch: 'Расширенный поиск',

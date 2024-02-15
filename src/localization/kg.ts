@@ -291,11 +291,11 @@ export const kgTranslation = {
     },
     carCheck: {
       carCheckTitle: 'Car check',
-      carCheckResultTitle: 'Car check result',
+      carCheckResultTitle: 'Car check',
       search: 'Издөө',
       carNumber: 'Мам.номер',
-      advancedSearch: 'Расширенный поиск',
-      holdingPeriod: 'Период владения',
+      advancedSearch: 'Өркүндөтүлгөн издөө',
+      holdingPeriod: 'Кармап туруу мөөнөтү',
     },
   },
 };
