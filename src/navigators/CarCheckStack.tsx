@@ -1,6 +1,6 @@
 import React from 'react';
 import {EScreens} from './types';
-import {CarCheckScreen} from '@screens';
+import {CarCheckResultScreen, CarCheckScreen} from '@screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import {CarCheckStackParamList, CarCheckStackProps} from './navigationTypes';
 
@@ -12,6 +12,13 @@ export const CarCheckStack: React.FC<CarCheckStackProps> = () => {
       <Stack.Screen
         name={EScreens.CAR_CHECK_SCREEN}
         component={CarCheckScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={EScreens.CAR_CHECK_RESULT_SCREEN}
+        component={CarCheckResultScreen}
         options={{
           headerShown: false,
         }}

@@ -1,0 +1,1 @@
+export {CarCheckResultScreen} from './CarCheckResultScreen';

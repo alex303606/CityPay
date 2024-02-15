@@ -10,27 +10,31 @@ type Props = NativeStackScreenProps<
   EScreens.CAR_CHECK_SCREEN
 >;
 
-export const CarCheckScreen: React.FC<Props> = () => {
+export const CarCheckScreen: React.FC<Props> = ({navigation}) => {
   const {t} = useTranslation();
   const [carNumber, setCarNumber] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
 
-  const {getCarCheckHandler, loading} = useGetCarCheck();
+  const navigateToResult = useCallback(() => {
+    navigation.navigate(EScreens.CAR_CHECK_RESULT_SCREEN);
+  }, []);
+
+  const {getCarCheckHandler, loading} = useGetCarCheck(navigateToResult);
 
   const onCarNumberValueChange = useCallback((value: string) => {
     setCarNumber(value.replace(/[^A-Z0-9]/g, ''));
   }, []);
 
-  const onPressSearch = useCallback(() => {
+  const onPressSearch = useCallback(async () => {
     if (carNumber.length < 3) {
       return setError(true);
     }
     setError(false);
-    getCarCheckHandler(carNumber);
+    await getCarCheckHandler(carNumber);
   }, [carNumber, getCarCheckHandler]);
 
   return (
-    <ScreenContainer title={t('carCheck.title')}>
+    <ScreenContainer title={t('carCheck.carCheckTitle')}>
       <InputComponent
         error={error}
         value={carNumber}

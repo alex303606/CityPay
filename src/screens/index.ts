@@ -30,3 +30,4 @@ export {StatementScreen} from './Osago';
 export {DocumentsScreen} from './Osago';
 export {InfoPaymentScreen} from './Osago';
 export {CarCheckScreen} from './CarCheckScreen';
+export {CarCheckResultScreen} from './CarCheckResultScreen';

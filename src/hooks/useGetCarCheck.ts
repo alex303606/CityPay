@@ -2,10 +2,14 @@ import {useTranslation} from 'react-i18next';
 import {useSnackbarNotification} from './useSnackbarNotification';
 import {useLoading} from './useLoading';
 import {useAppDispatch, useAppSelector} from './store';
-import {getUserState, getFreeCarCheckInfoByCarNumber} from '@store';
+import {
+  getUserState,
+  getFreeCarCheckInfoByCarNumber,
+  getCarCheckSuccess,
+} from '@store';
 import {useCallback} from 'react';
 
-export const useGetCarCheck = () => {
+export const useGetCarCheck = (callback: () => void) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const {loading, hideLoader, showLoader} = useLoading();
@@ -27,12 +31,14 @@ export const useGetCarCheck = () => {
         }
         return showNotification(t('errors.carDatNotFound'));
       }
+
       if (!response?.data) {
         return showNotification(t('errors.somethingWentWrong'));
       }
 
       if (response.data) {
-        console.log(response.data);
+        dispatch(getCarCheckSuccess(response.data));
+        callback();
       }
     },
     [dispatch, hideLoader, phone, showLoader, showNotification, t],

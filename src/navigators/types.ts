@@ -44,4 +44,5 @@ export enum EScreens {
   POLICY_SCREEN = 'PolicyScreen',
   CALCULATION_COST_SCREEN = 'CalculationCostScreen',
   CAR_CHECK_SCREEN = 'CarCheckScreen',
+  CAR_CHECK_RESULT_SCREEN = 'CarCheckResultScreen',
 }

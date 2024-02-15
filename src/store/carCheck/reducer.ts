@@ -1,4 +1,5 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {RootState} from '../configureStore';
 
 export type ICarCheckCar = {
   title: string;
@@ -22,10 +23,26 @@ const initialState: ICarCheckState = {
   paidVersionAvalible: false,
 };
 
-const carsSlice = createSlice({
-  name: 'cars',
+const carCheckSlice = createSlice({
+  name: 'check',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    getCarCheckSuccess(
+      state,
+      action: PayloadAction<{
+        car: ICarCheckCar[];
+        periods: ICarCheckPeriods[];
+        paidVersionAvalible: boolean;
+      }>,
+    ) {
+      state.car = action.payload.car;
+      state.periods = action.payload.periods;
+      state.paidVersionAvalible = action.payload.paidVersionAvalible;
+    },
+  },
 });
 
-export const carCheckReducer = carsSlice.reducer;
+export const carCheckReducer = carCheckSlice.reducer;
+export const {getCarCheckSuccess} = carCheckSlice.actions;
+
+export const getCarCheck = (state: RootState) => state.check;

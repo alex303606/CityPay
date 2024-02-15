@@ -291,8 +291,10 @@ export const enTranslation = {
       },
     },
     carCheck: {
-      title: 'Car check',
+      carCheckTitle: 'Car check',
+      carCheckResultTitle: 'Car check result',
       search: 'Search',
+      carNumber: 'Number plate',
     },
   },
 };

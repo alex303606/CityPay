@@ -290,8 +290,10 @@ export const kgTranslation = {
       },
     },
     carCheck: {
-      title: 'Car check',
+      carCheckTitle: 'Car check',
+      carCheckResultTitle: 'Car check result',
       search: 'Издөө',
+      carNumber: 'Мам.номер',
     },
   },
 };

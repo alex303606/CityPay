@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
   payments: paymentsReducer,
   settings: settingsReducer,
   osago: osagoReducer,
-  carCheck: carCheckReducer,
+  check: carCheckReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

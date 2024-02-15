@@ -121,6 +121,7 @@ export type OsagoStackProps = StackScreenProps<
 
 export type CarCheckStackParamList = {
   [EScreens.CAR_CHECK_SCREEN]: undefined;
+  [EScreens.CAR_CHECK_RESULT_SCREEN]: undefined;
 };
 
 export type CarCheckStackProps = NativeStackScreenProps<

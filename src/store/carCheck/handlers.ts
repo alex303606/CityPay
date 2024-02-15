@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ILanguages} from '@store';
+import {ICarCheckCar, ICarCheckPeriods, ILanguages} from '@store';
 export const getFreeCarCheckInfoByCarNumber = ({
   phone,
   carNumber,
@@ -19,7 +19,11 @@ export const getFreeCarCheckInfoByCarNumber = ({
     .then(
       (response: {
         data: {
-          data: any;
+          data: {
+            car: ICarCheckCar[];
+            periods: ICarCheckPeriods[];
+            paidVersionAvalible: boolean;
+          };
           result: boolean;
           message: string;
         };
