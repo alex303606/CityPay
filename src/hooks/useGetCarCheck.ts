@@ -9,7 +9,7 @@ import {
 } from '@store';
 import {useCallback} from 'react';
 
-export const useGetCarCheck = (callback: () => void) => {
+export const useGetCarCheck = (callback: (number: string) => void) => {
   const {t} = useTranslation();
   const {showNotification} = useSnackbarNotification();
   const {loading, hideLoader, showLoader} = useLoading();
@@ -38,7 +38,7 @@ export const useGetCarCheck = (callback: () => void) => {
 
       if (response.data) {
         dispatch(getCarCheckSuccess(response.data));
-        callback();
+        callback(carNumber);
       }
     },
     [dispatch, hideLoader, phone, showLoader, showNotification, t],

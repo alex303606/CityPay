@@ -48,7 +48,7 @@ const PeriodLine: React.FC<PeriodProps> = ({dateFrom, dateTo}) => {
 };
 
 export const CarCheckResultScreen: React.FC<Props> = ({route}) => {
-  const {carNumber} = route.params;
+  const {number} = route.params;
   const {t} = useTranslation();
   const {theme} = useTheme();
   const {car, periods} = useAppSelector(getCarCheck);
@@ -56,10 +56,10 @@ export const CarCheckResultScreen: React.FC<Props> = ({route}) => {
   // const advancedSearchHandler = useCallback(() => {
   //   return;
   // }, []);
-
+  console.log(number);
   return (
     <ScreenContainer title={t('carCheck.carCheckResultTitle')}>
-      <CarNumberComponent carNumber={carNumber} />
+      {!!number ? <CarNumberComponent carNumber={number} /> : null}
       <Block flex={1} marginBottom={32}>
         <Block marginBottom={32}>
           {car.map(({title, param}) => (

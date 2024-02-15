@@ -15,9 +15,9 @@ export const CarCheckScreen: React.FC<Props> = ({navigation}) => {
   const [carNumber, setCarNumber] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
 
-  const navigateToResult = useCallback(() => {
+  const navigateToResult = useCallback((number: string) => {
     navigation.navigate(EScreens.CAR_CHECK_RESULT_SCREEN, {
-      carNumber: carNumber,
+      number: number,
     });
   }, []);
 
