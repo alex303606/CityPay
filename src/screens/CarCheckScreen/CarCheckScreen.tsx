@@ -12,7 +12,7 @@ type Props = NativeStackScreenProps<
 export const CarCheckScreen: React.FC<Props> = () => {
   const {t} = useTranslation();
   const [carNumber, setCarNumber] = useState<string>('');
-  const [error, setError] = useState<boolean>('');
+  const [error, setError] = useState<boolean>(false);
 
   const onCarNumberValueChange = useCallback((value: string) => {
     setCarNumber(value.replace(/[^A-Z0-9]/g, ''));
