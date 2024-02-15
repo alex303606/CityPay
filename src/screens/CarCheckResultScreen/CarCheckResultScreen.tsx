@@ -6,6 +6,7 @@ import {CarCheckStackParamList, EScreens} from '@navigators';
 import {getCarCheck} from '@store';
 import {useAppSelector, useTheme} from '@hooks';
 import styled from 'styled-components';
+import {CarNumberComponent} from './components/CarNumberComponent';
 
 type Props = NativeStackScreenProps<
   CarCheckStackParamList,
@@ -57,6 +58,7 @@ export const CarCheckResultScreen: React.FC<Props> = () => {
 
   return (
     <ScreenContainer title={t('carCheck.carCheckResultTitle')}>
+      {!!car[0].param ? <CarNumberComponent carNumber={car[0].param} /> : null}
       <Block flex={1} marginBottom={32}>
         <Block marginBottom={32}>
           {car.map(({title, param}) => (
