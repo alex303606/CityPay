@@ -3,6 +3,7 @@ import {Button, InputComponent, ScreenContainer} from '@UIKit';
 import {useTranslation} from 'react-i18next';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CarCheckStackParamList, EScreens} from '@navigators';
+import {useGetCarCheck} from '@hooks';
 
 type Props = NativeStackScreenProps<
   CarCheckStackParamList,
@@ -14,6 +15,8 @@ export const CarCheckScreen: React.FC<Props> = () => {
   const [carNumber, setCarNumber] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
 
+  const {getCarCheckHandler, loading} = useGetCarCheck();
+
   const onCarNumberValueChange = useCallback((value: string) => {
     setCarNumber(value.replace(/[^A-Z0-9]/g, ''));
   }, []);
@@ -23,7 +26,8 @@ export const CarCheckScreen: React.FC<Props> = () => {
       return setError(true);
     }
     setError(false);
-  }, [carNumber]);
+    getCarCheckHandler(carNumber);
+  }, [carNumber, getCarCheckHandler]);
 
   return (
     <ScreenContainer title={t('carCheck.title')}>
@@ -36,7 +40,11 @@ export const CarCheckScreen: React.FC<Props> = () => {
         marginBottom={32}
         autoCapitalize={'characters'}
       />
-      <Button title={t('carCheck.search')} onPress={onPressSearch} />
+      <Button
+        loading={loading}
+        title={t('carCheck.search')}
+        onPress={onPressSearch}
+      />
     </ScreenContainer>
   );
 };

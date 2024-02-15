@@ -36,6 +36,7 @@ export const enTranslation = {
     errors: {
       somethingWentWrong: 'Please try again',
       blackList: 'Your number is blocked',
+      carDatNotFound: 'Car data not found in the database',
     },
     cars: {
       title: 'My Cars',

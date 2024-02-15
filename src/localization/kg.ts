@@ -35,6 +35,7 @@ export const kgTranslation = {
     errors: {
       somethingWentWrong: 'Что-то пошло не так. Попробуйте ещё раз',
       blackList: 'Сиздин номур бөгөттөлгөн',
+      carDatNotFound: 'Унаа маалымат базасында табылган жок',
     },
     cars: {
       title: 'Унааларым',

@@ -15,3 +15,4 @@ export {useGetTotalSum} from './useGetTotalSum';
 export {useGetSupportUrls} from './useGetSupportUrls';
 export {useCreateNewApplication} from './useCreateNewApplication';
 export {useValidationFields} from './useValidationFields';
+export {useGetCarCheck} from './useGetCarCheck';

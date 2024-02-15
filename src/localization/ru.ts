@@ -37,6 +37,7 @@ export const ruTranslation = {
     errors: {
       somethingWentWrong: 'Что-то пошло не так. Попробуйте ещё раз',
       blackList: 'Ваш аккаунт заблокирован',
+      carDatNotFound: 'Данные на авто в базе не найдены',
     },
     cars: {
       title: 'Мои авто',
