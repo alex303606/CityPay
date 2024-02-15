@@ -26,9 +26,9 @@ const CarLine: React.FC<LineProps> = ({title, param}) => {
   const {theme} = useTheme();
 
   return (
-    <Block marginBottom={10}>
+    <Block marginBottom={16}>
       <StyledB color={theme.textColor}>{title}:</StyledB>
-      <StyledR color={theme.paramColor}>{param}</StyledR>
+      <Typography.RF16 color={theme.paramColor}>{param}</Typography.RF16>
     </Block>
   );
 };
@@ -37,9 +37,11 @@ const PeriodLine: React.FC<PeriodProps> = ({dateFrom, dateTo}) => {
   const {theme} = useTheme();
 
   return (
-    <Row marginBottom={4}>
-      <StyledR color={theme.paramColor}>с {dateFrom} по </StyledR>
-      <StyledR color={theme.paramColor}>{dateTo}</StyledR>
+    <Row marginBottom={8}>
+      <Typography.RF16 color={theme.paramColor}>
+        с {dateFrom} по{' '}
+      </Typography.RF16>
+      <Typography.RF16 color={theme.paramColor}>{dateTo}</Typography.RF16>
     </Row>
   );
 };
@@ -55,7 +57,7 @@ export const CarCheckResultScreen: React.FC<Props> = () => {
 
   return (
     <ScreenContainer title={t('carCheck.carCheckResultTitle')}>
-      <Block flex={1}>
+      <Block flex={1} marginBottom={32}>
         <Block marginBottom={32}>
           {car.map(({title, param}) => (
             <CarLine title={title} param={param} />
@@ -81,9 +83,5 @@ export const CarCheckResultScreen: React.FC<Props> = () => {
 };
 
 const StyledB = styled(Typography.B16)({
-  lineHeight: 18,
-});
-
-const StyledR = styled(Typography.RF16)({
-  lineHeight: 18,
+  lineHeight: 16,
 });
