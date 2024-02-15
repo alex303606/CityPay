@@ -8,6 +8,7 @@ export const kgTranslation = {
       payments: 'Төлөмдөр',
       settings: 'Ырастоо',
       osago: 'ОСАГО',
+      carCheck: 'Car Check',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

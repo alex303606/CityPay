@@ -110,13 +110,22 @@ export type FinesStackProps = NativeStackScreenProps<
 >;
 
 export type PaymentsStackProps = NativeStackScreenProps<
-  RootTabParamList,
+  ProfileStackParamList,
   EScreens.PAYMENTS_STACK
 >;
 
 export type OsagoStackProps = StackScreenProps<
   RootTabParamList,
   EScreens.OSAGO_STACK
+>;
+
+export type CarCheckStackParamList = {
+  [EScreens.CAR_CHECK_SCREEN]: undefined;
+};
+
+export type CarCheckStackProps = NativeStackScreenProps<
+  RootTabParamList,
+  EScreens.CAR_CHECK_STACK
 >;
 
 export type SettingsStackParamList = {
@@ -142,13 +151,14 @@ export type ProfileStackParamList = {
   [EScreens.PREMIUM_SCREEN]: {title: string};
   [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
   [EScreens.SETTINGS_STACK]: undefined;
+  [EScreens.PAYMENTS_STACK]: undefined;
 };
 
 //TABS
 export type RootTabParamList = {
   [EScreens.CARS_STACK]: undefined;
   [EScreens.FINES_STACK]: undefined;
-  [EScreens.PAYMENTS_STACK]: undefined;
+  [EScreens.CAR_CHECK_STACK]: undefined;
   [EScreens.OSAGO_STACK]: undefined;
   [EScreens.PROFILE_STACK]: undefined;
 };

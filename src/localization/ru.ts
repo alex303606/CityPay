@@ -8,6 +8,7 @@ export const ruTranslation = {
       payments: 'Платежи',
       settings: 'Настройки',
       osago: 'ОСАГО',
+      carCheck: 'Car Check',
     },
     notifications: {
       noConnection: 'Нет соединения с интернетом',

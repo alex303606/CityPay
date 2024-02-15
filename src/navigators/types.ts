@@ -13,6 +13,7 @@ export enum EScreens {
   PROFILE_SCREEN = 'ProfileScreen',
   CARS_STACK = 'CarsStack',
   PROFILE_STACK = 'ProfileStack',
+  CAR_CHECK_STACK = 'CarCheckStack',
   FINES_STACK = 'FinesStack',
   PAYMENTS_STACK = 'PaymentsStack',
   SETTINGS_STACK = 'SettingsStack',
@@ -42,4 +43,5 @@ export enum EScreens {
   APPLICATION_SCREEN = 'ApplicationScreen',
   POLICY_SCREEN = 'PolicyScreen',
   CALCULATION_COST_SCREEN = 'CalculationCostScreen',
+  CAR_CHECK_SCREEN = 'CarCheckScreen',
 }

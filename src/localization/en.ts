@@ -8,6 +8,7 @@ export const enTranslation = {
       payments: 'Payments',
       settings: 'Settings',
       osago: 'ОСАГО',
+      carCheck: 'Car Check',
     },
     notifications: {
       noConnection: 'No internet connection',

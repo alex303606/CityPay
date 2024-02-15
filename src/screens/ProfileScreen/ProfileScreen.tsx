@@ -90,6 +90,10 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     navigation.navigate(EScreens.MY_CARDS_SCREEN);
   }, [navigation]);
 
+  const handlePressMyPayments = useCallback(() => {
+    navigation.navigate(EScreens.PAYMENTS_STACK);
+  }, [navigation]);
+
   const handlePressSupport = useCallback(async () => {
     const url = `whatsapp://send?phone=${SUPPORT_NUMBER}`;
     try {
@@ -137,6 +141,10 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
           secondText={String(balls)}
         />
         <ProfileItem text={t('profile.myCards')} onPress={handlePressMyCards} />
+        <ProfileItem
+          text={t('tabs.payments')}
+          onPress={handlePressMyPayments}
+        />
         <ProfileItem text={t('profile.support')} onPress={handlePressSupport} />
         <ProfileItem
           text={t('profile.settings')}

@@ -17,6 +17,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useModalScreenOptions} from './screenOptions';
 import {ModalExitScreen} from '../screens/ModalExitScreen/ModalExitScreen';
 import {SettingsStack} from './SettingsStack';
+import {PaymentsStack} from './PaymentsStack';
 
 const Stack = createStackNavigator<ProfileStackParamList>();
 
@@ -86,6 +87,13 @@ export const ProfileStack: React.FC<ProfileStackProps> = () => {
         <Stack.Screen
           name={EScreens.SETTINGS_STACK}
           component={SettingsStack}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={EScreens.PAYMENTS_STACK}
+          component={PaymentsStack}
           options={{
             headerShown: false,
           }}

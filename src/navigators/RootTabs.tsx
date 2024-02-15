@@ -6,12 +6,11 @@ import {EScreens} from './types';
 import {CarsStack} from './CarsStack';
 import {FinesStack} from './FinesStack';
 import {useTranslation} from 'react-i18next';
-import {PaymentsStack} from './PaymentsStack';
-import {SettingsStack} from './SettingsStack';
 import {ProfileStack} from './ProfileStack';
 import {useTheme} from '@hooks';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import {OsagoStack} from './OsagoStack';
+import {CarCheckStack} from './CarCheckStack';
 
 type LabelProps = {
   focused: boolean;
@@ -19,7 +18,7 @@ type LabelProps = {
   color: string;
 };
 
-const {R11, B11, B28} = Typography;
+const {R11, B11} = Typography;
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const Label: React.FC<LabelProps> = ({focused, title, color}) => {
@@ -89,13 +88,15 @@ export const RootTabs: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name={EScreens.PAYMENTS_STACK}
-        component={PaymentsStack}
+        name={EScreens.CAR_CHECK_STACK}
+        component={CarCheckStack}
         options={{
           tabBarLabel: ({focused, color}) => (
-            <Label color={color} focused={focused} title={t('tabs.payments')} />
+            <Label color={color} focused={focused} title={t('tabs.carCheck')} />
           ),
-          tabBarIcon: ({color}) => <B28 color={color}>⊆</B28>,
+          tabBarIcon: ({color}) => (
+            <Icon size={24} color={color} name={IconNames.check} />
+          ),
           headerShown: false,
         }}
       />
