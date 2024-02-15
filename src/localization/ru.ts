@@ -1,5 +1,3 @@
-import {CarCheckScreen} from '@screens';
-
 export const ruTranslation = {
   translation: {
     version: 'Версия программы',
@@ -297,6 +295,8 @@ export const ruTranslation = {
       carCheckResultTitle: 'Car check result',
       search: 'Поиск',
       carNumber: 'Гос. номер:',
+      advancedSearch: 'Расширенный поиск',
+      holdingPeriod: 'Период владения',
     },
   },
 };

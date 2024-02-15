@@ -13,6 +13,7 @@ export type ITheme = {
   QRColor: string;
   blueTitle: string;
   red: string;
+  paramColor: string;
 };
 
 export enum Themes {

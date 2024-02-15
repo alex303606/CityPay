@@ -16,4 +16,5 @@ export const defaultTheme: ITheme = {
   QRColor: '#797979',
   blueTitle: '#ffffff',
   red: '#ff0000',
+  paramColor: '#828282',
 };

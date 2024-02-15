@@ -295,6 +295,8 @@ export const enTranslation = {
       carCheckResultTitle: 'Car check result',
       search: 'Search',
       carNumber: 'Number plate',
+      advancedSearch: 'Расширенный поиск',
+      holdingPeriod: 'Период владения',
     },
   },
 };

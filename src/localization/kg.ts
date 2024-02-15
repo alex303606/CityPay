@@ -294,6 +294,8 @@ export const kgTranslation = {
       carCheckResultTitle: 'Car check result',
       search: 'Издөө',
       carNumber: 'Мам.номер',
+      advancedSearch: 'Расширенный поиск',
+      holdingPeriod: 'Период владения',
     },
   },
 };

@@ -16,4 +16,5 @@ export const redTheme: ITheme = {
   QRColor: Colors.white,
   blueTitle: '#ffffff',
   red: '#ff0000',
+  paramColor: '#828282',
 };
