@@ -1,4 +1,10 @@
-import {Block, Button, InputField, MaskedInput, ScreenContainer} from '@UIKit';
+import {
+  Block,
+  Button,
+  InputComponent,
+  MaskedInput,
+  ScreenContainer,
+} from '@UIKit';
 import React, {useCallback, useState} from 'react';
 import {useAppSelector, useSnackbarNotification, useTheme} from '@hooks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -23,6 +29,20 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
   const [secondName, setSecondName] = useState<string>('');
   const [pin, setPin] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>(phone);
+
+  const [errorFieldsState, setErrorFieldsState] = useState<{
+    name: boolean;
+    lastName: boolean;
+    secondName: boolean;
+    pin: boolean;
+    phoneNumber: boolean;
+  }>({
+    name: false,
+    lastName: false,
+    secondName: false,
+    pin: false,
+    phoneNumber: false,
+  });
 
   const onChangeNameHandler = useCallback((value: string) => {
     setUserName(value);
@@ -49,6 +69,17 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
   }, [navigation]);
 
   const saveHandler = useCallback(async () => {
+    const newErrorFieldsState = {...errorFieldsState};
+    newErrorFieldsState.phoneNumber = !phoneNumber;
+    newErrorFieldsState.pin = !pin;
+    newErrorFieldsState.name = !userName;
+    newErrorFieldsState.lastName = !userLastName;
+    newErrorFieldsState.secondName = !secondName;
+    setErrorFieldsState(newErrorFieldsState);
+    const error = Object.values(newErrorFieldsState).some(err => err);
+    if (error) {
+      return false;
+    }
     const response = await editUserData({
       phone,
       name: userName,
@@ -64,43 +95,53 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
       return showNotification(t('errors.somethingWentWrong'));
     }
     navigation.goBack();
-  }, [navigation, phone, showNotification, t, userLastName, userName]);
+  }, [
+    navigation,
+    phone,
+    showNotification,
+    t,
+    userLastName,
+    userName,
+    secondName,
+    pin,
+    phoneNumber,
+  ]);
 
   return (
     <ScreenContainer title={t('profile.editProfile')}>
       <Block flex={1}>
-        <InputField
-          label={t('profile.name')}
-          placeholder={t('profile.name')}
-          onChangeValue={onChangeNameHandler}
-          marginBottom={16}
+        <InputComponent
+          error={errorFieldsState.name}
           value={userName}
-        />
-        <InputField
-          label={t('profile.lastName')}
-          placeholder={t('profile.lastName')}
-          onChangeValue={onChangeLastNameHandler}
+          onChangeValue={onChangeNameHandler}
+          title={t('profile.name')}
           marginBottom={16}
+        />
+        <InputComponent
+          error={errorFieldsState.lastName}
           value={userLastName}
-        />
-        <InputField
-          label={t('profile.secondName')}
-          placeholder={t('profile.secondName')}
-          onChangeValue={onChangeSecondName}
+          onChangeValue={onChangeLastNameHandler}
+          title={t('profile.lastName')}
           marginBottom={16}
+        />
+        <InputComponent
+          error={errorFieldsState.secondName}
           value={secondName}
-        />
-        <InputField
-          label={t('profile.pin')}
-          placeholder={t('profile.pin')}
-          onChangeValue={onChangePin}
+          onChangeValue={onChangeSecondName}
+          title={t('profile.secondName')}
           marginBottom={16}
+        />
+        <InputComponent
+          error={errorFieldsState.pin}
           value={pin}
-          keyboardType={'numeric'}
+          onChangeValue={onChangePin}
+          title={t('profile.pin')}
+          marginBottom={16}
           maxLength={14}
+          keyboardType={'numeric'}
         />
         <MaskedInput
-          error={false}
+          error={errorFieldsState.phoneNumber}
           marginBottom={16}
           title={t('profile.phoneNumber')}
           placeholder={MASK}
