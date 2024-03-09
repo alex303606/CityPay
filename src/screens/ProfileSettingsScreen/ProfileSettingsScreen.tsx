@@ -71,7 +71,7 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
   const saveHandler = useCallback(async () => {
     const newErrorFieldsState = {...errorFieldsState};
     newErrorFieldsState.phoneNumber = !phoneNumber;
-    newErrorFieldsState.pin = !pin;
+    newErrorFieldsState.pin = pin.length !== 14;
     newErrorFieldsState.name = !userName;
     newErrorFieldsState.lastName = !userLastName;
     newErrorFieldsState.secondName = !secondName;
