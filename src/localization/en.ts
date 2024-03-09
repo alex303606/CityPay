@@ -150,6 +150,9 @@ export const enTranslation = {
       addCard: 'Add payment card',
       emptyCards: 'Cards not found',
       deleteCard: 'Delete card {{number}}?',
+      secondName: 'Отчество',
+      pin: 'ПИН/ИНН',
+      phoneNumber: 'Номер телефона',
     },
     premium: {
       activate: 'Premium subscription',

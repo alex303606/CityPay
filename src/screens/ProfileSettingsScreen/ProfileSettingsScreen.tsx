@@ -1,4 +1,4 @@
-import {Block, Button, InputField, ScreenContainer} from '@UIKit';
+import {Block, Button, InputField, MaskedInput, ScreenContainer} from '@UIKit';
 import React, {useCallback, useState} from 'react';
 import {useAppSelector, useSnackbarNotification, useTheme} from '@hooks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -11,6 +11,8 @@ type Props = NativeStackScreenProps<
   EScreens.PROFILE_SETTINGS_SCREEN
 >;
 
+const MASK = '+996 999 99-99-99';
+
 export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
   const {theme} = useTheme();
   const {t} = useTranslation();
@@ -18,6 +20,9 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
   const {name, last_name, phone} = useAppSelector(getUserState);
   const [userName, setUserName] = useState<string>(name);
   const [userLastName, setUserLastName] = useState<string>(last_name);
+  const [secondName, setSecondName] = useState<string>('');
+  const [pin, setPin] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>(phone);
 
   const onChangeNameHandler = useCallback((value: string) => {
     setUserName(value);
@@ -25,6 +30,18 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
 
   const onChangeLastNameHandler = useCallback((value: string) => {
     setUserLastName(value);
+  }, []);
+
+  const onChangePhoneNumber = useCallback((value: string) => {
+    setPhoneNumber(value);
+  }, []);
+
+  const onChangeSecondName = useCallback((value: string) => {
+    setSecondName(value);
+  }, []);
+
+  const onChangePin = useCallback((value: string) => {
+    setPin(value);
   }, []);
 
   const deleteHandler = useCallback(() => {
@@ -65,6 +82,32 @@ export const ProfileSettingsScreen: React.FC<Props> = ({navigation}) => {
           onChangeValue={onChangeLastNameHandler}
           marginBottom={16}
           value={userLastName}
+        />
+        <InputField
+          label={t('profile.secondName')}
+          placeholder={t('profile.secondName')}
+          onChangeValue={onChangeSecondName}
+          marginBottom={16}
+          value={secondName}
+        />
+        <InputField
+          label={t('profile.pin')}
+          placeholder={t('profile.pin')}
+          onChangeValue={onChangePin}
+          marginBottom={16}
+          value={pin}
+          keyboardType={'numeric'}
+          maxLength={14}
+        />
+        <MaskedInput
+          error={false}
+          marginBottom={16}
+          title={t('profile.phoneNumber')}
+          placeholder={MASK}
+          keyboardType="phone-pad"
+          mask={MASK}
+          changeValueHandler={onChangePhoneNumber}
+          value={phoneNumber}
         />
         <Button
           marginVertical={8}

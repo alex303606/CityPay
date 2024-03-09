@@ -150,6 +150,9 @@ export const kgTranslation = {
       addCard: 'Карт кошуу',
       emptyCards: 'Сакталган карталарыңыз жок',
       deleteCard: 'Картты өчүрүү {{number}}?',
+      secondName: 'Отчество',
+      pin: 'ПИН/ИНН',
+      phoneNumber: 'Номер телефона',
     },
     premium: {
       activate: 'Премиум активдештирүү',

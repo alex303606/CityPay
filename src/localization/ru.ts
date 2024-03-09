@@ -151,6 +151,9 @@ export const ruTranslation = {
       addCard: 'Добавить карту',
       emptyCards: 'У вас нет сохраненных карт',
       deleteCard: 'Удалить карту {{number}}?',
+      secondName: 'Отчество',
+      pin: 'ПИН/ИНН',
+      phoneNumber: 'Номер телефона',
     },
     premium: {
       activate: 'Активировать премиум',
