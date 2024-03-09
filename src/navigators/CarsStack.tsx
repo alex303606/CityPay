@@ -7,6 +7,7 @@ import {
   ModalImageViewer,
   PaymentInfoScreen,
   PremiumScreen,
+  ProfileSettingsScreen,
   SingleCarScreen,
   SingleFineScreen,
   WebViewScreen,
@@ -96,6 +97,13 @@ export const CarsStack: React.FC<CarsStackProps> = () => {
         <Stack.Screen
           name={EScreens.WEBVIEW_SCREEN}
           component={WebViewScreen}
+        />
+        <Stack.Screen
+          name={EScreens.PROFILE_SETTINGS_SCREEN}
+          component={ProfileSettingsScreen}
+          options={{
+            headerShown: false,
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

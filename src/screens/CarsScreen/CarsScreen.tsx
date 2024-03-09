@@ -14,15 +14,28 @@ import {
 } from '@UIKit';
 import {EmptyList} from './components/EmptyList';
 import styled from 'styled-components';
-import {FlatList, ListRenderItem, RefreshControl, View} from 'react-native';
-import {useAppSelector, useReloadCarList, useTheme} from '@hooks';
+import {
+  Alert,
+  FlatList,
+  ListRenderItem,
+  RefreshControl,
+  View,
+} from 'react-native';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useReloadCarList,
+  useTheme,
+} from '@hooks';
 import {FlatListType} from '../types';
 import {
+  changeHiShowed,
   getCars,
   getSettingsState,
   getUserLastTimeDeletionCar,
   getUserState,
   ICar,
+  selectedHiShowed,
 } from '@store';
 
 type Props = NativeStackScreenProps<CarsStackParamList, EScreens.CARS_SCREEN>;
@@ -39,10 +52,45 @@ export const CarsScreen: FC<Props> = ({navigation}) => {
   const cars = useAppSelector(getCars).slice(0, premiumCarsLimit);
   const {isPremiumAccess, phone} = useAppSelector(getUserState);
   const {reloadCarList, loading} = useReloadCarList();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     reloadCarList();
   }, []);
+
+  const hiShowed = useAppSelector(selectedHiShowed);
+
+  const navigateToProfileSettingsScreen = useCallback(() => {
+    navigation.navigate(EScreens.PROFILE_SETTINGS_SCREEN);
+    dispatch(
+      changeHiShowed({
+        hiShowed: false,
+      }),
+    );
+  }, []);
+
+  const showAlert = useCallback(() => {
+    Alert.alert('', t('laterDescription'), [
+      {text: t('close'), onPress: navigation.goBack},
+    ]);
+    dispatch(
+      changeHiShowed({
+        hiShowed: false,
+      }),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (hiShowed) {
+      Alert.alert(t('hi'), t('hiDescription'), [
+        {
+          text: t('goIdentification'),
+          onPress: navigateToProfileSettingsScreen,
+        },
+        {text: t('later'), onPress: showAlert},
+      ]);
+    }
+  }, [hiShowed]);
 
   const addCarHandler = useCallback(async () => {
     const response = await getUserLastTimeDeletionCar({

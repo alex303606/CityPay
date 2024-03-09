@@ -47,6 +47,7 @@ export type CarsStackParamList = {
     finesType: IFinesType;
   };
   [EScreens.FINES_SCREEN]: undefined;
+  [EScreens.PROFILE_SETTINGS_SCREEN]: undefined;
   [EScreens.PREMIUM_SCREEN]: {title: string};
   [EScreens.WEBVIEW_SCREEN]: {uri: string; title: string};
 };

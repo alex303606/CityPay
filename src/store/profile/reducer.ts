@@ -29,6 +29,7 @@ export interface IProfileState {
   avatar: string;
   pushToken?: string;
   pushActive: PushActive;
+  hiShowed: boolean;
 }
 
 const initialState: IProfileState = {
@@ -47,6 +48,7 @@ const initialState: IProfileState = {
   avatar: '',
   pushToken: undefined,
   pushActive: PushActive.enabled,
+  hiShowed: true,
 };
 
 const profileSlice = createSlice({
@@ -75,6 +77,9 @@ const profileSlice = createSlice({
     },
     changePushActive(state, action: PayloadAction<PushActive>) {
       state.pushActive = action.payload;
+    },
+    changeHiShowed(state, action: PayloadAction<{hiShowed: boolean}>) {
+      state.hiShowed = action.payload.hiShowed;
     },
     getUserSuccess(
       state,
@@ -120,6 +125,7 @@ export const {
   getUserSuccess,
   saveAvatar,
   changePushActive,
+  changeHiShowed,
 } = profileSlice.actions;
 export const profileReducer = profileSlice.reducer;
 export const selectUserIsLoggedIn = (state: RootState) =>
@@ -128,3 +134,4 @@ export const getUserState = (state: RootState) => state.profile;
 export const selectedLanguage = (state: RootState) =>
   state.profile.selectedLanguage;
 export const selectedTheme = (state: RootState) => state.profile.theme;
+export const selectedHiShowed = (state: RootState) => state.profile.hiShowed;
