@@ -1,1 +1,0 @@
-export {CarCheckResultScreen} from './CarCheckResultScreen';

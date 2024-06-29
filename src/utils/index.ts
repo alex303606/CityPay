@@ -1,1 +1,0 @@
-export {validateEmail} from './validateEmail';

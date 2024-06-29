@@ -2,7 +2,6 @@ import i18next from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {NativeModules} from 'react-native';
 import {ruTranslation} from './ru';
-import {kgTranslation} from './kg';
 import {enTranslation} from './en';
 
 export class I18nextClient {
@@ -20,7 +19,6 @@ export class I18nextClient {
       debug: __DEV__,
       resources: {
         ru: ruTranslation,
-        kg: kgTranslation,
         en: enTranslation,
       },
       interpolation: {

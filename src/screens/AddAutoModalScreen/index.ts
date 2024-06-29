@@ -1,1 +1,0 @@
-export {AddAutoModalScreen} from './AddAutoModalScreen';
